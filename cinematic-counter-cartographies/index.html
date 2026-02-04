@@ -3,8 +3,268 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Home — Cinematic Counter-Cartographies</title>
+  <title>Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: var(--bg, #0a2321);
+      color: var(--text, #eaf7f2);
+      margin: 0;
+      font-family: Inter, system-ui, Arial, sans-serif;
+    }
+    .topnav {
+      background: #0a2321;
+      color: #eaf7f2;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(2,36,32,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .topnav .brand {
+      font-size: 1.3rem;
+      font-weight: bold;
+      letter-spacing: 0.02em;
+    }
+    .topnav .menu a {
+      color: #eaf7f2;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: color 0.15s;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+    }
+    .topnav .menu a.active,
+    .topnav .menu a:hover {
+      color: #6fe7c1;
+      border-bottom: 2px solid #6fe7c1;
+    }
+
+    /* QUOTE SLIDESHOW */
+    .moth-quote-hero {
+      background: linear-gradient(120deg, #0a2321 80%, #1a3a36 100%);
+      color: #eaf7f2;
+      padding: 3.5rem 0 2.5rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .quote-slideshow {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      min-height: 120px;
+    }
+    .quote-slide {
+      display: none;
+      font-size: 1.3rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #eaf7f2;
+      opacity: 0;
+      transition: opacity 0.7s;
+      padding: 0 1rem;
+    }
+    .quote-slide.active {
+      display: block;
+      opacity: 1;
+      animation: fadeIn 1.2s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .quote-author {
+      display: block;
+      margin-top: 1.2rem;
+      font-size: 1.05rem;
+      color: #6fe7c1;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .quote-controls {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+    .quote-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #b9e3d4;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+      border: none;
+      outline: none;
+    }
+    .quote-dot.active {
+      background: #6fe7c1;
+      opacity: 1;
+    }
+
+    /* HERO */
+    .hero-moth {
+      background: linear-gradient(120deg, #0a2321 80%, #1a3a36 100%);
+      color: #eaf7f2;
+      padding: 3.5rem 0 2.5rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-moth .hero-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      margin-bottom: 1.2rem;
+      line-height: 1.1;
+    }
+    .hero-moth .hero-desc {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto 2.2rem auto;
+      color: #b9e3d4;
+      line-height: 1.6;
+    }
+    .hero-moth .hero-cta {
+      display: inline-block;
+      background: #6fe7c1;
+      color: #0a2321;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 0.85em 2.2em;
+      border-radius: 2em;
+      text-decoration: none;
+      box-shadow: 0 4px 24px rgba(111,231,193,0.12);
+      transition: background 0.18s, color 0.18s, transform 0.18s;
+      margin-bottom: 1.5rem;
+    }
+    .hero-moth .hero-cta:hover {
+      background: #4fd1a1;
+      color: #fff;
+      transform: translateY(-2px) scale(1.03);
+    }
+    .hero-moth .hero-img {
+      margin: 2rem auto 0 auto;
+      max-width: 340px;
+      border-radius: 14px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      overflow: hidden;
+    }
+    .hero-moth .hero-img img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 14px;
+      background: #222;
+    }
+
+    /* GRID SECTIONS */
+    .moth-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 3rem auto 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+    .moth-card {
+      background: linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(2,36,32,0.10);
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.18s, box-shadow 0.18s;
+      text-decoration: none;
+      color: inherit;
+      min-height: 260px;
+      position: relative;
+      overflow: hidden;
+    }
+    .moth-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(2,36,32,0.18);
+      background: linear-gradient(180deg,rgba(111,231,193,0.08),rgba(255,255,255,0.01));
+    }
+    .moth-card h2 {
+      margin: 0 0 .7rem 0;
+      font-size: 1.25rem;
+      color: var(--accent, #6fe7c1);
+      font-weight: 700;
+    }
+    .moth-card p {
+      margin: 0 0 1.2rem 0;
+      font-size: 1.02rem;
+      color: #b9e3d4;
+    }
+    .moth-card .btn {
+      margin-top: auto;
+      align-self: flex-end;
+      background: #6fe7c1;
+      color: #0a2321;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 0.5em 1.5em;
+      border-radius: 2em;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(111,231,193,0.10);
+      transition: background 0.18s, color 0.18s, transform 0.18s;
+    }
+    .moth-card .btn:hover {
+      background: #4fd1a1;
+      color: #fff;
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    /* QUESTIONS SECTION */
+    .questions-moth {
+      max-width: 900px;
+      margin: 2.5rem auto 2rem auto;
+      background: rgba(10,35,33,0.07);
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 2px 12px rgba(2,36,32,0.08);
+      text-align: center;
+    }
+    .questions-moth h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: var(--accent, #6fe7c1);
+      letter-spacing: 0.01em;
+    }
+    .questions-moth ul {
+      margin: 1.2rem auto 0 auto;
+      padding: 0;
+      list-style: disc;
+      display: inline-block;
+      text-align: left;
+    }
+    .questions-moth li {
+      margin-bottom: .5rem;
+      font-size: 1.05rem;
+      color: #b9e3d4;
+    }
+    .questions-moth p {
+      margin-top: 1.2rem;
+      color: #b9e3d4;
+    }
+    @media (max-width: 700px) {
+      .questions-moth { padding: 1.2rem 0.5rem; }
+      .moth-card { padding: 1.2rem 0.7rem 1rem 0.7rem; }
+    }
+  </style>
 </head>
 <body>
   <nav class="topnav">
@@ -18,19 +278,116 @@
     </div>
   </nav>
 
-  <main class="content container card">
-    <h1 class="page-title">Welcome</h1>
-    <p class="lead">Interactive research project on cinematic documentation of checkpoints. Use the Map & Archive to explore filmed locations and the occupation infrastructure.</p>
+  <!-- QUOTE SLIDESHOW HERO SECTION -->
+  <section class="moth-quote-hero">
+    <div class="quote-slideshow" id="quote-slideshow">
+      <div class="quote-slide active">
+        “The arbitrariness of what happens inside a checkpoint in terms of soldiers’ control of Palestinians’ time is further comparable to forms of solitary confinement.”
+        <span class="quote-author">Helga Tawil-Souri</span>
+      </div>
+      <div class="quote-slide">
+        “The desire to express in an art form and to compose a tableau and vignette whether it's humorous, burlesque, or poetic comes simply from a desire to compose an image for cinema. It is not my fault that when I go to Ramallah there is a checkpoint and therefore it enters my film. Tell me a way to avoid that politicized image. The fact is that the police are everywhere, the army everywhere and occupation is total. Whether it's a love story or a thriller, you place the camera and these realities will cross the frame.”
+        <span class="quote-author">Elia Suleiman</span>
+      </div>
+      <div class="quote-slide">
+        “Traveling through a checkpoint is a confining and asphyxiating experience.”
+        <span class="quote-author">Helga Tawil-Souri</span>
+      </div>
+      <div class="quote-slide">
+        “People are trained to listen for the ‘click’ of the turnstiles and to accept that their fate and time is not under their control.”
+        <span class="quote-author">Helga Tawil-Souri</span>
+      </div>
+      <div class="quote-slide">
+        “Many of the people in Israel don't really perceive the true meaning of being an occupying nation. How does it affect us and how does it affect the Palestinians? What does it mean for a Palestinian to live under occupation; how does it feel every time you want to go to work, school, or to a doctor or just to visit friends you have to go through these checkpoints? How does it feel to be a young soldier who has to stand in that impossible situation? To face civilians, to handle situations he was not trained for? To have so much power over other people's lives. How does it affect that soldier? How does it affect our society?”
+        <span class="quote-author">Yoav Shamir</span>
+      </div>
+    </div>
+    <div class="quote-controls" id="quote-controls">
+      <button class="quote-dot active"></button>
+      <button class="quote-dot"></button>
+      <button class="quote-dot"></button>
+      <button class="quote-dot"></button>
+      <button class="quote-dot"></button>
+    </div>
+  </section>
 
+  <header class="hero-moth">
+    <div class="hero-title">Cinematic Counter‑Cartographies</div>
+    <div class="hero-desc">
+      My research project explores how Palestinian women filmmakers such as <strong>Mai Masri</strong>, <strong>Annemarie Jacir</strong>, and <strong>Farah Nablusi</strong> create <em>counter-cartographies</em> through their cinematic work and their treatment of Israeli checkpoints. Their work extends beyond simply documenting all the checkpoints and what they represent. This project explores how these directors do not merely record surveillance spaces through their footage, but actively refuse, reframe, and exploit surveillance's visual logic in the first place.
+    </div>
+    <a href="map.html" class="hero-cta">Explore the Map & Archive</a>
+    <div class="hero-img">
+      <img src="assets/images/salt.jpg" alt="Salt of This Sea poster">
+    </div>
+  </header>
+
+  <section class="questions-moth">
+    <h3>Questions Guiding This Project</h3>
+    <ul>
+      <li>How do camera angles refuse the surveillance gaze?</li>
+      <li>What do ellipses and offscreen space keep from view?</li>
+      <li>How does editing create a counternarrative to security footage?</li>
+      <li>What is the politics of what these filmmakers choose not to show?</li>
+    </ul>
     <p>
-      <a href="map.html" class="btn">Open Map</a>
-      <button data-popup-title="Project summary" data-popup="This project maps checkpoints documented in Palestinian cinema and highlights gaps for archiving. Use the Map page to filter by year and inspect filmed locations." class="btn secondary">Quick summary</button>
+      For this project, I analyze three to five significant checkpoints, including a prison checkpoint, and how they appear in films released from 2000 to 2025, to highlight how these same spaces are cinematically reimagined and captured over time. In this way, each checkpoint exists as a case study in cinematic resistance.<br>
+      The section <strong>“What’s Not Mapped”</strong> explores moments of refusal, gaps in the archive, and the politics of cinematic omission.
     </p>
-  </main>
+  </section>
+
+  <section class="moth-grid">
+    <a href="map.html" class="moth-card">
+      <h2>Map & Archive</h2>
+      <p>Explore an interactive map and film archive of checkpoint locations and scenes from Palestinian cinema.</p>
+      <span class="btn">Explore Map</span>
+    </a>
+    <a href="checkpoints.html" class="moth-card">
+      <h2>Checkpoints</h2>
+      <p>Browse case studies of key checkpoints and their cinematic representations.</p>
+      <span class="btn">View Checkpoints</span>
+    </a>
+    <a href="analysis.html" class="moth-card">
+      <h2>Visual Analysis</h2>
+      <p>See visual breakdowns, charts, and film stills that reveal how filmmakers reimagine surveillance spaces.</p>
+      <span class="btn">See Analysis</span>
+    </a>
+    <a href="not-mapped.html" class="moth-card">
+      <h2>What’s Not Mapped</h2>
+      <p>Discover moments of refusal, gaps in the archive, and the politics of cinematic omission.</p>
+      <span class="btn">Learn More</span>
+    </a>
+  </section>
 
   <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
+  <script>
+    // Simple quote slideshow logic
+    const slides = document.querySelectorAll('.quote-slide');
+    const dots = document.querySelectorAll('.quote-dot');
+    let current = 0;
+    let timer = null;
 
-  <!-- include shared UI script -->
-  <script src="js/ui.js"></script>
+    function showSlide(idx) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === idx);
+        dots[i].classList.toggle('active', i === idx);
+      });
+      current = idx;
+    }
+
+    function nextSlide() {
+      showSlide((current + 1) % slides.length);
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        showSlide(i);
+        clearInterval(timer);
+        timer = setInterval(nextSlide, 5000);
+      });
+    });
+
+    timer = setInterval(nextSlide, 5000);
+  </script>
 </body>
 </html>

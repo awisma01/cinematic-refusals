@@ -234,3 +234,44 @@ body::before {
   .btn{ padding:.5rem .7rem; font-size:.92rem }
   .modal{ padding:14px; border-radius:8px }
 }
+
+/* Image styles for specific images */
+img[src="assets/images/salt-of-this-sea.jpg"] {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+    max-height: 320px;
+}
+
+/* Card specific styles */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(2,36,32,0.45);
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  object-fit: cover;
+  max-height: 320px;
+}
+
+.card h5 {
+  margin: 0 0 .5rem 0;
+}
+
+.card p {
+  margin: 0 0 .2rem 0;
+}
+
+.card .badge {
+  margin-bottom: .7rem;
+}
+
+.card button {
+  margin-top: auto;
+}

@@ -4,158 +4,180 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Checkpoints — Cinematic Counter-Cartographies</title>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .checkpoint-card-row-outer {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background: transparent;
+      padding: 0;
+    }
+    .checkpoint-card-grid {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem auto;
+      max-width: 1200px;
+    }
+    .checkpoint-card-grid .card {
+      flex: 1 1 0;
+      max-width: 340px;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(2,36,32,0.18);
+    }
+    .checkpoint-card-grid .card img {
+      width: 100%;
+      border-radius: 10px 10px 0 0;
+      object-fit: cover;
+      max-height: 320px;
+    }
+    .checkpoint-card-grid .card .badge {
+      margin-bottom: .7rem;
+      margin-top: .2rem;
+    }
+    @media (max-width: 1100px) {
+      .checkpoint-card-grid { flex-wrap: wrap; }
+      .checkpoint-card-grid .card { max-width: 45vw; }
+    }
+    @media (max-width: 900px) {
+      .checkpoint-card-grid { gap: 1.2rem; }
+      .checkpoint-card-grid .card { max-width: 90vw; }
+    }
+    @media (max-width: 700px) {
+      .checkpoint-card-grid { flex-direction: column; align-items: center; }
+      .checkpoint-card-grid .card { max-width: 98vw; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">
-        <span class="brand-main">Cinematic Counter‑Cartographies</span>
-        <span class="brand-sub">Formal Refusal in Palestinian Cinema</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="map.html">Map & Archive</a></li>
-          <li class="nav-item"><a class="nav-link active" href="checkpoints.html">Checkpoints</a></li>
-          <li class="nav-item"><a class="nav-link" href="analysis.html">Visual Analysis</a></li>
-          <li class="nav-item"><a class="nav-link" href="not-mapped.html">What's Not Mapped</a></li>
-        </ul>
-      </div>
+  <nav class="topnav">
+    <div class="brand">Cinematic Counter‑Cartographies</div>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="map.html">Map & Archive</a>
+      <a href="checkpoints.html" class="active">Checkpoints</a>
+      <a href="analysis.html">Visual Analysis</a>
+      <a href="not-mapped.html">What's Not Mapped</a>
     </div>
   </nav>
 
-  <div class="container mt-5 pt-5">
-    <h1 class="mb-3">Checkpoints in Palestinian Cinema</h1>
-    <p class="lead">A short selection of checkpoint locations commonly documented in Palestinian film. Click "Details" for images and film notes, or "View on map" to open the Map & Archive.</p>
-
-    <div class="row g-4">
-      <!-- Qalandiya -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100">
+  <div style="margin-top:80px;">
+    <main class="content container card">
+      <h1 class="mb-3 page-title">Checkpoints in Palestinian Cinema</h1>
+      <p class="lead">A short selection of checkpoint locations commonly documented in Palestinian film. Click "Details" for images and film notes, or "View on map" to open the Map & Archive.</p>
+    </main>
+    <!-- Checkpoint Cards Full Width Row -->
+    <div class="checkpoint-card-row-outer">
+      <div class="checkpoint-card-grid">
+        <!-- Qalandiya -->
+        <div class="card">
           <img
-            class="card-img-top"
-            alt="Qalandiya checkpoint"
             src="assets/images/qalandiya.jpg"
+            alt="Qalandiya checkpoint"
             onerror="this.onerror=null;this.src='https://picsum.photos/seed/qalandiya/900/600';"
           >
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Qalandiya Checkpoint</h5>
-            <p class="card-text small text-muted mb-2">Most documented checkpoint in the archive.</p>
-            <ul class="mb-3">
+          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
+            <h5>Qalandiya Checkpoint</h5>
+            <p class="small text-muted" style="margin:0 0 .2rem 0;">Most documented checkpoint in the archive.</p>
+            <ul style="margin-bottom:.7rem;">
               <li>Salt of This Sea (Jacir) — 2008</li>
               <li>The Present — 2020</li>
             </ul>
-            <div class="mt-auto d-flex gap-2">
+            <div style="margin-top:auto;display:flex;gap:.5rem;">
               <a href="map.html#qalandiya" class="btn btn-primary">View on map</a>
-              <button class="btn btn-outline-light" data-popup-title="Qalandiya Checkpoint" data-popup="<img src='assets/images/qalandiya.jpg' onerror='this.onerror=null;this.src=&quot;https://picsum.photos/seed/qalandiya/1200/800&quot;' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p>Qalandiya checkpoint — frequently filmed and heavily present in contemporary Palestinian cinema. Examples listed above.</p>">Details</button>
+              <button class="btn secondary"
+                data-popup-title="Qalandiya Checkpoint"
+                data-popup="<img src='assets/images/qalandiya.jpg' onerror='this.onerror=null;this.src=&quot;https://picsum.photos/seed/qalandiya/1200/800&quot;' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p>Qalandiya checkpoint — frequently filmed and heavily present in contemporary Palestinian cinema. Examples listed above.</p>">
+                Details
+              </button>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Bethlehem (Rachel) -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100">
+        <!-- Bethlehem (Rachel) -->
+        <div class="card">
           <img
-            class="card-img-top"
-            alt="Rachel (Bethlehem) checkpoint"
             src="assets/images/bethlehem.jpg"
+            alt="Rachel (Bethlehem) checkpoint"
             onerror="this.onerror=null;this.src='https://picsum.photos/seed/bethlehem/900/600';"
           >
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Bethlehem — Rachel Checkpoint</h5>
-            <p class="card-text small text-muted mb-2">Featured in Jacir’s Salt of This Sea and other films.</p>
-            <ul class="mb-3">
+          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
+            <h5>Bethlehem — Rachel Checkpoint</h5>
+            <p class="small text-muted" style="margin:0 0 .2rem 0;">Featured in Jacir’s Salt of This Sea and other films.</p>
+            <ul style="margin-bottom:.7rem;">
               <li>Salt of This Sea — 2008</li>
               <li>When I Saw You — 2012</li>
             </ul>
-            <div class="mt-auto d-flex gap-2">
+            <div style="margin-top:auto;display:flex;gap:.5rem;">
               <a href="map.html#bethlehem" class="btn btn-primary">View on map</a>
-              <button class="btn btn-outline-light" data-popup-title="Rachel (Bethlehem) Checkpoint" data-popup="<img src='assets/images/bethlehem.jpg' onerror='this.onerror=null;this.src=&quot;https://picsum.photos/seed/bethlehem/1200/800&quot;' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p>Rachel checkpoint (near Bethlehem) — appears in multiple narrative films and documentary footage. Replace placeholder image with your archive frames if available.</p>">Details</button>
+              <button class="btn secondary"
+                data-popup-title="Rachel (Bethlehem) Checkpoint"
+                data-popup="<img src='assets/images/bethlehem.jpg' onerror='this.onerror=null;this.src=&quot;https://picsum.photos/seed/bethlehem/1200/800&quot;' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p>Rachel checkpoint (near Bethlehem) — appears in multiple narrative films and documentary footage. Replace placeholder image with your archive frames if available.</p>">
+                Details
+              </button>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Huwwara -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100">
+        <!-- Huwwara -->
+        <div class="card">
           <img
-            class="card-img-top"
-            alt="Huwwara checkpoint"
             src="assets/images/huwwara.jpg"
+            alt="Huwwara checkpoint"
             onerror="this.onerror=null;this.src='https://picsum.photos/seed/huwwara/900/600';"
           >
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Huwwara Checkpoint</h5>
-            <p class="card-text small text-muted mb-2">Seen in contemporary footage and some archive material.</p>
-            <ul class="mb-3">
+          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
+            <h5>Huwwara Checkpoint</h5>
+            <p class="small text-muted" style="margin:0 0 .2rem 0;">Seen in contemporary footage and some archive material.</p>
+            <ul style="margin-bottom:.7rem;">
               <li>The Present — 2020</li>
             </ul>
-            <div class="mt-auto d-flex gap-2">
+            <div style="margin-top:auto;display:flex;gap:.5rem;">
               <a href="map.html#huwwara" class="btn btn-primary">View on map</a>
-              <button class="btn btn-outline-light" data-popup-title="Huwwara Checkpoint" data-popup="<img src='assets/images/huwwara.jpg' onerror='this.onerror=null;this.src=&quot;https://picsum.photos/seed/huwwara/1200/800&quot;' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p>Huwwara checkpoint — frequent subject in contemporary visual records. Add frame references when films are analyzed.</p>">Details</button>
+              <button class="btn secondary"
+                data-popup-title="Huwwara Checkpoint"
+                data-popup="<img src='assets/images/huwwara.jpg' onerror='this.onerror=null;this.src=&quot;https://picsum.photos/seed/huwwara/1200/800&quot;' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p>Huwwara checkpoint — frequent subject in contemporary visual records. Add frame references when films are analyzed.</p>">
+                Details
+              </button>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Container checkpoint -->
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100">
+        <!-- Container checkpoint -->
+        <div class="card">
           <img
-            class="card-img-top"
-            alt="Container checkpoint (Jerusalem)"
             src="assets/images/container.jpg"
+            alt="Container checkpoint (Jerusalem)"
             onerror="this.onerror=null;this.src='https://picsum.photos/seed/container/900/600';"
           >
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Container Checkpoint (Jerusalem)</h5>
-            <p class="card-text small text-muted mb-2">Known locally as the Container; appears in archive footage.</p>
-            <ul class="mb-3">
+          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
+            <h5>Container Checkpoint (Jerusalem)</h5>
+            <p class="small text-muted" style="margin:0 0 .2rem 0;">Known locally as the Container; appears in archive footage.</p>
+            <ul style="margin-bottom:.7rem;">
               <li>Example footage — dates TBD</li>
             </ul>
-            <div class="mt-auto d-flex gap-2">
+            <div style="margin-top:auto;display:flex;gap:.5rem;">
               <a href="map.html#container" class="btn btn-primary">View on map</a>
-              <button class="btn btn-outline-light" data-popup-title="Container Checkpoint" data-popup="<img src='assets/images/container.jpg' onerror='this.onerror=null;this.src=&quot;https://picsum.photos/seed/container/1200/800&quot;' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p>Container checkpoint near Jerusalem. Replace with archive frames or higher-resolution photography as they become available.</p>">Details</button>
+              <button class="btn secondary"
+                data-popup-title="Container Checkpoint"
+                data-popup="<img src='assets/images/container.jpg' onerror='this.onerror=null;this.src=&quot;https://picsum.photos/seed/container/1200/800&quot;' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p>Container checkpoint near Jerusalem. Replace with archive frames or higher-resolution photography as they become available.</p>">
+                Details
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- Footer -->
-  <footer class="footer py-5">
-    <div class="container">
-      <div class="row mt-4 pt-4 border-top border-secondary">
-        <div class="col-12 text-center">
-          <p class="mb-0">&copy; 2026 Cinematic Counter‑Cartographies. Open Access.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Shared UI (modal + tooltip) -->
   <script src="js/ui.js"></script>
 </body>
 </html>

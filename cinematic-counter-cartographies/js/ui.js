@@ -45,35 +45,6 @@
     const content = el.getAttribute('data-popup') || el.dataset.popupHtml || el.innerHTML || '';
     openModal(title, content);
   });
-
-  // tooltip helper for dynamic hover targets
-  let tooltip;
-  function showTooltip(text, x, y){
-    if(!tooltip){
-      tooltip = document.createElement('div'); tooltip.className='tooltip'; document.body.appendChild(tooltip);
-    }
-    tooltip.innerHTML = text;
-    tooltip.style.left = x + 'px'; tooltip.style.top = y + 'px';
-    tooltip.style.display = 'block';
-  }
-  function hideTooltip(){ if(tooltip) tooltip.style.display = 'none'; }
-
-  document.addEventListener('mouseover', (e)=>{
-    const t = e.target.closest('[data-tooltip]');
-    if(t) {
-      const text = t.getAttribute('data-tooltip');
-      const rect = t.getBoundingClientRect();
-      showTooltip(text, rect.left + rect.width/2, rect.top);
-    }
-  });
-  document.addEventListener('mouseout', (e)=>{
-    if(e.target.closest && e.target.closest('[data-tooltip]')) hideTooltip();
-  });
-
-  // expose helpers for pages
-  window.CCUI = {
-    openModal, closeModal, showTooltip, hideTooltip
-  };
 })();
 
 /* CSS Styles */
@@ -84,11 +55,11 @@
 .modal-backdrop.open{ display:flex; }
 .modal {
   max-width:720px; width:100%; border-radius:12px; background: linear-gradient(180deg, rgba(3,31,29,0.98), rgba(3,31,29,0.95));
-  color: var(--text); padding: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.45); position: relative; transform-origin:center center;
+  color: #eaf7f2; padding: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.45); position: relative; transform-origin:center center;
 }
 .modal h3{ margin:0 0 .5rem 0; font-size:1.25rem }
 .modal .close {
-  position:absolute; right:12px; top:12px; background:transparent;border:none;color:var(--muted); font-size:1.05rem; cursor:pointer;
+  position:absolute; right:12px; top:12px; background:transparent;border:none;color:#9fbfb2; font-size:1.05rem; cursor:pointer;
 }
 .modal .modal-body{ max-height:60vh; overflow:auto; padding-top:6px; color: #dff6ef; line-height:1.6 }
 
@@ -167,6 +138,89 @@ a.nav-link[href="analysis.html"] {
 a.nav-link[href="not-mapped.html"] {
   /* What's Not Mapped */
 }
+
+/* Film Cards Section */
+.container.mt-5 {
+  margin-top: 3rem !important;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.row.g-4 {
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+
+.col-md-6.col-lg-4 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem !important;
+}
+
+.badge {
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+}
+
+.btn-outline-primary {
+  color: #007bff;
+  background-color: transparent;
+  background-image: none;
+  border: 2px solid #007bff;
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-outline-primary:focus, .btn-outline-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.mt-auto {
+  margin-top: auto !important;
+}
+<button data-popup-title="Test Modal" data-popup="This is a test popup.">Test Modal</button>
+
+
 
 
 

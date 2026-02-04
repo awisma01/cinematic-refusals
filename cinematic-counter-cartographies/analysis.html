@@ -5,13 +5,69 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Visual Analysis — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .film-card-row-outer {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background: transparent;
+      padding: 0;
+    }
+    .film-card-grid {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem auto;
+      max-width: 1200px;
+    }
+    .film-card-grid .card {
+      flex: 1 1 0;
+      max-width: 340px;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(2,36,32,0.18);
+      overflow: hidden;
+    }
+    .film-card-grid .card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 10px 10px 0 0;
+      background: #222;
+      display: block;
+    }
+    .film-card-grid .card .badge {
+      margin-bottom: .7rem;
+      margin-top: .2rem;
+    }
+    @media (max-width: 1100px) {
+      .film-card-grid { flex-wrap: wrap; }
+      .film-card-grid .card { max-width: 45vw; }
+    }
+    @media (max-width: 900px) {
+      .film-card-grid { gap: 1.2rem; }
+      .film-card-grid .card { max-width: 90vw; }
+      .film-card-grid .card img { height: 220px; }
+    }
+    @media (max-width: 700px) {
+      .film-card-grid { flex-direction: column; align-items: center; }
+      .film-card-grid .card { max-width: 98vw; }
+      .film-card-grid .card img { height: 180px; }
+    }
+  </style>
 </head>
 <body>
   <nav class="topnav">
     <div class="brand">Cinematic Counter‑Cartographies</div>
     <div class="menu">
       <a href="index.html">Home</a>
-      <a href="about.html">About</a>
       <a href="map.html">Map & Archive</a>
       <a href="checkpoints.html">Checkpoints</a>
       <a href="analysis.html" class="active">Visual Analysis</a>
@@ -19,14 +75,80 @@
     </div>
   </nav>
 
-  <main class="content container card">
-    <h1 class="page-title">Visual Analysis</h1>
-    <p class="lead">Charts, frames, and visual breakdowns of filmed checkpoints. (Placeholder)</p>
-
-    <div id="miniChart" style="height:220px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:help" data-tooltip="Hover for chart detail">
-      <strong>Interactive chart placeholder — hover for detail</strong>
+  <div style="margin-top:80px;">
+    <main class="content container card">
+      <h1 class="page-title">Visual Analysis</h1>
+      <p class="lead">Charts, frames, and visual breakdowns of filmed checkpoints.</p>
+    </main>
+    <!-- Film Cards Full Width Row -->
+    <div class="film-card-row-outer">
+      <div class="film-card-grid">
+        <!-- Film Card 1 -->
+        <div class="card">
+          <img src="assets/images/salt.jpg" alt="Salt of This Sea poster">
+          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
+            <h5>Salt of This Sea</h5>
+            <p><strong>Director:</strong> Annemarie Jacir</p>
+            <p><strong>Year:</strong> 2008</p>
+            <span class="badge">Coverage: 2 of 4 checkpoints</span>
+            <button class="btn secondary mt-auto"
+                    data-popup-title="Salt of This Sea — Analysis"
+                    data-popup="<img src='assets/images/salt.jpg' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p><strong>Checkpoints covered:</strong> Qalandiya, Bethlehem.<br><strong>Analysis:</strong> The film documents the experience of crossing these checkpoints, highlighting their impact on daily life and movement.</p>">
+              View Analysis
+            </button>
+          </div>
+        </div>
+        <!-- Film Card 2 -->
+        <div class="card">
+          <img src="assets/images/present.jpg" alt="The Present poster"
+               onerror="this.onerror=null;this.src='https://picsum.photos/seed/present/400/600';">
+          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
+            <h5>The Present</h5>
+            <p><strong>Director:</strong> Farah Nablusi</p>
+            <p><strong>Year:</strong> 2020</p>
+            <span class="badge">Coverage: 3 of 4 checkpoints</span>
+            <button class="btn secondary mt-auto"
+                    data-popup-title="The Present — Analysis"
+                    data-popup="<img src='assets/images/present.jpg' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p><strong>Checkpoints covered:</strong> Qalandiya, Huwwara, Bethlehem.<br><strong>Analysis:</strong> The film uses checkpoint crossings as a central motif, emphasizing the emotional and logistical barriers faced by Palestinians.</p>">
+              View Analysis
+            </button>
+          </div>
+        </div>
+        <!-- Film Card 3 -->
+        <div class="card">
+          <img src="assets/images/when.jpeg" alt="When I Saw You poster"
+               onerror="this.onerror=null;this.src='https://picsum.photos/seed/when/400/600';">
+          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
+            <h5>When I Saw You</h5>
+            <p><strong>Director:</strong> Annemarie Jacir</p>
+            <p><strong>Year:</strong> 2012</p>
+            <span class="badge">Coverage: 1 of 4 checkpoints</span>
+            <button class="btn secondary mt-auto"
+                    data-popup-title="When I Saw You — Analysis"
+                    data-popup="<img src='assets/images/when.jpeg' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p><strong>Checkpoints covered:</strong> Bethlehem.<br><strong>Analysis:</strong> The film references checkpoint crossings as part of its broader narrative about displacement and return.</p>">
+              View Analysis
+            </button>
+          </div>
+        </div>
+        <!-- Film Card 4 -->
+        <div class="card">
+          <img src="assets/images/3000_Nights.jpg" alt="3000 Nights poster"
+               onerror="this.onerror=null;this.src='https://picsum.photos/seed/3000nights/400/600';">
+          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
+            <h5>3000 Nights</h5>
+            <p><strong>Director:</strong> Mai Masri</p>
+            <p><strong>Year:</strong> 2015</p>
+            <span class="badge">Coverage: Prison, checkpoints</span>
+            <button class="btn secondary mt-auto"
+                    data-popup-title="3000 Nights — Analysis"
+                    data-popup="<img src='assets/images/3000_Nights.jpg' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p><strong>Key locations:</strong> Israeli prison, checkpoints.<br><strong>Analysis:</strong> The film follows a Palestinian woman’s experience in prison, with scenes depicting checkpoint crossings and carceral spaces.</p>">
+              View Analysis
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </main>
+  </div>
 
   <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
 
