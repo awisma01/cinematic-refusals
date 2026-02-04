@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map & Archive - Cinematic Counter-Cartographies</title>
-    
+    <title>Home - Cinematic Counter-Cartographies</title>
+    <meta name="description" content="About Cinematic Counter-Cartographies: context, methodology, and theoretical frameworks for research on Palestinian women's cinema (2000–2025).">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,8 +21,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Skip link for keyboard users -->
+    <a href="#main" class="visually-hidden-focusable skip-link">Skip to main content</a>
+
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" role="navigation" aria-label="Main navigation">
         <div class="container">
             <a class="navbar-brand" href="index.html">
                 <span class="brand-main">Cinematic Counter-Cartographies</span>
@@ -29,58 +36,170 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="map.html">Map & Archive</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="checkpoints.html">Checkpoints</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="analysis.html">Visual Analysis</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="not-mapped.html">What's Not Mapped</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="map.html">Map & Archive</a></li>
+                    <li class="nav-item"><a class="nav-link" href="checkpoints.html">Checkpoints</a></li>
+                    <li class="nav-item"><a class="nav-link" href="analysis.html">Visual Analysis</a></li>
+                    <li class="nav-item"><a class="nav-link" href="not-mapped.html">What's Not Mapped</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container mt-5 pt-5">
-        <h1>Map & Archive</h1>
-        <p>Explore the interactive map and archive of films related to Palestinian cinema. Use the timeline slider to navigate through different periods and view statistics related to checkpoints and films.</p>
-        
-        <!-- Interactive Map Section -->
-        <div id="map" style="height: 400px;"></div>
-        
-        <!-- Film Archive Section -->
-        <h2>Film Archive</h2>
-        <div id="film-archive">
-            <!-- Film entries will be dynamically loaded here -->
+    <main id="main" class="mt-5 pt-5" data-aos="fade-up">
+        <section class="page-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                        <h1 class="page-title">About the Project</h1>
+                        <p class="page-subtitle">Context, methodology, and theoretical frameworks</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="overview" class="content-section py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <h2 class="section-title">Project Overview</h2>
+                        <div class="section-line"></div>
+
+                        <div class="content-block">
+                            <h3>Research Focus</h3>
+                            <p>
+                                This digital humanities project investigates how Palestinian women filmmakers create counter-cartographies through their cinematic treatment of Israeli checkpoints. Rather than simply documenting surveillance infrastructure, directors such as Mai Masri, Annemarie Jacir, and Farah Nablusi actively refuse, reframe, and subvert the visual logic of state surveillance.
+                            </p>
+                            <p>
+                                By analyzing three to five significant checkpoints as they appear across multiple films released between 2000 and 2025, this project reveals how the same physical spaces are cinematically reimagined over time. Each checkpoint becomes a case study in cinematic resistance, demonstrating how formal choices—camera angles, ellipses, offscreen space, and editing patterns—constitute acts of refusal.
+                            </p>
+                        </div>
+
+                        <div class="content-block">
+                            <h3>Context: Checkpoints and Cinema</h3>
+                            <p>
+                                Israeli military checkpoints punctuate Palestinian life, functioning as both physical barriers and instruments of surveillance. These sites are designed to monitor, control, and document Palestinian movement. In response, Palestinian cinema has developed sophisticated strategies for representing—and refusing—checkpoint spaces.
+                            </p>
+                            <p>
+                                This project builds on scholarship in Palestinian cinema studies, surveillance studies, critical geography, and Third Cinema theory to examine how cinematic form itself becomes a tool of resistance.
+                            </p>
+                        </div>
+
+                        <div class="content-block">
+                            <h3>Audience</h3>
+                            <p><strong>Primary Audiences:</strong></p>
+                            <ul>
+                                <li>Film scholars working on Palestinian cinema, Third Cinema, and postcolonial film theory</li>
+                                <li>Cultural geographers and spatial studies scholars</li>
+                                <li>Surveillance studies scholars and feminist researchers</li>
+                                <li>Digital humanities practitioners interested in counter-archival methods</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="methodology" class="content-section methodology-section py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <h2 class="section-title">Methodology</h2>
+                        <div class="section-line"></div>
+
+                        <div class="content-block">
+                            <h3>Research Approach</h3>
+                            <p>This project employs a mixed-methods approach combining close textual analysis, spatial mapping, and digital archival practices.</p>
+                        </div>
+
+                        <div class="methodology-grid">
+                            <div class="method-card">
+                                <div class="method-number">01</div>
+                                <h4>Film Selection & Analysis</h4>
+                                <p>Selection of Palestinian films (2000-2025) featuring significant checkpoint scenes, with particular attention to works by women directors.</p>
+                            </div>
+
+                            <div class="method-card">
+                                <div class="method-number">02</div>
+                                <h4>Spatial Documentation</h4>
+                                <p>Mapping of checkpoint locations using GIS data combined with film analysis to create dual-layered maps.</p>
+                            </div>
+
+                            <div class="method-card">
+                                <div class="method-number">03</div>
+                                <h4>Comparative Visual Analysis</h4>
+                                <p>Side-by-side comparison of how different directors frame identical checkpoint spaces.</p>
+                            </div>
+
+                            <div class="method-card">
+                                <div class="method-number">04</div>
+                                <h4>Counter-Archival Practice</h4>
+                                <p>Documentation of what is deliberately not shown, exploring the politics of absence and the ethical dimensions of refusing complete visibility.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bibliography" class="content-section py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <h2 class="section-title">Bibliography</h2>
+                        <div class="section-line"></div>
+
+                        <div class="bibliography-section">
+                            <h4>Palestinian Cinema Studies</h4>
+                            <div class="citation">
+                                <p>Gertz, Nurith and George Khleifi. <em>Palestinian Cinema: Landscape, Trauma and Memory.</em> Edinburgh University Press, 2008.</p>
+                            </div>
+                            <div class="citation">
+                                <p>Dabashi, Hamid, ed. <em>Dreams of a Nation: On Palestinian Cinema.</em> Verso, 2006.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="content-section contact-section py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2 class="section-title text-center">Contact & Feedback</h2>
+                        <div class="section-line mx-auto"></div>
+                        <p class="text-center">For questions or collaboration inquiries, email the researcher below.</p>
+                        <div class="text-center mt-4">
+                            <a href="mailto:yoyo@example.edu" class="btn btn-primary">Email the Researcher</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-5" role="contentinfo">
+        <div class="container">
+            <div class="row mt-4 pt-4 border-top border-secondary">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2025 Yoyo's Research Project. Open Access.</p>
+                </div>
+            </div>
         </div>
-        
-        <!-- Timeline Slider Section -->
-        <h2>Timeline</h2>
-        <input type="range" id="timeline-slider" min="2000" max="2025" step="1" value="2025">
-        
-        <!-- Statistics Section -->
-        <h2>Statistics</h2>
-        <div id="statistics">
-            <p>Total Films: <span id="total-films">0</span></p>
-            <p>Checkpoints: <span id="total-checkpoints">0</span></p>
-        </div>
-    </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- AOS JS and init -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+    </script>
+
     <!-- Custom JS -->
     <script src="js/main.js"></script>
 </body>
