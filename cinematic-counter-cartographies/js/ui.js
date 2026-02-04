@@ -168,7 +168,5 @@ a.nav-link[href="not-mapped.html"] {
   /* What's Not Mapped */
 }
 
-a.nav-link[href="about.html"] {
-  /* About */
-}
+
 
