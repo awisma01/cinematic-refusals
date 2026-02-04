@@ -3,40 +3,25 @@
  ***********************************************/
 
 /* Color Scheme */
-:root {
-    /* Green-focused color scheme */
-    --primary-dark: #031f1d;
-    --primary-brown: #0b3b2e;
-    --accent-rust: #2a9d8f; /* repurposed as main accent (teal) */
-    --accent-sand: #a8e6cf;
-    --accent-olive: #2a9d8f;
-    --accent-purple: #66cdaa;
-    --accent-teal: #06d6a0;
-    --text-light: #f6fff9;
-    --text-muted: #b8d6c9;
-    --border-subtle: #134235;
-    --gradient-primary: linear-gradient(135deg, #2a9d8f 0%, #06d6a0 100%);
-    --gradient-secondary: linear-gradient(135deg, #52b788 0%, #2a9d8f 100%);
-    --gradient-dark: linear-gradient(135deg, #031f1d 0%, #0b3b2e 100%);
-
-    /* Typography */
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-sans: 'Work Sans', -apple-system, sans-serif;
-
-    /* Shadows (greenish tints) */
-    --shadow-sm: 0 2px 8px rgba(6, 214, 160, 0.08);
-    --shadow-md: 0 4px 20px rgba(6, 214, 160, 0.12);
-    --shadow-lg: 0 10px 40px rgba(6, 214, 160, 0.16);
-    --shadow-glow: 0 0 30px rgba(6, 214, 160, 0.18);
+:root{
+  --bg:#071b19;
+  --panel:#04221f;
+  --muted:#9fbfb2;
+  --accent:#06d6a0;
+  --text:#eaf7f2;
+  --nav-height:64px;
+  --container-w:1100px;
+  --shadow:0 8px 30px rgba(0,0,0,0.45);
+  font-synthesis: none;
 }
 
 /* General Styles */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
 body {
-    font-family: var(--font-sans);
     font-weight: 400;
     line-height: 1.7;
-    color: var(--text-light);
-    background: var(--primary-dark);
     background-image: 
         radial-gradient(circle at 20% 50%, rgba(42,157,143,0.08) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(42,157,143,0.06) 0%, transparent 50%),
@@ -135,7 +120,33 @@ body::before {
     z-index: 0;
 }
 
-/* Responsive Styles */
+/* Top Navigation Styles */
+.topnav{position:fixed;top:0;left:0;right:0;height:var(--nav-height);display:flex;align-items:center;background:linear-gradient(180deg,rgba(3,31,29,0.95),rgba(3,31,29,0.88));padding:0 1rem;z-index:1400;box-shadow:var(--shadow)}
+.topnav .brand{font-weight:600;margin-right:1rem}
+.topnav .menu{margin-left:auto;display:flex;gap:.5rem}
+.topnav .menu a{padding:.65rem .9rem;border-radius:6px;color:var(--text);opacity:.95}
+.topnav .menu a.active, .topnav .menu a:hover{background:rgba(255,255,255,0.03);color:var(--accent)}
+
+/* Content Styles */
+.content{padding-top:calc(var(--nav-height) + 1rem)}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:10px;padding:1rem;box-shadow:var(--shadow)}
+.page-title{margin:0 0 .5rem 0;font-size:1.5rem}
+.lead{color:var(--muted);margin:0 0 1rem 0}
+.footer{padding:2rem 0;text-align:center;color:rgba(234,247,242,0.6)}
+
+/* Map Specific Styles */
+#map{position:fixed;top:var(--nav-height);left:0;right:0;bottom:0;z-index:0}
+
+/* Fixed Legend Styles */
+.map-legend-fixed{
+  position:fixed; right:1rem; top:calc(var(--nav-height) + 2rem); z-index:1420;
+  background:var(--panel); color:var(--text); padding:12px; border-radius:10px; min-width:260px; box-shadow:var(--shadow); font-size:.95rem;
+}
+.map-legend-fixed .legend-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.map-legend-fixed .film-swatches{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.map-legend-fixed input[type="range"]{width:100%;margin-top:6px}
+.swatch{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:middle}
+
 @media (max-width: 768px) {
     .navbar-brand {
         font-size: 1.5rem;
@@ -144,4 +155,82 @@ body::before {
     .map-container {
         height: 300px; /* Adjust for smaller screens */
     }
+}
+
+@media (max-width:720px){
+  .map-legend-fixed{right:.5rem;left:.5rem;top:auto;bottom:1rem}
+}
+
+/* --- New interactive & colorful UI additions --- */
+/* Buttons */
+.btn {
+  display:inline-block;
+  padding:.55rem .9rem;
+  border-radius:8px;
+  background: linear-gradient(90deg,var(--accent),#38d39f);
+  color: #05221b;
+  font-weight:700;
+  box-shadow: 0 6px 18px rgba(6,118,92,0.12);
+  border: none;
+  cursor: pointer;
+  transition: transform .14s ease, box-shadow .14s ease, opacity .12s;
+}
+.btn.secondary {
+  background: linear-gradient(90deg,#ffd166,#f4a261);
+  color:#2b1a00;
+}
+.btn:active{ transform: translateY(1px) }
+.btn:focus{ outline: 3px solid rgba(6,214,160,0.14) }
+
+/* Cards hover */
+.card:hover{
+  transform: translateY(-6px);
+  transition: transform .28s cubic-bezier(.2,.9,.2,1);
+  box-shadow: 0 18px 40px rgba(2,36,32,0.45);
+}
+
+/* Tiny interactive badges */
+.badge{
+  display:inline-block;padding:.25rem .5rem;border-radius:999px;background:rgba(255,255,255,0.04);color:var(--muted);font-size:.82rem;
+}
+
+/* Modal / popup */
+.modal-backdrop{
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55); display: none; z-index: 2000;
+  align-items: center; justify-content: center; padding: 1rem;
+}
+.modal-backdrop.open{ display:flex; }
+.modal {
+  max-width:720px; width:100%; border-radius:12px; background: linear-gradient(180deg, rgba(3,31,29,0.98), rgba(3,31,29,0.95));
+  color: var(--text); padding: 20px; box-shadow: var(--shadow); position: relative; transform-origin:center center;
+}
+.modal h3{ margin:0 0 .5rem 0; font-size:1.25rem }
+.modal .close {
+  position:absolute; right:12px; top:12px; background:transparent;border:none;color:var(--muted); font-size:1.05rem; cursor:pointer;
+}
+.modal .modal-body{ max-height:60vh; overflow:auto; padding-top:6px; color: #dff6ef; line-height:1.6 }
+
+/* Tooltip (used for small interactive charts) */
+.tooltip {
+  position: absolute; pointer-events: none; background: rgba(2,40,36,0.95); color: var(--text); padding:6px 8px; border-radius:6px; font-size:0.85rem; z-index:2200;
+  transform: translate(-50%, -120%); white-space: nowrap; box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* Animated accent underline for nav links */
+.topnav .menu a::after {
+  content: "";
+  display:block;
+  height:3px;
+  width:0;
+  background: linear-gradient(90deg,var(--accent),#9fe9c9);
+  transition: width .28s ease;
+  border-radius:3px;
+  margin-top:6px;
+}
+.topnav .menu a:hover::after, .topnav .menu a.active::after{ width:100% }
+
+/* Small responsive adjustments */
+@media (max-width:720px) {
+  .btn{ padding:.5rem .7rem; font-size:.92rem }
+  .modal{ padding:14px; border-radius:8px }
 }

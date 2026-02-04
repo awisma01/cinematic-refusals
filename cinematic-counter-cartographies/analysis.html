@@ -1,326 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Analysis Theater - Cinematic Counter-Cartographies</title>
-    <meta name="description" content="Comparative visual analyses of checkpoint representations in Palestinian women's cinema.">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/analysis.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Visual Analysis — Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <span class="brand-main">Cinematic Counter-Cartographies</span>
-                <span class="brand-sub">Formal Refusal in Palestinian Cinema</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="map.html">Map & Archive</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="checkpoints.html">Checkpoints</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="analysis.html">Visual Analysis</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="not-mapped.html">What's Not Mapped</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <nav class="topnav">
+    <div class="brand">Cinematic Counter‑Cartographies</div>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="map.html">Map & Archive</a>
+      <a href="checkpoints.html">Checkpoints</a>
+      <a href="analysis.html" class="active">Visual Analysis</a>
+      <a href="not-mapped.html">What's Not Mapped</a>
+    </div>
+  </nav>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="page-title">Visual Analysis Theater</h1>
-                    <p class="page-subtitle">Comparative analysis of cinematic checkpoint representations</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <main class="content container card">
+    <h1 class="page-title">Visual Analysis</h1>
+    <p class="lead">Charts, frames, and visual breakdowns of filmed checkpoints. (Placeholder)</p>
 
-    <!-- Analysis Selector -->
-    <section class="analysis-selector-section py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <div class="selector-card">
-                        <h3>Select Comparison</h3>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="checkpointSelect" class="form-label">Checkpoint</label>
-                                <select class="form-select" id="checkpointSelect">
-                                    <option value="qalandiya" selected>Qalandiya Checkpoint</option>
-                                    <option value="bethlehem">Bethlehem Checkpoint</option>
-                                    <option value="huwwara">Huwwara Checkpoint</option>
-                                    <option value="container">Container Checkpoint</option>
-                                    <option value="prison">Prison Checkpoint</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="comparisonType" class="form-label">Comparison Type</label>
-                                <select class="form-select" id="comparisonType">
-                                    <option value="directors" selected>Different Directors, Same Location</option>
-                                    <option value="temporal">Same Director, Different Times</option>
-                                    <option value="techniques">Different Techniques, Same Scene</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div id="miniChart" style="height:220px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:help" data-tooltip="Hover for chart detail">
+      <strong>Interactive chart placeholder — hover for detail</strong>
+    </div>
+  </main>
 
-    <!-- Comparison Theater -->
-    <section class="comparison-theater-section py-5">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="theater-container">
-                        <!-- Film A -->
-                        <div class="film-viewer">
-                            <div class="film-header">
-                                <h4 id="filmA-title">Salt of This Sea (2008)</h4>
-                                <p id="filmA-director">Annemarie Jacir</p>
-                            </div>
-                            <div class="video-container">
-                                <!-- Placeholder for video/image -->
-                                <div class="video-placeholder" id="videoA">
-                                    <p>Video Player A</p>
-                                    <small>Video clips or film stills will be displayed here</small>
-                                </div>
-                            </div>
-                            <div class="film-metadata">
-                                <p><strong>Scene:</strong> <span id="filmA-scene">Qalandiya checkpoint crossing attempt</span></p>
-                                <p><strong>Timestamp:</strong> <span id="filmA-timestamp">00:32:15 - 00:36:40</span></p>
-                                <p><strong>Duration:</strong> <span id="filmA-duration">4 min 25 sec</span></p>
-                            </div>
-                        </div>
+  <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
 
-                        <!-- Film B -->
-                        <div class="film-viewer">
-                            <div class="film-header">
-                                <h4 id="filmB-title">The Present (2020)</h4>
-                                <p id="filmB-director">Farah Nablusi</p>
-                            </div>
-                            <div class="video-container">
-                                <!-- Placeholder for video/image -->
-                                <div class="video-placeholder" id="videoB">
-                                    <p>Video Player B</p>
-                                    <small>Video clips or film stills will be displayed here</small>
-                                </div>
-                            </div>
-                            <div class="film-metadata">
-                                <p><strong>Scene:</strong> <span id="filmB-scene">Qalandiya checkpoint bureaucratic nightmare</span></p>
-                                <p><strong>Timestamp:</strong> <span id="filmB-timestamp">00:08:30 - 00:15:22</span></p>
-                                <p><strong>Duration:</strong> <span id="filmB-duration">6 min 52 sec</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Playback Controls -->
-                    <div class="playback-controls">
-                        <button class="btn btn-primary" id="playSync">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-                            </svg>
-                            Play Synchronized
-                        </button>
-                        <button class="btn btn-outline-secondary" id="playIndependent">Play Independent</button>
-                        <button class="btn btn-outline-secondary" id="pauseAll">Pause All</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Analysis Panel -->
-    <section class="analysis-panel-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <div class="analysis-content">
-                        <h2 class="section-title">Comparative Analysis</h2>
-                        <div class="section-line"></div>
-
-                        <!-- Analysis Text -->
-                        <div class="analysis-block">
-                            <h3>Camera Angles and Framing</h3>
-                            <div class="comparison-grid">
-                                <div class="comparison-item">
-                                    <h5>Salt of This Sea (Jacir, 2008)</h5>
-                                    <p>
-                                        Jacir employs medium-long shots that position the camera at the eye level of Palestinian subjects waiting at Qalandiya. The framing refuses the elevated, panoptic perspective of security cameras. Instead, we see the checkpoint from within the queue—experiencing the spatial compression, the claustrophobic turnstiles, the sense of being funneled through narrow cages.
-                                    </p>
-                                    <p>
-                                        The camera remains largely static during checkpoint scenes, using long takes that emphasize duration and waiting. This formal choice resists the fragmentation typical of surveillance footage, instead presenting checkpoint passage as an extended temporal ordeal.
-                                    </p>
-                                </div>
-                                <div class="comparison-item">
-                                    <h5>The Present (Nablusi, 2020)</h5>
-                                    <p>
-                                        Nablusi shoots Qalandiya in tighter close-ups and medium shots, bringing us even closer to the protagonist's experience. The camera is often handheld, creating a sense of instability and anxiety that mirrors the checkpoint's arbitrary violence.
-                                    </p>
-                                    <p>
-                                        Where Jacir uses static long takes, Nablusi employs more frequent cuts, but these cuts refuse surveillance logic—they disorient rather than clarify, emphasizing the Kafka-esque absurdity of checkpoint bureaucracy rather than imposing visual order.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="analysis-block">
-                            <h3>Editing and Temporal Strategy</h3>
-                            <div class="comparison-grid">
-                                <div class="comparison-item">
-                                    <h5>Salt of This Sea (Jacir, 2008)</h5>
-                                    <p>
-                                        Jacir's editing preserves real-time duration in checkpoint scenes. Minutes pass onscreen as characters wait, producing a temporal experience closer to documentary than fiction. The refusal to condense or ellide checkpoint time becomes an ethical choice: to show waiting is to refuse the erasure of Palestinian temporal experience.
-                                    </p>
-                                </div>
-                                <div class="comparison-item">
-                                    <h5>The Present (Nablusi, 2020)</h5>
-                                    <p>
-                                        Nablusi similarly resists temporal compression but uses more cuts within checkpoint sequences. These cuts don't accelerate time but fragment it—emphasizing the repetitive, circular nature of checkpoint bureaucracy where progress is illusory and Palestinians are sent from one station to another without resolution.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="analysis-block">
-                            <h3>Use of Offscreen Space</h3>
-                            <p>
-                                Both directors strategically employ offscreen space to refuse complete visibility. In Jacir's film, Israeli soldiers are often heard but not seen, or appear as silhouettes behind reflective glass. This formal choice mirrors the checkpoint's architecture of one-way vision: soldiers see Palestinians, but Palestinians cannot fully see soldiers.
-                            </p>
-                            <p>
-                                Nablusi takes this further, frequently keeping soldiers entirely offscreen, reducing them to disembodied voices from loudspeakers. This strategy refuses to grant soldiers visual presence, instead emphasizing the faceless, bureaucratic nature of checkpoint control.
-                            </p>
-                        </div>
-
-                        <div class="analysis-block">
-                            <h3>Sound Design</h3>
-                            <p>
-                                Sound plays a crucial role in both films' checkpoint scenes. The metallic clang of turnstiles, the harsh buzz of denial, the crackling commands from loudspeakers—these sonic elements create an oppressive auditory landscape.
-                            </p>
-                            <p>
-                                Both directors occasionally deploy strategic silence, creating moments where ambient checkpoint noise drops out entirely. These silences are not peaceful but uncanny—brief interruptions in the relentless sonic assault of surveillance infrastructure.
-                            </p>
-                        </div>
-
-                        <div class="analysis-block">
-                            <h3>Conclusion: Different Strategies, Shared Refusal</h3>
-                            <p>
-                                While Jacir and Nablusi employ distinct formal strategies—Jacir's static long takes versus Nablusi's handheld fragmentation—both refuse to replicate surveillance camera logic. They reject the elevated, omniscient checkpoint gaze in favor of subjective, ground-level perspectives that center Palestinian experience.
-                            </p>
-                            <p>
-                                Their formal choices constitute what we might call "counter-surveillance cinematography": camera work that refuses the visual epistemology of state control, instead creating alternative visual logics grounded in Palestinian agency, dignity, and resistance.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Additional Comparisons -->
-    <section class="additional-comparisons-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <h3 class="text-center mb-4">Explore More Comparisons</h3>
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="comparison-card">
-                                <h4>Bethlehem Checkpoint</h4>
-                                <p>Compare representations across multiple films</p>
-                                <a href="analysis.html?checkpoint=bethlehem" class="btn btn-outline-primary btn-sm">View Analysis</a>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="comparison-card">
-                                <h4>Prison as Checkpoint</h4>
-                                <p>Mai Masri's <em>3000 Nights</em> analysis</p>
-                                <a href="analysis.html?checkpoint=prison" class="btn btn-outline-primary btn-sm">View Analysis</a>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="comparison-card">
-                                <h4>Flying Checkpoints</h4>
-                                <p>Temporary barriers, permanent surveillance</p>
-                                <a href="analysis.html?checkpoint=flying" class="btn btn-outline-primary btn-sm">View Analysis</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h5>Cinematic Counter-Cartographies</h5>
-                    <p>A digital humanities project examining formal refusal in Palestinian cinema, 2000-2025.</p>
-                </div>
-                <div class="col-lg-3">
-                    <h6>Resources</h6>
-                    <ul class="footer-links">
-                        <li><a href="about.html#methodology">Methodology</a></li>
-                        <li><a href="about.html#bibliography">Bibliography</a></li>
-                        <li><a href="about.html#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h6>Partners</h6>
-                    <ul class="footer-links">
-                        <li>Palestinian Film Institute</li>
-                        <li>B'Tselem</li>
-                        <li>OCHA</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row mt-4 pt-4 border-top border-secondary">
-                <div class="col-12 text-center">
-                    <p class="mb-0">&copy; 2025 Yoyo's Research Project. Open Access.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JS -->
-    <script src="js/main.js"></script>
-    <script src="js/analysis.js"></script>
+  <script src="js/ui.js"></script>
 </body>
 </html>

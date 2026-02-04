@@ -1,135 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map & Archive - Cinematic Counter-Cartographies</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* Make the timeline slider more prominent and extend full-bleed */
-        .timeline-slider-section .form-range {
-            height: 18px;
-            -webkit-appearance: none;
-            appearance: none;
-            background: linear-gradient(90deg, rgba(42,157,143,0.9), rgba(6,214,160,0.9));
-            border-radius: 8px;
-            outline: none;
-            padding: 0;
-            margin: 0;
-        }
-        .timeline-slider-section .form-range::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #fff;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-            border: 2px solid rgba(3,31,29,0.15);
-        }
-        .timeline-slider-section .slider-label {
-            text-align: center;
-            color: var(--text-light);
-            margin-top: .5rem;
-        }
-        /* Remove horizontal padding so the slider reaches the viewport edges on large screens */
-        .px-edge { padding-left: 0 !important; padding-right: 0 !important; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Map & Archive — Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <span class="brand-main">Cinematic Counter-Cartographies</span>
-                <span class="brand-sub">Formal Refusal in Palestinian Cinema</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="map.html">Map & Archive</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="checkpoints.html">Checkpoints</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="analysis.html">Visual Analysis</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="not-mapped.html">What's Not Mapped</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container mt-5 pt-5">
-        <h1 class="mt-4">Map & Archive</h1>
-        <p>Explore the interactive map showcasing significant locations in Palestinian cinema, along with an archive of films and a timeline slider.</p>
-        
-        <!-- Interactive Map Section -->
-        <div id="map" style="height: 400px; margin-bottom: 30px;"></div>
-        
-        <!-- Film Archive Section -->
-        <h2>Film Archive</h2>
-        <div id="film-archive">
-            <!-- Film entries will be dynamically loaded here -->
-        </div>
-        
-        <!-- Statistics Section -->
-        <h2 class="mt-4">Statistics</h2>
-        <div id="statistics">
-            <p>Total Films: <span id="total-films">0</span></p>
-            <p>Checkpoints Featured: <span id="checkpoints-featured">0</span></p>
-        </div>
+  <nav class="topnav">
+    <div class="brand">Cinematic Counter‑Cartographies</div>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="map.html" class="active">Map & Archive</a>
+      <a href="checkpoints.html">Checkpoints</a>
+      <a href="analysis.html">Visual Analysis</a>
+      <a href="not-mapped.html">What's Not Mapped</a>
     </div>
+  </nav>
 
-    <!-- Full-bleed Timeline Slider (stretches across viewport) -->
-    <section class="timeline-slider-section py-4">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 px-edge">
-                    <input type="range" id="timeline-slider" min="2000" max="2025" step="1" value="2000" class="form-range w-100" aria-label="Timeline slider to filter films by year">
-                    <div class="slider-label">Year: <span id="selected-year">2000</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div id="map" role="region" aria-label="Interactive map of Palestinian checkpoints"></div>
+  <div id="fixedLegend" class="map-legend-fixed" role="group" aria-label="Map legend"></div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JS -->
-    <script src="js/main.js"></script>
-    <script>
-        // Initialize map and load film data
-        document.addEventListener('DOMContentLoaded', function() {
-            const slider = document.getElementById('timeline-slider');
-            const yearLabel = document.getElementById('selected-year');
-            yearLabel.textContent = slider.value;
-            slider.addEventListener('input', () => yearLabel.textContent = slider.value);
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+  // sample checkpoints — replace or load your GeoJSON when ready
+  const checkpoints = [
+    { id:'qalandiya', name:'Qalandiya Checkpoint', coords:[31.9540,35.2060], established:1998, films:[{title:'Salt of This Sea',year:2008},{title:'The Present',year:2020}] },
+    { id:'bethlehem', name:'Bethlehem (Rachel) Checkpoint', coords:[31.7043,35.2034], established:2002, films:[{title:'When I Saw You',year:2012}] },
+    { id:'huwwara', name:'Huwwara Checkpoint', coords:[31.8772,35.2691], established:2001, films:[] }
+  ];
 
-            // Placeholder: map initialization and data loading
-            // e.g. L.map(...) if using Leaflet; left intentionally minimal
-        });
-    </script>
+  const map = L.map('map',{center:[31.9,35.2],zoom:9,minZoom:6,maxZoom:16});
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}).addTo(map);
+
+  const actualLayer = L.layerGroup().addTo(map);
+  const filmedLayer = L.layerGroup().addTo(map);
+  const actualIndex={}, filmedIndex={};
+
+  const palette = ['#e63946','#f4a261','#ffd166','#06d6a0','#118ab2','#9b5de5','#ff7f50'];
+  const filmTitles=[];
+  checkpoints.forEach(cp=>cp.films.forEach(f=>{ if(!filmTitles.includes(f.title)) filmTitles.push(f.title); }));
+  const filmColor={}; filmTitles.forEach((t,i)=>filmColor[t]=palette[i%palette.length]);
+
+  function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function popupHtml(cp){ const films=cp.films.map(f=>`<li>${escapeHtml(f.title)} (${f.year})</li>`).join(''); return `<strong>${escapeHtml(cp.name)}</strong><ul style="padding-left:1rem;margin:0">${films}</ul>`; }
+
+  checkpoints.forEach(cp=>{
+    const a = L.circle(cp.coords,{radius:800,fillColor:'#b8b8b8',color:'#9a9a9a',weight:1,fillOpacity:0.9}).bindPopup(popupHtml(cp));
+    actualIndex[cp.id]=a; actualLayer.addLayer(a);
+
+    filmedIndex[cp.id]=[];
+    cp.films.forEach((f, idx)=>{
+      const color = filmColor[f.title]||palette[idx%palette.length];
+      const fm = L.circle(cp.coords,{radius:250,fillColor:color,color:'#fff',weight:1,fillOpacity:0.95}).bindTooltip(`${escapeHtml(f.title)} (${f.year})`,{direction:'top',offset:[0,-8]});
+      filmedIndex[cp.id].push({marker:fm,film:f});
+      filmedLayer.addLayer(fm);
+    });
+  });
+
+  // populate legend (fixed) with slider
+  const filmSwatchesHtml = filmTitles.map(t=>`<span title="${t}" style="display:inline-block;margin-right:6px"><span class="swatch" style="background:${filmColor[t]};border:1px solid rgba(0,0,0,0.12)"></span></span>`).join('');
+  const legendHtml = `
+    <div class="legend-row"><strong>Legend</strong><small style="color:var(--muted)">${filmTitles.length} films</small></div>
+    <div style="margin-bottom:8px"><span class="swatch" style="background:#b8b8b8;border:1px solid #9a9a9a"></span> Actual Checkpoints Established</div>
+    <div style="margin-bottom:8px"><div class="film-swatches">${filmSwatchesHtml}</div><div style="margin-top:6px;font-size:0.92rem;opacity:0.95">Checkpoints Captured in Film</div></div>
+    <div style="margin-top:6px">
+      <div style="font-size:.85rem;color:var(--muted);margin-bottom:6px">Show films up to year: <strong id="yearLabel">2025</strong></div>
+      <label class="timeline" for="yearFilter">
+        <input id="yearFilter" type="range" min="2000" max="2025" step="1" value="2025" aria-label="Filter map by year">
+      </label>
+    </div>
+  `;
+  document.getElementById('fixedLegend').innerHTML = legendHtml;
+
+  function updateFromYear(y){
+    const yLabel = document.getElementById('yearLabel'); if (yLabel) yLabel.textContent = y;
+    checkpoints.forEach(cp=>{
+      const showActual = typeof cp.established==='number' ? cp.established <= y : true;
+      const a = actualIndex[cp.id];
+      if(showActual){ if(!actualLayer.hasLayer(a)) actualLayer.addLayer(a); } else { if(actualLayer.hasLayer(a)) actualLayer.removeLayer(a); }
+
+      filmedIndex[cp.id].forEach(({marker,film})=>{
+        if(film.year <= y){ if(!filmedLayer.hasLayer(marker)) filmedLayer.addLayer(marker); } else { if(filmedLayer.hasLayer(marker)) filmedLayer.removeLayer(marker); }
+      });
+    });
+    fitToVisible();
+  }
+
+  document.getElementById('yearFilter').addEventListener('input', e=> updateFromYear(Number(e.target.value)));
+  updateFromYear(Number(document.getElementById('yearFilter').value));
+
+  function fitToVisible(){
+    const bounds = L.latLngBounds(); let has=false;
+    actualLayer.eachLayer(m=>{ if(map.hasLayer(m)){ bounds.extend(m.getLatLng()); has=true; }});
+    filmedLayer.eachLayer(m=>{ if(map.hasLayer(m)){ bounds.extend(m.getLatLng()); has=true; }});
+    if(has) map.fitBounds(bounds.pad(0.35)); else map.setView([31.9,35.2],9);
+  }
+  setTimeout(fitToVisible,150);
+
+  </script>
+
+  <!-- include shared UI script so map page can open popups and show tooltips -->
+  <script src="js/ui.js"></script>
 </body>
 </html>
