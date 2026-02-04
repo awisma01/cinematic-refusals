@@ -29,6 +29,9 @@
       font-size: 1.3rem;
       font-weight: bold;
       letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
     }
     .topnav .menu a {
       color: #eaf7f2;
@@ -43,6 +46,18 @@
     .topnav .menu a:hover {
       color: #6fe7c1;
       border-bottom: 2px solid #6fe7c1;
+    }
+    /* Olive branch SVG icon */
+    .olive-branch-icon {
+      display: inline-flex;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+    }
+    .olive-branch-icon svg {
+      width: 100%;
+      height: 100%;
     }
 
     /* QUOTE SLIDESHOW */
@@ -64,13 +79,13 @@
       z-index: 0;
       width: 100%;
       height: 100%;
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      opacity: 0.68; /* Visible but not overpowering */
+      background-size: contain;         /* Show entire image, do not crop */
+      background-repeat: no-repeat;     /* Do not tile */
+      background-position: center center; /* Center the image */
+      opacity: 0.85;
       transition: background-image 1s, opacity 0.7s;
       pointer-events: none;
-      filter: brightness(0.7) contrast(1.08); /* No blur, just a bit darker for text contrast */
+      filter: brightness(0.95) contrast(1.12);
       will-change: background-image, opacity;
     }
     .quote-slideshow, .quote-controls {
@@ -373,7 +388,24 @@
 </head>
 <body>
   <nav class="topnav">
-    <div class="brand">Cinematic Counter‑Cartographies</div>
+    <div class="brand" style="display: flex; align-items: center; gap: 0.7rem;">
+      <!-- Olive branch SVG icon (olive-toned green version, larger size, inspired by Freepik) -->
+      <span class="olive-branch-icon" style="width: 44px; height: 44px;">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-label="Olive branch" style="vertical-align:middle;">
+          <!-- Curved branch -->
+          <path d="M10 34 Q22 18 36 28" stroke="#708238" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- Leaves (pointed, stylized) -->
+          <path d="M15 29 Q17 26 20 28 Q18 30 15 29Z" fill="#8A9A5B" opacity="0.9"/>
+          <path d="M22 23 Q24 20 27 22 Q25 24 22 23Z" fill="#8A9A5B" opacity="0.9"/>
+          <path d="M30 27 Q32 24 35 26 Q33 28 30 27Z" fill="#8A9A5B" opacity="0.9"/>
+          <!-- Olives (oval, stylized) -->
+          <ellipse cx="18" cy="30" rx="1.5" ry="2.2" fill="#708238" opacity="1"/>
+          <ellipse cx="25" cy="25" rx="1.5" ry="2.2" fill="#708238" opacity="1"/>
+          <ellipse cx="33" cy="29" rx="1.5" ry="2.2" fill="#708238" opacity="1"/>
+        </svg>
+      </span>
+      Cinematic Counter‑Cartographies
+    </div>
     <div class="menu">
       <a href="index.html" class="active">Home</a>
       <a href="map.html">Map & Archive</a>
@@ -386,7 +418,23 @@
   <!-- QUOTE SLIDESHOW HERO SECTION -->
   <section class="moth-quote-hero">
     <div class="quote-bg-slideshow" id="quote-bg-slideshow"></div>
-    <div class="quote-slideshow" id="quote-slideshow">
+    <div class="quote-slideshow" id="quote-slideshow" style="position:relative;">
+      <!-- Left Arrow -->
+      <button id="quote-prev" aria-label="Previous quote" style="
+        position: absolute;
+        left: -2.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #6fe7c1;
+        font-size: 2.2rem;
+        cursor: pointer;
+        z-index: 3;
+        padding: 0;
+        transition: color 0.2s;
+      ">&#8592;</button>
+      <!-- Quotes -->
       <div class="quote-slide active">
         “The arbitrariness of what happens inside a checkpoint in terms of soldiers’ control of Palestinians’ time is further comparable to forms of solitary confinement.”
         <span class="quote-author">Helga Tawil-Souri</span>
@@ -407,13 +455,21 @@
         “Many of the people in Israel don't really perceive the true meaning of being an occupying nation. How does it affect us and how does it affect the Palestinians? What does it mean for a Palestinian to live under occupation; how does it feel every time you want to go to work, school, or to a doctor or just to visit friends you have to go through these checkpoints? How does it feel to be a young soldier who has to stand in that impossible situation? To face civilians, to handle situations he was not trained for? To have so much power over other people's lives. How does it affect that soldier? How does it affect our society?”
         <span class="quote-author">Yoav Shamir</span>
       </div>
-    </div>
-    <div class="quote-controls" id="quote-controls">
-      <button class="quote-dot active"></button>
-      <button class="quote-dot"></button>
-      <button class="quote-dot"></button>
-      <button class="quote-dot"></button>
-      <button class="quote-dot"></button>
+      <!-- Right Arrow -->
+      <button id="quote-next" aria-label="Next quote" style="
+        position: absolute;
+        right: -2.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #6fe7c1;
+        font-size: 2.2rem;
+        cursor: pointer;
+        z-index: 3;
+        padding: 0;
+        transition: color 0.2s;
+      ">&#8594;</button>
     </div>
   </section>
 
@@ -475,27 +531,16 @@
 
   <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
   <script>
-    // Background images for each quote
-    const bgImages = [
-      "assets/images/cp1.jpg",
-      "assets/images/cp2.jpg",
-      "assets/images/cp3.jpg",
-      "assets/images/cp4.jpg",
-      "assets/images/cp5.jpg",
-      "assets/images/cp6.jpg"
-    ];
-    // If you have only 5 quotes, only use first 5 images
+    // Background images for each quote (cp1-cp4 removed)
     const bgForQuote = [
-      "assets/images/cp1.jpg",
-      "assets/images/cp2.jpg",
-      "assets/images/cp3.jpg",
-      "assets/images/cp4.jpg",
       "assets/images/cp5.jpg",
-      "assets/images/cp6.jpg"
+      "assets/images/cp6.jpg",
+      "assets/images/checkp1.jpg",
+      "assets/images/checkp2.jpg",
+      "assets/images/checkp3.jpg"
     ];
 
     const slides = document.querySelectorAll('.quote-slide');
-    const dots = document.querySelectorAll('.quote-dot');
     const bgDiv = document.getElementById('quote-bg-slideshow');
     let current = 0;
     let timer = null;
@@ -503,10 +548,8 @@
     function showSlide(idx) {
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === idx);
-        dots[i].classList.toggle('active', i === idx);
       });
       current = idx;
-      // Set background image for this quote
       if(bgDiv && bgForQuote.length) {
         bgDiv.style.backgroundImage = `url('${bgForQuote[idx % bgForQuote.length]}')`;
       }
@@ -515,13 +558,19 @@
     function nextSlide() {
       showSlide((current + 1) % slides.length);
     }
+    function prevSlide() {
+      showSlide((current - 1 + slides.length) % slides.length);
+    }
 
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        showSlide(i);
-        clearInterval(timer);
-        timer = setInterval(nextSlide, 5000);
-      });
+    document.getElementById('quote-next').addEventListener('click', () => {
+      nextSlide();
+      clearInterval(timer);
+      timer = setInterval(nextSlide, 5000);
+    });
+    document.getElementById('quote-prev').addEventListener('click', () => {
+      prevSlide();
+      clearInterval(timer);
+      timer = setInterval(nextSlide, 5000);
     });
 
     // Initialize first background
