@@ -3,19 +3,51 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Cinematic Counter-Cartographies</title>
+  <title>Formal Refusal in Palestinian Cinema</title>
+  <style>
+    /* Small page title shown in the navbar */
+    .nav-page-title {
+      font-size: 0.85rem;
+      color: rgba(234,247,242,0.95);
+      display: inline-block;
+      margin-left: 0.6rem;
+      vertical-align: middle;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      opacity: 0.95;
+    }
+    @media (max-width:700px){
+      /* hide the extra small title on small screens to preserve space */
+      .nav-page-title { display:none; }
+    }
+  </style>
+  <script>
+    // Insert the page title into the nav bar as a smaller subtitle
+    document.addEventListener('DOMContentLoaded', function () {
+      var titleText = 'Formal Refusal in Palestinian Cinema';
+      var brand = document.querySelector('.topnav .brand');
+      if (brand && !brand.querySelector('.nav-page-title')) {
+        var span = document.createElement('span');
+        span.className = 'nav-page-title';
+        span.textContent = titleText;
+        brand.appendChild(span);
+      }
+    });
+  </script>
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* --- Restore original color scheme --- */
 body {
-  background: #f7f6f2;
+  background: #beab5e;
   color: #222;
+  margin: 0;
+  font-family: 'Oswald', 'Arial', sans-serif;
 }
 
 /* Navbar */
 .topnav {
       background: #0a2321;
-      color: #eaf7f2;
+      color: #3e7962;
       padding: 0 2rem;
       display: flex;
       align-items: center;
@@ -27,15 +59,26 @@ body {
       z-index: 10;
 }
 .topnav .brand {
-  color: #222;
+  font-size: 1.35rem;
+  font-weight: bold;
+  color: #e6a93a;
+  letter-spacing: 0.04em;
 }
 .topnav .menu a {
-  color: #222;
+  color: #eaf7f2;
+  font-size: 1.13rem;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 8px #0a2321cc;
+  padding: 0.2em 0.9em;
+  transition: color 0.18s, border-bottom 0.18s, background 0.18s;
 }
 .topnav .menu a.active,
 .topnav .menu a:hover {
-  color: #288366;
-  border-bottom: 2px solid #288366;
+  color: #e6a93a;
+  border-bottom: 2px solid #e6a93a;
+  background: #2222;
+  border-radius: 0.3em;
 }
 
 /* Olive branch icon */
@@ -55,16 +98,17 @@ body {
   color: #222;
 }
 #site-search-input:focus {
-  border-color: #288366;
-  box-shadow: 0 0 0 2px #288366;
+  border-color: #e6a93a;
+  box-shadow: 0 0 0 3px #e6a93a55;
+  transition: box-shadow 0.2s;
 }
 #site-search-btn {
-  background: #288366;
-  color: #fff;
+  transition: background 0.2s, transform 0.2s;
 }
 #site-search-btn:hover {
-  background: #e6a93a;
-  color: #222;
+  background: #288366;
+  color: #fff;
+  transform: scale(1.07);
 }
 #site-search-results div {
   background: #f7f6f2;
@@ -80,11 +124,17 @@ body {
 
 /* Hero/title section */
 .hero-moth {
-  background: #f7f6f2;
+  background: #9d8a3f;
   color: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3.5rem;
+  margin-bottom: 2.5rem;
 }
 .hero-moth .hero-title {
   color: #222;
+  margin: 0 auto 2.5rem auto;
 }
 
 /* Cutout/ransom note title */
@@ -104,95 +154,310 @@ body {
 
 /* Quote slideshow */
 .moth-quote-hero {
-  background: #f7f6f2;
+  background: linear-gradient(120deg, #e6a93a 0%, #6fe7c1 100%);
+  background-blend-mode: multiply;
   color: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  min-height: 350px;
+  border-radius: 2.2em;
+  box-shadow: 0 6px 32px rgba(40,131,102,0.13);
+  position: relative;
+  padding: 2.5rem 0 2.5rem 0;
+  /* Add a subtle overlay for extra transparency effect */
+  overflow: hidden;
+}
+.moth-quote-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.18);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 2.2em;
+}
+
+.quote-bg-slideshow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+#quote-image-container {
+  width: 340px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,35,33,0.18);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(2,36,32,0.12);
+  margin: 0 60px;
+  position: relative;
+  z-index: 2;
+}
+#quote-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  display: block;
+  transition: transform 0.7s cubic-bezier(.4,2,.6,1);
+}
+#quote-image-container:hover #quote-image {
+  transform: scale(1.06);
+}
+#quote-prev, #quote-next {
+  background: rgba(111,231,193,0.18);
+  border: none;
+  color: #359a7a;
+  font-size: 2.6rem;
+  cursor: pointer;
+  z-index: 3;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+#quote-prev:hover, #quote-next:hover {
+  background: #e6a93a !important;
+  color: #222 !important;
+  transform: scale(1.18);
+}
+.quote-slideshow {
+  min-height: 180px;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .quote-slide {
-  background: #fff;
+  opacity: 0;
+  transition: opacity 0.7s, transform 0.7s;
+  pointer-events: none;
+  position: absolute;
+  left: 0; right: 0;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.72);
   color: #222;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(40,131,102,0.13), 0 1.5px 6px rgba(0,0,0,0.07);
+  max-width: 600px;
+  font-size: 1.18rem;
+  line-height: 1.6;
+  border: 1.5px solid #e6a93a1a;
+  padding: 2rem 1.5rem;
+  display: none;
+  z-index: 2;
+  transform: translateY(30px) scale(0.98);
 }
+.quote-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  position: relative;
+  z-index: 3;
+  display: block;
+  transform: translateY(0) scale(1);
+}
+
 .quote-author {
   color: #288366;
+  display: block;
+  margin-top: 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: right;
 }
 
 /* Divider aesthetic */
+.divider-aesthetic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2.5rem 0 2.5rem 0;
+}
 .divider-content {
-  background: #fff;
+  background: linear-gradient(90deg, #fff 70%, #e6a93a22 100%);
   border-radius: 24px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 0.7rem 2.5rem;
+  margin: 2.5rem auto;
 }
 
-/* Cards and grid */
-.moth-card {
-  background: #fff;
-  color: #222;
-}
-.moth-card h2 {
-  color: #288366;
-}
-.moth-card p {
-  color: #444;
-}
-.moth-card .btn {
-  background: #288366;
-  color: #fff;
-}
-.moth-card .btn:hover {
-  background: #e6a93a;
-  color: #222;
-}
-
-/* Questions section */
-.questions-moth,
-.enhanced-questions {
-  background: #f7f6f2;
-  color: #222;
-}
-.enhanced-questions li {
-  background: #fff;
-  border-left: 4px solid #288366;
-  color: #222;
-}
-.enhanced-questions li:hover {
-  background: #e6a93a;
-  color: #222;
-}
-.enhanced-questions p,
-.enhanced-questions .questions-summary {
-  background: #fff;
-  color: #222 !important;
-}
-
-/* Footer */
-.footer {
-  background: #fff;
-  color: #888;
+/* Center everything after the divider */
+.divider-aesthetic + .questions-moth,
+.divider-aesthetic + .questions-moth + .moth-grid,
+.divider-aesthetic + .questions-moth + .moth-grid + .footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 1.5rem 0 1rem 0;
-  font-size: 1rem;
+}
+
+/* Center the questions section and its content */
+.questions-moth.enhanced-questions {
+  align-items: flex-start;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 700px;
+  margin-bottom: 2.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.questions-inner {
+  background: linear-gradient(120deg, rgba(230,169,58,0.18) 0%, rgba(111,231,193,0.13) 100%);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(40,131,102,0.07);
+  padding: 2rem 1.5rem 1.2rem 1.5rem;
+  width: 100%;
+}
+.questions-moth h3 {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  font-size: 1.35rem;
+  color: #222;
+  font-weight: bold;
+}
+.olive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+.olive-list li span {
+  text-align: left;
+}
+.questions-summary-box {
+  background: rgba(255,255,255,0.72);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(40,131,102,0.07);
+  padding: 1.3rem 1.3rem 1.1rem 1.3rem;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.questions-summary {
+  margin: 0;
+  color: #222;
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+.hero-title.paper-title {
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.08;
+  word-spacing: normal;
   letter-spacing: 0.01em;
+}
+.hero-title.paper-title > div:last-child {
+  font-size: 1.1rem;
+  margin-top: 0.2em;
+  word-spacing: 4.1; /* Bring words back together */
+  letter-spacing: normal;
+}
+.paper-title .paper-piece {
+  margin: 0 0.01em; /* Bring letters closer together */
+}
+.paper-title .word {
+  display: inline;
+  margin-right: 0; /* Remove extra space between words */
+}
+@media (max-width: 600px) {
+  .hero-title.paper-title {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    word-spacing: 0.4em;
+  }
+  .hero-title.paper-title > div:last-child {
+    font-size: 1rem;
+    word-spacing: 1.9em;
+  }
+}
+@media (max-width: 800px) {
+  .moth-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .moth-card {
+    max-width: 95vw;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  main {
+    padding: 0 0.5rem;
+  }
+  .hero-moth {
+    margin-top: 2rem;
+    margin-bottom: 1.2rem;
+  }
+  .quote-slide {
+    font-size: 1rem;
+    padding: 1.1rem 0.7rem;
+  }
+  #quote-image-container {
+    width: 98vw !important;
+    height: 38vw !important;
+    min-height: 120px;
+    margin: 0 0.5rem;
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+  }
+}
+
+/* Add to your <style> block or style.css */
+.main-title {
+  font-family: 'Oswald', 'Arial Black', Arial, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-align: center;
+  margin: 2.5rem auto 2.2rem auto;
+  color: #222;
+  letter-spacing: 0.01em;
+  line-height: 1.18;
+  max-width: 900px;
+}
+.main-title .subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #4e2e1e;
+  letter-spacing: 0.01em;
+}
+@media (max-width: 700px) {
+  .main-title {
+    font-size: 1.3rem;
+    margin: 1.2rem auto 1.2rem auto;
+  }
+  .main-title .subtitle {
+    font-size: 1rem;
+  }
 }
   </style>
 </head>
 <body>
   <nav class="topnav">
-    <div class="brand" style="display: flex; align-items: center; gap: 0.7rem;">
-      <!-- Olive branch SVG icon (olive-toned green version, larger size, inspired by Freepik) -->
-      <span class="olive-branch-icon" style="width: 44px; height: 44px;">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-label="Olive branch" style="vertical-align:middle;">
-          <!-- Curved branch -->
-          <path d="M10 34 Q22 18 36 28" stroke="#708238" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <!-- Leaves (pointed, stylized) -->
-          <path d="M15 29 Q17 26 20 28 Q18 30 15 29Z" fill="#8A9A5B" opacity="0.9"/>
-          <path d="M22 23 Q24 20 27 22 Q25 24 22 23Z" fill="#8A9A5B" opacity="0.9"/>
-          <path d="M30 27 Q32 24 35 26 Q33 28 30 27Z" fill="#8A9A5B" opacity="0.9"/>
-          <!-- Olives (oval, stylized) -->
-          <ellipse cx="18" cy="30" rx="1.5" ry="2.2" fill="#708238" opacity="1"/>
-          <ellipse cx="25" cy="25" rx="1.5" ry="2.2" fill="#708238" opacity="1"/>
-          <ellipse cx="33" cy="29" rx="1.5" ry="2.2" fill="#708238" opacity="1"/>
-        </svg>
+    <div class="brand">
+      <span class="olive-branch-icon">
+        <!-- Olive branch SVG here -->
       </span>
-      Cinematic Counter‑Cartographies
+      Cinematic Counter‑Cartographies:
     </div>
     <div class="menu">
       <a href="index.html" class="active">Home</a>
@@ -203,7 +468,6 @@ body {
     </div>
   </nav>
 
-  <!-- SEARCH BOX SECTION -->
   <div class="site-search-container" role="search" aria-label="Site search">
     <form id="site-search-form" autocomplete="off" style="display:flex;align-items:center;gap:0.3rem;">
       <span class="search-icon" aria-hidden="true" style="font-size:1.3rem;color:#6fe7c1;">
@@ -231,198 +495,230 @@ body {
     <div id="site-search-results"></div>
   </div>
 
-  <!-- HERO TITLE SECTION (keep only the title here) -->
-  <header class="hero-moth">
-    <div class="hero-title newspaper-title paper-title">
-      <span class="paper-piece" style="color:#222;background:#fff;">C</span>
-      <span class="paper-piece" style="color:#fff;background:#b94e3a;">i</span>
-      <span class="paper-piece" style="color:#fff;background:#e6a93a;">n</span>
-      <span class="paper-piece" style="color:#fff;background:#222;">e</span>
-      <span class="paper-piece" style="color:#e6a93a;background:#fff;">m</span>
-      <span class="paper-piece" style="color:#b94e3a;background:#fff;">a</span>
-      <span class="paper-piece" style="color:#fff;background:#288366;">t</span>
-      <span class="paper-piece" style="color:#fff;background:#e6a93a;">i</span>
-      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">c</span>
-      <span> </span>
-      <span class="paper-piece" style="color:#fff;background:#0e6e4f;">C</span>
-      <span class="paper-piece" style="color:#fff;background:#b94e3a;">o</span>
-      <span class="paper-piece" style="color:#fff;background:#e6a93a;">u</span>
-      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">n</span>
-      <span class="paper-piece" style="color:#e6a93a;background:#fff;">t</span>
-      <span class="paper-piece" style="color:#b94e3a;background:#fff;">e</span>
-      <span class="paper-piece" style="color:#fff;background:#6fe7c1;">r</span>
-      <span class="paper-piece" style="color:#fff;background:#e6a93a;">-</span>
-      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">C</span>
-      <span class="paper-piece" style="color:#e6a93a;background:#fff;">a</span>
-      <span class="paper-piece" style="color:#b94e3a;background:#fff;">r</span>
-      <span class="paper-piece" style="color:#fff;background:#105540;">t</span>
-      <span class="paper-piece" style="color:#fff;background:#e6a93a;">o</span>
-      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">g</span>
-      <span class="paper-piece" style="color:#e6a93a;background:#fff;">r</span>
-      <span class="paper-piece" style="color:#b94e3a;background:#fff;">a</span>
-      <span class="paper-piece" style="color:#fff;background:#0a4532;">p</span>
-      <span class="paper-piece" style="color:#fff;background:#e6a93a;">h</span>
-      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">i</span>
-      <span class="paper-piece" style="color:#e6a93a;background:#fff;">e</span>
-      <span class="paper-piece" style="color:#b94e3a;background:#fff;">s</span>
-    </div>
-  </header>
+  <main>
+    <!-- Title Section -->
+    <header class="hero-moth">
+      <div class="hero-title newspaper-title paper-title" style="display: flex; flex-direction: column; align-items: center;">
+        <!-- Newspaper/cutout style main title -->
+        <div>
+          <span class="paper-piece" style="background:#fff;">C</span>
+          <span class="paper-piece" style="background:#b94e3a;">i</span>
+          <span class="paper-piece" style="background:#e6a93a;">n</span>
+          <span class="paper-piece" style="background:#4e2e1e;">e</span>
+          <span class="paper-piece" style="background:#e6a93a;">m</span>
+          <span class="paper-piece" style="background:#b94e3a;">a</span>
+          <span class="paper-piece" style="background:#6fe7c1;">t</span>
+          <span class="paper-piece" style="background:#e6a93a;">i</span>
+          <span class="paper-piece" style="background:#4e2e1e;">c</span>
+          <span> </span>
+          <span class="paper-piece" style="background:#6fe7c1;">C</span>
+          <span class="paper-piece" style="background:#b94e3a;">o</span>
+          <span class="paper-piece" style="background:#e6a93a;">u</span>
+          <span class="paper-piece" style="background:#4e2e1e;">n</span>
+          <span class="paper-piece" style="background:#e6a93a;">t</span>
+          <span class="paper-piece" style="background:#b94e3a;">e</span>
+          <span class="paper-piece" style="background:#6fe7c1;">r</span>
+          <span class="paper-piece" style="background:#e6a93a;">-</span>
+          <span class="paper-piece" style="background:#4e2e1e;">C</span>
+          <span class="paper-piece" style="background:#e6a93a;">a</span>
+          <span class="paper-piece" style="background:#b94e3a;">r</span>
+          <span class="paper-piece" style="background:#6fe7c1;">t</span>
+          <span class="paper-piece" style="background:#e6a93a;">o</span>
+          <span class="paper-piece" style="background:#4e2e1e;">g</span>
+          <span class="paper-piece" style="background:#e6a93a;">r</span>
+          <span class="paper-piece" style="background:#b94e3a;">a</span>
+          <span class="paper-piece" style="background:#6fe7c1;">p</span>
+          <span class="paper-piece" style="background:#e6a93a;">h</span>
+          <span class="paper-piece" style="background:#4e2e1e;">i</span>
+          <span class="paper-piece" style="background:#e6a93a;">e</span>
+          <span class="paper-piece" style="background:#b94e3a;">s</span>
+          <span class="paper-piece" style="background:#fff;">:</span>
+        </div>
+        <!-- Subtitle in a slightly smaller, newspaper/cutout style -->
+        <div style="margin-top:0.6em;">
+          <span class="paper-piece" style="background:#e6a93a;">F</span>
+          <span class="paper-piece" style="background:#b94e3a;">o</span>
+          <span class="paper-piece" style="background:#fff;">r</span>
+          <span class="paper-piece" style="background:#6fe7c1;">m</span>
+          <span class="paper-piece" style="background:#e6a93a;">a</span>
+          <span class="paper-piece" style="background:#4e2e1e;">l</span>
+          <span> </span>
+          <span class="paper-piece" style="background:#b94e3a;">R</span>
+          <span class="paper-piece" style="background:#e6a93a;">e</span>
+          <span class="paper-piece" style="background:#fff;">f</span>
+          <span class="paper-piece" style="background:#6fe7c1;">u</span>
+          <span class="paper-piece" style="background:#e6a93a;">s</span>
+          <span class="paper-piece" style="background:#4e2e1e;">a</span>
+          <span class="paper-piece" style="background:#b94e3a;">l</span>
+          <span> </span>
+          <span class="paper-piece" style="background:#e6a93a;">i</span>
+          <span class="paper-piece" style="background:#fff;">n</span>
+          <span> </span>
+          <span class="paper-piece" style="background:#6fe7c1;">P</span>
+          <span class="paper-piece" style="background:#e6a93a;">a</span>
+          <span class="paper-piece" style="background:#4e2e1e;">l</span>
+          <span class="paper-piece" style="background:#b94e3a;">e</span>
+          <span class="paper-piece" style="background:#fff;">s</span>
+          <span class="paper-piece" style="background:#6fe7c1;">t</span>
+          <span class="paper-piece" style="background:#e6a93a;">i</span>
+          <span class="paper-piece" style="background:#4e2e1e;">n</span>
+          <span class="paper-piece" style="background:#b94e3a;">i</span>
+          <span class="paper-piece" style="background:#fff;">a</span>
+          <span class="paper-piece" style="background:#6fe7c1;">n</span>
+          <span> </span>
+          <span class="paper-piece" style="background:#e6a93a;">C</span>
+          <span class="paper-piece" style="background:#4e2e1e;">i</span>
+          <span class="paper-piece" style="background:#b94e3a;">n</span>
+          <span class="paper-piece" style="background:#fff;">e</span>
+          <span class="paper-piece" style="background:#6fe7c1;">m</span>
+          <span class="paper-piece" style="background:#e6a93a;">a</span>
+        </div>
+      </div>
+    </header>
 
-  <!-- QUOTE SLIDESHOW HERO SECTION -->
-  <section class="moth-quote-hero">
-    <div class="quote-bg-slideshow" id="quote-bg-slideshow" style="display: flex; align-items: center; justify-content: center; position: relative;">
-      <!-- Left Arrow -->
-      <button id="quote-prev" aria-label="Previous quote" style="
-        position: absolute;
-        left: 8%;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(111,231,193,0.18);
-        border: none;
-        color: #6fe7c1;
-        font-size: 2.6rem;
-        cursor: pointer;
-        z-index: 3;
-        border-radius: 50%;
-        width: 44px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s, color 0.2s;
-      ">&#8592;</button>
-      <!-- Centered image -->
-      <div id="quote-image-container" style="
-        width: 340px;
-        height: 220px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(10,35,33,0.18);
-        border-radius: 18px;
-        overflow: hidden;
-        box-shadow: 0 2px 12px rgba(2,36,32,0.12);
-        margin: 0 60px;
-        position: relative;
-        z-index: 2;
-      ">
-        <img id="quote-image" src="" alt="Checkpoint" style="
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 18px;
-          display: block;
-        ">
+    <!-- Quote Slideshow Section -->
+    <section class="moth-quote-hero">
+      <div class="quote-bg-slideshow" id="quote-bg-slideshow">
+        <button id="quote-prev" aria-label="Previous quote">&#8592;</button>
+        <div id="quote-image-container">
+          <img id="quote-image" src="" alt="Checkpoint">
+        </div>
+        <button id="quote-next" aria-label="Next quote">&#8594;</button>
       </div>
-      <!-- Right Arrow -->
-      <button id="quote-next" aria-label="Next quote" style="
-        position: absolute;
-        right: 8%;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(111,231,193,0.18);
-        border: none;
-        color: #6fe7c1;
-        font-size: 2.6rem;
-        cursor: pointer;
-        z-index: 3;
-        border-radius: 50%;
-        width: 44px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s, color 0.2s;
-      ">&#8594;</button>
-    </div>
-    <div class="quote-slideshow" id="quote-slideshow" style="position:relative; margin-top: 1.2rem;">
-      <div class="quote-slide active">
-        “The arbitrariness of what happens inside a checkpoint in terms of soldiers’ control of Palestinians’ time is further comparable to forms of solitary confinement.”
-        <span class="quote-author">Helga Tawil-Souri</span>
+      <div class="quote-slideshow" id="quote-slideshow">
+        <div class="quote-slide active">
+          “The arbitrariness of what happens inside a checkpoint in terms of soldiers’ control of Palestinians’ time is further comparable to forms of solitary confinement.”
+          <span class="quote-author">Helga Tawil-Souri</span>
+        </div>
+        <div class="quote-slide">
+          “The desire to express in an art form and to compose a tableau and vignette whether it's humorous, burlesque, or poetic comes simply from a desire to compose an image for cinema. It is not my fault that when I go to Ramallah there is a checkpoint and therefore it enters my film. Tell me a way to avoid that politicized image. The fact is that the police are everywhere, the army everywhere and occupation is total. Whether it's a love story or a thriller, you place the camera and these realities will cross the frame.”
+          <span class="quote-author">Elia Suleiman</span>
+        </div>
+        <div class="quote-slide">
+          “Traveling through a checkpoint is a confining and asphyxiating experience.”
+          <span class="quote-author">Helga Tawil-Souri</span>
+        </div>
+        <div class="quote-slide">
+          “People are trained to listen for the ‘click’ of the turnstiles and to accept that their fate and time is not under their control.”
+          <span class="quote-author">Helga Tawil-Souri</span>
+        </div>
+        <div class="quote-slide">
+          “Many of the people in Israel don't really perceive the true meaning of being an occupying nation. How does it affect us and how does it affect the Palestinians? What does it mean for a Palestinian to live under occupation; how does it feel every time you want to go to work, school, or to a doctor or just to visit friends you have to go through these checkpoints? How does it feel to be a young soldier who has to stand in that impossible situation? To face civilians, to handle situations he was not trained for? To have so much power over other people's lives. How does it affect that soldier? How does it affect our society?”
+          <span class="quote-author">Yoav Shamir</span>
+        </div>
       </div>
-      <div class="quote-slide">
-        “The desire to express in an art form and to compose a tableau and vignette whether it's humorous, burlesque, or poetic comes simply from a desire to compose an image for cinema. It is not my fault that when I go to Ramallah there is a checkpoint and therefore it enters my film. Tell me a way to avoid that politicized image. The fact is that the police are everywhere, the army everywhere and occupation is total. Whether it's a love story or a thriller, you place the camera and these realities will cross the frame.”
-        <span class="quote-author">Elia Suleiman</span>
-      </div>
-      <div class="quote-slide">
-        “Traveling through a checkpoint is a confining and asphyxiating experience.”
-        <span class="quote-author">Helga Tawil-Souri</span>
-      </div>
-      <div class="quote-slide">
-        “People are trained to listen for the ‘click’ of the turnstiles and to accept that their fate and time is not under their control.”
-        <span class="quote-author">Helga Tawil-Souri</span>
-      </div>
-      <div class="quote-slide">
-        “Many of the people in Israel don't really perceive the true meaning of being an occupying nation. How does it affect us and how does it affect the Palestinians? What does it mean for a Palestinian to live under occupation; how does it feel every time you want to go to work, school, or to a doctor or just to visit friends you have to go through these checkpoints? How does it feel to be a young soldier who has to stand in that impossible situation? To face civilians, to handle situations he was not trained for? To have so much power over other people's lives. How does it affect that soldier? How does it affect our society?”
-        <span class="quote-author">Yoav Shamir</span>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ADDITIONAL DECORATIVE DIVIDER SECTION -->
-  <section class="divider-aesthetic">
-    <div class="divider-content">
-      <svg width="320" height="48" viewBox="0 0 320 48" fill="none" aria-label="Olive divider" style="vertical-align:middle;">
-        <!-- Longer, more curved olive branch -->
-        <path d="M20 38 Q160 -10 300 38" stroke="#8A9A5B" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <!-- Olives -->
-        <ellipse cx="70" cy="22" rx="7" ry="11" fill="#708238"/>
-        <ellipse cx="160" cy="10" rx="7" ry="11" fill="#708238"/>
-        <ellipse cx="250" cy="22" rx="7" ry="11" fill="#708238"/>
-        <!-- Leaves -->
-        <path d="M45 32 Q65 8 85 28" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M120 18 Q140 -2 170 16" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M210 28 Q230 4 260 30" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      </svg>
-    </div>
-  </section>
-
-  <section class="questions-moth enhanced-questions">
-    <div class="questions-inner">
-      <div class="questions-icon">
-        <svg width="48" height="48" fill="none" viewBox="0 0 48 48">
-          <circle cx="24" cy="24" r="22" stroke="#6fe7c1" stroke-width="3" fill="rgba(111,231,193,0.07)"/>
-          <text x="24" y="32" text-anchor="middle" font-size="28" font-family="Arial" fill="#6fe7c1" font-weight="bold">?</text>
+    <!-- Divider -->
+    <section class="divider-aesthetic">
+      <div class="divider-content">
+        <svg width="320" height="48" viewBox="0 0 320 48" fill="none" aria-label="Olive divider" style="vertical-align:middle;">
+          <!-- Longer, more curved olive branch -->
+          <path d="M20 38 Q160 -10 300 38" stroke="#8A9A5B" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <!-- Olives -->
+          <ellipse cx="70" cy="22" rx="7" ry="11" fill="#708238"/>
+          <ellipse cx="160" cy="10" rx="7" ry="11" fill="#708238"/>
+          <ellipse cx="250" cy="22" rx="7" ry="11" fill="#708238"/>
+          <!-- Leaves -->
+          <path d="M45 32 Q65 8 85 28" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M120 18 Q140 -2 170 16" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M210 28 Q230 4 260 30" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
         </svg>
       </div>
-      <h3>Questions Guiding This Project</h3>
-      <ul>
-        <li>How do camera angles refuse the surveillance gaze?</li>
-        <li>What do ellipses and offscreen space keep from view?</li>
-        <li>How does editing create a counternarrative to security footage?</li>
-        <li>What is the politics of what these filmmakers choose not to show?</li>
-      </ul>
-      <p class="questions-summary">
-        For this project, I analyze three to five significant checkpoints, including a prison checkpoint, and how they appear in films released from 2000 to 2025, to highlight how these same spaces are cinematically reimagined and captured over time. In this way, each checkpoint exists as a case study in cinematic resistance.<br>
-        The section <strong>“What’s Not Mapped”</strong> explores moments of refusal, gaps in the archive, and the politics of cinematic omission.
-      </p>
-    </div>
-  </section>
+    </section>
 
-  <section class="moth-grid">
-    <a href="map.html" class="moth-card">
-      <h2>Map & Archive</h2>
-      <p>Explore an interactive map and film archive of checkpoint locations and scenes from Palestinian cinema.</p>
-      <span class="btn">Explore Map</span>
-    </a>
-    <a href="checkpoints.html" class="moth-card">
-      <h2>Checkpoints</h2>
-      <p>Browse case studies of key checkpoints and their cinematic representations.</p>
-      <span class="btn">View Checkpoints</span>
-    </a>
-    <a href="analysis.html" class="moth-card">
-      <h2>Visual Analysis</h2>
-      <p>See visual breakdowns, charts, and film stills that reveal how filmmakers reimagine surveillance spaces.</p>
-      <span class="btn">See Analysis</span>
-    </a>
-    <a href="not-mapped.html" class="moth-card">
-      <h2>What’s Not Mapped</h2>
-      <p>Discover moments of refusal, gaps in the archive, and the politics of cinematic omission.</p>
-      <span class="btn">Learn More</span>
-    </a>
-  </section>
+    <!-- Questions Section -->
+    <section class="questions-moth enhanced-questions">
+      <div class="questions-inner">
+        <div class="questions-icon">
+          <svg width="48" height="48" fill="none" viewBox="0 0 48 48">
+            <circle cx="24" cy="24" r="22" stroke="#6fe7c1" stroke-width="3" fill="rgba(111,231,193,0.07)"/>
+            <text x="24" y="32" text-anchor="middle" font-size="28" font-family="Arial" fill="#6fe7c1" font-weight="bold">?</text>
+          </svg>
+        </div>
+        <h3 style="text-align:left;margin-bottom:0.6rem;">Questions Guiding This Project</h3>
+        <ul class="olive-list" style="list-style:none;padding:0;margin:0.6rem 0 1rem;display:flex;flex-direction:column;gap:0.75rem;align-items:flex-start;">
+          <li style="display:flex;align-items:center;gap:0.8rem;max-width:760px;">
+            <!-- Mini checkpoint icon SVG -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false" style="flex:0 0 auto;">
+              <rect x="4" y="12" width="20" height="8" rx="2" fill="#b94e3a" stroke="#4e2e1e" stroke-width="2"/>
+              <rect x="10" y="8" width="8" height="4" rx="1" fill="#e6a93a" stroke="#4e2e1e" stroke-width="1.5"/>
+              <rect x="13" y="16" width="2" height="4" rx="1" fill="#4e2e1e"/>
+            </svg>
+            <span style="text-align:left;">How do camera angles refuse the surveillance gaze?</span>
+          </li>
+          <li style="display:flex;align-items:center;gap:0.8rem;max-width:760px;">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false" style="flex:0 0 auto;">
+              <rect x="4" y="12" width="20" height="8" rx="2" fill="#b94e3a" stroke="#4e2e1e" stroke-width="2"/>
+              <rect x="10" y="8" width="8" height="4" rx="1" fill="#e6a93a" stroke="#4e2e1e" stroke-width="1.5"/>
+              <rect x="13" y="16" width="2" height="4" rx="1" fill="#4e2e1e"/>
+            </svg>
+            <span style="text-align:left;">What do ellipses and offscreen space keep from view?</span>
+          </li>
+          <li style="display:flex;align-items:center;gap:0.8rem;max-width:760px;">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false" style="flex:0 0 auto;">
+              <rect x="4" y="12" width="20" height="8" rx="2" fill="#b94e3a" stroke="#4e2e1e" stroke-width="2"/>
+              <rect x="10" y="8" width="8" height="4" rx="1" fill="#e6a93a" stroke="#4e2e1e" stroke-width="1.5"/>
+              <rect x="13" y="16" width="2" height="4" rx="1" fill="#4e2e1e"/>
+            </svg>
+            <span style="text-align:left;">How does editing create a counternarrative to security footage?</span>
+          </li>
+          <li style="display:flex;align-items:center;gap:0.8rem;max-width:760px;">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false" style="flex:0 0 auto;">
+              <rect x="4" y="12" width="20" height="8" rx="2" fill="#b94e3a" stroke="#4e2e1e" stroke-width="2"/>
+              <rect x="10" y="8" width="8" height="4" rx="1" fill="#e6a93a" stroke="#4e2e1e" stroke-width="1.5"/>
+              <rect x="13" y="16" width="2" height="4" rx="1" fill="#4e2e1e"/>
+            </svg>
+            <span style="text-align:left;">What is the politics of what these filmmakers choose not to show?</span>
+          </li>
+        </ul>
+      </div>
+      <div class="questions-summary-box">
+        <p class="questions-summary">
+          For this project, I analyze three to five significant checkpoints, including a prison checkpoint, and how they appear in films released from 2000 to 2025, to highlight how these same spaces are cinematically reimagined and captured over time. In this way, each checkpoint exists as a case study in cinematic resistance.<br>
+          The section <strong>“What’s Not Mapped”</strong> explores moments of refusal, gaps in the archive, and the politics of cinematic omission.
+        </p>
+      </div>
+    </section>
+
+    <!-- Grid Section -->
+    <section class="moth-grid">
+      <a href="map.html" class="moth-card">
+        <h2>Map & Archive</h2>
+        <p>Explore an interactive map and film archive of checkpoint locations and scenes from Palestinian cinema.</p>
+        <span class="btn">Explore Map</span>
+      </a>
+      <a href="checkpoints.html" class="moth-card">
+        <h2>Checkpoints</h2>
+        <p>Browse case studies of key checkpoints and their cinematic representations.</p>
+        <span class="btn">View Checkpoints</span>
+      </a>
+      <a href="analysis.html" class="moth-card">
+        <h2>Visual Analysis</h2>
+        <p>See visual breakdowns, charts, and film stills that reveal how filmmakers reimagine surveillance spaces.</p>
+        <span class="btn">See Analysis</span>
+      </a>
+      <a href="not-mapped.html" class="moth-card">
+        <h2>What’s Not Mapped</h2>
+        <p>Discover moments of refusal, gaps in the archive, and the politics of cinematic omission.</p>
+        <span class="btn">Learn More</span>
+      </a>
+    </section>
+  </main>
 
   <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
+  <button id="scrollTopBtn" aria-label="Scroll to top" style="
+    display:none;position:fixed;bottom:32px;right:32px;z-index:99;
+    background:#288366;color:#fff;border:none;border-radius:50%;
+    width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px #2222;
+    cursor:pointer;transition:background 0.2s,transform 0.2s;
+  ">↑</button>
+  <script>
+    window.addEventListener('scroll', function() {
+      document.getElementById('scrollTopBtn').style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+    document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({top:0,behavior:'smooth'});
+  </script>
   <script>
     // Images matched to each quote's theme/content:
     const bgForQuote = [

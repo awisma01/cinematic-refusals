@@ -219,6 +219,29 @@ a.nav-link[href="not-mapped.html"] {
   margin-top: auto !important;
 }
 <button data-popup-title="Test Modal" data-popup="This is a test popup.">Test Modal</button>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".checkpoint-card-grid .card .btn.secondary").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const card = btn.closest(".card");
+      let detailBox = card.querySelector(".checkpoint-detail-box");
+      if (!detailBox) {
+        detailBox = document.createElement("div");
+        detailBox.className = "checkpoint-detail-box";
+        detailBox.innerHTML = btn.getAttribute("data-popup") || "<p>More info coming soon.</p>";
+        card.appendChild(detailBox);
+      }
+      detailBox.style.display = "block";
+    });
+  });
+  // Optional: close popup when clicking outside
+  document.addEventListener("click", function (e) {
+    document.querySelectorAll(".checkpoint-detail-box").forEach(function (box) {
+      if (!box.contains(e.target) && !box.previousElementSibling.contains(e.target)) {
+        box.style.display = "none";
+      }
+    });
+  });
+});
 
 
 
