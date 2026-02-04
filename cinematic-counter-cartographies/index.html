@@ -6,13 +6,14 @@
   <title>Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    body {
-      background: var(--bg, #0a2321);
-      color: var(--text, #eaf7f2);
-      margin: 0;
-      font-family: Inter, system-ui, Arial, sans-serif;
-    }
-    .topnav {
+    /* --- Restore original color scheme --- */
+body {
+  background: #f7f6f2;
+  color: #222;
+}
+
+/* Navbar */
+.topnav {
       background: #0a2321;
       color: #eaf7f2;
       padding: 0 2rem;
@@ -24,366 +25,153 @@
       position: sticky;
       top: 0;
       z-index: 10;
-    }
-    .topnav .brand {
-      font-size: 1.3rem;
-      font-weight: bold;
-      letter-spacing: 0.02em;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-    .topnav .menu a {
-      color: #eaf7f2;
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-weight: 500;
-      transition: color 0.15s;
-      padding-bottom: 2px;
-      border-bottom: 2px solid transparent;
-    }
-    .topnav .menu a.active,
-    .topnav .menu a:hover {
-      color: #6fe7c1;
-      border-bottom: 2px solid #6fe7c1;
-    }
-    /* Olive branch SVG icon */
-    .olive-branch-icon {
-      display: inline-flex;
-      align-items: center;
-      width: 32px;
-      height: 32px;
-      vertical-align: middle;
-    }
-    .olive-branch-icon svg {
-      width: 100%;
-      height: 100%;
-    }
+}
+.topnav .brand {
+  color: #222;
+}
+.topnav .menu a {
+  color: #222;
+}
+.topnav .menu a.active,
+.topnav .menu a:hover {
+  color: #288366;
+  border-bottom: 2px solid #288366;
+}
 
-    /* QUOTE SLIDESHOW */
-    .moth-quote-hero {
-      background: linear-gradient(120deg, #0a2321 80%, #1a3a36 100%);
-      color: #eaf7f2;
-      padding: 3.5rem 0 2.5rem 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      min-height: 320px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .quote-bg-slideshow {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      background-size: contain;         /* Show entire image, do not crop */
-      background-repeat: no-repeat;     /* Do not tile */
-      background-position: center center; /* Center the image */
-      opacity: 0.85;
-      transition: background-image 1s, opacity 0.7s;
-      pointer-events: none;
-      filter: brightness(0.95) contrast(1.12);
-      will-change: background-image, opacity;
-    }
-    .quote-slideshow, .quote-controls {
-      position: relative;
-      z-index: 2;
-    }
-    .quote-slide {
-      display: none;
-      font-size: 1.3rem;
-      font-weight: 500;
-      line-height: 1.5;
-      color: #eaf7f2;
-      opacity: 0;
-      transition: opacity 0.7s;
-      padding: 0 1rem;
-      background: rgba(10,35,33,0.45);
-      border-radius: 14px;
-      padding: 1.2rem 1.5rem;
-      margin: 0 auto;
-      max-width: 700px;
-      box-shadow: 0 2px 12px rgba(2,36,32,0.08);
-    }
-    .quote-slide.active {
-      display: block;
-      opacity: 1;
-      animation: fadeIn 1.2s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    .quote-author {
-      display: block;
-      margin-top: 1.2rem;
-      font-size: 1.05rem;
-      color: #6fe7c1;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-    }
-    .quote-controls {
-      margin-top: 1.5rem;
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-    }
-    .quote-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #b9e3d4;
-      opacity: 0.5;
-      cursor: pointer;
-      transition: background 0.2s, opacity 0.2s;
-      border: none;
-      outline: none;
-    }
-    .quote-dot.active {
-      background: #6fe7c1;
-      opacity: 1;
-    }
+/* Olive branch icon */
+.olive-branch-icon svg path,
+.olive-branch-icon svg ellipse {
+  stroke: #708238;
+  fill: #708238;
+}
 
-    /* HERO */
-    .hero-moth {
-      background: linear-gradient(120deg, #0a2321 80%, #1a3a36 100%);
-      color: #eaf7f2;
-      padding: 3.5rem 0 2.5rem 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-moth .hero-title {
-      font-size: 2.6rem;
-      font-weight: 800;
-      letter-spacing: 0.01em;
-      margin-bottom: 1.2rem;
-      line-height: 1.1;
-    }
-    .hero-moth .hero-desc {
-      font-size: 1.25rem;
-      max-width: 700px;
-      margin: 0 auto 2.2rem auto;
-      color: #b9e3d4;
-      line-height: 1.6;
-    }
-    .hero-moth .hero-cta {
-      display: inline-block;
-      background: #6fe7c1;
-      color: #0a2321;
-      font-weight: bold;
-      font-size: 1.1rem;
-      padding: 0.85em 2.2em;
-      border-radius: 2em;
-      text-decoration: none;
-      box-shadow: 0 4px 24px rgba(111,231,193,0.12);
-      transition: background 0.18s, color 0.18s, transform 0.18s;
-      margin-bottom: 1.5rem;
-    }
-    .hero-moth .hero-cta:hover {
-      background: #4fd1a1;
-      color: #fff;
-      transform: translateY(-2px) scale(1.03);
-    }
-    .hero-moth .hero-img {
-      margin: 2rem auto 0 auto;
-      max-width: 340px;
-      border-radius: 14px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-      overflow: hidden;
-    }
-    .hero-moth .hero-img img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-      border-radius: 14px;
-      background: #222;
-    }
+/* Search box */
+.site-search-container {
+  background: none;
+}
+#site-search-input {
+  border: 1px solid #288366;
+  background: #fff;
+  color: #222;
+}
+#site-search-input:focus {
+  border-color: #288366;
+  box-shadow: 0 0 0 2px #288366;
+}
+#site-search-btn {
+  background: #288366;
+  color: #fff;
+}
+#site-search-btn:hover {
+  background: #e6a93a;
+  color: #222;
+}
+#site-search-results div {
+  background: #f7f6f2;
+  color: #222;
+}
+#site-search-results a {
+  color: #288366;
+}
+#site-search-results mark {
+  background: #e6a93a;
+  color: #222;
+}
 
-    /* GRID SECTIONS */
-    .moth-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      max-width: 1100px;
-      margin: 3rem auto 2.5rem auto;
-      padding: 0 1.5rem;
-    }
-    .moth-card {
-      background: linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
-      border-radius: 12px;
-      box-shadow: 0 4px 18px rgba(2,36,32,0.10);
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      transition: transform 0.18s, box-shadow 0.18s;
-      text-decoration: none;
-      color: inherit;
-      min-height: 260px;
-      position: relative;
-      overflow: hidden;
-    }
-    .moth-card:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 8px 32px rgba(2,36,32,0.18);
-      background: linear-gradient(180deg,rgba(111,231,193,0.08),rgba(255,255,255,0.01));
-    }
-    .moth-card h2 {
-      margin: 0 0 .7rem 0;
-      font-size: 1.25rem;
-      color: var(--accent, #6fe7c1);
-      font-weight: 700;
-    }
-    .moth-card p {
-      margin: 0 0 1.2rem 0;
-      font-size: 1.02rem;
-      color: #b9e3d4;
-    }
-    .moth-card .btn {
-      margin-top: auto;
-      align-self: flex-end;
-      background: #6fe7c1;
-      color: #0a2321;
-      font-weight: bold;
-      font-size: 1rem;
-      padding: 0.5em 1.5em;
-      border-radius: 2em;
-      text-decoration: none;
-      box-shadow: 0 2px 8px rgba(111,231,193,0.10);
-      transition: background 0.18s, color 0.18s, transform 0.18s;
-    }
-    .moth-card .btn:hover {
-      background: #4fd1a1;
-      color: #fff;
-      transform: translateY(-2px) scale(1.03);
-    }
+/* Hero/title section */
+.hero-moth {
+  background: #f7f6f2;
+  color: #222;
+}
+.hero-moth .hero-title {
+  color: #222;
+}
 
-    /* QUESTIONS SECTION */
-    .questions-moth {
-      max-width: 900px;
-      margin: 2.5rem auto 2rem auto;
-      background: rgba(10,35,33,0.07);
-      border-radius: 12px;
-      padding: 2rem 2.5rem;
-      box-shadow: 0 2px 12px rgba(2,36,32,0.08);
-      text-align: center;
-    }
-    .questions-moth h3 {
-      margin-top: 0;
-      font-size: 1.2rem;
-      color: var(--accent, #6fe7c1);
-      letter-spacing: 0.01em;
-    }
-    .questions-moth ul {
-      margin: 1.2rem auto 0 auto;
-      padding: 0;
-      list-style: disc;
-      display: inline-block;
-      text-align: left;
-    }
-    .questions-moth li {
-      margin-bottom: .5rem;
-      font-size: 1.05rem;
-      color: #b9e3d4;
-    }
-    .questions-moth p {
-      margin-top: 1.2rem;
-      color: #b9e3d4;
-    }
-    @media (max-width: 700px) {
-      .questions-moth { padding: 1.2rem 0.5rem; }
-      .moth-card { padding: 1.2rem 0.7rem 1rem 0.7rem; }
-    }
+/* Cutout/ransom note title */
+.paper-title .paper-piece {
+  border: 2.5px solid #fff;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.13), 0 0.5px 0.5px #fff inset;
+}
+.paper-piece {
+  /* Assign cutout backgrounds and text colors using the palette */
+}
+.paper-piece[style*="background:#fff"] { color: #222; }
+.paper-piece[style*="background:#b94e3a"] { color: #fff; }
+.paper-piece[style*="background:#e6a93a"] { color: #222; }
+.paper-piece[style*="background:#6fe7c1"] { color: #222; }
+.paper-piece[style*="background:#4e2e1e"] { color: #fff; }
+.paper-piece[style*="background:#222"] { color: #fff; }
 
-    .enhanced-questions {
-      background: linear-gradient(120deg, rgba(111,231,193,0.10) 0%, rgba(10,35,33,0.13) 100%);
-      border-radius: 18px;
-      box-shadow: 0 4px 24px rgba(111,231,193,0.10), 0 1.5px 8px rgba(2,36,32,0.08);
-      padding: 2.5rem 0;
-      margin: 3rem auto 2rem auto;
-      max-width: 700px;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-      transition: box-shadow 0.2s;
-      animation: fadeInBox 1.2s;
-    }
-    @keyframes fadeInBox {
-      from { opacity: 0; transform: translateY(30px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    .questions-inner {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      text-align: center;
-      position: relative;
-    }
-    .questions-icon {
-      margin-bottom: 1rem;
-      animation: popIn 1.2s;
-    }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.7);}
-      to { opacity: 1; transform: scale(1);}
-    }
-    .enhanced-questions h3 {
-      margin-top: 0;
-      font-size: 1.3rem;
-      color: #6fe7c1;
-      letter-spacing: 0.01em;
-      font-weight: 700;
-      margin-bottom: 1.2rem;
-    }
-    .enhanced-questions ul {
-      margin: 1.2rem auto 1.2rem auto;
-      padding: 0;
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
-      align-items: center;
-    }
-    .enhanced-questions li {
-      background: rgba(111,231,193,0.13);
-      border-left: 4px solid #6fe7c1;
-      border-radius: 8px;
-      padding: 0.7rem 1.2rem;
-      font-size: 1.08rem;
-      color: #0a2321;
-      font-weight: 500;
-      box-shadow: 0 1px 6px rgba(111,231,193,0.06);
-      width: 100%;
-      max-width: 480px;
-      text-align: left;
-      transition: background 0.18s;
-    }
-    .enhanced-questions li:hover {
-      background: #6fe7c1;
-      color: #0a2321;
-    }
-    .enhanced-questions p,
-    .enhanced-questions .questions-summary {
-      margin-top: 1.6rem;
-      color: #fff !important;
-      font-size: 1.01rem;
-      background: rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 1rem 1.2rem;
-      box-shadow: 0 1px 6px rgba(111,231,193,0.04);
-      display: inline-block;
-      text-align: left;
-    }
-    @media (max-width: 700px) {
-      .enhanced-questions { padding: 1.2rem 0.2rem; }
-      .questions-inner { padding: 0 0.2rem; }
-      .enhanced-questions ul { gap: 0.7rem; }
-      .enhanced-questions li, .enhanced-questions p { font-size: 0.98rem; }
-    }
+/* Quote slideshow */
+.moth-quote-hero {
+  background: #f7f6f2;
+  color: #222;
+}
+.quote-slide {
+  background: #fff;
+  color: #222;
+}
+.quote-author {
+  color: #288366;
+}
+
+/* Divider aesthetic */
+.divider-content {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+/* Cards and grid */
+.moth-card {
+  background: #fff;
+  color: #222;
+}
+.moth-card h2 {
+  color: #288366;
+}
+.moth-card p {
+  color: #444;
+}
+.moth-card .btn {
+  background: #288366;
+  color: #fff;
+}
+.moth-card .btn:hover {
+  background: #e6a93a;
+  color: #222;
+}
+
+/* Questions section */
+.questions-moth,
+.enhanced-questions {
+  background: #f7f6f2;
+  color: #222;
+}
+.enhanced-questions li {
+  background: #fff;
+  border-left: 4px solid #288366;
+  color: #222;
+}
+.enhanced-questions li:hover {
+  background: #e6a93a;
+  color: #222;
+}
+.enhanced-questions p,
+.enhanced-questions .questions-summary {
+  background: #fff;
+  color: #222 !important;
+}
+
+/* Footer */
+.footer {
+  background: #fff;
+  color: #888;
+  text-align: center;
+  padding: 1.5rem 0 1rem 0;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
   </style>
 </head>
 <body>
@@ -415,26 +203,139 @@
     </div>
   </nav>
 
+  <!-- SEARCH BOX SECTION -->
+  <div class="site-search-container" role="search" aria-label="Site search">
+    <form id="site-search-form" autocomplete="off" style="display:flex;align-items:center;gap:0.3rem;">
+      <span class="search-icon" aria-hidden="true" style="font-size:1.3rem;color:#6fe7c1;">
+        <!-- Magnifying glass SVG -->
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="10" cy="10" r="8" stroke="#6fe7c1" stroke-width="2"/>
+          <line x1="16" y1="16" x2="21" y2="21" stroke="#6fe7c1" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <input 
+        type="search" 
+        id="site-search-input" 
+        placeholder="Search the site..." 
+        aria-label="Search the site"
+        maxlength="40"
+        style="padding:0.4rem 0.8rem;border-radius:2em;border:1px solid #6fe7c1;font-size:1rem;width:210px;max-width:90vw;background:#0a2321;color:#eaf7f2;outline:none;"
+      >
+      <button 
+        type="submit" 
+        id="site-search-btn"
+        style="padding:0.4rem 1.1rem;border-radius:2em;background:rgba(111,231,193,0.45);color:#0a2321;font-weight:bold;border:none;font-size:0.98rem;cursor:pointer;transition:background 0.18s;"
+      >Search</button>
+    </form>
+    <div id="site-search-suggestions" style="display:none;"></div>
+    <div id="site-search-results"></div>
+  </div>
+
+  <!-- HERO TITLE SECTION (keep only the title here) -->
+  <header class="hero-moth">
+    <div class="hero-title newspaper-title paper-title">
+      <span class="paper-piece" style="color:#222;background:#fff;">C</span>
+      <span class="paper-piece" style="color:#fff;background:#b94e3a;">i</span>
+      <span class="paper-piece" style="color:#fff;background:#e6a93a;">n</span>
+      <span class="paper-piece" style="color:#fff;background:#222;">e</span>
+      <span class="paper-piece" style="color:#e6a93a;background:#fff;">m</span>
+      <span class="paper-piece" style="color:#b94e3a;background:#fff;">a</span>
+      <span class="paper-piece" style="color:#fff;background:#288366;">t</span>
+      <span class="paper-piece" style="color:#fff;background:#e6a93a;">i</span>
+      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">c</span>
+      <span> </span>
+      <span class="paper-piece" style="color:#fff;background:#0e6e4f;">C</span>
+      <span class="paper-piece" style="color:#fff;background:#b94e3a;">o</span>
+      <span class="paper-piece" style="color:#fff;background:#e6a93a;">u</span>
+      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">n</span>
+      <span class="paper-piece" style="color:#e6a93a;background:#fff;">t</span>
+      <span class="paper-piece" style="color:#b94e3a;background:#fff;">e</span>
+      <span class="paper-piece" style="color:#fff;background:#6fe7c1;">r</span>
+      <span class="paper-piece" style="color:#fff;background:#e6a93a;">-</span>
+      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">C</span>
+      <span class="paper-piece" style="color:#e6a93a;background:#fff;">a</span>
+      <span class="paper-piece" style="color:#b94e3a;background:#fff;">r</span>
+      <span class="paper-piece" style="color:#fff;background:#105540;">t</span>
+      <span class="paper-piece" style="color:#fff;background:#e6a93a;">o</span>
+      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">g</span>
+      <span class="paper-piece" style="color:#e6a93a;background:#fff;">r</span>
+      <span class="paper-piece" style="color:#b94e3a;background:#fff;">a</span>
+      <span class="paper-piece" style="color:#fff;background:#0a4532;">p</span>
+      <span class="paper-piece" style="color:#fff;background:#e6a93a;">h</span>
+      <span class="paper-piece" style="color:#fff;background:#4e2e1e;">i</span>
+      <span class="paper-piece" style="color:#e6a93a;background:#fff;">e</span>
+      <span class="paper-piece" style="color:#b94e3a;background:#fff;">s</span>
+    </div>
+  </header>
+
   <!-- QUOTE SLIDESHOW HERO SECTION -->
   <section class="moth-quote-hero">
-    <div class="quote-bg-slideshow" id="quote-bg-slideshow"></div>
-    <div class="quote-slideshow" id="quote-slideshow" style="position:relative;">
+    <div class="quote-bg-slideshow" id="quote-bg-slideshow" style="display: flex; align-items: center; justify-content: center; position: relative;">
       <!-- Left Arrow -->
       <button id="quote-prev" aria-label="Previous quote" style="
         position: absolute;
-        left: -2.2rem;
+        left: 8%;
         top: 50%;
         transform: translateY(-50%);
-        background: none;
+        background: rgba(111,231,193,0.18);
         border: none;
         color: #6fe7c1;
-        font-size: 2.2rem;
+        font-size: 2.6rem;
         cursor: pointer;
         z-index: 3;
-        padding: 0;
-        transition: color 0.2s;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, color 0.2s;
       ">&#8592;</button>
-      <!-- Quotes -->
+      <!-- Centered image -->
+      <div id="quote-image-container" style="
+        width: 340px;
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(10,35,33,0.18);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(2,36,32,0.12);
+        margin: 0 60px;
+        position: relative;
+        z-index: 2;
+      ">
+        <img id="quote-image" src="" alt="Checkpoint" style="
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 18px;
+          display: block;
+        ">
+      </div>
+      <!-- Right Arrow -->
+      <button id="quote-next" aria-label="Next quote" style="
+        position: absolute;
+        right: 8%;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(111,231,193,0.18);
+        border: none;
+        color: #6fe7c1;
+        font-size: 2.6rem;
+        cursor: pointer;
+        z-index: 3;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, color 0.2s;
+      ">&#8594;</button>
+    </div>
+    <div class="quote-slideshow" id="quote-slideshow" style="position:relative; margin-top: 1.2rem;">
       <div class="quote-slide active">
         “The arbitrariness of what happens inside a checkpoint in terms of soldiers’ control of Palestinians’ time is further comparable to forms of solitary confinement.”
         <span class="quote-author">Helga Tawil-Souri</span>
@@ -455,34 +356,26 @@
         “Many of the people in Israel don't really perceive the true meaning of being an occupying nation. How does it affect us and how does it affect the Palestinians? What does it mean for a Palestinian to live under occupation; how does it feel every time you want to go to work, school, or to a doctor or just to visit friends you have to go through these checkpoints? How does it feel to be a young soldier who has to stand in that impossible situation? To face civilians, to handle situations he was not trained for? To have so much power over other people's lives. How does it affect that soldier? How does it affect our society?”
         <span class="quote-author">Yoav Shamir</span>
       </div>
-      <!-- Right Arrow -->
-      <button id="quote-next" aria-label="Next quote" style="
-        position: absolute;
-        right: -2.2rem;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        color: #6fe7c1;
-        font-size: 2.2rem;
-        cursor: pointer;
-        z-index: 3;
-        padding: 0;
-        transition: color 0.2s;
-      ">&#8594;</button>
     </div>
   </section>
 
-  <header class="hero-moth">
-    <div class="hero-title">Cinematic Counter‑Cartographies</div>
-    <div class="hero-desc">
-      My research project explores how Palestinian women filmmakers such as <strong>Mai Masri</strong>, <strong>Annemarie Jacir</strong>, and <strong>Farah Nablusi</strong> create <em>counter-cartographies</em> through their cinematic work and their treatment of Israeli checkpoints. Their work extends beyond simply documenting all the checkpoints and what they represent. This project explores how these directors do not merely record surveillance spaces through their footage, but actively refuse, reframe, and exploit surveillance's visual logic in the first place.
+  <!-- ADDITIONAL DECORATIVE DIVIDER SECTION -->
+  <section class="divider-aesthetic">
+    <div class="divider-content">
+      <svg width="320" height="48" viewBox="0 0 320 48" fill="none" aria-label="Olive divider" style="vertical-align:middle;">
+        <!-- Longer, more curved olive branch -->
+        <path d="M20 38 Q160 -10 300 38" stroke="#8A9A5B" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- Olives -->
+        <ellipse cx="70" cy="22" rx="7" ry="11" fill="#708238"/>
+        <ellipse cx="160" cy="10" rx="7" ry="11" fill="#708238"/>
+        <ellipse cx="250" cy="22" rx="7" ry="11" fill="#708238"/>
+        <!-- Leaves -->
+        <path d="M45 32 Q65 8 85 28" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M120 18 Q140 -2 170 16" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M210 28 Q230 4 260 30" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
     </div>
-    <a href="map.html" class="hero-cta">Explore the Map & Archive</a>
-    <div class="hero-img">
-      <img src="assets/images/salt.jpg" alt="Salt of This Sea poster">
-    </div>
-  </header>
+  </section>
 
   <section class="questions-moth enhanced-questions">
     <div class="questions-inner">
@@ -531,17 +424,35 @@
 
   <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
   <script>
-    // Background images for each quote (cp1-cp4 removed)
+    // Images matched to each quote's theme/content:
     const bgForQuote = [
-      "assets/images/cp5.jpg",
-      "assets/images/cp6.jpg",
-      "assets/images/checkp1.jpg",
-      "assets/images/checkp2.jpg",
-      "assets/images/checkp3.jpg"
+      // 1. “The arbitrariness of what happens inside a checkpoint ... solitary confinement.”
+      "assets/images/checkp1.jpg", // Suggests confinement, checkpoint interior
+
+      // 2. “The desire to express in an art form ... occupation is total.”
+      "assets/images/cp6.jpg", // Artistic, wide shot, occupation visible
+
+      // 3. “Traveling through a checkpoint is a confining and asphyxiating experience.”
+      "assets/images/checkp2.jpg", // Crowded, tense checkpoint
+
+      // 4. “People are trained to listen for the ‘click’ of the turnstiles ...”
+      "assets/images/cp5.jpg", // Turnstile or checkpoint machinery
+
+      // 5. “Many of the people in Israel don't really perceive ... how does it affect our society?”
+      "assets/images/checkp3.jpg" // Broader, societal, soldiers and civilians
+    ];
+
+    // Quote durations in milliseconds (longer for longer quotes)
+    const quoteDurations = [
+      7000, // 1. “The arbitrariness ... solitary confinement.” (long)
+      12000, // 2. “The desire to express ... occupation is total.” (very long)
+      7000, // 3. “Traveling through a checkpoint ...” (medium)
+      6000, // 4. “People are trained to listen ...” (shorter)
+      10000 // 5. “Many of the people in Israel ...” (long)
     ];
 
     const slides = document.querySelectorAll('.quote-slide');
-    const bgDiv = document.getElementById('quote-bg-slideshow');
+    const quoteImg = document.getElementById('quote-image');
     let current = 0;
     let timer = null;
 
@@ -550,9 +461,12 @@
         slide.classList.toggle('active', i === idx);
       });
       current = idx;
-      if(bgDiv && bgForQuote.length) {
-        bgDiv.style.backgroundImage = `url('${bgForQuote[idx % bgForQuote.length]}')`;
+      if(quoteImg && bgForQuote.length) {
+        quoteImg.src = bgForQuote[idx % bgForQuote.length];
       }
+      // Clear and restart timer with appropriate duration
+      clearInterval(timer);
+      timer = setInterval(nextSlide, quoteDurations[idx % quoteDurations.length]);
     }
 
     function nextSlide() {
@@ -564,18 +478,196 @@
 
     document.getElementById('quote-next').addEventListener('click', () => {
       nextSlide();
-      clearInterval(timer);
-      timer = setInterval(nextSlide, 5000);
     });
     document.getElementById('quote-prev').addEventListener('click', () => {
       prevSlide();
-      clearInterval(timer);
-      timer = setInterval(nextSlide, 5000);
     });
 
-    // Initialize first background
+    // Initialize first image and quote
     showSlide(0);
-    timer = setInterval(nextSlide, 5000);
+
+    /*
+      Simple site-wide search for static pages.
+      Add this script after your other scripts.
+      You must add page content to the 'sitePages' array below.
+      For best results, add a summary or main text for each page.
+    */
+    const sitePages = [
+      {
+        title: "Home",
+        url: "index.html",
+        content: `
+          Cinematic Counter‑Cartographies. My research project explores how Palestinian women filmmakers such as Mai Masri, Annemarie Jacir, and Farah Nablusi create counter-cartographies through their cinematic work and their treatment of Israeli checkpoints. Questions: camera angles, surveillance gaze, ellipses, offscreen space, counternarrative, security footage, what's not mapped.
+        `
+      },
+      {
+        title: "Map & Archive",
+        url: "map.html",
+        content: `
+          Interactive map and film archive of checkpoint locations and scenes from Palestinian cinema. Search for films, directors, and checkpoint locations.
+        `
+      },
+      {
+        title: "Checkpoints",
+        url: "checkpoints.html",
+        content: `
+          Case studies of key checkpoints and their cinematic representations. Includes Qalandiya, Bethlehem, Huwwara, prison checkpoints, and more.
+        `
+      },
+      {
+        title: "Visual Analysis",
+        url: "analysis.html",
+        content: `
+          Visual breakdowns, charts, and film stills that reveal how filmmakers reimagine surveillance spaces. Includes analysis of camera angles, editing, and cinematic resistance.
+        `
+      },
+      {
+        title: "What's Not Mapped",
+        url: "not-mapped.html",
+        content: `
+          Moments of refusal, gaps in the archive, and the politics of cinematic omission. Explore what filmmakers choose not to show.
+        `
+      }
+    ];
+
+    // Add this after your sitePages array and before searchSite()
+    function getPageText() {
+      // Get all visible text from the body, excluding nav and footer
+      const exclude = ['nav', 'footer', 'form', 'input', 'button', 'script', 'style'];
+      let text = '';
+      document.body.querySelectorAll('*').forEach(el => {
+        if (!exclude.includes(el.tagName.toLowerCase())) {
+          text += ' ' + (el.innerText || '');
+        }
+      });
+      return text.replace(/\s+/g, ' ').trim();
+    }
+
+    // Add homepage actual text to the search index
+    sitePages[0].content += ' ' + getPageText();
+
+    function searchSite(query) {
+      query = query.trim().toLowerCase();
+      if (!query) return [];
+      let expanded = [query, ...getSynonyms(query)];
+      return sitePages
+        .map(page => {
+          let matchTitle = expanded.some(q => typoMatch(q, page.title.toLowerCase()));
+          let matchContent = expanded.some(q => typoMatch(q, page.content.toLowerCase()));
+          if (matchTitle || matchContent) {
+            // Highlight matches in results
+            const regex = new RegExp(`(${expanded.join('|')})`, 'gi');
+            return {
+              ...page,
+              snippet: page.content.replace(regex, '<mark>$1</mark>')
+            };
+          }
+          return null;
+        })
+        .filter(Boolean);
+    }
+
+    document.getElementById('site-search-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const query = document.getElementById('site-search-input').value;
+      const results = searchSite(query);
+      const resultsDiv = document.getElementById('site-search-results');
+      document.getElementById('site-search-suggestions').style.display = 'none';
+      if (results.length === 0) {
+        resultsDiv.innerHTML = `<div style="color:#b9e3d4;padding:1rem;text-align:center;">No results found.</div>`;
+      } else {
+        resultsDiv.innerHTML = `
+          <div style="
+            max-height: 260px;
+            overflow-y: auto;
+            background: rgba(111,231,193,0.13);
+            border-radius: 12px;
+            padding: 0.5rem 0.5rem;
+          ">
+            <div style="color:#6fe7c1;font-weight:bold;padding:0.3rem 0.7rem 0.2rem 0;">
+              ${results.length} result${results.length > 1 ? 's' : ''} found
+            </div>
+            ${results.map(r => `
+              <div style="
+                background: rgba(10,35,33,0.18);
+                margin: 0.5rem 0;
+                padding: 0.7rem 1rem;
+                border-radius: 10px;
+                box-shadow: 0 1px 6px rgba(111,231,193,0.06);
+                color: #eaf7f2;
+                font-size: 0.97rem;
+                opacity: 0.92;
+              ">
+                <a href="${r.url}" style="font-size:1.08rem;color:#6fe7c1;font-weight:bold;text-decoration:none;">${r.title}</a>
+                <div style="margin-top:0.4rem;">
+                  ${r.snippet.length > 180 
+                    ? r.snippet.slice(0, 180) + '...'
+                    : r.snippet}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    });
+
+    // Synonyms and typo tolerance dictionary
+    const synonyms = {
+      'checkpoint': ['checkpoints', 'border', 'gate', 'barrier'],
+      'film': ['movie', 'cinema', 'director'],
+      'archive': ['map', 'collection', 'database'],
+      'palestinian': ['palestine', 'west bank', 'gaza'],
+      'surveillance': ['security', 'camera', 'monitoring'],
+      'refusal': ['resistance', 'omission', 'gap'],
+      // Add more as needed
+    };
+
+    function getSynonyms(word) {
+      return synonyms[word] || [];
+    }
+
+    // Basic typo tolerance (Levenshtein distance 1)
+    function typoMatch(query, text) {
+      if (text.includes(query)) return true;
+      for (let i = 0; i < query.length; i++) {
+        let typo = query.slice(0, i) + query.slice(i + 1);
+        if (text.includes(typo)) return true;
+      }
+      return false;
+    }
+
+    // Autocomplete suggestions
+    document.getElementById('site-search-input').addEventListener('input', function(e) {
+      const query = e.target.value.trim().toLowerCase();
+      const suggestionsDiv = document.getElementById('site-search-suggestions');
+      const resultsDiv = document.getElementById('site-search-results');
+      if (!query) {
+        suggestionsDiv.style.display = 'none';
+        suggestionsDiv.innerHTML = '';
+        resultsDiv.innerHTML = ''; // <-- This line clears the results when search is erased
+        return;
+      }
+      let suggestions = sitePages
+        .filter(page => page.title.toLowerCase().includes(query) || page.content.toLowerCase().includes(query))
+        .map(page => page.title)
+        .slice(0, 5);
+      if (suggestions.length) {
+        suggestionsDiv.style.display = 'block';
+        suggestionsDiv.innerHTML = suggestions.map(s => `<div class="suggestion-item" tabindex="0">${s}</div>`).join('');
+      } else {
+        suggestionsDiv.style.display = 'none';
+        suggestionsDiv.innerHTML = '';
+      }
+    });
+
+    // Keyboard navigation for suggestions
+    document.getElementById('site-search-suggestions').addEventListener('click', function(e) {
+      if (e.target.classList.contains('suggestion-item')) {
+        document.getElementById('site-search-input').value = e.target.textContent;
+        document.getElementById('site-search-suggestions').style.display = 'none';
+        document.getElementById('site-search-form').dispatchEvent(new Event('submit'));
+      }
+    });
   </script>
 </body>
 </html>
