@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map & Archive - Cinematic Counter-Cartographies</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-main">Cinematic Counter-Cartographies</span>
+                <span class="brand-sub">Formal Refusal in Palestinian Cinema</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="map.html">Map & Archive</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="checkpoints.html">Checkpoints</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="analysis.html">Visual Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="not-mapped.html">What's Not Mapped</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-5">
+        <h1 class="mt-4">Map & Archive</h1>
+        <p>Explore the interactive map and film archive related to Palestinian cinema. Use the timeline slider to navigate through different periods and view statistics related to checkpoints and films.</p>
+        
+        <!-- Interactive Map Section -->
+        <div id="map" style="height: 400px;"></div>
+        
+        <!-- Film Archive Section -->
+        <h2 class="mt-4">Film Archive</h2>
+        <div id="film-archive">
+            <!-- Film entries will be dynamically loaded here -->
+        </div>
+        
+        <!-- Timeline Slider Section -->
+        <h2 class="mt-4">Timeline</h2>
+        <input type="range" id="timeline-slider" min="2000" max="2025" step="1" value="2025">
+        
+        <!-- Statistics Section -->
+        <h2 class="mt-4">Statistics</h2>
+        <div id="statistics">
+            <p>Total Films: <span id="total-films">0</span></p>
+            <p>Total Checkpoints: <span id="total-checkpoints">0</span></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row mt-4 pt-4 border-top border-secondary">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2025 Yoyo's Research Project. Open Access.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS and init -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+    </script>
+
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

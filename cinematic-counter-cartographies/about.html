@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map & Archive - Cinematic Counter-Cartographies</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-main">Cinematic Counter-Cartographies</span>
+                <span class="brand-sub">Formal Refusal in Palestinian Cinema</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="map.html">Map & Archive</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="checkpoints.html">Checkpoints</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="analysis.html">Visual Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="not-mapped.html">What's Not Mapped</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <h1>Map & Archive</h1>
+        <p>Explore the interactive map and archive of films related to Palestinian cinema. This section includes a timeline slider, statistics on checkpoints, and a comprehensive film archive.</p>
+        
+        <!-- Interactive Map -->
+        <div id="map" style="height: 400px;"></div>
+        
+        <!-- Film Archive Section -->
+        <section id="film-archive" class="mt-4">
+            <h2>Film Archive</h2>
+            <p>Browse through our collection of films, complete with details on directors, release dates, and thematic elements.</p>
+            <ul id="film-list" class="list-group">
+                <!-- Film items will be dynamically populated here -->
+            </ul>
+        </section>
+        
+        <!-- Timeline Slider -->
+        <section id="timeline" class="mt-4">
+            <h2>Timeline</h2>
+            <input type="range" id="timeline-slider" min="2000" max="2025" step="1" value="2025">
+            <p>Year: <span id="selected-year">2025</span></p>
+        </section>
+        
+        <!-- Statistics Section -->
+        <section id="statistics" class="mt-4">
+            <h2>Statistics</h2>
+            <p>Checkpoints and films statistics will be displayed here.</p>
+            <div id="stats" class="row">
+                <div class="col">
+                    <h3>Checkpoints</h3>
+                    <p id="checkpoint-count">0</p>
+                </div>
+                <div class="col">
+                    <h3>Films</h3>
+                    <p id="film-count">0</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row mt-4 pt-4 border-top border-secondary">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2025 Yoyo's Research Project. Open Access.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

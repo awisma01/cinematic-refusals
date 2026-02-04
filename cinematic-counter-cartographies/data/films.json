@@ -1,0 +1,31 @@
+{
+    "films": [
+        {
+            "title": "Film Title 1",
+            "director": "Director Name 1",
+            "year": 2021,
+            "genre": "Drama",
+            "description": "A brief description of Film Title 1.",
+            "location": "Location 1",
+            "checkpoint": "Checkpoint 1"
+        },
+        {
+            "title": "Film Title 2",
+            "director": "Director Name 2",
+            "year": 2020,
+            "genre": "Documentary",
+            "description": "A brief description of Film Title 2.",
+            "location": "Location 2",
+            "checkpoint": "Checkpoint 2"
+        },
+        {
+            "title": "Film Title 3",
+            "director": "Director Name 3",
+            "year": 2019,
+            "genre": "Thriller",
+            "description": "A brief description of Film Title 3.",
+            "location": "Location 3",
+            "checkpoint": "Checkpoint 3"
+        }
+    ]
+}

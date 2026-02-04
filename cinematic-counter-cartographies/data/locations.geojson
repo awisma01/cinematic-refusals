@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Checkpoint 1",
+        "description": "Description of Checkpoint 1",
+        "film": "Film Title 1",
+        "year": 2020
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.123456, 31.123456]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Checkpoint 2",
+        "description": "Description of Checkpoint 2",
+        "film": "Film Title 2",
+        "year": 2021
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.654321, 31.654321]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Film Location 1",
+        "description": "Description of Film Location 1",
+        "film": "Film Title 3",
+        "year": 2022
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [35.987654, 31.987654]
+      }
+    }
+  ]
+}

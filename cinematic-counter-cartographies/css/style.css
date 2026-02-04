@@ -1,0 +1,83 @@
+/***********************************************
+ * Main stylesheet for Cinematic Counter-Cartographies
+ ***********************************************/
+
+/* General Styles */
+body {
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+}
+
+.nav-link {
+    color: #ffffff !important;
+}
+
+.nav-link.active {
+    font-weight: bold;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.footer h5, .footer h6 {
+    color: #ffffff;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Map & Archive Styles */
+.map-container {
+    height: 500px; /* Adjust height as needed */
+    margin: 20px 0;
+}
+
+.archive-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.archive-table th, .archive-table td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: left;
+}
+
+.archive-table th {
+    background-color: #e9ecef;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+
+    .map-container {
+        height: 300px; /* Adjust for smaller screens */
+    }
+}
