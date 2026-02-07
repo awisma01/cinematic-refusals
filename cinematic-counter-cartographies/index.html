@@ -23,8 +23,13 @@
       --cream: #f7f3e9;
     }
 
+    body, html {
+      min-height: 200vh;
+      height: 100%;
+    }
+
     body {
-      background: linear-gradient(to bottom, #d4c27e 0%, var(--sand) 50%, #c9b56d 100%);
+      background: linear-gradient(to bottom, #b49723 0%, #0b7151 100%);
       color: #1a1a1a;
       margin: 0;
       font-family: 'Georgia', 'Times New Roman', serif;
@@ -141,7 +146,7 @@
 
     /* QUOTE CAROUSEL - More Elegant */
     .quote-carousel {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.5) 100%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.38) 100%);
       border-radius: 20px;
       padding: 3rem 2rem;
       max-width: 1100px;
@@ -680,10 +685,11 @@
   </script>
   <script>
 document.addEventListener('DOMContentLoaded', function () {
-  // Colorful title
+  // Colorful title with new colors
   const title = document.getElementById('colorful-title');
   if (title) {
-    const colors = ['#e6a93a', '#288366'];
+    // Try a sunrise palette: gold, deep green, warm orange, teal
+    const colors = ['#f7b731', '#218c5a', '#ff7f50', '#3ec6e0'];
     const text = title.textContent;
     let html = '';
     let colorIndex = 0;
@@ -969,37 +975,37 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Autocomplete suggestions
-    document.getElementById('site-search-input').addEventListener('input', function(e) {
-      const query = e.target.value.trim().toLowerCase();
+      const query = e.target.value.trim().toLowerCase();tListener('input', function(e) {
       const suggestionsDiv = document.getElementById('site-search-suggestions');
-      const resultsDiv = document.getElementById('site-search-results');
-      if (!query) {
+      const resultsDiv = document.getElementById('site-search-results');tions');
+      if (!query) {Div = document.getElementById('site-search-results');
         suggestionsDiv.style.display = 'none';
-        suggestionsDiv.innerHTML = '';
+        suggestionsDiv.innerHTML = ''; 'none';
         resultsDiv.innerHTML = ''; // <-- This line clears the results when search is erased
-        return;
-      }
+        return;Div.innerHTML = ''; // <-- This line clears the results when search is erased
+      } return;
       let suggestions = sitePages
         .filter(page => page.title.toLowerCase().includes(query) || page.content.toLowerCase().includes(query))
-        .map(page => page.title)
-        .slice(0, 5);
+        .map(page => page.title)le.toLowerCase().includes(query) || page.content.toLowerCase().includes(query))
+        .slice(0, 5);page.title)
       }f (suggestions.length) {
     }); suggestionsDiv.style.display = 'block';
   </script>gestionsDiv.innerHTML = suggestions.map(s => `<div class="suggestion-item" tabindex="0">${s}</div>`).join('');
-</body> else {
+</body> else {tionsDiv.innerHTML = suggestions.map(s => `<div class="suggestion-item" tabindex="0">${s}</div>`).join('');
 </html> suggestionsDiv.style.display = 'none';
-        suggestionsDiv.innerHTML = '';
-      }
+        suggestionsDiv.innerHTML = ''; 'none';
+      } suggestionsDiv.innerHTML = '';
     });
-
+    });
     // Keyboard navigation for suggestions
     document.getElementById('site-search-suggestions').addEventListener('click', function(e) {
-      if (e.target.classList.contains('suggestion-item')) {
+      if (e.target.classList.contains('suggestion-item')) {ventListener('click', function(e) {
         document.getElementById('site-search-input').value = e.target.textContent;
         document.getElementById('site-search-suggestions').style.display = 'none';
         document.getElementById('site-search-form').dispatchEvent(new Event('submit'));
-      }
+      } document.getElementById('site-search-form').dispatchEvent(new Event('submit'));
     });
   </script>
-</body>
+</body>ipt>
+</html>
 </html>
