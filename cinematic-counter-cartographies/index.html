@@ -3,462 +3,548 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Formal Refusal in Palestinian Cinema</title>
-  <style>
-    /* Small page title shown in the navbar */
-    .nav-page-title {
-      font-size: 0.85rem;
-      color: rgba(234,247,242,0.95);
-      display: inline-block;
-      margin-left: 0.6rem;
-      vertical-align: middle;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      opacity: 0.95;
-    }
-    @media (max-width:700px){
-      /* hide the extra small title on small screens to preserve space */
-      .nav-page-title { display:none; }
-    }
-  </style>
-  <script>
-    // Insert the page title into the nav bar as a smaller subtitle
-    document.addEventListener('DOMContentLoaded', function () {
-      var titleText = 'Formal Refusal in Palestinian Cinema';
-      var brand = document.querySelector('.topnav .brand');
-      if (brand && !brand.querySelector('.nav-page-title')) {
-        var span = document.createElement('span');
-        span.className = 'nav-page-title';
-        span.textContent = titleText;
-        brand.appendChild(span);
-      }
-    });
-  </script>
+  <title>Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* --- Restore original color scheme --- */
-body {
-  background: #beab5e;
-  color: #222;
-  margin: 0;
-  font-family: 'Oswald', 'Arial', sans-serif;
-}
+    /* === COMPLETELY REDESIGNED HOMEPAGE === */
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    :root {
+      --gold: #e6a93a;
+      --teal: #6fe7c1;
+      --forest: #288366;
+      --dark-forest: #0a2321;
+      --sand: #beab5e;
+      --brown: #4e2e1e;
+      --crimson: #b94e3a;
+      --cream: #f7f3e9;
+    }
 
-/* Navbar */
-.topnav {
-      background: #0a2321;
-      color: #3e7962;
-      padding: 0 2rem;
+    body {
+      background: linear-gradient(to bottom, #d4c27e 0%, var(--sand) 50%, #c9b56d 100%);
+      color: #1a1a1a;
+      margin: 0;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Subtle texture overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.02) 2px, rgba(0,0,0,.02) 4px);
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    /* NAVBAR - Cleaner */
+    .topnav {
+      background: linear-gradient(180deg, rgba(10, 35, 33, 0.98) 0%, rgba(10, 35, 33, 0.95) 100%);
+      backdrop-filter: blur(10px);
+      color: var(--teal);
+      padding: 1.2rem 3rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
-      box-shadow: 0 2px 12px rgba(2,36,32,0.08);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
       position: sticky;
       top: 0;
+      z-index: 100;
+    }
+
+    .topnav .brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+
+    .topnav .menu {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .topnav .menu a {
+      color: #eaf7f2;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    .topnav .menu a:hover,
+    .topnav .menu a.active {
+      background: rgba(230, 169, 58, 0.2);
+      color: var(--gold);
+    }
+
+    /* HERO SECTION - Completely Redesigned */
+    .hero-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+    }
+
+    .hero-title-wrapper {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .hero-main-title {
+      font-family: 'Georgia', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      color: var(--dark-forest);
+      margin: 0 0 1.5rem 0;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-subtitle {
+      font-family: 'Georgia', serif;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-style: italic;
+      color: var(--brown);
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .hero-subtitle .highlight {
+      color: var(--forest);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    /* Decorative line under title */
+    .title-decoration {
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2rem auto;
+      border-radius: 2px;
+    }
+
+    /* QUOTE CAROUSEL - More Elegant */
+    .quote-carousel {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.5) 100%);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto 4rem;
+      box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      position: relative;
+    }
+
+    .carousel-content {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .carousel-image {
+      flex: 0 0 380px;
+      height: 260px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .carousel-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-image:hover img {
+      transform: scale(1.08);
+    }
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      color: var(--forest);
+      font-size: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       z-index: 10;
-}
-.topnav .brand {
-  font-size: 1.35rem;
-  font-weight: bold;
-  color: #e6a93a;
-  letter-spacing: 0.04em;
-}
-.topnav .menu a {
-  color: #eaf7f2;
-  font-size: 1.13rem;
-  font-weight: bold;
-  letter-spacing: 0.03em;
-  text-shadow: 0 2px 8px #0a2321cc;
-  padding: 0.2em 0.9em;
-  transition: color 0.18s, border-bottom 0.18s, background 0.18s;
-}
-.topnav .menu a.active,
-.topnav .menu a:hover {
-  color: #e6a93a;
-  border-bottom: 2px solid #e6a93a;
-  background: #2222;
-  border-radius: 0.3em;
-}
+    }
 
-/* Olive branch icon */
-.olive-branch-icon svg path,
-.olive-branch-icon svg ellipse {
-  stroke: #708238;
-  fill: #708238;
-}
+    .carousel-nav:hover {
+      background: var(--gold);
+      color: white;
+      transform: translateY(-50%) scale(1.1);
+    }
 
-/* Search box */
-.site-search-container {
-  background: none;
-}
-#site-search-input {
-  border: 1px solid #288366;
-  background: #fff;
-  color: #222;
-}
-#site-search-input:focus {
-  border-color: #e6a93a;
-  box-shadow: 0 0 0 3px #e6a93a55;
-  transition: box-shadow 0.2s;
-}
-#site-search-btn {
-  transition: background 0.2s, transform 0.2s;
-}
-#site-search-btn:hover {
-  background: #288366;
-  color: #fff;
-  transform: scale(1.07);
-}
-#site-search-results div {
-  background: #f7f6f2;
-  color: #222;
-}
-#site-search-results a {
-  color: #288366;
-}
-#site-search-results mark {
-  background: #e6a93a;
-  color: #222;
-}
+    .carousel-nav.prev { left: -25px; }
+    .carousel-nav.next { right: -25px; }
 
-/* Hero/title section */
-.hero-moth {
-  background: #9d8a3f;
-  color: #222;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 3.5rem;
-  margin-bottom: 2.5rem;
-}
-.hero-moth .hero-title {
-  color: #222;
-  margin: 0 auto 2.5rem auto;
-}
+    .carousel-quotes {
+      position: relative;
+      min-height: 280px;
+    }
 
-/* Cutout/ransom note title */
-.paper-title .paper-piece {
-  border: 2.5px solid #fff;
-  box-shadow: 2px 4px 12px rgba(0,0,0,0.13), 0 0.5px 0.5px #fff inset;
-}
-.paper-piece {
-  /* Assign cutout backgrounds and text colors using the palette */
-}
-.paper-piece[style*="background:#fff"] { color: #222; }
-.paper-piece[style*="background:#b94e3a"] { color: #fff; }
-.paper-piece[style*="background:#e6a93a"] { color: #222; }
-.paper-piece[style*="background:#6fe7c1"] { color: #222; }
-.paper-piece[style*="background:#4e2e1e"] { color: #fff; }
-.paper-piece[style*="background:#222"] { color: #fff; }
+    .quote-slide {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      transition: opacity 0.6s;
+      z-index: 1;
+    }
 
-/* Quote slideshow */
-.moth-quote-hero {
-  background: linear-gradient(120deg, #e6a93a 0%, #6fe7c1 100%);
-  background-blend-mode: multiply;
-  color: #222;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2.5rem;
-  min-height: 350px;
-  border-radius: 2.2em;
-  box-shadow: 0 6px 32px rgba(40,131,102,0.13);
-  position: relative;
-  padding: 2.5rem 0 2.5rem 0;
-  /* Add a subtle overlay for extra transparency effect */
-  overflow: hidden;
-}
-.moth-quote-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.18);
-  pointer-events: none;
-  z-index: 1;
-  border-radius: 2.2em;
-}
+    .quote-slide.active {
+      opacity: 1;
+      position: relative;
+      pointer-events: auto;
+      z-index: 2;
+    }
 
-.quote-bg-slideshow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 1.2rem;
-  position: relative;
-}
-#quote-image-container {
-  width: 340px;
-  height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(10,35,33,0.18);
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(2,36,32,0.12);
-  margin: 0 60px;
-  position: relative;
-  z-index: 2;
-}
-#quote-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 18px;
-  display: block;
-  transition: transform 0.7s cubic-bezier(.4,2,.6,1);
-}
-#quote-image-container:hover #quote-image {
-  transform: scale(1.06);
-}
-#quote-prev, #quote-next {
-  background: rgba(111,231,193,0.18);
-  border: none;
-  color: #359a7a;
-  font-size: 2.6rem;
-  cursor: pointer;
-  z-index: 3;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s, transform 0.2s;
-}
-#quote-prev:hover, #quote-next:hover {
-  background: #e6a93a !important;
-  color: #222 !important;
-  transform: scale(1.18);
-}
-.quote-slideshow {
-  min-height: 180px;
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.quote-slide {
-  opacity: 0;
-  transition: opacity 0.7s, transform 0.7s;
-  pointer-events: none;
-  position: absolute;
-  left: 0; right: 0;
-  margin: 0 auto;
-  background: rgba(255,255,255,0.72);
-  color: #222;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(40,131,102,0.13), 0 1.5px 6px rgba(0,0,0,0.07);
-  max-width: 600px;
-  font-size: 1.18rem;
-  line-height: 1.6;
-  border: 1.5px solid #e6a93a1a;
-  padding: 2rem 1.5rem;
-  display: none;
-  z-index: 2;
-  transform: translateY(30px) scale(0.98);
-}
-.quote-slide.active {
-  opacity: 1;
-  pointer-events: auto;
-  position: relative;
-  z-index: 3;
-  display: block;
-  transform: translateY(0) scale(1);
-}
+    .quote-text {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: #2a2a2a;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
 
-.quote-author {
-  color: #288366;
-  display: block;
-  margin-top: 1.2rem;
-  font-size: 1rem;
-  font-weight: bold;
-  text-align: right;
-}
+    .quote-text::before {
+      content: '"';
+      font-size: 3rem;
+      color: var(--gold);
+      opacity: 0.3;
+      position: absolute;
+      left: -10px;
+      top: -20px;
+    }
 
-/* Divider aesthetic */
-.divider-aesthetic {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2.5rem 0 2.5rem 0;
-}
-.divider-content {
-  background: linear-gradient(90deg, #fff 70%, #e6a93a22 100%);
-  border-radius: 24px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  padding: 0.7rem 2.5rem;
-  margin: 2.5rem auto;
-}
+    .quote-author {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      color: var(--forest);
+      font-weight: 600;
+      text-align: right;
+      font-style: normal;
+    }
 
-/* Center everything after the divider */
-.divider-aesthetic + .questions-moth,
-.divider-aesthetic + .questions-moth + .moth-grid,
-.divider-aesthetic + .questions-moth + .moth-grid + .footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+    .quote-author::before {
+      content: '— ';
+    }
 
-/* Center the questions section and its content */
-.questions-moth.enhanced-questions {
-  align-items: flex-start;
-  text-align: left;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 700px;
-  margin-bottom: 2.5rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.questions-inner {
-  background: linear-gradient(120deg, rgba(230,169,58,0.18) 0%, rgba(111,231,193,0.13) 100%);
-  border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(40,131,102,0.07);
-  padding: 2rem 1.5rem 1.2rem 1.5rem;
-  width: 100%;
-}
-.questions-moth h3 {
-  margin-top: 0;
-  margin-bottom: 0.6rem;
-  font-size: 1.35rem;
-  color: #222;
-  font-weight: bold;
-}
-.olive-list {
-  list-style: none;
-  padding: 0;
-  margin: 0.6rem 0 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  align-items: flex-start;
-}
-.olive-list li span {
-  text-align: left;
-}
-.questions-summary-box {
-  background: rgba(255,255,255,0.72);
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(40,131,102,0.07);
-  padding: 1.3rem 1.3rem 1.1rem 1.3rem;
-  margin-top: 0.5rem;
-  width: 100%;
-}
-.questions-summary {
-  margin: 0;
-  color: #222;
-  font-size: 1.08rem;
-  line-height: 1.6;
-}
-.hero-title.paper-title {
-  font-size: 2.2rem;
-  margin-bottom: 1.2rem;
-  line-height: 1.08;
-  word-spacing: normal;
-  letter-spacing: 0.01em;
-}
-.hero-title.paper-title > div:last-child {
-  font-size: 1.1rem;
-  margin-top: 0.2em;
-  word-spacing: 4.1; /* Bring words back together */
-  letter-spacing: normal;
-}
-.paper-title .paper-piece {
-  margin: 0 0.01em; /* Bring letters closer together */
-}
-.paper-title .word {
-  display: inline;
-  margin-right: 0; /* Remove extra space between words */
-}
-@media (max-width: 600px) {
-  .hero-title.paper-title {
-    font-size: 1.2rem;
-    margin-bottom: 1.2rem;
-    word-spacing: 0.4em;
-  }
-  .hero-title.paper-title > div:last-child {
-    font-size: 1rem;
-    word-spacing: 1.9em;
-  }
-}
-@media (max-width: 800px) {
-  .moth-grid {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
-  }
-  .moth-card {
-    max-width: 95vw;
-    min-width: 0;
-  }
-}
+    /* DIVIDER */
+    .section-divider {
+      text-align: center;
+      margin: 5rem 0;
+    }
 
-@media (max-width: 700px) {
-  main {
-    padding: 0 0.5rem;
-  }
-  .hero-moth {
-    margin-top: 2rem;
-    margin-bottom: 1.2rem;
-  }
-  .quote-slide {
-    font-size: 1rem;
-    padding: 1.1rem 0.7rem;
-  }
-  #quote-image-container {
-    width: 98vw !important;
-    height: 38vw !important;
-    min-height: 120px;
-    margin: 0 0.5rem;
-  }
-  .hero-subtitle {
-    font-size: 1.05rem;
-  }
-}
+    .divider-ornament {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1rem 2.5rem;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
 
-/* Add to your <style> block or style.css */
-.main-title {
-  font-family: 'Oswald', 'Arial Black', Arial, sans-serif;
-  font-size: 2.5rem;
-  font-weight: 900;
-  text-align: center;
-  margin: 2.5rem auto 2.2rem auto;
-  color: #222;
-  letter-spacing: 0.01em;
-  line-height: 1.18;
-  max-width: 900px;
-}
-.main-title .subtitle {
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: #4e2e1e;
-  letter-spacing: 0.01em;
-}
-@media (max-width: 700px) {
-  .main-title {
-    font-size: 1.3rem;
-    margin: 1.2rem auto 1.2rem auto;
-  }
-  .main-title .subtitle {
-    font-size: 1rem;
-  }
-}
+    .divider-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--forest);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .divider-dot:nth-child(2) { animation-delay: 0.3s; }
+    .divider-dot:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+
+    /* PROJECT DESCRIPTION */
+    .project-intro {
+      max-width: 900px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .intro-section {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(247, 243, 233, 0.8) 100%);
+      border-radius: 16px;
+      padding: 3rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      border-left: 5px solid var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    .intro-section h3 {
+      font-family: 'Georgia', serif;
+      font-size: 1.8rem;
+      color: var(--dark-forest);
+      margin: 0 0 1.5rem 0;
+      font-weight: 700;
+    }
+
+    .intro-section p {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: #333;
+      margin-bottom: 1.2rem;
+    }
+
+    .intro-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .question-list {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0 0 0;
+    }
+
+    .question-list li {
+      font-size: 1.15rem;
+      color: #2a2a2a;
+      padding: 1rem 1rem 1rem 3rem;
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 10px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .question-list li:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateX(8px);
+      box-shadow: 0 4px 15px rgba(40, 131, 102, 0.15);
+    }
+
+    .question-list li::before {
+      content: '→';
+      position: absolute;
+      left: 1rem;
+      color: var(--gold);
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    /* NAVIGATION CARDS */
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .nav-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(247, 243, 233, 0.9) 100%);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(230, 169, 58, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .nav-card:hover::before {
+      left: 100%;
+    }
+
+    .nav-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+      border-color: var(--gold);
+    }
+
+    .nav-card h2 {
+      font-family: 'Georgia', serif;
+      font-size: 1.8rem;
+      color: var(--dark-forest);
+      margin: 0 0 1rem 0;
+      font-weight: 700;
+    }
+
+    .nav-card p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-card .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--forest);
+      font-weight: 600;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-card:hover .card-link {
+      color: var(--gold);
+      gap: 1rem;
+    }
+
+    .card-link::after {
+      content: '→';
+      font-size: 1.3rem;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: linear-gradient(180deg, rgba(10, 35, 33, 0.95) 0%, rgba(10, 35, 33, 0.98) 100%);
+      color: var(--teal);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.95rem;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* SCROLL TO TOP */
+    #scrollTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--forest);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(40, 131, 102, 0.4);
+      transition: all 0.3s ease;
+      z-index: 99;
+    }
+
+    #scrollTopBtn:hover {
+      background: var(--gold);
+      transform: translateY(-5px);
+      box-shadow: 0 6px 30px rgba(230, 169, 58, 0.5);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .carousel-content {
+        flex-direction: column;
+      }
+
+      .carousel-image {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 450px;
+        height: 250px;
+      }
+
+      .carousel-nav.prev { left: 10px; }
+      .carousel-nav.next { right: 10px; }
+
+      .nav-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .topnav {
+        padding: 1rem 1.5rem;
+      }
+
+      .topnav .menu {
+        gap: 0.3rem;
+      }
+
+      .topnav .menu a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-section {
+        padding: 3rem 1rem 2rem;
+      }
+
+      .quote-carousel {
+        padding: 2rem 1rem;
+      }
+
+      .quote-text {
+        font-size: 1.1rem;
+      }
+
+      .carousel-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+      }
+
+      .question-list li {
+        font-size: 1rem;
+        padding-left: 2.5rem;
+      }
+    }
   </style>
 </head>
 <body>
   <nav class="topnav">
-    <div class="brand">
-      <span class="olive-branch-icon">
-        <!-- Olive branch SVG here -->
-      </span>
-      Cinematic Counter‑Cartographies:
-    </div>
+    <div class="brand">Cinematic Counter‑Cartographies</div>
     <div class="menu">
       <a href="index.html" class="active">Home</a>
       <a href="map.html">Map & Archive</a>
@@ -468,240 +554,113 @@ body {
     </div>
   </nav>
 
-  <div class="site-search-container" role="search" aria-label="Site search">
-    <form id="site-search-form" autocomplete="off" style="display:flex;align-items:center;gap:0.3rem;">
-      <span class="search-icon" aria-hidden="true" style="font-size:1.3rem;color:#6fe7c1;">
-        <!-- Magnifying glass SVG -->
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <circle cx="10" cy="10" r="8" stroke="#6fe7c1" stroke-width="2"/>
-          <line x1="16" y1="16" x2="21" y2="21" stroke="#6fe7c1" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </span>
-      <input 
-        type="search" 
-        id="site-search-input" 
-        placeholder="Search the site..." 
-        aria-label="Search the site"
-        maxlength="40"
-        style="padding:0.4rem 0.8rem;border-radius:2em;border:1px solid #6fe7c1;font-size:1rem;width:210px;max-width:90vw;background:#0a2321;color:#eaf7f2;outline:none;"
-      >
-      <button 
-        type="submit" 
-        id="site-search-btn"
-        style="padding:0.4rem 1.1rem;border-radius:2em;background:rgba(111,231,193,0.45);color:#0a2321;font-weight:bold;border:none;font-size:0.98rem;cursor:pointer;transition:background 0.18s;"
-      >Search</button>
-    </form>
-    <div id="site-search-suggestions" style="display:none;"></div>
-    <div id="site-search-results"></div>
-  </div>
-
   <main>
-    <!-- Title Section -->
-    <header class="hero-moth">
-      <div class="hero-title newspaper-title paper-title" style="display: flex; flex-direction: column; align-items: center;">
-        <!-- Newspaper/cutout style main title -->
-        <div>
-          <span class="paper-piece" style="background:#fff;">C</span>
-          <span class="paper-piece" style="background:#b94e3a;">i</span>
-          <span class="paper-piece" style="background:#e6a93a;">n</span>
-          <span class="paper-piece" style="background:#4e2e1e;">e</span>
-          <span class="paper-piece" style="background:#e6a93a;">m</span>
-          <span class="paper-piece" style="background:#b94e3a;">a</span>
-          <span class="paper-piece" style="background:#6fe7c1;">t</span>
-          <span class="paper-piece" style="background:#e6a93a;">i</span>
-          <span class="paper-piece" style="background:#4e2e1e;">c</span>
-          <span> </span>
-          <span class="paper-piece" style="background:#6fe7c1;">C</span>
-          <span class="paper-piece" style="background:#b94e3a;">o</span>
-          <span class="paper-piece" style="background:#e6a93a;">u</span>
-          <span class="paper-piece" style="background:#4e2e1e;">n</span>
-          <span class="paper-piece" style="background:#e6a93a;">t</span>
-          <span class="paper-piece" style="background:#b94e3a;">e</span>
-          <span class="paper-piece" style="background:#6fe7c1;">r</span>
-          <span class="paper-piece" style="background:#e6a93a;">-</span>
-          <span class="paper-piece" style="background:#4e2e1e;">C</span>
-          <span class="paper-piece" style="background:#e6a93a;">a</span>
-          <span class="paper-piece" style="background:#b94e3a;">r</span>
-          <span class="paper-piece" style="background:#6fe7c1;">t</span>
-          <span class="paper-piece" style="background:#e6a93a;">o</span>
-          <span class="paper-piece" style="background:#4e2e1e;">g</span>
-          <span class="paper-piece" style="background:#e6a93a;">r</span>
-          <span class="paper-piece" style="background:#b94e3a;">a</span>
-          <span class="paper-piece" style="background:#6fe7c1;">p</span>
-          <span class="paper-piece" style="background:#e6a93a;">h</span>
-          <span class="paper-piece" style="background:#4e2e1e;">i</span>
-          <span class="paper-piece" style="background:#e6a93a;">e</span>
-          <span class="paper-piece" style="background:#b94e3a;">s</span>
-          <span class="paper-piece" style="background:#fff;">:</span>
-        </div>
-        <!-- Subtitle in a slightly smaller, newspaper/cutout style -->
-        <div style="margin-top:0.6em;">
-          <span class="paper-piece" style="background:#e6a93a;">F</span>
-          <span class="paper-piece" style="background:#b94e3a;">o</span>
-          <span class="paper-piece" style="background:#fff;">r</span>
-          <span class="paper-piece" style="background:#6fe7c1;">m</span>
-          <span class="paper-piece" style="background:#e6a93a;">a</span>
-          <span class="paper-piece" style="background:#4e2e1e;">l</span>
-          <span> </span>
-          <span class="paper-piece" style="background:#b94e3a;">R</span>
-          <span class="paper-piece" style="background:#e6a93a;">e</span>
-          <span class="paper-piece" style="background:#fff;">f</span>
-          <span class="paper-piece" style="background:#6fe7c1;">u</span>
-          <span class="paper-piece" style="background:#e6a93a;">s</span>
-          <span class="paper-piece" style="background:#4e2e1e;">a</span>
-          <span class="paper-piece" style="background:#b94e3a;">l</span>
-          <span> </span>
-          <span class="paper-piece" style="background:#e6a93a;">i</span>
-          <span class="paper-piece" style="background:#fff;">n</span>
-          <span> </span>
-          <span class="paper-piece" style="background:#6fe7c1;">P</span>
-          <span class="paper-piece" style="background:#e6a93a;">a</span>
-          <span class="paper-piece" style="background:#4e2e1e;">l</span>
-          <span class="paper-piece" style="background:#b94e3a;">e</span>
-          <span class="paper-piece" style="background:#fff;">s</span>
-          <span class="paper-piece" style="background:#6fe7c1;">t</span>
-          <span class="paper-piece" style="background:#e6a93a;">i</span>
-          <span class="paper-piece" style="background:#4e2e1e;">n</span>
-          <span class="paper-piece" style="background:#b94e3a;">i</span>
-          <span class="paper-piece" style="background:#fff;">a</span>
-          <span class="paper-piece" style="background:#6fe7c1;">n</span>
-          <span> </span>
-          <span class="paper-piece" style="background:#e6a93a;">C</span>
-          <span class="paper-piece" style="background:#4e2e1e;">i</span>
-          <span class="paper-piece" style="background:#b94e3a;">n</span>
-          <span class="paper-piece" style="background:#fff;">e</span>
-          <span class="paper-piece" style="background:#6fe7c1;">m</span>
-          <span class="paper-piece" style="background:#e6a93a;">a</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- Quote Slideshow Section -->
-    <section class="moth-quote-hero">
-      <div class="quote-bg-slideshow" id="quote-bg-slideshow">
-        <button id="quote-prev" aria-label="Previous quote">&#8592;</button>
-        <div id="quote-image-container">
-          <img id="quote-image" src="" alt="Checkpoint">
-        </div>
-        <button id="quote-next" aria-label="Next quote">&#8594;</button>
-      </div>
-      <div class="quote-slideshow" id="quote-slideshow">
-        <div class="quote-slide active">
-          “The arbitrariness of what happens inside a checkpoint in terms of soldiers’ control of Palestinians’ time is further comparable to forms of solitary confinement.”
-          <span class="quote-author">Helga Tawil-Souri</span>
-        </div>
-        <div class="quote-slide">
-          “The desire to express in an art form and to compose a tableau and vignette whether it's humorous, burlesque, or poetic comes simply from a desire to compose an image for cinema. It is not my fault that when I go to Ramallah there is a checkpoint and therefore it enters my film. Tell me a way to avoid that politicized image. The fact is that the police are everywhere, the army everywhere and occupation is total. Whether it's a love story or a thriller, you place the camera and these realities will cross the frame.”
-          <span class="quote-author">Elia Suleiman</span>
-        </div>
-        <div class="quote-slide">
-          “Traveling through a checkpoint is a confining and asphyxiating experience.”
-          <span class="quote-author">Helga Tawil-Souri</span>
-        </div>
-        <div class="quote-slide">
-          “People are trained to listen for the ‘click’ of the turnstiles and to accept that their fate and time is not under their control.”
-          <span class="quote-author">Helga Tawil-Souri</span>
-        </div>
-        <div class="quote-slide">
-          “Many of the people in Israel don't really perceive the true meaning of being an occupying nation. How does it affect us and how does it affect the Palestinians? What does it mean for a Palestinian to live under occupation; how does it feel every time you want to go to work, school, or to a doctor or just to visit friends you have to go through these checkpoints? How does it feel to be a young soldier who has to stand in that impossible situation? To face civilians, to handle situations he was not trained for? To have so much power over other people's lives. How does it affect that soldier? How does it affect our society?”
-          <span class="quote-author">Yoav Shamir</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Divider -->
-    <section class="divider-aesthetic">
-      <div class="divider-content">
-        <svg width="320" height="48" viewBox="0 0 320 48" fill="none" aria-label="Olive divider" style="vertical-align:middle;">
-          <!-- Longer, more curved olive branch -->
-          <path d="M20 38 Q160 -10 300 38" stroke="#8A9A5B" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <!-- Olives -->
-          <ellipse cx="70" cy="22" rx="7" ry="11" fill="#708238"/>
-          <ellipse cx="160" cy="10" rx="7" ry="11" fill="#708238"/>
-          <ellipse cx="250" cy="22" rx="7" ry="11" fill="#708238"/>
-          <!-- Leaves -->
-          <path d="M45 32 Q65 8 85 28" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M120 18 Q140 -2 170 16" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M210 28 Q230 4 260 30" stroke="#8A9A5B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </svg>
-      </div>
-    </section>
-
-    <!-- Questions Section -->
-    <section class="questions-moth enhanced-questions">
-      <div class="questions-inner">
-        <div class="questions-icon">
-          <svg width="48" height="48" fill="none" viewBox="0 0 48 48">
-            <circle cx="24" cy="24" r="22" stroke="#6fe7c1" stroke-width="3" fill="rgba(111,231,193,0.07)"/>
-            <text x="24" y="32" text-anchor="middle" font-size="28" font-family="Arial" fill="#6fe7c1" font-weight="bold">?</text>
-          </svg>
-        </div>
-        <h3 style="text-align:left;margin-bottom:0.6rem;">Questions Guiding This Project</h3>
-        <ul class="olive-list" style="list-style:none;padding:0;margin:0.6rem 0 1rem;display:flex;flex-direction:column;gap:0.75rem;align-items:flex-start;">
-          <li style="display:flex;align-items:center;gap:0.8rem;max-width:760px;">
-            <!-- Mini checkpoint icon SVG -->
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false" style="flex:0 0 auto;">
-              <rect x="4" y="12" width="20" height="8" rx="2" fill="#b94e3a" stroke="#4e2e1e" stroke-width="2"/>
-              <rect x="10" y="8" width="8" height="4" rx="1" fill="#e6a93a" stroke="#4e2e1e" stroke-width="1.5"/>
-              <rect x="13" y="16" width="2" height="4" rx="1" fill="#4e2e1e"/>
-            </svg>
-            <span style="text-align:left;">How do camera angles refuse the surveillance gaze?</span>
-          </li>
-          <li style="display:flex;align-items:center;gap:0.8rem;max-width:760px;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false" style="flex:0 0 auto;">
-              <rect x="4" y="12" width="20" height="8" rx="2" fill="#b94e3a" stroke="#4e2e1e" stroke-width="2"/>
-              <rect x="10" y="8" width="8" height="4" rx="1" fill="#e6a93a" stroke="#4e2e1e" stroke-width="1.5"/>
-              <rect x="13" y="16" width="2" height="4" rx="1" fill="#4e2e1e"/>
-            </svg>
-            <span style="text-align:left;">What do ellipses and offscreen space keep from view?</span>
-          </li>
-          <li style="display:flex;align-items:center;gap:0.8rem;max-width:760px;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false" style="flex:0 0 auto;">
-              <rect x="4" y="12" width="20" height="8" rx="2" fill="#b94e3a" stroke="#4e2e1e" stroke-width="2"/>
-              <rect x="10" y="8" width="8" height="4" rx="1" fill="#e6a93a" stroke="#4e2e1e" stroke-width="1.5"/>
-              <rect x="13" y="16" width="2" height="4" rx="1" fill="#4e2e1e"/>
-            </svg>
-            <span style="text-align:left;">How does editing create a counternarrative to security footage?</span>
-          </li>
-          <li style="display:flex;align-items:center;gap:0.8rem;max-width:760px;">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false" style="flex:0 0 auto;">
-              <rect x="4" y="12" width="20" height="8" rx="2" fill="#b94e3a" stroke="#4e2e1e" stroke-width="2"/>
-              <rect x="10" y="8" width="8" height="4" rx="1" fill="#e6a93a" stroke="#4e2e1e" stroke-width="1.5"/>
-              <rect x="13" y="16" width="2" height="4" rx="1" fill="#4e2e1e"/>
-            </svg>
-            <span style="text-align:left;">What is the politics of what these filmmakers choose not to show?</span>
-          </li>
-        </ul>
-      </div>
-      <div class="questions-summary-box">
-        <p class="questions-summary">
-          For this project, I analyze three to five significant checkpoints, including a prison checkpoint, and how they appear in films released from 2000 to 2025, to highlight how these same spaces are cinematically reimagined and captured over time. In this way, each checkpoint exists as a case study in cinematic resistance.<br>
-          The section <strong>“What’s Not Mapped”</strong> explores moments of refusal, gaps in the archive, and the politics of cinematic omission.
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-title-wrapper">
+        <h1 class="hero-main-title" id="colorful-title">Cinematic Counter‑Cartographies</h1>
+        <div class="title-decoration"></div>
+        <p class="hero-subtitle">
+          Exploring <span class="highlight">formal refusal</span> in Palestinian cinema
         </p>
       </div>
     </section>
 
-    <!-- Grid Section -->
-    <section class="moth-grid">
-      <a href="map.html" class="moth-card">
+    <!-- QUOTE CAROUSEL -->
+    <section class="quote-carousel">
+      <button class="carousel-nav prev" id="quote-prev" aria-label="Previous quote">‹</button>
+      <button class="carousel-nav next" id="quote-next" aria-label="Next quote">›</button>
+      <div class="carousel-content">
+        <div class="carousel-image">
+          <img id="quote-image" src="assets/images/checkp1.jpg" alt="Quote illustration" style="display:block;">
+        </div>
+        <div class="carousel-quotes">
+          <div class="quote-slide active" data-img="assets/images/checkp1.jpg">
+            <p class="quote-text">The arbitrariness of what happens inside a checkpoint in terms of soldiers' control of Palestinians' time is further comparable to forms of solitary confinement.</p>
+            <p class="quote-author">Helga Tawil-Souri</p>
+          </div>
+          <div class="quote-slide" data-img="assets/images/cp6.jpg">
+            <p class="quote-text">The desire to express in an art form comes simply from a desire to compose an image for cinema. It is not my fault that when I go to Ramallah there is a checkpoint and therefore it enters my film.</p>
+            <p class="quote-author">Elia Suleiman</p>
+          </div>
+          <div class="quote-slide" data-img="assets/images/checkp2.jpg">
+            <p class="quote-text">Traveling through a checkpoint is a confining and asphyxiating experience.</p>
+            <p class="quote-author">Helga Tawil-Souri</p>
+          </div>
+          <div class="quote-slide" data-img="assets/images/cp5.jpg">
+            <p class="quote-text">People are trained to listen for the 'click' of the turnstiles and to accept that their fate and time is not under their control.</p>
+            <p class="quote-author">Helga Tawil-Souri</p>
+          </div>
+          <div class="quote-slide" data-img="assets/images/checkp3.jpg">
+            <p class="quote-text">Many of the people in Israel don't really perceive the true meaning of being an occupying nation. How does it affect us and how does it affect the Palestinians?</p>
+            <p class="quote-author">Yoav Shamir</p>
+          </div>
+          <div class="quote-slide" data-img="assets/images/cp6.jpg">
+            <p class="quote-text">Occupation is total: it enters the film not as a subject but as a condition of the image.</p>
+            <p class="quote-author">Elia Suleiman</p>
+          </div>
+          <div class="quote-slide" data-img="assets/images/checkp4.jpg">
+            <p class="quote-text">The checkpoint is a space where time is suspended, and the camera captures this suspension.</p>
+            <p class="quote-author">Mai Masri</p>
+          </div>
+          <div class="quote-slide" data-img="assets/images/checkp1.jpg">
+            <p class="quote-text">Cinema is a refusal to accept the world as it is given.</p>
+            <p class="quote-author">Annemarie Jacir</p>
+          </div>
+          <div class="quote-slide" data-img="assets/images/checkp1.jpg">
+            <p class="quote-text">Sometimes what is not shown is as powerful as what is.</p>
+            <p class="quote-author">Farah Nablusi</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="section-divider">
+      <div class="divider-ornament">
+        <span class="divider-dot"></span>
+        <span class="divider-dot"></span>
+        <span class="divider-dot"></span>
+      </div>
+    </div>
+
+    <!-- PROJECT DESCRIPTION -->
+    <section class="project-intro">
+      <div class="intro-section">
+        <h3>About This Project</h3>
+        <p>This research explores how Palestinian women filmmakers such as Mai Masri, Annemarie Jacir, and Farah Nablusi create counter-cartographies through their cinematic treatment of Israeli checkpoints.</p>
+        <p>I analyze three to five significant checkpoints and how they appear in films released from 2000 to 2025, highlighting how these same spaces are cinematically reimagined and captured over time. Each checkpoint exists as a case study in cinematic resistance.</p>
+        
+        <ul class="question-list">
+          <li>How do camera angles refuse the surveillance gaze?</li>
+          <li>What do ellipses and offscreen space keep from view?</li>
+          <li>How does editing create a counternarrative to security footage?</li>
+          <li>What is the politics of what these filmmakers choose not to show?</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- NAVIGATION GRID -->
+    <section class="nav-grid">
+      <a href="map.html" class="nav-card">
         <h2>Map & Archive</h2>
         <p>Explore an interactive map and film archive of checkpoint locations and scenes from Palestinian cinema.</p>
-        <span class="btn">Explore Map</span>
+        <span class="card-link">Explore Map</span>
       </a>
-      <a href="checkpoints.html" class="moth-card">
+      <a href="checkpoints.html" class="nav-card">
         <h2>Checkpoints</h2>
         <p>Browse case studies of key checkpoints and their cinematic representations.</p>
-        <span class="btn">View Checkpoints</span>
+        <span class="card-link">View Checkpoints</span>
       </a>
-      <a href="analysis.html" class="moth-card">
+      <a href="analysis.html" class="nav-card">
         <h2>Visual Analysis</h2>
         <p>See visual breakdowns, charts, and film stills that reveal how filmmakers reimagine surveillance spaces.</p>
-        <span class="btn">See Analysis</span>
+        <span class="card-link">See Analysis</span>
       </a>
-      <a href="not-mapped.html" class="moth-card">
+      <a href="not-mapped.html" class="nav-card">
         <h2>What’s Not Mapped</h2>
         <p>Discover moments of refusal, gaps in the archive, and the politics of cinematic omission.</p>
-        <span class="btn">Learn More</span>
+        <span class="card-link">Learn More</span>
       </a>
     </section>
   </main>
@@ -718,6 +677,86 @@ body {
       document.getElementById('scrollTopBtn').style.display = window.scrollY > 200 ? 'block' : 'none';
     });
     document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({top:0,behavior:'smooth'});
+  </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Colorful title
+  const title = document.getElementById('colorful-title');
+  if (title) {
+    const colors = ['#e6a93a', '#288366'];
+    const text = title.textContent;
+    let html = '';
+    let colorIndex = 0;
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      if (char === ' ' || char === '‑' || char === ':' || char === '-') {
+        html += char;
+      } else {
+        html += `<span style="color:${colors[colorIndex % colors.length]}">${char}</span>`;
+        colorIndex++;
+      }
+    }
+    title.innerHTML = html;
+  }
+
+  // Quote carousel with pacing based on quote length
+  const slides = document.querySelectorAll('.quote-slide');
+  const quoteImg = document.getElementById('quote-image');
+  let current = 0;
+  let timer = null;
+
+  // Calculate duration for each quote based on its length
+  function getQuoteDurations() {
+    const base = 4000; // minimum duration
+    const perChar = 45; // ms per character
+    return Array.from(slides).map(slide => {
+      const text = slide.querySelector('.quote-text').innerText;
+      return Math.max(base, text.length * perChar);
+    });
+  }
+  let quoteDurations = getQuoteDurations();
+
+  function showSlide(idx) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === idx);
+    });
+    current = idx;
+    // Set image if available, otherwise keep previous image
+    const imgSrc = slides[idx].getAttribute('data-img');
+    if (imgSrc) {
+      quoteImg.src = imgSrc;
+      quoteImg.style.display = 'block';
+    } else {
+      quoteImg.style.display = 'block';
+    }
+    clearInterval(timer);
+    timer = setInterval(nextSlide, quoteDurations[idx]);
+  }
+
+  function nextSlide() {
+    showSlide((current + 1) % slides.length);
+  }
+  function prevSlide() {
+    showSlide((current - 1 + slides.length) % slides.length);
+  }
+
+  document.getElementById('quote-next').addEventListener('click', nextSlide);
+  document.getElementById('quote-prev').addEventListener('click', prevSlide);
+
+  showSlide(0);
+
+  document.querySelector('.quote-carousel').addEventListener('mouseenter', () => {
+    clearInterval(timer);
+  });
+  document.querySelector('.quote-carousel').addEventListener('mouseleave', () => {
+    timer = setInterval(nextSlide, quoteDurations[current]);
+  });
+
+  // Recalculate durations if quotes change dynamically
+  window.addEventListener('resize', () => {
+    quoteDurations = getQuoteDurations();
+  });
+});
   </script>
   <script>
     // Images matched to each quote's theme/content:
@@ -778,9 +817,6 @@ body {
     document.getElementById('quote-prev').addEventListener('click', () => {
       prevSlide();
     });
-
-    // Initialize first image and quote
-    showSlide(0);
 
     /*
       Simple site-wide search for static pages.
@@ -947,11 +983,11 @@ body {
         .filter(page => page.title.toLowerCase().includes(query) || page.content.toLowerCase().includes(query))
         .map(page => page.title)
         .slice(0, 5);
-      if (suggestions.length) {
-        suggestionsDiv.style.display = 'block';
-        suggestionsDiv.innerHTML = suggestions.map(s => `<div class="suggestion-item" tabindex="0">${s}</div>`).join('');
-      } else {
-        suggestionsDiv.style.display = 'none';
+      }f (suggestions.length) {
+    }); suggestionsDiv.style.display = 'block';
+  </script>gestionsDiv.innerHTML = suggestions.map(s => `<div class="suggestion-item" tabindex="0">${s}</div>`).join('');
+</body> else {
+</html> suggestionsDiv.style.display = 'none';
         suggestionsDiv.innerHTML = '';
       }
     });

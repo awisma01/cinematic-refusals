@@ -212,14 +212,14 @@ body::before {
 }
 .modal-backdrop.open{ display:flex; }
 .modal {
-  max-width:720px; width:100%; border-radius:12px; background: linear-gradient(180deg, rgba(3,31,29,0.98), rgba(3,31,29,0.95));
-  color: var(--text); padding: 20px; box-shadow: var(--shadow); position: relative; transform-origin:center center;
+  max-width:720px; width:100%; border-radius:12px; background: #fff;
+  color: #2c3e50; padding: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.45); position: relative; transform-origin:center center;
 }
 .modal h3{ margin:0 0 .5rem 0; font-size:1.25rem }
 .modal .close {
-  position:absolute; right:12px; top:12px; background:transparent;border:none;color:var(--muted); font-size:1.05rem; cursor:pointer;
+  position:absolute; right:12px; top:12px; background:transparent;border:none;color:#666; font-size:1.5rem; cursor:pointer;
 }
-.modal .modal-body{ max-height:60vh; overflow:auto; padding-top:6px; color: #dff6ef; line-height:1.6 }
+.modal .modal-body{ max-height:60vh; overflow:auto; padding-top:6px; color: #2c3e50; line-height:1.6 }
 
 /* Tooltip (used for small interactive charts) */
 .tooltip {

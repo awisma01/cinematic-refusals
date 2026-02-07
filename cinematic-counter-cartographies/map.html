@@ -5,7 +5,93 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Map & Archive — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.18.0/mapbox-gl.css" rel="stylesheet">
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 56px; bottom: 0; width: 100%; }
+    .search-bar-container {
+      position: absolute;
+      top: 72px; /* Lowered below the navbar */
+      left: 32px; /* Move to left side */
+      transform: none;
+      z-index: 1001;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(40,131,102,0.13);
+      padding: 0.5em 1em;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      width: 320px;
+      max-width: 90vw;
+    }
+    .search-bar-container input[type="text"] {
+      flex: 1;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5em;
+      font-size: 1rem;
+      outline: none;
+      background: #f7f6f2;
+      color: #222;
+    }
+    .search-bar-container button {
+      background: #288366;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5em 1em;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .search-bar-container button:hover {
+      background: #e6a93a;
+      color: #222;
+    }
+    #map-legend {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      background: rgba(255,255,255,0.65); /* More transparent */
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(40,131,102,0.13);
+      padding: 1.1em 1.4em 1.1em 1.2em;
+      font-size: 1.05rem;
+      color: #222;
+      z-index: 1002;
+      min-width: 180px;
+    }
+    #map-legend div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.4em;
+    }
+    #map-legend span {
+      display: inline-block;
+      margin-right: 0.7em;
+    }
+    #map-legend .legend-color {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+    }
+    #map-legend .checkpoint {
+      background: #e6a93a;
+      border: 2px solid #b94e3a;
+    }
+    #map-legend .search-result {
+      background: #288366;
+      border: 2px solid #fff;
+    }
+    #map-legend .buildings {
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(120deg,#e6a93a22 0%,#6fe7c1 100%);
+      border-radius: 4px;
+      border: 1.5px solid #288366;
+    }
+  </style>
 </head>
 <body>
   <nav class="topnav">
@@ -19,138 +105,285 @@
     </div>
   </nav>
 
+  <div class="search-bar-container">
+    <input type="text" id="searchInput" placeholder="Search for a place or location..." autocomplete="off" />
+    <button id="searchBtn">Search</button>
+    <ul id="searchResults" style="position:absolute;top:2.7em;left:0;width:100%;background:#fff;border-radius:0 0 10px 10px;box-shadow:0 2px 8px #0002;list-style:none;margin:0;padding:0;z-index:1002;max-height:220px;overflow-y:auto;display:none;"></ul>
+  </div>
+
   <div id="map" role="region" aria-label="Interactive map of Palestinian checkpoints"></div>
-  <div id="fixedLegend" class="map-legend-fixed" role="group" aria-label="Map legend"></div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-  // sample checkpoints — replace or load your GeoJSON when ready
-  const checkpoints = [
-    { id:'qalandiya', name:'Qalandiya Checkpoint', coords:[31.9540,35.2060], established:1998, films:[{title:'Salt of This Sea',year:2008},{title:'The Present',year:2020}] },
-    { id:'bethlehem', name:'Bethlehem (Rachel) Checkpoint', coords:[31.7043,35.2034], established:2002, films:[{title:'When I Saw You',year:2012}] },
-    { id:'huwwara', name:'Huwwara Checkpoint', coords:[31.8772,35.2691], established:2001, films:[] }
-  ];
-
-  const map = L.map('map',{center:[31.9,35.2],zoom:9,minZoom:6,maxZoom:16});
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}).addTo(map);
-
-  const actualLayer = L.layerGroup().addTo(map);
-  const filmedLayer = L.layerGroup().addTo(map);
-  const actualIndex={}, filmedIndex={};
-
-  const palette = ['#e63946','#f4a261','#ffd166','#06d6a0','#118ab2','#9b5de5','#ff7f50'];
-  const filmTitles=[];
-  checkpoints.forEach(cp=>cp.films.forEach(f=>{ if(!filmTitles.includes(f.title)) filmTitles.push(f.title); }));
-  const filmColor={}; filmTitles.forEach((t,i)=>filmColor[t]=palette[i%palette.length]);
-
-  function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function popupHtml(cp){ const films=cp.films.map(f=>`<li>${escapeHtml(f.title)} (${f.year})</li>`).join(''); return `<strong>${escapeHtml(cp.name)}</strong><ul style="padding-left:1rem;margin:0">${films}</ul>`; }
-
-  function checkpointIconSVG(fill = "#b8b8b8", stroke = "#9a9a9a", size = 32) {
-    return L.divIcon({
-      className: "checkpoint-icon",
-      html: `
-        <svg width="${size}" height="${size}" viewBox="0 0 32 32">
-          <rect x="6" y="16" width="20" height="8" rx="2.5" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
-          <rect x="12" y="10" width="8" height="6" rx="1.5" fill="#e6a93a" stroke="${stroke}" stroke-width="1.5"/>
-          <rect x="15" y="20" width="2" height="6" rx="1" fill="${stroke}"/>
-        </svg>
-      `,
-      iconSize: [size, size],
-      iconAnchor: [size / 2, size / 2],
-      popupAnchor: [0, -size / 2]
-    });
-  }
-
-  checkpoints.forEach(cp => {
-    // Actual checkpoint marker
-    const a = L.marker(cp.coords, {
-      icon: checkpointIconSVG("#b8b8b8", "#9a9a9a", 32)
-    }).bindPopup(popupHtml(cp));
-    actualIndex[cp.id] = a;
-    actualLayer.addLayer(a);
-
-    // Zoom and open popup on click
-    a.on('click', function(e) {
-      map.setView(cp.coords, 14, { animate: true });
-      a.openPopup();
-    });
-
-    // Zoom out to show all markers on double-click
-    a.on('dblclick', function(e) {
-      fitToVisible();
-      map.closePopup();
-    });
-
-    filmedIndex[cp.id] = [];
-    cp.films.forEach((f, idx) => {
-      const color = filmColor[f.title] || palette[idx % palette.length];
-      const fm = L.marker(cp.coords, {
-        icon: checkpointIconSVG(color, "#fff", 22)
-      }).bindTooltip(`${escapeHtml(f.title)} (${f.year})`, { direction: 'top', offset: [0, -8] });
-
-      // Zoom and open popup on click for filmed markers
-      fm.on('click', function(e) {
-        map.setView(cp.coords, 14, { animate: true });
-        fm.openPopup();
-      });
-
-      // Zoom out to show all markers on double-click for filmed markers
-      fm.on('dblclick', function(e) {
-        fitToVisible();
-        map.closePopup();
-      });
-
-      filmedIndex[cp.id].push({ marker: fm, film: f });
-      filmedLayer.addLayer(fm);
-    });
-  });
-
-  // populate legend (fixed) with slider
-  const filmSwatchesHtml = filmTitles.map(t=>`<span title="${t}" style="display:inline-block;margin-right:6px"><span class="swatch" style="background:${filmColor[t]};border:1px solid rgba(0,0,0,0.12)"></span></span>`).join('');
-  const legendHtml = `
-    <div class="legend-row"><strong>Legend</strong><small style="color:var(--muted)">${filmTitles.length} films</small></div>
-    <div style="margin-bottom:8px"><span class="swatch" style="background:#b8b8b8;border:1px solid #9a9a9a"></span> Actual Checkpoints Established</div>
-    <div style="margin-bottom:8px"><div class="film-swatches">${filmSwatchesHtml}</div><div style="margin-top:6px;font-size:0.92rem;opacity:0.95">Checkpoints Captured in Film</div></div>
-    <div style="margin-top:6px">
-      <div style="font-size:.85rem;color:var(--muted);margin-bottom:6px">Show films up to year: <strong id="yearLabel">2025</strong></div>
-      <label class="timeline" for="yearFilter">
-        <input id="yearFilter" type="range" min="2000" max="2025" step="1" value="2025" aria-label="Filter map by year">
-      </label>
+  <div id="map-legend">
+    <div style="font-weight: bold; margin-bottom: 0.5em;">Legend</div>
+    <div style="display: flex; align-items: center; margin-bottom: 0.4em;">
+      <span class="legend-color checkpoint"></span>
+      <span>Checkpoint</span>
     </div>
-  `;
-  document.getElementById('fixedLegend').innerHTML = legendHtml;
+    <div style="display: flex; align-items: center; margin-bottom: 0.4em;">
+      <span class="legend-color search-result"></span>
+      <span>Search Result</span>
+    </div>
+    <div style="display: flex; align-items: center;">
+      <span class="buildings"></span>
+      <span>3D Buildings (zoom in)</span>
+    </div>
+  </div>
 
-  function updateFromYear(y){
-    const yLabel = document.getElementById('yearLabel'); if (yLabel) yLabel.textContent = y;
-    checkpoints.forEach(cp=>{
-      const showActual = typeof cp.established==='number' ? cp.established <= y : true;
-      const a = actualIndex[cp.id];
-      if(showActual){ if(!actualLayer.hasLayer(a)) actualLayer.addLayer(a); } else { if(actualLayer.hasLayer(a)) actualLayer.removeLayer(a); }
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.18.0/mapbox-gl.js"></script>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYXdpc21hMDEiLCJhIjoiY21sYjZudTJkMGs5ZTNkcTY2ZXRnbmt0NiJ9.3XcsI4p3lFOou3ulXWFXXQ';
 
-      filmedIndex[cp.id].forEach(({marker,film})=>{
-        if(film.year <= y){ if(!filmedLayer.hasLayer(marker)) filmedLayer.addLayer(marker); } else { if(filmedLayer.hasLayer(marker)) filmedLayer.removeLayer(marker); }
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/standard-satellite',
+      center: [35.2, 31.9],
+      zoom: 9,
+      pitch: 45,
+      bearing: -17.6,
+      antialias: true
+    });
+
+    map.on('style.load', () => {
+      const layers = map.getStyle().layers;
+      const labelLayerId = layers.find(
+        (layer) => layer.type === 'symbol' && layer.layout['text-field']
+      ).id;
+
+      map.addLayer(
+        {
+          id: 'add-3d-buildings',
+          source: 'composite',
+          'source-layer': 'building',
+          filter: ['==', 'extrude', 'true'],
+          type: 'fill-extrusion',
+          minzoom: 15,
+          paint: {
+            'fill-extrusion-color': '#aaa',
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15, 0,
+              15.05, ['get', 'height']
+            ],
+            'fill-extrusion-base': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15, 0,
+              15.05, ['get', 'min_height']
+            ],
+            'fill-extrusion-opacity': 0.6
+          }
+        },
+        labelLayerId
+      );
+    });
+
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const searchResults = document.getElementById('searchResults');
+
+    let lastResults = [];
+
+    // Helper to extract Arabic name from feature or context
+    function getArabicName(feature) {
+      // Try direct property
+      if (feature.text_ar) return feature.text_ar;
+      // Try context array
+      if (feature.context) {
+        for (const c of feature.context) {
+          if (c.language === "ar" && c.text_ar) return c.text_ar;
+        }
+      }
+      return "";
+    }
+
+    function showResults(features) {
+      searchResults.innerHTML = '';
+      if (features.length === 0) {
+        searchResults.style.display = 'none';
+        return;
+      }
+      features.forEach((f, idx) => {
+        const li = document.createElement('li');
+        li.textContent = f.place_name;
+        li.style.padding = '0.5em 0.7em';
+        li.style.cursor = 'pointer';
+        li.onmouseenter = () => li.style.background = '#e6a93a22';
+        li.onmouseleave = () => li.style.background = '';
+        li.onclick = () => {
+          searchResults.style.display = 'none';
+          searchInput.value = f.place_name;
+          map.flyTo({ center: f.center, zoom: 13 });
+
+          // Get English and Arabic names
+          const english = f.text || "";
+          const arabic = getArabicName(f);
+          let popupContent = `<strong>${english}</strong>`;
+          if (arabic && arabic !== english) {
+            popupContent += `<br><span style="font-size:1.1em;color:#288366;">${arabic}</span>`;
+          }
+          popupContent += `<br>${f.place_name}`;
+
+          new mapboxgl.Marker({ color: "#e6a93a" })
+            .setLngLat(f.center)
+            .setPopup(new mapboxgl.Popup().setHTML(popupContent))
+            .addTo(map)
+            .togglePopup();
+        };
+        searchResults.appendChild(li);
+      });
+      searchResults.style.display = 'block';
+    }
+
+    searchInput.addEventListener('input', function() {
+      const query = searchInput.value.trim();
+      if (!query) {
+        searchResults.style.display = 'none';
+        return;
+      }
+      fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}`)
+        .then(res => res.json())
+        .then(data => {
+          lastResults = data.features || [];
+          showResults(lastResults);
+        });
+    });
+
+    searchBtn.addEventListener('click', function() {
+      if (lastResults.length > 0) {
+        // Use the first result
+        const f = lastResults[0];
+        map.flyTo({ center: f.center, zoom: 13 });
+        new mapboxgl.Marker({ color: "#e6a93a" })
+          .setLngLat(f.center)
+          .setPopup(new mapboxgl.Popup().setHTML(`<strong>${f.text}</strong><br>${f.place_name}`))
+          .addTo(map)
+          .togglePopup();
+        searchResults.style.display = 'none';
+      }
+    });
+
+    // Allow pressing Enter to select the first result
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (lastResults.length > 0) {
+          const f = lastResults[0];
+          map.flyTo({ center: f.center, zoom: 13 });
+          new mapboxgl.Marker({ color: "#e6a93a" })
+            .setLngLat(f.center)
+            .setPopup(new mapboxgl.Popup().setHTML(`<strong>${f.text}</strong><br>${f.place_name}`))
+            .addTo(map)
+            .togglePopup();
+          searchResults.style.display = 'none';
+        }
+      }
+    });
+
+    // Hide results when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.style.display = 'none';
+      }
+    });
+
+    // Example checkpoint data (replace/add more as needed)
+    const checkpoints = [
+      {
+        name: "Qalandiya Checkpoint",
+        arabic: "حاجز قلنديا",
+        coords: [35.2192, 31.8638],
+        description: "Most documented checkpoint in the archive."
+      },
+      {
+        name: "Bethlehem — Rachel Checkpoint",
+        arabic: "حاجز راحيل (بيت لحم)",
+        coords: [35.2043, 31.7031],
+        description: "Featured in Jacir’s Salt of This Sea and other films."
+      },
+      {
+        name: "Huwwara Checkpoint",
+        arabic: "حاجز حوارة",
+        coords: [35.2622, 32.1322],
+        description: "Seen in contemporary footage and some archive material."
+      },
+      {
+        name: "Container Checkpoint (Jerusalem)",
+        arabic: "حاجز الكونتينر (القدس)",
+        coords: [35.2976, 31.6927],
+        description: "Known locally as the Container; appears in archive footage."
+      },
+      {
+        name: "Al-Jalama Checkpoint",
+        arabic: "حاجز الجلمة",
+        coords: [35.2871, 32.5074],
+        description: "Northern checkpoint near Jenin."
+      },
+      {
+        name: "Erez Crossing",
+        arabic: "معبر إيرز",
+        coords: [34.5341, 31.5597],
+        description: "Main crossing between Gaza and Israel."
+      },
+      {
+        name: "Tarqumiya Checkpoint",
+        arabic: "حاجز ترقوميا",
+        coords: [35.0231, 31.5536],
+        description: "West of Hebron, major commercial checkpoint."
+      }
+      // Add more, always with both name and arabic fields
+    ];
+
+    // Convert to GeoJSON
+    const checkpointGeoJSON = {
+      type: "FeatureCollection",
+      features: checkpoints.map(cp => ({
+        type: "Feature",
+        geometry: { type: "Point", coordinates: cp.coords },
+        properties: {
+          title: cp.name,
+          arabic: cp.arabic,
+          description: cp.description
+        }
+      }))
+    };
+
+    map.on('load', () => {
+      // Add checkpoints as a source
+      map.addSource('checkpoints', {
+        type: 'geojson',
+        data: checkpointGeoJSON
+      });
+
+      // Add a layer to visualize the checkpoints
+      map.addLayer({
+        id: 'checkpoints-layer',
+        type: 'circle',
+        source: 'checkpoints',
+        paint: {
+          'circle-radius': 6,
+          'circle-color': '#e6a93a',
+          'circle-opacity': 0.8
+        }
+      });
+
+      // Add click event to display popup with checkpoint info
+      map.on('click', 'checkpoints-layer', (e) => {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const { title, arabic, description } = e.features[0].properties;
+
+        // Zoom into the clicked checkpoint
+        map.flyTo({ center: coordinates, zoom: 14, essential: true });
+
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(
+            `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
+          )
+          .addTo(map);
       });
     });
-    fitToVisible();
-  }
-
-  document.getElementById('yearFilter').addEventListener('input', e=> updateFromYear(Number(e.target.value)));
-  // Change the initial value of the year slider to 2000
-  document.getElementById('yearFilter').value = 2000;
-  updateFromYear(2000);
-
-  function fitToVisible(){
-    const bounds = L.latLngBounds(); let has=false;
-    actualLayer.eachLayer(m=>{ if(map.hasLayer(m)){ bounds.extend(m.getLatLng()); has=true; }});
-    filmedLayer.eachLayer(m=>{ if(map.hasLayer(m)){ bounds.extend(m.getLatLng()); has=true; }});
-    if(has) map.fitBounds(bounds.pad(0.35)); else map.setView([31.9,35.2],9);
-  }
-  setTimeout(fitToVisible,150);
-
   </script>
-
-  <!-- include shared UI script so map page can open popups and show tooltips -->
-  <script src="js/ui.js"></script>
 </body>
 </html>

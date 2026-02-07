@@ -1,8 +1,6 @@
 // Small shared UI: modal, tooltip, and data-popup wiring
 
-// create modal/backdrop once
 (function(){
-  // Create modal/backdrop if not present
   if (document.getElementById('cc-modal-backdrop')) return;
   const body = document.body;
   const backdrop = document.createElement('div');
@@ -25,24 +23,25 @@
     bodyEl.innerHTML = contentHtml || '';
     backdrop.classList.add('open');
     closeBtn.focus();
+    document.body.style.overflow = 'hidden';
   }
   function closeModal(){
     backdrop.classList.remove('open');
     titleEl.textContent = '';
     bodyEl.innerHTML = '';
+    document.body.style.overflow = '';
   }
 
   closeBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', (e)=> { if(e.target === backdrop) closeModal(); });
   document.addEventListener('keydown', (e)=> { if(e.key === 'Escape') closeModal(); });
 
-  // delegate clicks: any element with data-popup opens modal
   document.addEventListener('click', (e)=>{
     const el = e.target.closest('[data-popup]');
     if(!el) return;
     e.preventDefault();
     const title = el.getAttribute('data-popup-title') || el.textContent.trim();
-    const content = el.getAttribute('data-popup') || el.dataset.popupHtml || el.innerHTML || '';
+    const content = el.getAttribute('data-popup') || '';
     openModal(title, content);
   });
 })();
@@ -62,6 +61,24 @@
   position:absolute; right:12px; top:12px; background:transparent;border:none;color:#9fbfb2; font-size:1.05rem; cursor:pointer;
 }
 .modal .modal-body{ max-height:60vh; overflow:auto; padding-top:6px; color: #dff6ef; line-height:1.6 }
+
+/* Add to your style.css or inside a <style> block in analysis.html */
+.film-detail-box {
+  display: none;
+  background: rgba(255,255,255,0.97);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(40,131,102,0.13);
+  padding: 1.2rem 1rem;
+  margin: 1rem 0 0 0;
+  font-size: 1rem;
+  color: #222;
+  z-index: 2001;
+}
+.film-detail-box img {
+  border-radius: 8px;
+  margin-bottom: .5rem;
+  width: 100%;
+}
 
 /* Example nav bar after removing About */
 nav.navbar {
@@ -218,30 +235,37 @@ a.nav-link[href="not-mapped.html"] {
 .mt-auto {
   margin-top: auto !important;
 }
-<button data-popup-title="Test Modal" data-popup="This is a test popup.">Test Modal</button>
+<button class="btn secondary mt-auto"
+        data-popup-title="Salt of This Sea — Analysis"
+        data-popup="<img src='assets/images/salt.jpg' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p><strong>Checkpoints covered:</strong> Qalandiya, Bethlehem.<br><strong>Analysis:</strong> The film documents the experience of crossing these checkpoints, highlighting their impact on daily life and movement.</p>">
+  View Analysis
+</button>
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".checkpoint-card-grid .card .btn.secondary").forEach(function (btn) {
-    btn.addEventListener("click", function () {
+  document.querySelectorAll(".film-card-grid .card .btn.secondary").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
       const card = btn.closest(".card");
-      let detailBox = card.querySelector(".checkpoint-detail-box");
+      let detailBox = card.querySelector(".film-detail-box");
       if (!detailBox) {
         detailBox = document.createElement("div");
-        detailBox.className = "checkpoint-detail-box";
-        detailBox.innerHTML = btn.getAttribute("data-popup") || "<p>More info coming soon.</p>";
+        detailBox.className = "film-detail-box";
+        detailBox.innerHTML = btn.getAttribute("data-popup") || "<p>Analysis coming soon.</p>";
         card.appendChild(detailBox);
       }
       detailBox.style.display = "block";
     });
   });
-  // Optional: close popup when clicking outside
+
+  // Hide popup when clicking outside
   document.addEventListener("click", function (e) {
-    document.querySelectorAll(".checkpoint-detail-box").forEach(function (box) {
-      if (!box.contains(e.target) && !box.previousElementSibling.contains(e.target)) {
+    document.querySelectorAll(".film-detail-box").forEach(function (box) {
+      if (!box.contains(e.target)) {
         box.style.display = "none";
       }
     });
   });
 });
+<script src="js/ui.js"></script>
 
 
 
