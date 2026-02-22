@@ -383,6 +383,25 @@
           )
           .addTo(map);
       });
+
+      // Add custom MapWarper raster overlay
+      map.addSource('palestine-historical-overlay', {
+        type: 'raster',
+        tiles: [
+          'https://mapwarper.net/maps/tile/40217/{z}/{x}/{y}.png'
+        ],
+        tileSize: 256,
+        attribution: 'Historical map overlay from mapwarper.net'
+      });
+
+      map.addLayer({
+        id: 'palestine-historical-overlay-layer',
+        type: 'raster',
+        source: 'palestine-historical-overlay',
+        paint: {
+          'raster-opacity': 0.45
+        }
+      }, 'checkpoints-layer'); // Place below checkpoint markers
     });
   </script>
 </body>
