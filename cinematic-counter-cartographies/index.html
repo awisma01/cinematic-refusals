@@ -685,24 +685,12 @@
   </script>
   <script>
 document.addEventListener('DOMContentLoaded', function () {
-  // Colorful title with new colors
+  // Make the title all one color (remove colorizing)
   const title = document.getElementById('colorful-title');
   if (title) {
-    // Try a sunrise palette: gold, deep green, warm orange, teal
-    const colors = ['#f7b731', '#218c5a', '#ff7f50', '#3ec6e0'];
-    const text = title.textContent;
-    let html = '';
-    let colorIndex = 0;
-    for (let i = 0; i < text.length; i++) {
-      const char = text[i];
-      if (char === ' ' || char === '‑' || char === ':' || char === '-') {
-        html += char;
-      } else {
-        html += `<span style="color:${colors[colorIndex % colors.length]}">${char}</span>`;
-        colorIndex++;
-      }
-    }
-    title.innerHTML = html;
+    title.innerHTML = "Cinematic Counter‑Cartographies";
+    // Optionally, set a single color here:
+    // title.style.color = "#218c5a"; // Example: deep green
   }
 
   // Quote carousel with pacing based on quote length
@@ -711,10 +699,9 @@ document.addEventListener('DOMContentLoaded', function () {
   let current = 0;
   let timer = null;
 
-  // Calculate duration for each quote based on its length
   function getQuoteDurations() {
-    const base = 4000; // minimum duration
-    const perChar = 45; // ms per character
+    const base = 4000;
+    const perChar = 45;
     return Array.from(slides).map(slide => {
       const text = slide.querySelector('.quote-text').innerText;
       return Math.max(base, text.length * perChar);
@@ -727,7 +714,6 @@ document.addEventListener('DOMContentLoaded', function () {
       slide.classList.toggle('active', i === idx);
     });
     current = idx;
-    // Set image if available, otherwise keep previous image
     const imgSrc = slides[idx].getAttribute('data-img');
     if (imgSrc) {
       quoteImg.src = imgSrc;
@@ -758,7 +744,6 @@ document.addEventListener('DOMContentLoaded', function () {
     timer = setInterval(nextSlide, quoteDurations[current]);
   });
 
-  // Recalculate durations if quotes change dynamically
   window.addEventListener('resize', () => {
     quoteDurations = getQuoteDurations();
   });
