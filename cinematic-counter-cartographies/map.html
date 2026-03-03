@@ -234,7 +234,45 @@
       // --- Add checkpoint markers ---
       checkpointGeoJSON.features.forEach(feature => {
         const { title, arabic, description } = feature.properties;
-        const marker = new mapboxgl.Marker({ color: "#e6a93a" })
+
+        // Create a custom icon element
+        const el = document.createElement('div');
+        el.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6a7.png')"; // construction barrier emoji as example
+        el.style.width = '34px';
+        el.style.height = '34px';
+        el.style.backgroundSize = 'contain';
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.borderRadius = '50%';
+        el.style.boxShadow = '0 2px 8px #0002';
+
+        new mapboxgl.Marker({ element: el })
+          .setLngLat(feature.geometry.coordinates)
+          .setPopup(
+            new mapboxgl.Popup({ offset: 18 })
+              .setHTML(
+                `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
+              )
+          )
+          .addTo(map);
+      });
+
+      // Add custom icon markers for each checkpoint
+      checkpointGeoJSON.features.forEach(feature => {
+        const { title, arabic, description } = feature.properties;
+
+        // Create a custom icon element
+        const el = document.createElement('div');
+        el.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6a7.png')";
+        el.style.width = '34px';
+        el.style.height = '34px';
+        el.style.backgroundSize = 'contain';
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.borderRadius = '50%';
+        el.style.boxShadow = '0 2px 8px #0002';
+        el.style.border = '2px solid #e6a93a';
+        el.style.backgroundColor = '#fff';
+
+        new mapboxgl.Marker({ element: el })
           .setLngLat(feature.geometry.coordinates)
           .setPopup(
             new mapboxgl.Popup({ offset: 18 })
@@ -516,10 +554,23 @@
         }
       }, 'checkpoints-layer'); // Place below checkpoint markers
 
-      // Add visible Mapbox GL JS markers for each checkpoint
+      // --- Add custom icon markers for each checkpoint ---
       checkpointGeoJSON.features.forEach(feature => {
         const { title, arabic, description } = feature.properties;
-        new mapboxgl.Marker({ color: "#e6a93a" })
+
+        // Create a custom icon element
+        const el = document.createElement('div');
+        el.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6a7.png')";
+        el.style.width = '34px';
+        el.style.height = '34px';
+        el.style.backgroundSize = 'contain';
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.borderRadius = '50%';
+        el.style.boxShadow = '0 2px 8px #0002';
+        el.style.border = '2px solid #e6a93a';
+        el.style.backgroundColor = '#fff';
+
+        new mapboxgl.Marker({ element: el })
           .setLngLat(feature.geometry.coordinates)
           .setPopup(
             new mapboxgl.Popup({ offset: 18 })

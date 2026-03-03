@@ -130,9 +130,11 @@
     .checkpoint-card-grid .card img {
       width: 100%;
       height: 180px;
-      object-fit: cover;
+      object-fit: contain; /* changed from cover to contain */
+      object-position: center;
       border-radius: 18px 18px 0 0;
       background: var(--muted);
+      background-color: #fff; /* ensures a white background behind images */
     }
     .checkpoint-card-grid .card h5 {
       margin: 0 0 0.5rem 0;
@@ -330,7 +332,7 @@
         <!-- Qalandiya -->
         <div class="card">
           <img
-            src="assets/images/qalandiya.jpg"
+            src="assets/images/qcheck.webp"
             alt="Qalandiya checkpoint"
             onerror="this.onerror=null;this.src='https://picsum.photos/seed/qalandiya/900/600';"
           >
@@ -354,7 +356,7 @@
         <!-- Bethlehem (Rachel) -->
         <div class="card">
           <img
-            src="assets/images/bethlehem.jpg"
+            src="assets/images/bcheck.webp"
             alt="Rachel (Bethlehem) checkpoint"
             onerror="this.onerror=null;this.src='https://picsum.photos/seed/bethlehem/900/600';"
           >
@@ -378,7 +380,7 @@
         <!-- Huwwara -->
         <div class="card">
           <img
-            src="assets/images/huwwara.jpg"
+            src="assets/images/hucheck.jpg"
             alt="Huwwara checkpoint"
             onerror="this.onerror=null;this.src='https://picsum.photos/seed/huwwara/900/600';"
           >

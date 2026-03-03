@@ -132,9 +132,11 @@
     .film-card-grid .card img {
       width: 100%;
       height: 180px;
-      object-fit: cover;
+      object-fit: contain; /* changed from cover to contain */
+      object-position: center;
       border-radius: 18px 18px 0 0;
       background: var(--muted);
+      background-color: #fff; /* ensures a white background behind images */
     }
     .film-card-grid .card .badge {
       margin-bottom: .7rem;
@@ -290,20 +292,13 @@
   </nav>
 
   <main>
-    <!-- Dynamic, interactive, left-aligned visual analysis box -->
-    <div class="analysis-intro-card-new">
-      <div class="intro-content-new">
-        <div class="icon-bounce">
-          <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-            <circle cx="19" cy="19" r="19" fill="#288366" opacity="0.13"/>
-            <path d="M12 28V10l16 9-16 9z" fill="#288366"/>
-          </svg>
-        </div>
-        <div>
-          <h1 class="page-title-new">Visual Analysis</h1>
-          <p class="lead-new">Charts, frames, and visual breakdowns of filmed checkpoints.</p>
-        </div>
-      </div>
+    <!-- Increase the space below the nav bar before the page info section -->
+    <div style="height: 3.5rem;"></div>
+    <div style="max-width:700px;margin:0 auto 2.2rem auto;padding:0 1.2rem 0.3rem 1.2rem;">
+      <h1 style="font-size:2.1rem;font-weight:800;color:#288366;margin:0 0 0.3rem 0;letter-spacing:0.01em;">Visual Analysis</h1>
+      <p style="font-size:1.13rem;color:#222;margin:0;font-weight:500;letter-spacing:0.01em;">
+        Explore visual and spatial readings of key films, mapped through checkpoints and other sites of refusal.
+      </p>
     </div>
     <div class="film-card-row-outer">
       <div class="film-card-grid">
@@ -370,76 +365,81 @@
             </button>
           </div>
         </div>
-        <!-- Blank Film Card 5 -->
+        <!-- Film Card 5: The Teacher -->
         <div class="card">
-          <img src="https://picsum.photos/seed/blank5/400/600" alt="Movie poster placeholder">
+          <img src="assets/images/teacher.jpeg" alt="The Teacher poster"
+               onerror="this.onerror=null;this.src='https://picsum.photos/seed/teacher/400/600';">
           <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Movie Title</h5>
-            <p><strong>Director:</strong> </p>
-            <p><strong>Year:</strong> </p>
-            <span class="badge">Coverage: </span>
+            <h5>The Teacher</h5>
+            <p><strong>Director:</strong> Farah Nablusi</p>
+            <p><strong>Year:</strong> 2023</p>
+            <span class="badge">Coverage: Will add soon</span>
             <button class="btn secondary mt-auto"
-                    data-popup-title="Movie Title — Analysis"
+                    data-popup-title="The Teacher — Analysis"
                     data-popup="<p>Will add soon.</p>">
               View Analysis
             </button>
           </div>
         </div>
-        <!-- Blank Film Card 6 -->
+        <!-- Film Card 6: Wajib -->
         <div class="card">
-          <img src="https://picsum.photos/seed/blank6/400/600" alt="Movie poster placeholder">
+          <img src="assets/images/wajib.jpg" alt="Wajib poster"
+               onerror="this.onerror=null;this.src='https://picsum.photos/seed/wajib/400/600';">
           <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Movie Title</h5>
-            <p><strong>Director:</strong> </p>
-            <p><strong>Year:</strong> </p>
-            <span class="badge">Coverage: </span>
+            <h5>Wajib</h5>
+            <p><strong>Director:</strong> Mai Masri</p>
+            <p><strong>Year:</strong> 2017</p>
+            <span class="badge">Coverage: Will add soon</span>
             <button class="btn secondary mt-auto"
-                    data-popup-title="Movie Title — Analysis"
+                    data-popup-title="Wajib — Analysis"
                     data-popup="<p>Will add soon.</p>">
               View Analysis
             </button>
           </div>
         </div>
-        <!-- Blank Film Card 7 -->
+        <!-- Film Card 7: May in the Summer -->
         <div class="card">
-          <img src="https://picsum.photos/seed/blank7/400/600" alt="Movie poster placeholder">
+          <img src="assets/images/may.jpg" alt="May in the Summer poster"
+               onerror="this.onerror=null;this.src='https://picsum.photos/seed/mayinthesummer/400/600';">
           <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Movie Title</h5>
-            <p><strong>Director:</strong> </p>
-            <p><strong>Year:</strong> </p>
-            <span class="badge">Coverage: </span>
+            <h5>May in the Summer</h5>
+            <p><strong>Director:</strong> Annemarie Jacir</p>
+            <p><strong>Year:</strong> 2013</p>
+            <span class="badge">Coverage: Will add soon</span>
             <button class="btn secondary mt-auto"
-                    data-popup-title="Movie Title — Analysis"
+                    data-popup-title="May in the Summer — Analysis"
                     data-popup="<p>Will add soon.</p>">
               View Analysis
             </button>
           </div>
         </div>
-        <!-- Blank Film Card 8 -->
+        <!-- Film Card 8: All That's Left of You -->
         <div class="card">
-          <img src="https://picsum.photos/seed/blank8/400/600" alt="Movie poster placeholder">
+          <img src="assets/images/left.jpeg" alt="All That's Left of You poster"
+               onerror="this.onerror=null;this.src='https://picsum.photos/seed/allthatsleftofyou/400/600';">
           <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Movie Title</h5>
-            <p><strong>Director:</strong> </p>
-            <p><strong>Year:</strong> </p>
-            <span class="badge">Coverage: </span>
+            <h5>All That's Left of You</h5>
+            <p><strong>Director:</strong> Cherien Dabis</p>
+            <p><strong>Year:</strong> 2025</p>
+            <span class="badge">Coverage: Will add soon</span>
             <button class="btn secondary mt-auto"
-                    data-popup-title="Movie Title — Analysis"
+                    data-popup-title="All That's Left of You — Analysis"
                     data-popup="<p>Will add soon.</p>">
               View Analysis
             </button>
           </div>
         </div>
-        <!-- Blank Film Card 9 -->
+        <!-- Film Card 9: Pomegranates and Myrrh -->
         <div class="card">
-          <img src="https://picsum.photos/seed/blank9/400/600" alt="Movie poster placeholder">
+          <img src="assets/images/pom.jpg" alt="Pomegranates and Myrrh poster"
+               onerror="this.onerror=null;this.src='https://picsum.photos/seed/pomegranatesandmyrrh/400/600';">
           <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Movie Title</h5>
-            <p><strong>Director:</strong> </p>
-            <p><strong>Year:</strong> </p>
-            <span class="badge">Coverage: </span>
+            <h5>Pomegranates and Myrrh</h5>
+            <p><strong>Director:</strong> Najwa Najjar</p>
+            <p><strong>Year:</strong> 2008</p>
+            <span class="badge">Coverage: Will add soon</span>
             <button class="btn secondary mt-auto"
-                    data-popup-title="Movie Title — Analysis"
+                    data-popup-title="Pomegranates and Myrrh — Analysis"
                     data-popup="<p>Will add soon.</p>">
               View Analysis
             </button>
