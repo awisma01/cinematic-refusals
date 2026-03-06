@@ -430,6 +430,12 @@ body {
   margin-right: auto;
 }
 
+/* Make mapbox popups (details box) scrollable if content is long */
+.mapboxgl-popup-content {
+  max-height: 340px;
+  overflow-y: auto;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .checkpoint-card-grid {
