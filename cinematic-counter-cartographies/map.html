@@ -8,7 +8,7 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.18.0/mapbox-gl.css" rel="stylesheet">
   <style>
     body { margin: 0; padding: 0; }
-    #map { position: absolute; top: 56px; bottom: 0; width: 100%; }
+    #map { position: absolute; top: 56px; bottom: 0; width: 100%; z-index: 1000; }
     .search-bar-container {
       position: absolute;
       top: 72px; /* Lowered below the navbar */
@@ -232,35 +232,11 @@
       );
 
       // --- Add checkpoint markers ---
+      const markerPopups = [];
       checkpointGeoJSON.features.forEach(feature => {
         const { title, arabic, description } = feature.properties;
 
-        // Create a custom icon element
-        const el = document.createElement('div');
-        el.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6a7.png')"; // construction barrier emoji as example
-        el.style.width = '34px';
-        el.style.height = '34px';
-        el.style.backgroundSize = 'contain';
-        el.style.backgroundRepeat = 'no-repeat';
-        el.style.borderRadius = '50%';
-        el.style.boxShadow = '0 2px 8px #0002';
-
-        new mapboxgl.Marker({ element: el })
-          .setLngLat(feature.geometry.coordinates)
-          .setPopup(
-            new mapboxgl.Popup({ offset: 18 })
-              .setHTML(
-                `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
-              )
-          )
-          .addTo(map);
-      });
-
-      // Add custom icon markers for each checkpoint
-      checkpointGeoJSON.features.forEach(feature => {
-        const { title, arabic, description } = feature.properties;
-
-        // Create a custom icon element
+        // Use a checkpoint icon (construction barrier emoji)
         const el = document.createElement('div');
         el.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6a7.png')";
         el.style.width = '34px';
@@ -270,17 +246,47 @@
         el.style.borderRadius = '50%';
         el.style.boxShadow = '0 2px 8px #0002';
         el.style.border = '2px solid #e6a93a';
-        el.style.backgroundColor = '#fff';
+        el.style.backgroundColor = "#fff";
 
-        new mapboxgl.Marker({ element: el })
+        // Create the marker
+        const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(feature.geometry.coordinates)
-          .setPopup(
-            new mapboxgl.Popup({ offset: 18 })
-              .setHTML(
-                `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
-              )
-          )
           .addTo(map);
+
+        // Create the popup
+        const popup = new mapboxgl.Popup({ offset: 18 })
+          .setLngLat(feature.geometry.coordinates)
+          .setHTML(
+            `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
+          );
+
+        markerPopups.push({ marker, popup, el });
+
+        // Toggle popup on click (without removing marker)
+        let isOpen = false;
+        el.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (isOpen) {
+            popup.remove();
+            isOpen = false;
+          } else {
+            // Close all other popups
+            markerPopups.forEach(mp => { mp.popup.remove(); mp.isOpen = false; });
+            popup.addTo(map);
+            isOpen = true;
+          }
+        });
+
+        // Optional: close popup when clicking elsewhere on the map
+        map.on('click', function() {
+          popup.remove();
+          isOpen = false;
+        });
+      });
+
+      // Close popups when clicking elsewhere on the map
+      map.on('click', function() {
+        markerPopups.forEach(mp => mp.popup.remove());
       });
     });
 
@@ -466,12 +472,6 @@
         `
       },
       {
-        name: "Container Checkpoint (Jerusalem)",
-        arabic: "حاجز الكونتينر (القدس)",
-        coords: [35.2976, 31.6927],
-        description: "Known locally as the Container; appears in archive footage."
-      },
-      {
         name: "Al-Jalama Checkpoint",
         arabic: "حاجز الجلمة",
         coords: [35.2871, 32.5074],
@@ -481,7 +481,13 @@
         name: "Erez Crossing",
         arabic: "معبر إيرز",
         coords: [34.5341, 31.5597],
-        description: "Main crossing between Gaza and Israel."
+        description: `
+          <strong>District:</strong> North Gaza<br>
+          <strong>Checkpoint Type:</strong> Last Checkpoint before Israel<br>
+          <strong>Staffing:</strong> Permanently staffed<br>
+          <strong>Details:</strong> Served as a crossing point for people between the Gaza Strip and Israel and, via Israel, to the West Bank. The crossing was closed for travel on October 7, 2023, and has occasionally served for the transfer of aid since May 2024.<br>
+          <span style='font-size:0.92em;color:#666;'><em>Source: “Erez”</em></span>
+        `
       },
       {
         name: "Tarqumiya Checkpoint",
@@ -502,6 +508,18 @@
           Until the war, this terminal was staffed 24/7 and Palestinian residents of the West Bank with Israeli entry permits were allowed through. The crossing was shut down on 7 October and remained closed until the end of November. It reopened in December, operating from 6:00 A.M. to 8:00 A.M. every morning, with hours extended until 10:00 A.M. since mid-January.<br>
           <span style='font-size:0.92em;color:#666;'><em>Source: “Checkpoint 300”</em></span>
         `
+      },
+      {
+        name: "Container Checkpoint (Wadi a-Nar)",
+        arabic: "حاجز الكونتينر (وادي النار)",
+        coords: [35.2976, 31.6927],
+        description: `
+          <strong>District:</strong> Bethlehem<br>
+          <strong>Checkpoint Type:</strong> Internal Checkpoint<br>
+          <strong>Staffing:</strong> Permanently staffed<br>
+          <strong>Details:</strong> Situated east of Abu Dis. Controls Palestinian travel between the northern and southern West Bank. Includes traffic lanes, access roads, road spikes, traffic lights, and road signs. Until the war, the checkpoint was open 24 hours a day, with random checks. Since October 7, inspections at the checkpoint have been strict. It is now open 24 hours a day for entering Bethlehem, most hours except from 6:00 A.M. to 9:00 A.M. for exiting.<br>
+          <span style='font-size:0.92em;color:#666;'><em>Source: “Container/Wadi a-Nar”</em></span>
+        `
       }
       // Add more, always with both name and arabic fields
     ];
@@ -521,40 +539,6 @@
     };
 
     map.on('load', () => {
-      // Add checkpoints as a source
-      map.addSource('checkpoints', {
-        type: 'geojson',
-        data: checkpointGeoJSON
-      });
-
-      // Add a layer to visualize the checkpoints
-      map.addLayer({
-        id: 'checkpoints-layer',
-        type: 'circle',
-        source: 'checkpoints',
-        paint: {
-          'circle-radius': 6,
-          'circle-color': '#e6a93a',
-          'circle-opacity': 0.8
-        }
-      });
-
-      // Add click event to display popup with checkpoint info
-      map.on('click', 'checkpoints-layer', (e) => {
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const { title, arabic, description } = e.features[0].properties;
-
-        // Zoom into the clicked checkpoint
-        map.flyTo({ center: coordinates, zoom: 14, essential: true });
-
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(
-            `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
-          )
-          .addTo(map);
-      });
-
       // Add custom MapWarper raster overlay
       map.addSource('palestine-historical-overlay', {
         type: 'raster',
@@ -574,11 +558,11 @@
         }
       }, 'checkpoints-layer'); // Place below checkpoint markers
 
-      // --- Add custom icon markers for each checkpoint ---
+      const markerPopups = [];
       checkpointGeoJSON.features.forEach(feature => {
         const { title, arabic, description } = feature.properties;
 
-        // Create a custom icon element
+        // Use a checkpoint icon (construction barrier emoji)
         const el = document.createElement('div');
         el.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6a7.png')";
         el.style.width = '34px';
@@ -588,17 +572,42 @@
         el.style.borderRadius = '50%';
         el.style.boxShadow = '0 2px 8px #0002';
         el.style.border = '2px solid #e6a93a';
-        el.style.backgroundColor = '#fff';
+        el.style.backgroundColor = "#fff";
 
-        new mapboxgl.Marker({ element: el })
+        // Create the marker
+        const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(feature.geometry.coordinates)
-          .setPopup(
-            new mapboxgl.Popup({ offset: 18 })
-              .setHTML(
-                `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
-              )
-          )
           .addTo(map);
+
+        // Create the popup
+        const popup = new mapboxgl.Popup({ offset: 18 })
+          .setLngLat(feature.geometry.coordinates)
+          .setHTML(
+            `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
+          );
+
+        markerPopups.push({ marker, popup, el });
+
+        // Toggle popup on click (without removing marker)
+        let isOpen = false;
+        el.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (isOpen) {
+            popup.remove();
+            isOpen = false;
+          } else {
+            // Close all other popups
+            markerPopups.forEach(mp => { mp.popup.remove(); mp.isOpen = false; });
+            popup.addTo(map);
+            isOpen = true;
+          }
+        });
+
+        // Optional: close popup when clicking elsewhere on the map
+        map.on('click', function() {
+          popup.remove();
+          isOpen = false;
+        });
       });
     });
   </script>
