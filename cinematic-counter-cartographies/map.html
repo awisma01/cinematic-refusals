@@ -108,7 +108,7 @@
   <div class="search-bar-container">
     <input type="text" id="searchInput" placeholder="Search for a place or location..." autocomplete="off" />
     <button id="searchBtn">Search</button>
-    <ul id="searchResults" style="position:absolute;top:2.7em;left:0;width:100%;background:#fff;border-radius:0 0 10px 10px;box-shadow:0 2px 8px #0002;list-style:none;margin:0;padding:0;z-index:1002;max-height:220px;overflow-y:auto;display:none;"></ul>
+    <ul id="searchResults" style="position:absolute;top:2.7em;left:0;width:100%;background:#fff;border-radius:0;box-shadow:none;list-style:none;margin:0;padding:0;z-index:1002;max-height:220px;overflow-y:auto;display:none;"></ul>
   </div>
 
   <div id="map" role="region" aria-label="Interactive map of Palestinian checkpoints"></div>
@@ -236,24 +236,20 @@
       checkpointGeoJSON.features.forEach(feature => {
         const { title, arabic, description } = feature.properties;
 
-        // Use a checkpoint icon (construction barrier emoji)
+        // Use an orange circle for the icon
         const el = document.createElement('div');
-        el.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6a7.png')";
-        el.style.width = '34px';
-        el.style.height = '34px';
-        el.style.backgroundSize = 'contain';
-        el.style.backgroundRepeat = 'no-repeat';
+        el.style.width = '38px';
+        el.style.height = '38px';
+        el.style.backgroundColor = '#e6a93a';
+        el.style.border = '2px solid #b94e3a';
         el.style.borderRadius = '50%';
         el.style.boxShadow = '0 2px 8px #0002';
-        el.style.border = '2px solid #e6a93a';
-        el.style.backgroundColor = "#fff";
+        el.style.cursor = 'pointer';
 
-        // Create the marker
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(feature.geometry.coordinates)
           .addTo(map);
 
-        // Create the popup
         const popup = new mapboxgl.Popup({ offset: 18 })
           .setLngLat(feature.geometry.coordinates)
           .setHTML(
@@ -262,7 +258,6 @@
 
         markerPopups.push({ marker, popup, el });
 
-        // Toggle popup on click (without removing marker)
         let isOpen = false;
         el.addEventListener('click', function(e) {
           e.stopPropagation();
@@ -270,23 +265,19 @@
             popup.remove();
             isOpen = false;
           } else {
-            // Close all other popups
-            markerPopups.forEach(mp => { mp.popup.remove(); mp.isOpen = false; });
+            markerPopups.forEach(mp => mp.popup.remove());
             popup.addTo(map);
             isOpen = true;
           }
         });
-
-        // Optional: close popup when clicking elsewhere on the map
-        map.on('click', function() {
-          popup.remove();
-          isOpen = false;
-        });
       });
 
-      // Close popups when clicking elsewhere on the map
+      // Close all popups when clicking elsewhere on the map
       map.on('click', function() {
         markerPopups.forEach(mp => mp.popup.remove());
+        if (window.searchMarker && window.searchMarker.getPopup()) {
+          window.searchMarker.getPopup().remove();
+        }
       });
     });
 
@@ -309,307 +300,319 @@
       return "";
     }
 
-    // Helper: search checkpoints by name or arabic
+    // Helper: search checkpoints with Arabic fallback
     function searchCheckpoints(query) {
-      const q = query.trim().toLowerCase();
-      return checkpointGeoJSON.features.filter(f =>
-        f.properties.title.toLowerCase().includes(q) ||
-        (f.properties.arabic && f.properties.arabic.toLowerCase().includes(q))
-      ).map(f => ({
-        type: 'checkpoint',
-        feature: f
-      }));
+      const lowerQuery = query.toLowerCase().trim();
+      return checkpointGeoJSON.features.filter(feature => {
+        const { title, arabic } = feature.properties;
+        return (
+          title.toLowerCase().includes(lowerQuery) ||
+          arabic.toLowerCase().includes(lowerQuery)
+        );
+      });
     }
 
-    // --- Modify showResults to handle both geocoder and checkpoint results ---
-    function showResults(features) {
-      searchResults.innerHTML = '';
-      if (features.length === 0) {
-        searchResults.style.display = 'none';
+    // Function to search global places using Mapbox Geocoding API
+    function searchGlobalPlaces(query, callback) {
+      fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}&language=en,ar`)
+        .then(response => response.json())
+        .then(data => {
+          callback(data.features);
+        });
+    }
+
+    // --- Unified function to show search results ---
+    function showSearchResults(results, isCheckpoint) {
+      searchResults.innerHTML = "";
+      if (results.length === 0) {
+        searchResults.style.display = "none";
         return;
       }
-      features.forEach((f, idx) => {
+
+      results.forEach(result => {
         const li = document.createElement('li');
-        if (f.type === 'checkpoint') {
-          // Checkpoint result
-          li.textContent = `${f.feature.properties.title} (${f.feature.properties.arabic})`;
-          li.style.color = '#e6a93a';
-          li.onclick = () => {
-            searchResults.style.display = 'none';
-            searchInput.value = f.feature.properties.title;
-            map.flyTo({ center: f.feature.geometry.coordinates, zoom: 14 });
-            new mapboxgl.Popup()
-              .setLngLat(f.feature.geometry.coordinates)
-              .setHTML(
-                `<strong>${f.feature.properties.title}</strong><br><span style="font-size:1.1em;color:#288366;">${f.feature.properties.arabic}</span><br>${f.feature.properties.description}`
-              )
-              .addTo(map);
-          };
+        li.style.padding = "0.5em 1em";
+        li.style.cursor = "pointer";
+        li.style.borderBottom = "1px solid #eee";
+        if (isCheckpoint) {
+          li.textContent = `${result.properties.title} (${result.properties.arabic})`;
         } else {
-          // Geocoder result
-          li.textContent = f.place_name;
-          li.onclick = () => {
-            searchResults.style.display = 'none';
-            searchInput.value = f.place_name;
-            map.flyTo({ center: f.center, zoom: 13 });
-            const english = f.text || "";
-            const arabic = getArabicName(f);
-            let popupContent = `<strong>${english}</strong>`;
-            if (arabic && arabic !== english) {
-              popupContent += `<br><span style="font-size:1.1em;color:#288366;">${arabic}</span>`;
-            }
-            popupContent += `<br>${f.place_name}`;
-            new mapboxgl.Marker({ color: "#e6a93a" })
-              .setLngLat(f.center)
-              .setPopup(new mapboxgl.Popup().setHTML(popupContent))
-              .addTo(map)
-              .togglePopup();
-          };
+          li.textContent = result.place_name;
         }
-        li.style.padding = '0.5em 0.7em';
-        li.style.cursor = 'pointer';
-        li.onmouseenter = () => li.style.background = '#e6a93a22';
-        li.onmouseleave = () => li.style.background = '';
+        li.addEventListener('click', () => {
+          let coordinates;
+          let popupHTML;
+          if (isCheckpoint) {
+            coordinates = result.geometry.coordinates;
+            popupHTML = `<strong>${result.properties.title}</strong><br><span style="font-size:1.1em;color:#288366;">${result.properties.arabic}</span><br>${result.properties.description}`;
+          } else {
+            coordinates = result.geometry.coordinates;
+            popupHTML = `<strong>${result.text}</strong><br>${result.place_name}`;
+          }
+
+          map.flyTo({ center: coordinates, zoom: 15, essential: true });
+
+          // Remove any existing search marker
+          if (window.searchMarker) {
+            window.searchMarker.remove();
+            window.searchMarker = null;
+          }
+
+          // Create marker for the search result
+          const searchEl = document.createElement('div');
+          searchEl.style.width = '38px';
+          searchEl.style.height = '38px';
+          searchEl.style.backgroundColor = isCheckpoint ? '#e6a93a' : '#288366';
+          searchEl.style.border = '2px solid #b94e3a';
+          searchEl.style.borderRadius = '50%';
+          searchEl.style.boxShadow = '0 2px 8px #0002';
+          searchEl.style.cursor = 'pointer';
+
+          const searchPopup = new mapboxgl.Popup({ offset: 18 })
+            .setLngLat(coordinates)
+            .setHTML(popupHTML);
+
+          window.searchMarker = new mapboxgl.Marker({ element: searchEl })
+            .setLngLat(coordinates)
+            .setPopup(searchPopup)
+            .addTo(map);
+
+          markerPopups.forEach(mp => mp.popup.remove());
+
+          searchResults.style.display = "none";
+        });
         searchResults.appendChild(li);
       });
-      searchResults.style.display = 'block';
+
+      searchResults.style.display = "block";
     }
 
-    searchInput.addEventListener('input', function() {
-      const query = searchInput.value.trim();
-      if (!query) {
-        searchResults.style.display = 'none';
+    // --- Combined function to show checkpoint and global search results ---
+    function showCombinedSearchResults(checkpointResults, globalResults) {
+      searchResults.innerHTML = "";
+      if (checkpointResults.length === 0 && globalResults.length === 0) {
+        searchResults.style.display = "none";
         return;
       }
-      // Search both geocoder and checkpoints
-      fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}`)
-        .then(res => res.json())
-        .then(data => {
-          // Combine checkpoint results and geocoder results
-          const checkpointResults = searchCheckpoints(query);
-          lastResults = [...checkpointResults, ...(data.features || [])];
-          showResults(lastResults);
-        });
-    });
 
-    searchInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && lastResults.length > 0) {
-        const f = lastResults[0];
-        if (f.type === 'checkpoint') {
-          map.flyTo({ center: f.feature.geometry.coordinates, zoom: 14 });
-          new mapboxgl.Popup()
-            .setLngLat(f.feature.geometry.coordinates)
-            .setHTML(
-              `<strong>${f.feature.properties.title}</strong><br><span style="font-size:1.1em;color:#288366;">${f.feature.properties.arabic}</span><br>${f.feature.properties.description}`
-            )
-            .addTo(map);
-        } else {
-          map.flyTo({ center: f.center, zoom: 13 });
-          new mapboxgl.Marker({ color: "#e6a93a" })
-            .setLngLat(f.center)
-            .setPopup(new mapboxgl.Popup().setHTML(`<strong>${f.text}</strong><br>${f.place_name}`))
-            .addTo(map)
-            .togglePopup();
-        }
-        searchResults.style.display = 'none';
-      }
-    });
+      // Show checkpoint results first
+      checkpointResults.forEach(result => {
+        const li = document.createElement('li');
+        li.style.padding = "0.5em 1em";
+        li.style.cursor = "pointer";
+        li.style.borderBottom = "1px solid #eee";
+        li.textContent = `${result.properties.title} (${result.properties.arabic})`;
+        li.style.background = "#fffbe6";
+        li.addEventListener('click', () => {
+          const coordinates = result.geometry.coordinates;
+          const popupHTML = `<strong>${result.properties.title}</strong><br><span style="font-size:1.1em;color:#288366;">${result.properties.arabic}</span><br>${result.properties.description}`;
 
-    searchBtn.addEventListener('click', function() {
-      if (lastResults.length > 0) {
-        const f = lastResults[0];
-        if (f.type === 'checkpoint') {
-          map.flyTo({ center: f.feature.geometry.coordinates, zoom: 14 });
-          new mapboxgl.Popup()
-            .setLngLat(f.feature.geometry.coordinates)
-            .setHTML(
-              `<strong>${f.feature.properties.title}</strong><br><span style="font-size:1.1em;color:#288366;">${f.feature.properties.arabic}</span><br>${f.feature.properties.description}`
-            )
-            .addTo(map);
-        } else {
-          map.flyTo({ center: f.center, zoom: 13 });
-          new mapboxgl.Marker({ color: "#e6a93a" })
-            .setLngLat(f.center)
-            .setPopup(new mapboxgl.Popup().setHTML(`<strong>${f.text}</strong><br>${f.place_name}`))
-            .addTo(map)
-            .togglePopup();
-        }
-        searchResults.style.display = 'none';
-      }
-    });
+          map.flyTo({ center: coordinates, zoom: 15, essential: true });
 
-    // Hide results when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-        searchResults.style.display = 'none';
-      }
-    });
-
-    // Example checkpoint data (replace/add more as needed)
-    const checkpoints = [
-      {
-        name: "Qalandiya Checkpoint",
-        arabic: "حاجز قلنديا",
-        coords: [35.2192, 31.8633], // Update if you have a more precise location
-        description: `
-          <strong>District:</strong> Ramallah and al-Bira<br>
-          <strong>Checkpoint Type:</strong> Last Checkpoint before Israel<br>
-          <strong>Staffing:</strong> Permanently staffed<br>
-          <strong>Details:</strong> Qalandiya Checkpoint also operated 24 hours a day until the war, allowing travel for Palestinian residents of East Jerusalem and West Bank residents with permits to enter Israel. It closed to Palestinian travel on 7 October 2023 and reopened for East Jerusalem residents only on 23 October 2023, Sunday through Thursday from 5:00 A.M. to 5:00 P.M. On 7 February 2024, the checkpoint was reopened for travel by Palestinian residents of the West Bank with permit to enter Israel, during the same limited operating hours. The crossing remains closed on Fridays.<br>
-          <span style='font-size:0.92em;color:#666;'><em>Source: “Qalandia”</em></span>
-        `
-      },
-      {
-        name: "Huwwara Checkpoint",
-        arabic: "حاجز حوارة",
-        coords: [35.2726, 32.1762],
-        description: `
-          <strong>District:</strong> Nablus<br>
-          <strong>Checkpoint Type:</strong> Internal Checkpoint<br>
-          <strong>Staffing:</strong> Intermittently staffed<br>
-          <strong>Details:</strong> Located at the southern entrance to Nablus. Includes a watchtower that is occasionally staffed by the military, and separate lanes for pedestrians and vehicles. The checkpoint is open and only rarely staffed, without a set schedule. After 7 Oct. 2023: The military has completely closed Huwarah checkpoint to Palestinian pedestrians and vehicles.<br>
-          <span style='font-size:0.92em;color:#666;'><em>Source: “Huwarah”</em></span>
-        `
-      },
-      {
-        name: "Al-Jalama Checkpoint",
-        arabic: "حاجز الجلمة",
-        coords: [35.2871, 32.5074],
-        description: "Northern checkpoint near Jenin."
-      },
-      {
-        name: "Erez Crossing",
-        arabic: "معبر إيرز",
-        coords: [34.5341, 31.5597],
-        description: `
-          <strong>District:</strong> North Gaza<br>
-          <strong>Checkpoint Type:</strong> Last Checkpoint before Israel<br>
-          <strong>Staffing:</strong> Permanently staffed<br>
-          <strong>Details:</strong> Served as a crossing point for people between the Gaza Strip and Israel and, via Israel, to the West Bank. The crossing was closed for travel on October 7, 2023, and has occasionally served for the transfer of aid since May 2024.<br>
-          <span style='font-size:0.92em;color:#666;'><em>Source: “Erez”</em></span>
-        `
-      },
-      {
-        name: "Tarqumiya Checkpoint",
-        arabic: "حاجز ترقوميا",
-        coords: [35.0231, 31.5536],
-        description: "West of Hebron, major commercial checkpoint."
-      },
-      {
-        name: "Checkpoint 300 — Bethlehem Checkpoint",
-        arabic: "حاجز ٣٠٠ (بيت لحم)",
-        coords: [35.2035, 31.7234],
-        description: `
-          <strong>District:</strong> Bethlehem<br>
-          <strong>Checkpoint Type:</strong> Last Checkpoint before Israel<br>
-          <strong>Staffing:</strong> Permanently staffed<br>
-          <strong>Details:</strong> The only Israeli checkpoint granting access to the areas Israel claims sovereignty over for Palestinians holding Palestinian Authority (PA) ID cards and coming from the southern West Bank. It is comprised of a large metal gate controlling vehicular traffic through the Separation Wall and a series of narrow metal tunnels and turnstiles where Palestinians must scan their bags, present a valid permit to enter, and submit biometric evidence of their identity. The checkpoint—also called the Bethlehem checkpoint by Palestinians—is often very crowded, a source of delays and humiliation, especially for Palestinian workers trying to commute in the earliest hours of the morning.<br>
-          <br>
-          Until the war, this terminal was staffed 24/7 and Palestinian residents of the West Bank with Israeli entry permits were allowed through. The crossing was shut down on 7 October and remained closed until the end of November. It reopened in December, operating from 6:00 A.M. to 8:00 A.M. every morning, with hours extended until 10:00 A.M. since mid-January.<br>
-          <span style='font-size:0.92em;color:#666;'><em>Source: “Checkpoint 300”</em></span>
-        `
-      },
-      {
-        name: "Container Checkpoint (Wadi a-Nar)",
-        arabic: "حاجز الكونتينر (وادي النار)",
-        coords: [35.2976, 31.6927],
-        description: `
-          <strong>District:</strong> Bethlehem<br>
-          <strong>Checkpoint Type:</strong> Internal Checkpoint<br>
-          <strong>Staffing:</strong> Permanently staffed<br>
-          <strong>Details:</strong> Situated east of Abu Dis. Controls Palestinian travel between the northern and southern West Bank. Includes traffic lanes, access roads, road spikes, traffic lights, and road signs. Until the war, the checkpoint was open 24 hours a day, with random checks. Since October 7, inspections at the checkpoint have been strict. It is now open 24 hours a day for entering Bethlehem, most hours except from 6:00 A.M. to 9:00 A.M. for exiting.<br>
-          <span style='font-size:0.92em;color:#666;'><em>Source: “Container/Wadi a-Nar”</em></span>
-        `
-      }
-      // Add more, always with both name and arabic fields
-    ];
-
-    // Convert to GeoJSON
-    const checkpointGeoJSON = {
-      type: "FeatureCollection",
-      features: checkpoints.map(cp => ({
-        type: "Feature",
-        geometry: { type: "Point", coordinates: cp.coords },
-        properties: {
-          title: cp.name,
-          arabic: cp.arabic,
-          description: cp.description
-        }
-      }))
-    };
-
-    map.on('load', () => {
-      // Add custom MapWarper raster overlay
-      map.addSource('palestine-historical-overlay', {
-        type: 'raster',
-        tiles: [
-          'https://mapwarper.net/maps/tile/40217/{z}/{x}/{y}.png'
-        ],
-        tileSize: 256,
-        attribution: 'Historical map overlay from mapwarper.net'
-      });
-
-      map.addLayer({
-        id: 'palestine-historical-overlay-layer',
-        type: 'raster',
-        source: 'palestine-historical-overlay',
-        paint: {
-          'raster-opacity': 0.45
-        }
-      }, 'checkpoints-layer'); // Place below checkpoint markers
-
-      const markerPopups = [];
-      checkpointGeoJSON.features.forEach(feature => {
-        const { title, arabic, description } = feature.properties;
-
-        // Use a checkpoint icon (construction barrier emoji)
-        const el = document.createElement('div');
-        el.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6a7.png')";
-        el.style.width = '34px';
-        el.style.height = '34px';
-        el.style.backgroundSize = 'contain';
-        el.style.backgroundRepeat = 'no-repeat';
-        el.style.borderRadius = '50%';
-        el.style.boxShadow = '0 2px 8px #0002';
-        el.style.border = '2px solid #e6a93a';
-        el.style.backgroundColor = "#fff";
-
-        // Create the marker
-        const marker = new mapboxgl.Marker({ element: el })
-          .setLngLat(feature.geometry.coordinates)
-          .addTo(map);
-
-        // Create the popup
-        const popup = new mapboxgl.Popup({ offset: 18 })
-          .setLngLat(feature.geometry.coordinates)
-          .setHTML(
-            `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
-          );
-
-        markerPopups.push({ marker, popup, el });
-
-        // Toggle popup on click (without removing marker)
-        let isOpen = false;
-        el.addEventListener('click', function(e) {
-          e.stopPropagation();
-          if (isOpen) {
-            popup.remove();
-            isOpen = false;
-          } else {
-            // Close all other popups
-            markerPopups.forEach(mp => { mp.popup.remove(); mp.isOpen = false; });
-            popup.addTo(map);
-            isOpen = true;
+          if (window.searchMarker) {
+            window.searchMarker.remove();
+            window.searchMarker = null;
           }
-        });
 
-        // Optional: close popup when clicking elsewhere on the map
-        map.on('click', function() {
-          popup.remove();
-          isOpen = false;
+          const searchEl = document.createElement('div');
+          searchEl.style.width = '38px';
+          searchEl.style.height = '38px';
+          searchEl.style.backgroundColor = '#e6a93a';
+          searchEl.style.border = '2px solid #b94e3a';
+          searchEl.style.borderRadius = '50%';
+          searchEl.style.boxShadow = '0 2px 8px #0002';
+          searchEl.style.cursor = 'pointer';
+
+          const searchPopup = new mapboxgl.Popup({ offset: 18 })
+            .setLngLat(coordinates)
+            .setHTML(popupHTML);
+
+          window.searchMarker = new mapboxgl.Marker({ element: searchEl })
+            .setLngLat(coordinates)
+            .setPopup(searchPopup)
+            .addTo(map);
+
+          markerPopups.forEach(mp => mp.popup.remove());
+
+          searchResults.style.display = "none";
         });
+        searchResults.appendChild(li);
+      });
+
+      // Divider if both types exist
+      if (checkpointResults.length > 0 && globalResults.length > 0) {
+        const divider = document.createElement('li');
+        divider.style.padding = "0.3em 1em";
+        divider.style.fontSize = "0.95em";
+        divider.style.color = "#888";
+        divider.style.background = "#f7f6f2";
+        divider.textContent = "Other places";
+        divider.style.borderBottom = "1px solid #eee";
+        searchResults.appendChild(divider);
+      }
+
+      // Show global place results
+      globalResults.forEach(result => {
+        const li = document.createElement('li');
+        li.style.padding = "0.5em 1em";
+        li.style.cursor = "pointer";
+        li.style.borderBottom = "1px solid #eee";
+        li.textContent = result.place_name;
+        li.style.background = "#f7f6f2";
+        li.addEventListener('click', () => {
+          const coordinates = result.geometry.coordinates;
+          const popupHTML = `<strong>${result.text}</strong><br>${result.place_name}`;
+
+          map.flyTo({ center: coordinates, zoom: 15, essential: true });
+
+          if (window.searchMarker) {
+            window.searchMarker.remove();
+            window.searchMarker = null;
+          }
+
+          const searchEl = document.createElement('div');
+          searchEl.style.width = '38px';
+          searchEl.style.height = '38px';
+          searchEl.style.backgroundColor = '#288366';
+          searchEl.style.border = '2px solid #fff';
+          searchEl.style.borderRadius = '50%';
+          searchEl.style.boxShadow = '0 2px 8px #0002';
+          searchEl.style.cursor = 'pointer';
+
+          const searchPopup = new mapboxgl.Popup({ offset: 18 })
+            .setLngLat(coordinates)
+            .setHTML(popupHTML);
+
+          window.searchMarker = new mapboxgl.Marker({ element: searchEl })
+            .setLngLat(coordinates)
+            .setPopup(searchPopup)
+            .addTo(map);
+
+          markerPopups.forEach(mp => mp.popup.remove());
+
+          searchResults.style.display = "none";
+        });
+        searchResults.appendChild(li);
+      });
+
+      searchResults.style.display = "block";
+    }
+
+    // Event: search button click
+    searchBtn.addEventListener('click', () => {
+      const query = searchInput.value;
+      if (!query) return;
+
+      // Search checkpoints first
+      const checkpointResults = searchCheckpoints(query);
+
+      // Always search globally as well
+      searchGlobalPlaces(query, globalResults => {
+        showCombinedSearchResults(checkpointResults, globalResults);
       });
     });
+
+    // Event: search input keyup (for instant search)
+    searchInput.addEventListener('keyup', () => {
+      const query = searchInput.value;
+      if (!query) {
+        searchResults.style.display = "none";
+        return;
+      }
+
+      const checkpointResults = searchCheckpoints(query);
+
+      searchGlobalPlaces(query, globalResults => {
+        showCombinedSearchResults(checkpointResults, globalResults);
+      });
+    });
+
+    // Close search results when clicking outside
+    map.on('click', () => {
+      searchResults.style.display = "none";
+    });
+  </script>
+
+  <!-- Sample GeoJSON for checkpoints (replace with real data) -->
+  <script>
+    const checkpointGeoJSON = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [35.2192, 31.8633]
+          },
+          "properties": {
+            "title": "Qalandiya Checkpoint",
+            "arabic": "حاجز قلنديا",
+            "description": `
+              <strong>District:</strong> Ramallah and al-Bira<br>
+              <strong>Checkpoint Type:</strong> Last Checkpoint before Israel<br>
+              <strong>Staffing:</strong> Permanently staffed<br>
+              <strong>Details:</strong> Qalandiya Checkpoint also operated 24 hours a day until the war, allowing travel for Palestinian residents of East Jerusalem and West Bank residents with permits to enter Israel. It closed to Palestinian travel on 7 October 2023 and reopened for East Jerusalem residents only on 23 October 2023, Sunday through Thursday from 5:00 A.M. to 5:00 P.M. On 7 February 2024, the checkpoint was reopened for travel by Palestinian residents of the West Bank with permit to enter Israel, during the same limited operating hours. The crossing remains closed on Fridays.<br>
+              <span style='font-size:0.92em;color:#666;'><em>Source: “Qalandia”</em></span>
+            `
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [35.2035, 31.7234]
+          },
+          "properties": {
+            "title": "Checkpoint 300 — Bethlehem Checkpoint",
+            "arabic": "حاجز ٣٠٠ (بيت لحم)",
+            "description": `
+              <strong>District:</strong> Bethlehem<br>
+              <strong>Checkpoint Type:</strong> Entry/Exit to Israel<br>
+              <strong>Staffing:</strong> Permanently staffed<br>
+              <strong>Details:</strong> Checkpoint 300, also known as the Bethlehem Checkpoint, is located on the border between Bethlehem and Jerusalem. It is one of the main entry and exit points for Palestinians traveling to and from Israel. The checkpoint has been a site of significant tension and protest, especially during periods of heightened conflict. It features a turnstile system and has been known for its long waiting times.<br>
+              <span style='font-size:0.92em;color:#666;'><em>Source: “Checkpoint 300”</em></span>
+            `
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [35.2726, 32.1762]
+          },
+          "properties": {
+            "title": "Huwwara Checkpoint",
+            "arabic": "حاجز حوارة",
+            "description": `
+              <strong>District:</strong> Nablus<br>
+              <strong>Checkpoint Type:</strong> Internal Checkpoint<br>
+              <strong>Staffing:</strong> Intermittently staffed<br>
+              <strong>Details:</strong> Located at the southern entrance to Nablus. Includes a watchtower that is occasionally staffed by the military, and separate lanes for pedestrians and vehicles. The checkpoint is open and only rarely staffed, without a set schedule. After 7 Oct. 2023: The military has completely closed Huwarah checkpoint to Palestinian pedestrians and vehicles.<br>
+              <span style='font-size:0.92em;color:#666;'><em>Source: “Huwarah”</em></span>
+            `
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [35.2976, 31.6927]
+          },
+          "properties": {
+            "title": "Container Checkpoint (Wadi a-Nar)",
+            "arabic": "حاجز الكونتينر (وادي النار)",
+            "description": `
+              <strong>District:</strong> Bethlehem<br>
+              <strong>Checkpoint Type:</strong> Internal Checkpoint<br>
+              <strong>Staffing:</strong> Permanently staffed<br>
+              <strong>Details:</strong> Situated east of Abu Dis. Controls Palestinian travel between the northern and southern West Bank. Includes traffic lanes, access roads, road spikes, traffic lights, and road signs. Until the war, the checkpoint was open 24 hours a day, with random checks. Since October 7, inspections at the checkpoint have been strict. It is now open 24 hours a day for entering Bethlehem, most hours except from 6:00 A.M. to 9:00 A.M. for exiting.<br>
+              <span style='font-size:0.92em;color:#666;'><em>Source: “Container/Wadi a-Nar”</em></span>
+            `
+          }
+        }
+        // Add more features as needed
+      ]
+    };
   </script>
 </body>
 </html>
