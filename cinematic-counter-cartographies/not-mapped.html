@@ -52,9 +52,22 @@
   <div class="container mt-5 pt-5">
     <main class="content container card">
       <h1 class="page-title">What's Not Mapped</h1>
-      <p class="lead">WILL ADD LATER.</p>
+      <p class="lead">Surveillance Space</p>
+      <p>Architectural (cells, cameras, corridors, waiting rooms</p>
+      <p>Digital (databases, permits, biometrics IDs</p>
+      <p>Temporal (waiting rooms, delays, uncertainty, anticipatory punishment)</p>
 
-      <p><button class="btn" data-popup-title="Suggest an area" data-popup="<form id='suggestForm'><label>Name or location:<br><input name='area' style='width:100%;padding:.5rem;margin-top:.3rem;border-radius:6px;border:none'></label><p style='margin-top:.5rem'><button type='submit' class='btn'>Send</button></p></form>">Suggest an area</button></p>
+      <!-- Open info area styled like the homepage questions box -->
+      <div class="not-mapped-info my-4">
+        <h2 class="h5 mb-3" style="color:#288366;">Suggest an Area Not Mapped</h2>
+        <ul class="not-mapped-list">
+          <!-- Example placeholder items; you can add/remove as needed -->
+          <li>Architectural (cells, cameras, corridors, waiting rooms)</li>
+          <li>Digital (databases, permits, biometrics IDs)</li>
+          <li>Temporal (waiting rooms, delays, uncertainty, anticipatory punishment)</li>
+        </ul>
+        <!-- Optional: Add a form or info below if you want -->
+      </div>
     </main>
   </div>
 
@@ -72,5 +85,54 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/ui.js"></script>
+
+  <style>
+    .not-mapped-info {
+      max-width: 900px;
+      margin: 0 auto 2rem auto;
+      padding: 2.5rem 2rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(247,243,233,0.95) 100%);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      border-left: 5px solid #e6a93a;
+    }
+    .not-mapped-info h2 {
+      font-family: 'Georgia', serif;
+      font-size: 1.4rem;
+      color: #288366;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+    .not-mapped-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .not-mapped-list li {
+      font-size: 1.15rem;
+      color: #288366;
+      padding: 1rem 1rem 1rem 3rem;
+      margin-bottom: 1rem;
+      background: rgba(255,255,255,0.92);
+      border-radius: 10px;
+      position: relative;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(40, 131, 102, 0.07);
+      transition: all 0.3s ease;
+    }
+    .not-mapped-list li:hover {
+      background: rgba(230, 169, 58, 0.13);
+      transform: translateX(8px);
+      box-shadow: 0 4px 15px rgba(40, 131, 102, 0.15);
+    }
+    .not-mapped-list li::before {
+      content: '→';
+      position: absolute;
+      left: 1rem;
+      color: #288366;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+  </style>
 </body>
 </html>

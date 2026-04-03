@@ -343,17 +343,19 @@
 
     .question-list li {
       font-size: 1.15rem;
-      color: #2a2a2a;
+      color: var(--forest); /* Changed from #2a2a2a to --forest for green accent */
       padding: 1rem 1rem 1rem 3rem;
       margin-bottom: 1rem;
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.85); /* Increased opacity for better contrast */
       border-radius: 10px;
       position: relative;
       transition: all 0.3s ease;
+      font-weight: 600; /* Make questions bolder for readability */
+      box-shadow: 0 2px 8px rgba(40, 131, 102, 0.07); /* subtle green shadow */
     }
 
     .question-list li:hover {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(230, 169, 58, 0.13); /* subtle gold highlight on hover */
       transform: translateX(8px);
       box-shadow: 0 4px 15px rgba(40, 131, 102, 0.15);
     }
@@ -362,7 +364,7 @@
       content: '→';
       position: absolute;
       left: 1rem;
-      color: var(--gold);
+      color: var(--forest); /* Use green for the arrow */
       font-weight: bold;
       font-size: 1.3rem;
     }
@@ -635,6 +637,12 @@
         <h3>About This Project</h3>
         <p>This research explores how Palestinian women filmmakers such as Mai Masri, Annemarie Jacir, and Farah Nablusi create counter-cartographies through their cinematic treatment of Israeli checkpoints.</p>
         <p>I analyze three to five significant checkpoints and how they appear in films released from 2000 to 2025, highlighting how these same spaces are cinematically reimagined and captured over time. Each checkpoint exists as a case study in cinematic resistance.</p>
+         <p>While checkpoints are the most visible sites of colonial control they are only one expression of a much broader surveillance
+          environment that governs Palestinian movement, intimacy, and futurity.
+         </p>
+        <p>How is Palestinian life rendered legible, trackable, and controllable across space and time often before
+          and beyond any phsical encounter?</p>
+        </p>
         
         <ul class="question-list">
           <li>How do camera angles refuse the surveillance gaze?</li>
