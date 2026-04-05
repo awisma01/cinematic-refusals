@@ -144,107 +144,33 @@
     });
 
     map.on('load', () => {
-      // --- Curved West Bank boundary GeoJSON (simplified for demo) ---
-      const westBankBoundary = {
-        "type": "Feature",
-        "geometry": {
-          "type": "Polygon",
-          "coordinates": [[
-            [35.5469, 32.5022], [35.4895, 32.4646], [35.4376, 32.4207], [35.3936, 32.3821],
-            [35.3537, 32.3448], [35.3122, 32.3087], [35.2731, 32.2734], [35.2347, 32.2382],
-            [35.1963, 32.2030], [35.1580, 32.1678], [35.1196, 32.1326], [35.0812, 32.0974],
-            [35.0428, 32.0622], [35.0044, 32.0270], [34.9660, 31.9918], [34.9276, 31.9566],
-            [34.9226, 31.9000], [34.9500, 31.8000], [35.0000, 31.7000], [35.1000, 31.6000],
-            [35.2000, 31.5500], [35.3000, 31.5300], [35.4000, 31.5400], [35.5000, 31.6000],
-            [35.5500, 31.7000], [35.5700, 31.8000], [35.5739, 31.9000], [35.5739, 32.0000],
-            [35.5739, 32.1000], [35.5739, 32.2000], [35.5739, 32.3000], [35.5739, 32.4000],
-            [35.5739, 32.5022], [35.5469, 32.5022]
-          ]]
-        }
-      };
-
-      // Add the West Bank boundary as a source
-      map.addSource('westbank-boundary', {
-        type: 'geojson',
-        data: westBankBoundary
-      });
-
-      // Add a glow (wide, semi-transparent) under the main outline
-      map.addLayer({
-        id: 'westbank-outline-glow',
-        type: 'line',
-        source: 'westbank-boundary',
-        layout: {},
-        paint: {
-          'line-color': '#fff',
-          'line-width': 10,
-          'line-opacity': 0.5,
-          'line-blur': 2
-        }
-      });
-
-      // Add a sharp, bold main outline
-      map.addLayer({
-        id: 'westbank-outline',
-        type: 'line',
-        source: 'westbank-boundary',
-        layout: {},
-        paint: {
-          'line-color': '#ff0033',
-          'line-width': 4,
-          'line-opacity': 1
-        }
-      });
-
-      const layers = map.getStyle().layers;
-      const labelLayerId = layers.find(
-        (layer) => layer.type === 'symbol' && layer.layout['text-field']
-      ).id;
-
-      map.addLayer(
-        {
-          id: 'add-3d-buildings',
-          source: 'composite',
-          'source-layer': 'building',
-          filter: ['==', 'extrude', 'true'],
-          type: 'fill-extrusion',
-          minzoom: 15,
-          paint: {
-            'fill-extrusion-color': '#aaa',
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              15, 0,
-              15.05, ['get', 'height']
-            ],
-            'fill-extrusion-base': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              15, 0,
-              15.05, ['get', 'min_height']
-            ],
-            'fill-extrusion-opacity': 0.6
-          }
-        },
-        labelLayerId
-      );
-
       // --- Add checkpoint markers ---
       const markerPopups = [];
       checkpointGeoJSON.features.forEach(feature => {
         const { title, arabic, description } = feature.properties;
 
-        // Use an orange circle for the icon
+        // Use an orange watchtower SVG icon for the marker
         const el = document.createElement('div');
         el.style.width = '38px';
         el.style.height = '38px';
-        el.style.backgroundColor = '#e6a93a';
-        el.style.border = '2px solid #b94e3a';
-        el.style.borderRadius = '50%';
-        el.style.boxShadow = '0 2px 8px #0002';
         el.style.cursor = 'pointer';
+        el.innerHTML = `
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Tower base -->
+            <rect x="15" y="18" width="8" height="12" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
+            <!-- Tower top (cab) -->
+            <rect x="13" y="13" width="12" height="6" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
+            <!-- Windows -->
+            <rect x="16.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
+            <rect x="19.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
+            <rect x="22.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
+            <!-- Tower legs -->
+            <rect x="16" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
+            <rect x="20" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
+            <!-- Optional: ground shadow -->
+            <ellipse cx="19" cy="36" rx="7" ry="2" fill="#e6a93a33"/>
+          </svg>
+        `;
 
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(feature.geometry.coordinates)

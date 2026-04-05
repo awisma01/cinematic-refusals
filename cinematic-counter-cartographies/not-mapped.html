@@ -50,23 +50,19 @@
   </nav>
 
   <div class="container mt-5 pt-5">
-    <main class="content container card">
+    <main class="content container">
       <h1 class="page-title">What's Not Mapped</h1>
-      <p class="lead">Surveillance Space</p>
-      <p>Architectural (cells, cameras, corridors, waiting rooms</p>
-      <p>Digital (databases, permits, biometrics IDs</p>
-      <p>Temporal (waiting rooms, delays, uncertainty, anticipatory punishment)</p>
-
-      <!-- Open info area styled like the homepage questions box -->
-      <div class="not-mapped-info my-4">
-        <h2 class="h5 mb-3" style="color:#288366;">Suggest an Area Not Mapped</h2>
-        <ul class="not-mapped-list">
-          <!-- Example placeholder items; you can add/remove as needed -->
-          <li>Architectural (cells, cameras, corridors, waiting rooms)</li>
-          <li>Digital (databases, permits, biometrics IDs)</li>
-          <li>Temporal (waiting rooms, delays, uncertainty, anticipatory punishment)</li>
-        </ul>
-        <!-- Optional: Add a form or info below if you want -->
+      <div class="not-mapped-sections my-5">
+        <div class="not-mapped-category">
+          <h2>Surveillance Space</h2>
+          <ul>
+            <li><strong>Architectural:</strong> cells, cameras, corridors, waiting rooms</li>
+            <li><strong>Digital:</strong> databases, permits, biometrics IDs</li>
+            <li><strong>Temporal:</strong> waiting rooms, delays, uncertainty, anticipatory punishment</li>
+            <li><strong>Intimate/Domestic:</strong> homes, hospitals, family life</li>
+            <li><strong>Cinematic:</strong> how the camera reproduces and/or resists surveillance logic</li>
+          </ul>
+        </div>
       </div>
     </main>
   </div>
@@ -87,51 +83,63 @@
   <script src="js/ui.js"></script>
 
   <style>
-    .not-mapped-info {
-      max-width: 900px;
+    .not-mapped-sections {
+      max-width: 1100px;
       margin: 0 auto 2rem auto;
-      padding: 2.5rem 2rem;
-      background: linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(247,243,233,0.95) 100%);
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      padding: 2.5rem 2rem 2rem 2rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(247,243,233,0.98) 100%);
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
       border-left: 5px solid #e6a93a;
     }
-    .not-mapped-info h2 {
-      font-family: 'Georgia', serif;
-      font-size: 1.4rem;
+    .not-mapped-category h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
       color: #288366;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       font-weight: 700;
+      letter-spacing: 0.01em;
     }
-    .not-mapped-list {
+    .not-mapped-category ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-    .not-mapped-list li {
-      font-size: 1.15rem;
+    .not-mapped-category li {
+      font-size: 1.18rem;
       color: #288366;
-      padding: 1rem 1rem 1rem 3rem;
+      padding: 1rem 1rem 1rem 2.5rem;
       margin-bottom: 1rem;
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.97);
       border-radius: 10px;
       position: relative;
-      font-weight: 600;
-      box-shadow: 0 2px 8px rgba(40, 131, 102, 0.07);
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(40, 131, 102, 0.06);
       transition: all 0.3s ease;
     }
-    .not-mapped-list li:hover {
-      background: rgba(230, 169, 58, 0.13);
-      transform: translateX(8px);
-      box-shadow: 0 4px 15px rgba(40, 131, 102, 0.15);
+    .not-mapped-category li strong {
+      color: #b94e3a;
+      font-weight: 700;
     }
-    .not-mapped-list li::before {
+    .not-mapped-category li::before {
       content: '→';
       position: absolute;
       left: 1rem;
       color: #288366;
       font-weight: bold;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
+    }
+    @media (max-width: 700px) {
+      .not-mapped-sections {
+        padding: 1.2rem 0.5rem;
+      }
+      .not-mapped-category li {
+        font-size: 1rem;
+        padding-left: 2rem;
+      }
     }
   </style>
 </body>
