@@ -222,57 +222,110 @@
     /* MODAL */
     .modal-backdrop {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.8);
       display: none; z-index: 2000;
       align-items: center; justify-content: center;
-      padding: 1rem;
-      backdrop-filter: blur(6px);
+      padding: 1.5rem;
+      backdrop-filter: blur(8px);
     }
     .modal-backdrop.open { display: flex; }
     .modal {
-      max-width: 500px; width: 92%;
-      background: #0f2d28;
-      border: 1px solid rgba(111,231,193,0.15);
-      border-left: 3px solid var(--gold);
-      border-radius: 14px;
-      color: #e8f5f0;
-      max-height: 80vh;
+      max-width: 560px; width: 95%;
+      background: #ffffff;
+      border: none;
+      border-left: 5px solid var(--gold);
+      border-radius: 16px;
+      color: #1a1a1a;
+      max-height: 82vh;
       overflow: hidden;
       display: flex; flex-direction: column;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
       animation: modalPopIn 0.3s cubic-bezier(.42,1.7,.62,1.01);
     }
     @keyframes modalPopIn {
-      from { opacity: 0; transform: scale(0.88) translateY(30px); }
+      from { opacity: 0; transform: scale(0.9) translateY(24px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
     .modal-header {
-      padding: 1.5rem 1.5rem 1rem;
-      border-bottom: 1px solid rgba(111,231,193,0.1);
+      padding: 1.5rem 1.6rem 1.2rem;
+      border-bottom: 2px solid #f0ece0;
       display: flex; justify-content: space-between; align-items: flex-start;
+      background: #faf8f2;
     }
     .modal h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem; color: var(--teal);
+      font-size: 1.55rem; color: #0a2321;
       margin: 0; font-weight: 700;
+      line-height: 1.3;
     }
     .modal .close {
-      background: none; border: none;
-      color: rgba(232,245,240,0.4);
-      font-size: 1.5rem; cursor: pointer;
-      transition: color 0.2s; line-height: 1;
-      flex-shrink: 0; margin-left: 1rem;
+      background: #f0ece0;
+      border: none;
+      color: #555;
+      font-size: 1.2rem; cursor: pointer;
+      transition: all 0.2s; line-height: 1;
+      flex-shrink: 0; margin-left: 1.2rem;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
     }
-    .modal .close:hover { color: var(--gold); }
+    .modal .close:hover {
+      background: var(--gold);
+      color: #fff;
+    }
     .modal-body {
-      padding: 1.5rem;
+      padding: 1.8rem;
       overflow-y: auto;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem; line-height: 1.8;
-      color: rgba(232,245,240,0.78);
+      font-size: 1.18rem;
+      line-height: 1.95;
+      color: #222222;
+      scrollbar-width: thin;
+      scrollbar-color: #d4c9a0 transparent;
     }
-    .modal-body strong { color: var(--teal); }
-    .modal-body ul { padding-left: 1.2rem; }
-    .modal-body li { margin-bottom: 0.3rem; }
+    .modal-body::-webkit-scrollbar { width: 4px; }
+    .modal-body::-webkit-scrollbar-track { background: transparent; }
+    .modal-body::-webkit-scrollbar-thumb { background: #d4c9a0; border-radius: 2px; }
+    .modal-body p { margin: 0 0 1rem; }
+    .modal-body p:last-child { margin-bottom: 0; }
+    .modal-body strong {
+      color: var(--forest);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .modal-body ul {
+      padding-left: 1.3rem;
+      margin: 0.4rem 0 1rem;
+    }
+    .modal-body li {
+      margin-bottom: 0.4rem;
+      color: #333;
+    }
+    .modal-body hr {
+      border: none;
+      border-top: 1px solid #e8e2d0;
+      margin: 1.2rem 0;
+    }
+    /* Coming soon placeholder style */
+    .modal-body .coming-soon {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.2rem 1.4rem;
+      background: #fdf8ec;
+      border: 1px solid #e6c97a;
+      border-radius: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: #8a6a1a;
+    }
 
     /* FOOTER */
     .footer {
@@ -313,7 +366,6 @@
       <a href="checkpoints.html">Checkpoints</a>
       <a href="analysis.html" class="active">Visual Analysis</a>
       <a href="surveillance-space.html">Surveillance Space</a>
-      
     </div>
   </nav>
 
@@ -325,6 +377,7 @@
       <p class="page-lead">Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.</p>
     </section>
 
+    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.25);margin:0 0 0.5rem;position:relative;z-index:1;">Single click to filter · Double click any pill to reset</p>
     <nav class="filter-bar" aria-label="Filter films">
       <button class="filter-pill active">All Films</button>
       <button class="filter-pill">Annemarie Jacir</button>
@@ -345,7 +398,7 @@
             <p class="film-card-coverage">Coverage: 2 of 4 checkpoints</p>
             <button class="film-card-btn"
               data-popup-title="Salt of This Sea — Analysis"
-              data-popup="<p>Will add soon.</p>">View Analysis</button>
+              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
@@ -358,7 +411,7 @@
             <p class="film-card-coverage">Coverage: 3 of 4 checkpoints</p>
             <button class="film-card-btn"
               data-popup-title="The Present — Analysis"
-              data-popup="<p>Will add soon.</p>">View Analysis</button>
+              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
@@ -371,7 +424,7 @@
             <p class="film-card-coverage">Coverage: 1 of 4 checkpoints</p>
             <button class="film-card-btn"
               data-popup-title="When I Saw You — Analysis"
-              data-popup="<p>Will add soon.</p>">View Analysis</button>
+              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
@@ -384,7 +437,7 @@
             <p class="film-card-coverage">Coverage: Prison, checkpoints</p>
             <button class="film-card-btn"
               data-popup-title="3000 Nights — Analysis"
-              data-popup="<p>Will add soon.</p>">View Analysis</button>
+              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
@@ -397,7 +450,7 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="The Teacher — Analysis"
-              data-popup="<p>Will add soon.</p>">View Analysis</button>
+              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
@@ -410,7 +463,7 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="Wajib — Analysis"
-              data-popup="<p>Will add soon.</p>">View Analysis</button>
+              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
@@ -423,7 +476,7 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="May in the Summer — Analysis"
-              data-popup="<p>Will add soon.</p>">View Analysis</button>
+              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
@@ -436,7 +489,7 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="All That's Left of You — Analysis"
-              data-popup="<p>Will add soon.</p>">View Analysis</button>
+              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
@@ -449,7 +502,7 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="Pomegranates and Myrrh — Analysis"
-              data-popup="<p>Will add soon.</p>">View Analysis</button>
+              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
@@ -503,11 +556,60 @@
       });
     })();
 
-    // Filter pills (visual only for now)
+    // Filter pills — single click filters, double click resets to all
+    const directorMap = {
+      'Annemarie Jacir': 'Annemarie Jacir',
+      'Mai Masri': 'Mai Masri',
+      'Farah Nablusi': 'Farah Nablusi',
+      'Other Directors': 'other'
+    };
+    const knownDirectors = ['Annemarie Jacir', 'Mai Masri', 'Farah Nablusi'];
+
+    function filterCards(director) {
+      document.querySelectorAll('.film-card').forEach(card => {
+        const badge = card.querySelector('.film-card-badge').textContent.trim();
+        if (director === 'all') {
+          card.style.display = '';
+          card.style.animation = 'none';
+          requestAnimationFrame(() => { card.style.animation = ''; });
+        } else if (director === 'other') {
+          const show = !knownDirectors.includes(badge);
+          card.style.display = show ? '' : 'none';
+        } else {
+          card.style.display = badge === director ? '' : 'none';
+        }
+      });
+    }
+
+    function resetToAll() {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      document.querySelector('.filter-pill').classList.add('active');
+      filterCards('all');
+    }
+
     document.querySelectorAll('.filter-pill').forEach(pill => {
+      let clickTimer = null;
+
       pill.addEventListener('click', function () {
-        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-        this.classList.add('active');
+        // Double-click detection
+        if (clickTimer) {
+          clearTimeout(clickTimer);
+          clickTimer = null;
+          resetToAll();
+          return;
+        }
+        clickTimer = setTimeout(() => {
+          clickTimer = null;
+          // Single click — apply filter
+          document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+          this.classList.add('active');
+          const label = this.textContent.trim();
+          if (label === 'All Films') {
+            filterCards('all');
+          } else {
+            filterCards(directorMap[label] || label);
+          }
+        }, 220);
       });
     });
   </script>
