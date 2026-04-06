@@ -219,112 +219,124 @@
       border-color: var(--gold); color: var(--gold);
     }
 
-    /* MODAL */
+    /* MODAL — dynamic, readable */
     .modal-backdrop {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(5,20,18,0.85);
       display: none; z-index: 2000;
       align-items: center; justify-content: center;
       padding: 1.5rem;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
     }
     .modal-backdrop.open { display: flex; }
     .modal {
-      max-width: 560px; width: 95%;
-      background: #ffffff;
-      border: none;
-      border-left: 5px solid var(--gold);
-      border-radius: 16px;
-      color: #1a1a1a;
-      max-height: 82vh;
+      max-width: 600px; width: 95%;
+      background: #0d2420;
+      border-radius: 20px;
+      color: #e8f5f0;
+      max-height: 85vh;
       overflow: hidden;
       display: flex; flex-direction: column;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
-      animation: modalPopIn 0.3s cubic-bezier(.42,1.7,.62,1.01);
+      box-shadow:
+        0 0 0 1px rgba(230,169,58,0.25),
+        0 30px 70px rgba(0,0,0,0.55),
+        0 8px 20px rgba(0,0,0,0.3);
+      animation: modalPopIn 0.35s cubic-bezier(.34,1.56,.64,1);
     }
     @keyframes modalPopIn {
-      from { opacity: 0; transform: scale(0.9) translateY(24px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from { opacity: 0; transform: scale(0.88) translateY(32px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
     .modal-header {
-      padding: 1.5rem 1.6rem 1.2rem;
-      border-bottom: 2px solid #f0ece0;
+      padding: 1.6rem 1.8rem 1.3rem;
       display: flex; justify-content: space-between; align-items: flex-start;
-      background: #faf8f2;
+      flex-shrink: 0;
+      background: linear-gradient(120deg, #0a2321 0%, #1a4a38 60%, #0f3328 100%);
+      position: relative; overflow: hidden;
+    }
+    .modal-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(111,231,193,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(111,231,193,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .modal-header::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), #f0c060, var(--gold));
+    }
+    .modal-header-text { position: relative; z-index: 1; flex: 1; }
+    .modal-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem; font-weight: 300;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--teal); opacity: 0.7;
+      margin: 0 0 0.5rem; display: block;
     }
     .modal h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.55rem; color: #0a2321;
-      margin: 0; font-weight: 700;
-      line-height: 1.3;
+      font-size: 1.55rem; color: #ffffff;
+      margin: 0; font-weight: 700; line-height: 1.25;
     }
     .modal .close {
-      background: #f0ece0;
-      border: none;
-      color: #555;
-      font-size: 1.2rem; cursor: pointer;
-      transition: all 0.2s; line-height: 1;
-      flex-shrink: 0; margin-left: 1.2rem;
-      width: 32px; height: 32px;
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem; cursor: pointer;
+      transition: all 0.22s ease;
+      flex-shrink: 0; margin-left: 1.2rem; margin-top: 0.2rem;
+      width: 34px; height: 34px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
     }
     .modal .close:hover {
-      background: var(--gold);
-      color: #fff;
+      background: var(--gold); border-color: var(--gold);
+      color: #0a2321; transform: rotate(90deg);
     }
     .modal-body {
-      padding: 1.8rem;
-      overflow-y: auto;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.18rem;
-      line-height: 1.95;
-      color: #222222;
-      scrollbar-width: thin;
-      scrollbar-color: #d4c9a0 transparent;
+      padding: 0; overflow-y: auto; flex: 1;
+      scrollbar-width: thin; scrollbar-color: rgba(111,231,193,0.25) transparent;
     }
     .modal-body::-webkit-scrollbar { width: 4px; }
     .modal-body::-webkit-scrollbar-track { background: transparent; }
-    .modal-body::-webkit-scrollbar-thumb { background: #d4c9a0; border-radius: 2px; }
-    .modal-body p { margin: 0 0 1rem; }
-    .modal-body p:last-child { margin-bottom: 0; }
+    .modal-body::-webkit-scrollbar-thumb { background: rgba(111,231,193,0.25); border-radius: 2px; }
+    .modal-body p {
+      margin: 0; padding: 1.1rem 1.8rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; line-height: 1.9; color: #e8f5f0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .modal-body p:last-child { border-bottom: none; }
     .modal-body strong {
-      color: var(--forest);
       font-family: 'Oswald', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 0.2rem;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); display: block; margin-bottom: 0.2rem;
     }
     .modal-body ul {
-      padding-left: 1.3rem;
-      margin: 0.4rem 0 1rem;
+      margin: 0; padding: 0.8rem 1.8rem 0.8rem 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.03);
     }
     .modal-body li {
-      margin-bottom: 0.4rem;
-      color: #333;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: rgba(232,245,240,0.88);
+      margin-bottom: 0.4rem; line-height: 1.7;
     }
-    .modal-body hr {
-      border: none;
-      border-top: 1px solid #e8e2d0;
-      margin: 1.2rem 0;
-    }
-    /* Coming soon placeholder style */
+    .modal-body li::marker { color: var(--gold); }
+    .modal-body hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 0; }
+    /* Coming soon */
     .modal-body .coming-soon {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 1.2rem 1.4rem;
-      background: #fdf8ec;
-      border: 1px solid #e6c97a;
-      border-radius: 8px;
+      display: flex; align-items: center; gap: 0.8rem;
+      margin: 1.5rem 1.8rem;
+      padding: 1.1rem 1.4rem;
+      background: rgba(230,169,58,0.08); border: 1px solid rgba(230,169,58,0.3); border-radius: 8px;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      color: #8a6a1a;
+      font-size: 0.82rem; font-weight: 400;
+      letter-spacing: 0.08em; color: rgba(230,169,58,0.85);
     }
 
     /* FOOTER */
@@ -513,7 +525,10 @@
   <div class="modal-backdrop" id="filmModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-header">
-        <h3 id="modalTitle"></h3>
+        <div class="modal-header-text">
+          <span class="modal-eyebrow">Film Analysis</span>
+          <h3 id="modalTitle"></h3>
+        </div>
         <button class="close" aria-label="Close modal">&times;</button>
       </div>
       <div class="modal-body" id="modalBody"></div>

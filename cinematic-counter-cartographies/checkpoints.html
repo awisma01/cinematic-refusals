@@ -13,9 +13,9 @@
       --forest: #288366;
       --crimson: #b94e3a;
     }
- 
+
     html { scroll-behavior: smooth; }
- 
+
     body {
       margin: 0;
       background: linear-gradient(160deg, #0a1a18 0%, #0f2d28 30%, #1a3a30 60%, #0b2820 100%);
@@ -25,7 +25,7 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
- 
+
     body::before {
       content: "";
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -35,7 +35,7 @@
       );
       pointer-events: none; z-index: 0;
     }
- 
+
     /* NAV */
     .topnav {
       background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
@@ -61,7 +61,7 @@
     .topnav .menu a:hover, .topnav .menu a.active {
       background: rgba(230,169,58,0.2); color: var(--gold);
     }
- 
+
     /* HERO */
     .page-hero {
       position: relative;
@@ -106,7 +106,7 @@
       color: rgba(232,245,240,0.55);
       max-width: 620px; margin: 0 auto;
     }
- 
+
     /* CHECKPOINT GRID */
     .checkpoint-grid-outer {
       max-width: 1200px;
@@ -119,7 +119,7 @@
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
     }
- 
+
     /* CHECKPOINT CARD */
     .cp-card {
       background: rgba(255,255,255,0.03);
@@ -143,7 +143,7 @@
       transition: filter 0.4s ease;
     }
     .cp-card:hover .cp-card-img { filter: brightness(0.9) saturate(1); }
- 
+
     .cp-card-body {
       padding: 1.5rem;
       display: flex; flex-direction: column; flex: 1;
@@ -156,9 +156,12 @@
     }
     .cp-card-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem; font-weight: 700;
-      color: #e8f5f0; margin: 0 0 0.5rem;
-      line-height: 1.3;
+      font-size: 2rem;           /* Increased from 1.35rem */
+      font-weight: 1000;          /* Bolder */
+      color: #e8f5f0;
+      margin: 0 0 0.5rem;
+      line-height: 1.2;          /* Slightly tighter */
+      letter-spacing: 0.01em;    /* Optional: subtle spacing */
     }
     .cp-card-note {
       font-family: 'IBM Plex Mono', monospace;
@@ -179,9 +182,12 @@
     }
     .cp-film-list li::before {
       content: '—';
-      color: var(--gold); opacity: 0.5;
+      color: var(--gold);
+      opacity: 0.85; /* More visible */
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem;
+      font-size: 1.1rem; /* Bigger */
+      font-weight: 700;  /* Bolder */
+      margin-right: 0.5rem; /* Spacing adjustment */
     }
     .cp-card-actions {
       display: flex; gap: 0.75rem;
@@ -213,58 +219,161 @@
       background: rgba(230,169,58,0.1);
       border-color: var(--gold);
     }
- 
-    /* MODAL */
+
+    /* MODAL — dynamic, readable */
     .modal-backdrop {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(5, 20, 18, 0.85);
       display: none; z-index: 2000;
       align-items: center; justify-content: center;
-      padding: 1rem; backdrop-filter: blur(6px);
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .modal-backdrop.open { display: flex; }
+
     .modal {
-      max-width: 560px; width: 92%;
-      background: #0f2d28;
-      border: 1px solid rgba(111,231,193,0.15);
-      border-left: 3px solid var(--gold);
-      border-radius: 14px; color: #e8f5f0;
-      max-height: 80vh; overflow: hidden;
+      max-width: 600px; width: 95%;
+      background: #0d2420;
+      border-radius: 20px;
+      color: #e8f5f0;
+      max-height: 85vh;
+      overflow: hidden;
       display: flex; flex-direction: column;
-      animation: modalPopIn 0.3s cubic-bezier(.42,1.7,.62,1.01);
+      box-shadow:
+        0 0 0 1px rgba(230,169,58,0.25),
+        0 30px 70px rgba(0,0,0,0.55),
+        0 8px 20px rgba(0,0,0,0.3);
+      animation: modalPopIn 0.35s cubic-bezier(.34,1.56,.64,1);
     }
     @keyframes modalPopIn {
-      from { opacity: 0; transform: scale(0.88) translateY(30px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from { opacity: 0; transform: scale(0.88) translateY(32px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0); }
     }
+
+    /* Colourful header band */
     .modal-header {
-      padding: 1.5rem 1.5rem 1rem;
-      border-bottom: 1px solid rgba(111,231,193,0.1);
+      padding: 1.6rem 1.8rem 1.3rem;
       display: flex; justify-content: space-between; align-items: flex-start;
+      flex-shrink: 0;
+      background: linear-gradient(120deg, #0a2321 0%, #1a4a38 60%, #0f3328 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Decorative grid lines inside header */
+    .modal-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(111,231,193,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(111,231,193,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    /* Gold accent bar across the top */
+    .modal-header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), #f0c060, var(--gold));
+    }
+
+    .modal-header-text { position: relative; z-index: 1; flex: 1; }
+
+    .modal-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--teal);
+      opacity: 0.7;
+      margin: 0 0 0.5rem;
+      display: block;
     }
     .modal h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem; color: var(--teal);
-      margin: 0; font-weight: 700;
+      font-size: 1.55rem; color: #ffffff;
+      margin: 0; font-weight: 700; line-height: 1.25;
     }
+
     .modal .close {
-      background: none; border: none;
-      color: rgba(232,245,240,0.4); font-size: 1.5rem;
-      cursor: pointer; transition: color 0.2s;
-      flex-shrink: 0; margin-left: 1rem;
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem; cursor: pointer;
+      transition: all 0.22s ease;
+      flex-shrink: 0; margin-left: 1.2rem; margin-top: 0.2rem;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      line-height: 1;
     }
-    .modal .close:hover { color: var(--gold); }
+    .modal .close:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #0a2321;
+      transform: rotate(90deg);
+    }
+
+    /* Body */
     .modal-body {
-      padding: 1.5rem; overflow-y: auto;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem; line-height: 1.8;
-      color: rgba(232,245,240,0.78);
+      padding: 0;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #d4c9a0 transparent;
+      flex: 1;
     }
-    .modal-body strong { color: var(--teal); font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
-    .modal-body ul { padding-left: 1.2rem; }
-    .modal-body li { margin-bottom: 0.4rem; }
-    .modal-body hr { border: none; border-top: 1px solid rgba(111,231,193,0.1); margin: 1rem 0; }
- 
+    .modal-body::-webkit-scrollbar { width: 4px; }
+    .modal-body::-webkit-scrollbar-track { background: transparent; }
+    .modal-body::-webkit-scrollbar-thumb { background: rgba(111,231,193,0.25); border-radius: 2px; }
+
+    /* Each data row in the body */
+    .modal-body p {
+      margin: 0;
+      padding: 1.1rem 1.8rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: #1e1e1e;
+      border-bottom: 1px solid #f0ece2;
+    }
+    .modal-body p:last-child { border-bottom: none; }
+
+    .modal-body strong {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--forest);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .modal-body ul {
+      margin: 0;
+      padding: 0.8rem 1.8rem 0.8rem 3rem;
+      border-bottom: 1px solid #f0ece2;
+      background: #fdfbf7;
+    }
+    .modal-body li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: #2a2a2a;
+      margin-bottom: 0.4rem;
+      line-height: 1.7;
+    }
+    .modal-body li::marker { color: var(--gold); }
+
+    .modal-body hr {
+      border: none;
+      border-top: 3px solid #f5f0e8;
+      margin: 0;
+    }
+
     /* FOOTER */
     .footer {
       background: rgba(10,35,33,0.98);
@@ -273,7 +382,7 @@
       font-size: 0.88rem; letter-spacing: 0.1em;
       position: relative; z-index: 1;
     }
- 
+
     #scrollTopBtn {
       display: none; position: fixed;
       bottom: 32px; right: 32px; z-index: 99;
@@ -283,7 +392,7 @@
       cursor: pointer; transition: background 0.2s, transform 0.2s;
     }
     #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
- 
+
     @media (max-width: 900px) {
       .topnav { padding: 1rem 1.5rem; }
       .topnav .menu a { padding: 0.5rem 0.7rem; font-size: 0.82rem; }
@@ -303,10 +412,10 @@
       <a href="map.html">Map & Archive</a>
       <a href="checkpoints.html" class="active">Checkpoints</a>
       <a href="analysis.html">Visual Analysis</a>
-     <a href="surveillance-space.html">Surveillance Space</a>
+      <a href="surveillance-space.html">Surveillance Space</a>
     </div>
   </nav>
- 
+
   <main>
     <section class="page-hero">
       <p class="page-eyebrow">Case Studies</p>
@@ -314,10 +423,10 @@
       <div class="gold-rule"></div>
       <p class="page-lead">Key sites of colonial control and their cinematic representations — each checkpoint a case study in resistance and refusal.</p>
     </section>
- 
+
     <div class="checkpoint-grid-outer">
       <div class="checkpoint-grid">
- 
+
         <!-- Qalandiya -->
         <div class="cp-card">
           <img class="cp-card-img" src="assets/images/qcheck.webp" alt="Qalandiya checkpoint" onerror="this.src='https://picsum.photos/seed/qalandiya/900/600'">
@@ -339,7 +448,7 @@
             </div>
           </div>
         </div>
- 
+
         <!-- Huwwara -->
         <div class="cp-card">
           <img class="cp-card-img" src="assets/images/hucheck.jpg" alt="Huwwara checkpoint" onerror="this.src='https://picsum.photos/seed/huwwara/900/600'">
@@ -360,7 +469,7 @@
             </div>
           </div>
         </div>
- 
+
         <!-- Container -->
         <div class="cp-card">
           <img class="cp-card-img" src="assets/images/container.jpg" alt="Container checkpoint" onerror="this.src='https://picsum.photos/seed/container/900/600'">
@@ -381,7 +490,7 @@
             </div>
           </div>
         </div>
- 
+
         <!-- Bethlehem -->
         <div class="cp-card">
           <img class="cp-card-img" src="assets/images/bcheck.webp" alt="Rachel Bethlehem checkpoint" onerror="this.src='https://picsum.photos/seed/bethlehem/900/600'">
@@ -403,36 +512,39 @@
             </div>
           </div>
         </div>
- 
+
       </div>
     </div>
   </main>
- 
+
   <div class="modal-backdrop" id="checkpointModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-header">
-        <h3 id="modalTitle"></h3>
+        <div class="modal-header-text">
+          <span class="modal-eyebrow">Checkpoint Case Study</span>
+          <h3 id="modalTitle"></h3>
+        </div>
         <button class="close" aria-label="Close modal">&times;</button>
       </div>
       <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
- 
+
   <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
   <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
- 
+
   <script>
     window.addEventListener('scroll', () => {
       document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
     });
     document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
- 
+
     document.addEventListener('DOMContentLoaded', function () {
       const backdrop = document.getElementById('checkpointModal');
       const titleEl = document.getElementById('modalTitle');
       const bodyEl = document.getElementById('modalBody');
       const closeBtn = backdrop.querySelector('.close');
- 
+
       function openModal(title, html) {
         titleEl.textContent = title;
         bodyEl.innerHTML = html;
@@ -446,7 +558,7 @@
       closeBtn.addEventListener('click', closeModal);
       backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
       document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
- 
+
       document.querySelectorAll('[data-popup]').forEach(btn => {
         btn.addEventListener('click', e => {
           e.preventDefault();
