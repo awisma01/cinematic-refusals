@@ -5,277 +5,302 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Visual Analysis — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    /* Modal/Popup Styles */
-    .modal-backdrop {
+    :root {
+      --gold: #e6a93a;
+      --teal: #6fe7c1;
+      --forest: #288366;
+      --dark-forest: #0a2321;
+      --crimson: #b94e3a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(160deg, #0a1a18 0%, #0f2d28 30%, #1a3a30 60%, #0b2820 100%);
+      background-attachment: fixed;
+      color: #e8f5f0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      backdrop-filter: blur(4px);
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
     }
-    .modal-backdrop.open {
-      display: flex;
+
+    /* NAV */
+    .topnav {
+      background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      position: sticky; top: 0; z-index: 100;
     }
-    .modal {
-      max-width: 420px;
-      width: 92%;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.92); /* more transparent */
-      color: #222;
-      padding: 0;
-      box-shadow: 0 12px 40px rgba(40,131,102,0.18), 0 2px 8px rgba(40,131,102,0.10);
+    .topnav .brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.5px;
+    }
+    .topnav .menu { display: flex; gap: 0.5rem; }
+    .topnav .menu a {
+      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
+      padding: 0.55rem 1rem; border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
+      text-decoration: none;
+    }
+    .topnav .menu a:hover, .topnav .menu a.active {
+      background: rgba(230,169,58,0.2); color: var(--gold);
+    }
+
+    /* HERO */
+    .page-hero {
       position: relative;
-      max-height: 70vh;
+      padding: 5rem 2rem 3.5rem;
+      text-align: center;
+      z-index: 1;
+    }
+    .page-hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(40,131,102,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(40,131,102,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridDrift 30s linear infinite;
+      z-index: -1;
+    }
+    @keyframes gridDrift {
+      from { background-position: 0 0; }
+      to { background-position: 60px 60px; }
+    }
+    .page-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--teal);
+      opacity: 0.7; margin: 0 0 1.2rem;
+    }
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700; color: #e8f5f0;
+      margin: 0 0 0.5rem; line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+    .page-title em { color: var(--gold); font-style: italic; }
+    .gold-rule {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.5rem auto;
+    }
+    .page-lead {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-style: italic;
+      color: rgba(232,245,240,0.55);
+      max-width: 600px; margin: 0 auto;
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      justify-content: center;
+      max-width: 900px; margin: 0 auto 3rem;
+      padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+    .filter-pill {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.5rem 1.2rem; border-radius: 30px;
+      border: 1px solid rgba(111,231,193,0.25);
+      color: rgba(232,245,240,0.55);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .filter-pill:hover, .filter-pill.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(230,169,58,0.08);
+    }
+
+    /* FILM GRID */
+    .film-grid-outer {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+    .film-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* FILM CARD */
+    .film-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(111,231,193,0.1);
+      border-radius: 14px;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      animation: modalPopIn 0.32s cubic-bezier(.42,1.7,.62,1.01);
-      transition: box-shadow 0.2s, background 0.2s;
-      backdrop-filter: blur(2px);
+      display: flex; flex-direction: column;
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+      cursor: default;
+    }
+    .film-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(230,169,58,0.35);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      background: rgba(255,255,255,0.05);
+    }
+    .film-card-img {
+      width: 100%; height: 200px;
+      object-fit: contain;
+      object-position: center;
+      background: rgba(0,0,0,0.3);
+      display: block;
+    }
+    .film-card-body {
+      padding: 1.5rem;
+      display: flex; flex-direction: column; flex: 1;
+    }
+    .film-card-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold); opacity: 0.8;
+      margin: 0 0 0.75rem;
+    }
+    .film-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 700;
+      color: #e8f5f0; margin: 0 0 0.4rem;
+    }
+    .film-card-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem; font-weight: 300;
+      color: rgba(232,245,240,0.35);
+      margin: 0 0 1rem;
+    }
+    .film-card-coverage {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem; font-style: italic;
+      color: rgba(232,245,240,0.5);
+      margin: 0 0 1.5rem;
+    }
+    .film-card-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.65rem 1.2rem;
+      border-radius: 6px;
+      border: 1px solid rgba(111,231,193,0.25);
+      background: transparent; color: var(--teal);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-top: auto;
+      align-self: flex-start;
+    }
+    .film-card-btn:hover {
+      background: rgba(230,169,58,0.12);
+      border-color: var(--gold); color: var(--gold);
+    }
+
+    /* MODAL */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none; z-index: 2000;
+      align-items: center; justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(6px);
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      max-width: 500px; width: 92%;
+      background: #0f2d28;
+      border: 1px solid rgba(111,231,193,0.15);
+      border-left: 3px solid var(--gold);
+      border-radius: 14px;
+      color: #e8f5f0;
+      max-height: 80vh;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      animation: modalPopIn 0.3s cubic-bezier(.42,1.7,.62,1.01);
     }
     @keyframes modalPopIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.85) translateY(40px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-    .modal:hover, .modal:focus-within {
-      box-shadow: 0 20px 60px rgba(40,131,102,0.28), 0 2px 8px rgba(40,131,102,0.18);
-      background: rgba(255,255,255,0.98);
+      from { opacity: 0; transform: scale(0.88) translateY(30px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
     }
     .modal-header {
-      padding: 1.1rem 1.1rem 0.7rem 1.1rem;
-      border-bottom: 1.5px solid #e6a93a33;
-      background: transparent;
-      border-radius: 18px 18px 0 0;
+      padding: 1.5rem 1.5rem 1rem;
+      border-bottom: 1px solid rgba(111,231,193,0.1);
+      display: flex; justify-content: space-between; align-items: flex-start;
     }
     .modal h3 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: #288366;
-      font-weight: 700;
-      letter-spacing: 0.01em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; color: var(--teal);
+      margin: 0; font-weight: 700;
     }
     .modal .close {
-      background: none;
-      border: none;
-      color: #288366;
-      font-size: 1.5rem;
-      cursor: pointer;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: background 0.18s, color 0.18s;
-      line-height: 1;
-      padding: 0;
+      background: none; border: none;
+      color: rgba(232,245,240,0.4);
+      font-size: 1.5rem; cursor: pointer;
+      transition: color 0.2s; line-height: 1;
+      flex-shrink: 0; margin-left: 1rem;
     }
-    .modal .close:hover {
-      background: #e6a93a;
-      color: #222;
-    }
+    .modal .close:hover { color: var(--gold); }
     .modal-body {
-      padding: 1.1rem;
+      padding: 1.5rem;
       overflow-y: auto;
-      background: transparent;
-      color: #222;
-      line-height: 1.7;
-      border-radius: 0 0 18px 18px;
-      font-size: 0.98rem;
-      transition: background 0.2s;
-      max-height: 50vh;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; line-height: 1.8;
+      color: rgba(232,245,240,0.78);
     }
+    .modal-body strong { color: var(--teal); }
+    .modal-body ul { padding-left: 1.2rem; }
+    .modal-body li { margin-bottom: 0.3rem; }
 
-    /* Film Card Styles */
-    .film-card-row-outer {
-      display: flex;
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
-    .film-card-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      max-width: 1200px;
-      justify-content: center;
-      align-items: stretch;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .film-card-grid .card {
-      background: var(--light);
-      border-radius: 18px;
-      box-shadow: 0 2px 12px rgba(40,131,102,0.07);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      width: 300px;
-      min-width: 220px;
-      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
-    }
-    .film-card-grid .card:hover {
-      transform: translateY(-7px) scale(1.03);
-      box-shadow: 0 8px 32px rgba(40,131,102,0.13);
-      background: #e6a93a11;
-    }
-    .film-card-grid .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: contain; /* changed from cover to contain */
-      object-position: center;
-      border-radius: 18px 18px 0 0;
-      background: var(--muted);
-      background-color: #fff; /* ensures a white background behind images */
-    }
-    .film-card-grid .card .badge {
-      margin-bottom: .7rem;
-      margin-top: .2rem;
-      background: var(--secondary);
-      color: var(--dark);
-      border-radius: 6px;
-      padding: 0.2em 0.7em;
-      font-size: 0.98em;
-      font-weight: 600;
-      display: inline-block;
-    }
-    @media (max-width: 900px) {
-      .film-card-grid { gap: 1.2rem; }
-      .film-card-grid .card { max-width: 95vw; min-width: 0; }
-      .film-card-grid .card img { height: 120px; }
-    }
-    @media (max-width: 700px) {
-      .film-card-grid { flex-direction: column; align-items: center; }
-      .film-card-grid .card { max-width: 98vw; }
-      .film-card-grid .card img { height: 90px; }
-      .modal {
-        width: 99%;
-        max-width: 99vw;
-        max-height: 90vh;
-      }
-      .modal h3 {
-        font-size: 1rem;
-      }
-      .modal-header, .modal-body {
-        padding: 0.8rem;
-      }
-    }
-
-    /* New dynamic, interactive, left-aligned analysis intro box */
-    .analysis-intro-card-new {
-      max-width: 480px;
-      margin: 2.5rem auto 2.5rem 2.5rem;
-      background: linear-gradient(120deg, #eaf7f2 60%, #e6a93a22 100%);
-      border-radius: 26px;
-      box-shadow: 0 6px 32px rgba(40,131,102,0.13), 0 2px 8px rgba(40,131,102,0.08);
-      transition: box-shadow 0.22s, transform 0.22s, background 0.22s;
-      padding: 2.2rem 2.2rem 1.7rem 2.2rem;
-      position: relative;
-      cursor: pointer;
-      animation: introPopIn 0.5s cubic-bezier(.42,1.7,.62,1.01);
-      will-change: transform, box-shadow, background;
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      margin-bottom: 0;
-    }
-    @keyframes introPopIn {
-      0% { opacity: 0; transform: translateY(-40px) scale(0.95);}
-      100% { opacity: 1; transform: translateY(0) scale(1);}
-    }
-    .analysis-intro-card-new:hover, .analysis-intro-card-new:focus-within {
-      box-shadow: 0 16px 48px rgba(40,131,102,0.18), 0 2px 8px rgba(40,131,102,0.13);
-      background: linear-gradient(120deg, #eaf7f2 40%, #e6a93a55 100%);
-      transform: scale(1.025) translateY(-2px);
-    }
-    .intro-content-new {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-    }
-    .icon-bounce {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: bounceIcon 1.4s infinite alternate cubic-bezier(.42,1.7,.62,1.01);
-    }
-    @keyframes bounceIcon {
-      0% { transform: translateY(0);}
-      100% { transform: translateY(-8px);}
-    }
-    .page-title-new {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: #288366;
-      margin: 0 0 0.3rem 0;
-      letter-spacing: 0.01em;
-      transition: color 0.18s;
-    }
-    .lead-new {
-      font-size: 1.13rem;
-      color: #222;
-      margin: 0;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      transition: color 0.18s;
-    }
-    @media (max-width: 900px) {
-      .analysis-intro-card-new {
-        margin: 1.2rem auto 1.2rem 1.2rem;
-        max-width: 98vw;
-        padding: 1.3rem 1.1rem 1rem 1.1rem;
-      }
-    }
-    @media (max-width: 700px) {
-      .analysis-intro-card-new {
-        margin: 1.2rem auto 1.2rem auto;
-        max-width: 99vw;
-        padding: 1.1rem 0.7rem 0.8rem 0.7rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.7rem;
-      }
-      .page-title-new {
-        font-size: 1.3rem;
-      }
-    }
-
-    /* Body and Footer Styles */
-    body {
-      background: linear-gradient(to bottom, #eaf7f2 0%, #eaf7f2 70%, #288366 100%);
-      min-height: 150vh;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    main {
-      flex: 1 0 auto;
-      padding-bottom: 3rem; /* extra space above footer */
-    }
-
+    /* FOOTER */
     .footer {
-      flex-shrink: 0;
-      background: #288366;
-      color: #fff;
-      text-align: center;
-      padding: 0.5rem 0;   /* reduced from 1.2rem 0 */
-      font-size: 1rem;
-      letter-spacing: 0.01em;
-      margin-top: 0;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
+      background: rgba(10,35,33,0.98);
+      color: var(--teal); text-align: center;
+      padding: 2rem; font-family: 'Oswald', sans-serif;
+      font-size: 0.88rem; letter-spacing: 0.1em;
+      position: relative; z-index: 1;
+    }
+
+    #scrollTopBtn {
+      display: none; position: fixed;
+      bottom: 32px; right: 32px; z-index: 99;
+      background: var(--forest); color: #fff;
+      border: none; border-radius: 50%;
+      width: 48px; height: 48px; font-size: 1.5rem;
+      cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
+
+    @media (max-width: 900px) {
+      .topnav { padding: 1rem 1.5rem; }
+      .topnav .menu a { padding: 0.5rem 0.7rem; font-size: 0.82rem; }
+      .film-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    }
+    @media (max-width: 600px) {
+      .film-grid { grid-template-columns: 1fr; }
+      .page-hero { padding: 3.5rem 1rem 2.5rem; }
     }
   </style>
 </head>
@@ -287,169 +312,151 @@
       <a href="map.html">Map & Archive</a>
       <a href="checkpoints.html">Checkpoints</a>
       <a href="analysis.html" class="active">Visual Analysis</a>
-      <a href="not-mapped.html">What's Not Mapped</a>
+      <a href="surveillance-space.html">Surveillance Space</a>
+      
     </div>
   </nav>
 
   <main>
-    <!-- Increase the space below the nav bar before the page info section -->
-    <div style="height: 3.5rem;"></div>
-    <div style="max-width:700px;margin:0 auto 2.2rem auto;padding:0 1.2rem 0.3rem 1.2rem;">
-      <h1 style="font-size:2.1rem;font-weight:800;color:#288366;margin:0 0 0.3rem 0;letter-spacing:0.01em;">Visual Analysis</h1>
-      <p style="font-size:1.13rem;color:#222;margin:0;font-weight:500;letter-spacing:0.01em;">
-        Explore visual and spatial readings of key films, mapped through checkpoints and other sites of refusal.
-      </p>
-    </div>
-    <div class="film-card-row-outer">
-      <div class="film-card-grid">
-        <!-- Film Card 1 -->
-        <div class="card">
-          <img src="assets/images/salt.jpg" alt="Salt of This Sea poster">
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Salt of This Sea</h5>
-            <p><strong>Director:</strong> Annemarie Jacir</p>
-            <p><strong>Year:</strong> 2008</p>
-            <span class="badge">Coverage: 2 of 4 checkpoints</span>
-            <button class="btn secondary mt-auto"
-                    data-popup-title="Salt of This Sea — Analysis"
-                    data-popup="<p>Will add soon.</p>">
-              View Analysis
-            </button>
+    <section class="page-hero">
+      <p class="page-eyebrow">Film Archive</p>
+      <h1 class="page-title">Visual <em>Analysis</em></h1>
+      <div class="gold-rule"></div>
+      <p class="page-lead">Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.</p>
+    </section>
+
+    <nav class="filter-bar" aria-label="Filter films">
+      <button class="filter-pill active">All Films</button>
+      <button class="filter-pill">Annemarie Jacir</button>
+      <button class="filter-pill">Mai Masri</button>
+      <button class="filter-pill">Farah Nablusi</button>
+      <button class="filter-pill">Other Directors</button>
+    </nav>
+
+    <div class="film-grid-outer">
+      <div class="film-grid">
+
+        <div class="film-card">
+          <img class="film-card-img" src="assets/images/salt.jpg" alt="Salt of This Sea poster">
+          <div class="film-card-body">
+            <p class="film-card-badge">Annemarie Jacir</p>
+            <h3 class="film-card-title">Salt of This Sea</h3>
+            <p class="film-card-meta">2008</p>
+            <p class="film-card-coverage">Coverage: 2 of 4 checkpoints</p>
+            <button class="film-card-btn"
+              data-popup-title="Salt of This Sea — Analysis"
+              data-popup="<p>Will add soon.</p>">View Analysis</button>
           </div>
         </div>
-        <!-- Film Card 2 -->
-        <div class="card">
-          <img src="assets/images/present.jpg" alt="The Present poster"
-               onerror="this.onerror=null;this.src='https://picsum.photos/seed/present/400/600';">
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>The Present</h5>
-            <p><strong>Director:</strong> Farah Nablusi</p>
-            <p><strong>Year:</strong> 2020</p>
-            <span class="badge">Coverage: 3 of 4 checkpoints</span>
-            <button class="btn secondary mt-auto"
-                    data-popup-title="The Present — Analysis"
-                    data-popup="<p>Will add soon.</p>">
-              View Analysis
-            </button>
+
+        <div class="film-card">
+          <img class="film-card-img" src="assets/images/present.jpg" alt="The Present poster" onerror="this.src='https://picsum.photos/seed/present/400/600'">
+          <div class="film-card-body">
+            <p class="film-card-badge">Farah Nablusi</p>
+            <h3 class="film-card-title">The Present</h3>
+            <p class="film-card-meta">2020</p>
+            <p class="film-card-coverage">Coverage: 3 of 4 checkpoints</p>
+            <button class="film-card-btn"
+              data-popup-title="The Present — Analysis"
+              data-popup="<p>Will add soon.</p>">View Analysis</button>
           </div>
         </div>
-        <!-- Film Card 3 -->
-        <div class="card">
-          <img src="assets/images/when.jpeg" alt="When I Saw You poster"
-               onerror="this.onerror=null;this.src='https://picsum.photos/seed/when/400/600';">
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>When I Saw You</h5>
-            <p><strong>Director:</strong> Annemarie Jacir</p>
-            <p><strong>Year:</strong> 2012</p>
-            <span class="badge">Coverage: 1 of 4 checkpoints</span>
-            <button class="btn secondary mt-auto"
-                    data-popup-title="When I Saw You — Analysis"
-                    data-popup="<p>Will add soon.</p>">
-              View Analysis
-            </button>
+
+        <div class="film-card">
+          <img class="film-card-img" src="assets/images/when.jpeg" alt="When I Saw You poster" onerror="this.src='https://picsum.photos/seed/when/400/600'">
+          <div class="film-card-body">
+            <p class="film-card-badge">Annemarie Jacir</p>
+            <h3 class="film-card-title">When I Saw You</h3>
+            <p class="film-card-meta">2012</p>
+            <p class="film-card-coverage">Coverage: 1 of 4 checkpoints</p>
+            <button class="film-card-btn"
+              data-popup-title="When I Saw You — Analysis"
+              data-popup="<p>Will add soon.</p>">View Analysis</button>
           </div>
         </div>
-        <!-- Film Card 4 -->
-        <div class="card">
-          <img src="assets/images/3000_Nights.jpg" alt="3000 Nights poster"
-               onerror="this.onerror=null;this.src='https://picsum.photos/seed/3000nights/400/600';">
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>3000 Nights</h5>
-            <p><strong>Director:</strong> Mai Masri</p>
-            <p><strong>Year:</strong> 2015</p>
-            <span class="badge">Coverage: Prison, checkpoints</span>
-            <button class="btn secondary mt-auto"
-                    data-popup-title="3000 Nights — Analysis"
-                    data-popup="<p>Will add soon.</p>">
-              View Analysis
-            </button>
+
+        <div class="film-card">
+          <img class="film-card-img" src="assets/images/3000_Nights.jpg" alt="3000 Nights poster" onerror="this.src='https://picsum.photos/seed/3000nights/400/600'">
+          <div class="film-card-body">
+            <p class="film-card-badge">Mai Masri</p>
+            <h3 class="film-card-title">3000 Nights</h3>
+            <p class="film-card-meta">2015</p>
+            <p class="film-card-coverage">Coverage: Prison, checkpoints</p>
+            <button class="film-card-btn"
+              data-popup-title="3000 Nights — Analysis"
+              data-popup="<p>Will add soon.</p>">View Analysis</button>
           </div>
         </div>
-        <!-- Film Card 5: The Teacher -->
-        <div class="card">
-          <img src="assets/images/teacher.jpeg" alt="The Teacher poster"
-               onerror="this.onerror=null;this.src='https://picsum.photos/seed/teacher/400/600';">
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>The Teacher</h5>
-            <p><strong>Director:</strong> Farah Nablusi</p>
-            <p><strong>Year:</strong> 2023</p>
-            <span class="badge">Coverage: Will add soon</span>
-            <button class="btn secondary mt-auto"
-                    data-popup-title="The Teacher — Analysis"
-                    data-popup="<p>Will add soon.</p>">
-              View Analysis
-            </button>
+
+        <div class="film-card">
+          <img class="film-card-img" src="assets/images/teacher.jpeg" alt="The Teacher poster" onerror="this.src='https://picsum.photos/seed/teacher/400/600'">
+          <div class="film-card-body">
+            <p class="film-card-badge">Farah Nablusi</p>
+            <h3 class="film-card-title">The Teacher</h3>
+            <p class="film-card-meta">2023</p>
+            <p class="film-card-coverage">Coverage: Will add soon</p>
+            <button class="film-card-btn"
+              data-popup-title="The Teacher — Analysis"
+              data-popup="<p>Will add soon.</p>">View Analysis</button>
           </div>
         </div>
-        <!-- Film Card 6: Wajib -->
-        <div class="card">
-          <img src="assets/images/wajib.jpg" alt="Wajib poster"
-               onerror="this.onerror=null;this.src='https://picsum.photos/seed/wajib/400/600';">
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Wajib</h5>
-            <p><strong>Director:</strong> Mai Masri</p>
-            <p><strong>Year:</strong> 2017</p>
-            <span class="badge">Coverage: Will add soon</span>
-            <button class="btn secondary mt-auto"
-                    data-popup-title="Wajib — Analysis"
-                    data-popup="<p>Will add soon.</p>">
-              View Analysis
-            </button>
+
+        <div class="film-card">
+          <img class="film-card-img" src="assets/images/wajib.jpg" alt="Wajib poster" onerror="this.src='https://picsum.photos/seed/wajib/400/600'">
+          <div class="film-card-body">
+            <p class="film-card-badge">Mai Masri</p>
+            <h3 class="film-card-title">Wajib</h3>
+            <p class="film-card-meta">2017</p>
+            <p class="film-card-coverage">Coverage: Will add soon</p>
+            <button class="film-card-btn"
+              data-popup-title="Wajib — Analysis"
+              data-popup="<p>Will add soon.</p>">View Analysis</button>
           </div>
         </div>
-        <!-- Film Card 7: May in the Summer -->
-        <div class="card">
-          <img src="assets/images/may.jpg" alt="May in the Summer poster"
-               onerror="this.onerror=null;this.src='https://picsum.photos/seed/mayinthesummer/400/600';">
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>May in the Summer</h5>
-            <p><strong>Director:</strong> Annemarie Jacir</p>
-            <p><strong>Year:</strong> 2013</p>
-            <span class="badge">Coverage: Will add soon</span>
-            <button class="btn secondary mt-auto"
-                    data-popup-title="May in the Summer — Analysis"
-                    data-popup="<p>Will add soon.</p>">
-              View Analysis
-            </button>
+
+        <div class="film-card">
+          <img class="film-card-img" src="assets/images/may.jpg" alt="May in the Summer poster" onerror="this.src='https://picsum.photos/seed/may/400/600'">
+          <div class="film-card-body">
+            <p class="film-card-badge">Annemarie Jacir</p>
+            <h3 class="film-card-title">May in the Summer</h3>
+            <p class="film-card-meta">2013</p>
+            <p class="film-card-coverage">Coverage: Will add soon</p>
+            <button class="film-card-btn"
+              data-popup-title="May in the Summer — Analysis"
+              data-popup="<p>Will add soon.</p>">View Analysis</button>
           </div>
         </div>
-        <!-- Film Card 8: All That's Left of You -->
-        <div class="card">
-          <img src="assets/images/left.jpeg" alt="All That's Left of You poster"
-               onerror="this.onerror=null;this.src='https://picsum.photos/seed/allthatsleftofyou/400/600';">
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>All That's Left of You</h5>
-            <p><strong>Director:</strong> Cherien Dabis</p>
-            <p><strong>Year:</strong> 2025</p>
-            <span class="badge">Coverage: Will add soon</span>
-            <button class="btn secondary mt-auto"
-                    data-popup-title="All That's Left of You — Analysis"
-                    data-popup="<p>Will add soon.</p>">
-              View Analysis
-            </button>
+
+        <div class="film-card">
+          <img class="film-card-img" src="assets/images/left.jpeg" alt="All That's Left of You poster" onerror="this.src='https://picsum.photos/seed/left/400/600'">
+          <div class="film-card-body">
+            <p class="film-card-badge">Cherien Dabis</p>
+            <h3 class="film-card-title">All That's Left of You</h3>
+            <p class="film-card-meta">2025</p>
+            <p class="film-card-coverage">Coverage: Will add soon</p>
+            <button class="film-card-btn"
+              data-popup-title="All That's Left of You — Analysis"
+              data-popup="<p>Will add soon.</p>">View Analysis</button>
           </div>
         </div>
-        <!-- Film Card 9: Pomegranates and Myrrh -->
-        <div class="card">
-          <img src="assets/images/pom.jpg" alt="Pomegranates and Myrrh poster"
-               onerror="this.onerror=null;this.src='https://picsum.photos/seed/pomegranatesandmyrrh/400/600';">
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Pomegranates and Myrrh</h5>
-            <p><strong>Director:</strong> Najwa Najjar</p>
-            <p><strong>Year:</strong> 2008</p>
-            <span class="badge">Coverage: Will add soon</span>
-            <button class="btn secondary mt-auto"
-                    data-popup-title="Pomegranates and Myrrh — Analysis"
-                    data-popup="<p>Will add soon.</p>">
-              View Analysis
-            </button>
+
+        <div class="film-card">
+          <img class="film-card-img" src="assets/images/pom.jpg" alt="Pomegranates and Myrrh poster" onerror="this.src='https://picsum.photos/seed/pom/400/600'">
+          <div class="film-card-body">
+            <p class="film-card-badge">Najwa Najjar</p>
+            <h3 class="film-card-title">Pomegranates and Myrrh</h3>
+            <p class="film-card-meta">2008</p>
+            <p class="film-card-coverage">Coverage: Will add soon</p>
+            <button class="film-card-btn"
+              data-popup-title="Pomegranates and Myrrh — Analysis"
+              data-popup="<p>Will add soon.</p>">View Analysis</button>
           </div>
         </div>
+
       </div>
     </div>
   </main>
 
-  <!-- Modal/Popup Structure -->
   <div class="modal-backdrop" id="filmModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-header">
@@ -461,62 +468,48 @@
   </div>
 
   <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
-  
+  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+
   <script>
-  // Popup functionality
-  (function() {
-    const backdrop = document.getElementById('filmModal');
-    const modal = backdrop.querySelector('.modal');
-    const titleEl = document.getElementById('modalTitle');
-    const bodyEl = document.getElementById('modalBody');
-    const closeBtn = backdrop.querySelector('.close');
-
-    function openModal(title, contentHtml) {
-      titleEl.textContent = title || '';
-      bodyEl.innerHTML = contentHtml || '';
-      backdrop.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      closeBtn.focus();
-    }
-
-    function closeModal() {
-      backdrop.classList.remove('open');
-      document.body.style.overflow = '';
-      titleEl.textContent = '';
-      bodyEl.innerHTML = '';
-    }
-
-    // Close button click
-    closeBtn.addEventListener('click', closeModal);
-
-    // Click outside modal
-    backdrop.addEventListener('click', function(e) {
-      if (e.target === backdrop) closeModal();
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
     });
+    document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && backdrop.classList.contains('open')) {
-        closeModal();
+    // Modal
+    (function () {
+      const backdrop = document.getElementById('filmModal');
+      const titleEl = document.getElementById('modalTitle');
+      const bodyEl = document.getElementById('modalBody');
+      const closeBtn = backdrop.querySelector('.close');
+
+      function openModal(title, html) {
+        titleEl.textContent = title;
+        bodyEl.innerHTML = html;
+        backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
       }
-    });
+      function closeModal() {
+        backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      closeBtn.addEventListener('click', closeModal);
+      backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+      document.addEventListener('click', e => {
+        const btn = e.target.closest('[data-popup]');
+        if (!btn) return;
+        openModal(btn.getAttribute('data-popup-title') || 'Analysis', btn.getAttribute('data-popup') || '');
+      });
+    })();
 
-    // Prevent modal content clicks from closing
-    modal.addEventListener('click', function(e) {
-      e.stopPropagation();
+    // Filter pills (visual only for now)
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+      pill.addEventListener('click', function () {
+        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+      });
     });
-
-    // Listen for button clicks with data-popup
-    document.addEventListener('click', function(e) {
-      const btn = e.target.closest('[data-popup]');
-      if (!btn) return;
-      e.preventDefault();
-      e.stopPropagation();
-      const title = btn.getAttribute('data-popup-title') || 'Analysis';
-      const content = btn.getAttribute('data-popup') || '';
-      openModal(title, content);
-    });
-  })();
   </script>
 </body>
 </html>

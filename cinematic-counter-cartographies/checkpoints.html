@@ -5,312 +5,293 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Checkpoints — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    /* Modal/Popup Styles */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      backdrop-filter: blur(4px);
+    :root {
+      --gold: #e6a93a;
+      --teal: #6fe7c1;
+      --forest: #288366;
+      --crimson: #b94e3a;
     }
-    .modal-backdrop.open {
-      display: flex;
-    }
-    .modal {
-      max-width: 420px;
-      width: 92%;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.92); /* more transparent */
-      color: #222;
-      padding: 0;
-      box-shadow: 0 12px 40px rgba(40,131,102,0.18), 0 2px 8px rgba(40,131,102,0.10);
-      position: relative;
-      max-height: 70vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      animation: modalPopIn 0.32s cubic-bezier(.42,1.7,.62,1.01);
-      transition: box-shadow 0.2s, background 0.2s;
-      backdrop-filter: blur(2px);
-    }
-    @keyframes modalPopIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.85) translateY(40px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-    .modal:hover, .modal:focus-within {
-      box-shadow: 0 20px 60px rgba(40,131,102,0.28), 0 2px 8px rgba(40,131,102,0.18);
-      background: rgba(255,255,255,0.98);
-    }
-    .modal-header {
-      padding: 1.1rem 1.1rem 0.7rem 1.1rem;
-      border-bottom: 1.5px solid #e6a93a33;
-      background: transparent;
-      border-radius: 18px 18px 0 0;
-    }
-    .modal h3 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: #288366;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-    .modal .close {
-      background: none;
-      border: none;
-      color: #288366;
-      font-size: 1.5rem;
-      cursor: pointer;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: background 0.18s, color 0.18s;
-      line-height: 1;
-      padding: 0;
-    }
-    .modal .close:hover {
-      background: #e6a93a;
-      color: #222;
-    }
-    .modal-body {
-      padding: 1.1rem;
-      background: transparent;
-      color: #222;
-      line-height: 1.7;
-      border-radius: 0 0 18px 18px;
-      font-size: 0.98rem;
-      transition: background 0.2s;
-      overflow-y: auto;         /* Enable vertical scroll */
-      max-height: 50vh;         /* Limit height so scroll appears if needed */
-    }
-
-    /* Checkpoint Card Styles */
-    .checkpoint-card-row-outer {
-      display: flex;
-      justify-content: center;
-      margin-top: 2.5rem;
-      padding: 0 1rem;
-    }
-    .checkpoint-card-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      max-width: 1200px;
-      justify-content: center;
-    }
-    .checkpoint-card-grid .card {
-      background: var(--light);
-      border-radius: 18px;
-      box-shadow: 0 2px 12px rgba(40,131,102,0.07);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      width: 300px;
-      min-width: 220px;
-      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
-    }
-    .checkpoint-card-grid .card:hover {
-      transform: translateY(-7px) scale(1.03);
-      box-shadow: 0 8px 32px rgba(40,131,102,0.13);
-      background: #e6a93a11;
-    }
-    .checkpoint-card-grid .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: contain; /* changed from cover to contain */
-      object-position: center;
-      border-radius: 18px 18px 0 0;
-      background: var(--muted);
-      background-color: #fff; /* ensures a white background behind images */
-    }
-    .checkpoint-card-grid .card h5 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.1rem;
-      color: var(--dark);
-      line-height: 1.4;
-    }
-    .checkpoint-card-grid .card ul {
-      padding-left: 1.2rem;
-      margin: 0.5rem 0;
-      font-size: 0.9rem;
-      color: #555;
-    }
-    .checkpoint-card-grid .card li {
-      margin-bottom: 0.3rem;
-    }
-    .checkpoint-card-grid .card .small {
-      font-size: 0.9rem;
-    }
-    .checkpoint-card-grid .card .text-muted {
-      color: #666;
-    }
-    
-    /* Base Styles */
+ 
+    html { scroll-behavior: smooth; }
+ 
     body {
       margin: 0;
-      padding: 0;
-      background: #eaf7f2; /* matches the soft green background of other pages */
+      background: linear-gradient(160deg, #0a1a18 0%, #0f2d28 30%, #1a3a30 60%, #0b2820 100%);
+      background-attachment: fixed;
+      color: #e8f5f0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
       min-height: 100vh;
+      overflow-x: hidden;
     }
-
+ 
+    body::before {
+      content: "";
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px
+      );
+      pointer-events: none; z-index: 0;
+    }
+ 
+    /* NAV */
     .topnav {
-      margin-bottom: 2.5rem;
-      padding-top: 1.2rem;
-      padding-bottom: 1.2rem;
-      background: #288366; /* main green brand color */
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(40,131,102,0.04);
-      position: sticky;
-      top: 0;
-      z-index: 1100;
+      background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      position: sticky; top: 0; z-index: 100;
     }
-
     .topnav .brand {
-      font-size: 1.3rem;
-      font-weight: bold;
-      letter-spacing: 0.01em;
-      color: #fff;
-      padding-left: 1.2rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.5px;
     }
-
-    .topnav .menu {
-      display: flex;
-      gap: 1.2rem;
-      align-items: center;
-      padding-right: 1.2rem;
-    }
-
-    .topnav a {
-      color: #fff;
+    .topnav .menu { display: flex; gap: 0.5rem; }
+    .topnav .menu a {
+      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
+      padding: 0.55rem 1rem; border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
       text-decoration: none;
-      font-weight: 500;
-      padding: 0.3em 0.9em;
-      border-radius: 6px;
-      transition: background 0.18s;
     }
-
-    .topnav a.active,
-    .topnav a:hover {
-      background: #e6a93a;
-      color: #222;
+    .topnav .menu a:hover, .topnav .menu a.active {
+      background: rgba(230,169,58,0.2); color: var(--gold);
     }
-
-    main {
-      margin-top: 2.5rem;
-      margin-bottom: 3rem;
-      min-height: 70vh;
+ 
+    /* HERO */
+    .page-hero {
+      position: relative;
+      padding: 5rem 2rem 3.5rem;
+      text-align: center; z-index: 1;
     }
-
-    .checkpoint-card-row-outer {
-      display: flex;
-      justify-content: center;
-      margin-top: 3.5rem;
-      margin-bottom: 3.5rem;
-      padding: 0 1rem;
+    .page-hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(40,131,102,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(40,131,102,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridDrift 30s linear infinite;
+      z-index: -1;
     }
-
+    @keyframes gridDrift {
+      from { background-position: 0 0; }
+      to { background-position: 60px 60px; }
+    }
+    .page-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--teal);
+      opacity: 0.7; margin: 0 0 1.2rem;
+    }
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700; color: #e8f5f0;
+      margin: 0 0 0.5rem; line-height: 1.1;
+    }
+    .page-title em { color: var(--gold); font-style: italic; }
+    .gold-rule {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.5rem auto;
+    }
+    .page-lead {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-style: italic;
+      color: rgba(232,245,240,0.55);
+      max-width: 620px; margin: 0 auto;
+    }
+ 
+    /* CHECKPOINT GRID */
+    .checkpoint-grid-outer {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+    .checkpoint-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+ 
+    /* CHECKPOINT CARD */
+    .cp-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(111,231,193,0.1);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .cp-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(230,169,58,0.35);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      background: rgba(255,255,255,0.05);
+    }
+    .cp-card-img {
+      width: 100%; height: 200px;
+      object-fit: cover; object-position: center;
+      display: block;
+      filter: brightness(0.8) saturate(0.85);
+      transition: filter 0.4s ease;
+    }
+    .cp-card:hover .cp-card-img { filter: brightness(0.9) saturate(1); }
+ 
+    .cp-card-body {
+      padding: 1.5rem;
+      display: flex; flex-direction: column; flex: 1;
+    }
+    .cp-card-arabic {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-style: italic;
+      color: var(--teal); opacity: 0.7;
+      margin: 0 0 0.5rem;
+    }
+    .cp-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 700;
+      color: #e8f5f0; margin: 0 0 0.5rem;
+      line-height: 1.3;
+    }
+    .cp-card-note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem; font-weight: 300;
+      color: rgba(232,245,240,0.35);
+      margin: 0 0 1rem; font-style: italic;
+    }
+    .cp-film-list {
+      list-style: none; padding: 0; margin: 0 0 1.5rem;
+    }
+    .cp-film-list li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: rgba(232,245,240,0.6);
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .cp-film-list li::before {
+      content: '—';
+      color: var(--gold); opacity: 0.5;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+    }
+    .cp-card-actions {
+      display: flex; gap: 0.75rem;
+      margin-top: auto; flex-wrap: wrap;
+    }
+    .cp-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.6rem 1.1rem; border-radius: 6px;
+      cursor: pointer; transition: all 0.25s ease;
+      text-decoration: none; display: inline-block;
+    }
+    .cp-btn-primary {
+      background: rgba(40,131,102,0.25);
+      border: 1px solid rgba(111,231,193,0.3);
+      color: var(--teal);
+    }
+    .cp-btn-primary:hover {
+      background: rgba(40,131,102,0.45);
+      border-color: var(--teal);
+    }
+    .cp-btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(230,169,58,0.3);
+      color: var(--gold);
+    }
+    .cp-btn-secondary:hover {
+      background: rgba(230,169,58,0.1);
+      border-color: var(--gold);
+    }
+ 
+    /* MODAL */
     .modal-backdrop {
-      padding-top: 3.5rem; /* extra space from top for modal */
-      padding-bottom: 3.5rem;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none; z-index: 2000;
+      align-items: center; justify-content: center;
+      padding: 1rem; backdrop-filter: blur(6px);
     }
-
-    /* Make "View on map" and "Details" buttons a bit smaller */
-.btn,
-.btn-primary,
-.btn.secondary {
-  min-width: 90px;
-  text-align: center;
-  padding: 0.36em 0.8em;
-  font-size: 0.93rem;
-  border-radius: 6px;
-  font-weight: 500;
-  box-sizing: border-box;
-  transition: background 0.18s, color 0.18s, border 0.18s;
-  display: inline-block;
-}
-
-.btn-primary {
-  background: #288366;
-  color: #fff;
-  border: none;
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  background: #1e624f;
-  color: #fff;
-}
-
-.btn.secondary {
-  background: #e6a93a;
-  color: #222;
-  border: none;
-}
-
-.btn.secondary:hover,
-.btn.secondary:focus {
-  background: #cf8c0c;
-  color: #fff;
-}
-
-/* Ensure buttons in card are aligned and spaced */
-.card .btn,
-.card .btn-primary,
-.card .btn.secondary {
-  margin-right: 0;
-  margin-left: 0;
-  margin-bottom: 0;
-  margin-top: 0;
-}
-
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      max-width: 560px; width: 92%;
+      background: #0f2d28;
+      border: 1px solid rgba(111,231,193,0.15);
+      border-left: 3px solid var(--gold);
+      border-radius: 14px; color: #e8f5f0;
+      max-height: 80vh; overflow: hidden;
+      display: flex; flex-direction: column;
+      animation: modalPopIn 0.3s cubic-bezier(.42,1.7,.62,1.01);
+    }
+    @keyframes modalPopIn {
+      from { opacity: 0; transform: scale(0.88) translateY(30px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-header {
+      padding: 1.5rem 1.5rem 1rem;
+      border-bottom: 1px solid rgba(111,231,193,0.1);
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .modal h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; color: var(--teal);
+      margin: 0; font-weight: 700;
+    }
+    .modal .close {
+      background: none; border: none;
+      color: rgba(232,245,240,0.4); font-size: 1.5rem;
+      cursor: pointer; transition: color 0.2s;
+      flex-shrink: 0; margin-left: 1rem;
+    }
+    .modal .close:hover { color: var(--gold); }
+    .modal-body {
+      padding: 1.5rem; overflow-y: auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; line-height: 1.8;
+      color: rgba(232,245,240,0.78);
+    }
+    .modal-body strong { color: var(--teal); font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .modal-body ul { padding-left: 1.2rem; }
+    .modal-body li { margin-bottom: 0.4rem; }
+    .modal-body hr { border: none; border-top: 1px solid rgba(111,231,193,0.1); margin: 1rem 0; }
+ 
+    /* FOOTER */
+    .footer {
+      background: rgba(10,35,33,0.98);
+      color: var(--teal); text-align: center;
+      padding: 2rem; font-family: 'Oswald', sans-serif;
+      font-size: 0.88rem; letter-spacing: 0.1em;
+      position: relative; z-index: 1;
+    }
+ 
+    #scrollTopBtn {
+      display: none; position: fixed;
+      bottom: 32px; right: 32px; z-index: 99;
+      background: var(--forest); color: #fff;
+      border: none; border-radius: 50%;
+      width: 48px; height: 48px; font-size: 1.5rem;
+      cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
+ 
     @media (max-width: 900px) {
-      .checkpoint-card-grid { gap: 1.2rem; }
-      .checkpoint-card-grid .card { max-width: 95vw; min-width: 0; }
-      .checkpoint-card-grid .card img { height: 120px; }
+      .topnav { padding: 1rem 1.5rem; }
+      .topnav .menu a { padding: 0.5rem 0.7rem; font-size: 0.82rem; }
+      .checkpoint-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
     }
-    @media (max-width: 700px) {
-      .checkpoint-card-grid { flex-direction: column; align-items: center; }
-      .checkpoint-card-grid .card { max-width: 98vw; }
-      .checkpoint-card-grid .card img { height: 90px; }
-      .modal {
-        width: 99%;
-        max-width: 99vw;
-        max-height: 90vh;
-      }
-      .modal h3 {
-        font-size: 1rem;
-      }
-      .modal-header, .modal-body {
-        padding: 0.8rem;
-      }
-      .checkpoint-card-row-outer {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-      }
-      .modal-backdrop {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-      }
-      main {
-        margin-top: 1.2rem;
-        margin-bottom: 1.5rem;
-      }
-      .topnav {
-        margin-bottom: 1.2rem;
-      }
+    @media (max-width: 600px) {
+      .checkpoint-grid { grid-template-columns: 1fr; }
+      .page-hero { padding: 3.5rem 1rem 2.5rem; }
     }
   </style>
 </head>
@@ -325,143 +306,108 @@
       <a href="not-mapped.html">What's Not Mapped</a>
     </div>
   </nav>
-
+ 
   <main>
-    <div class="checkpoint-card-row-outer">
-      <div class="checkpoint-card-grid">
+    <section class="page-hero">
+      <p class="page-eyebrow">Case Studies</p>
+      <h1 class="page-title">Check<em>points</em></h1>
+      <div class="gold-rule"></div>
+      <p class="page-lead">Key sites of colonial control and their cinematic representations — each checkpoint a case study in resistance and refusal.</p>
+    </section>
+ 
+    <div class="checkpoint-grid-outer">
+      <div class="checkpoint-grid">
+ 
         <!-- Qalandiya -->
-        <div class="card">
-          <img
-            src="assets/images/qcheck.webp"
-            alt="Qalandiya checkpoint"
-            onerror="this.onerror=null;this.src='https://picsum.photos/seed/qalandiya/900/600';"
-          >
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Qalandiya Checkpoint <span style="color:#288366;font-size:1em;">حاجز قلنديا</span></h5>
-            <p class="small text-muted" style="margin:0 0 .2rem 0;">Most documented checkpoint in the archive.</p>
-            <ul style="margin-bottom:.7rem;">
-              <li>Salt of This Sea (Jacir) — 2008</li>
-              <li>The Present — 2020</li>
+        <div class="cp-card">
+          <img class="cp-card-img" src="assets/images/qcheck.webp" alt="Qalandiya checkpoint" onerror="this.src='https://picsum.photos/seed/qalandiya/900/600'">
+          <div class="cp-card-body">
+            <p class="cp-card-arabic">حاجز قلنديا</p>
+            <h3 class="cp-card-title">Qalandiya Checkpoint</h3>
+            <p class="cp-card-note">Most documented checkpoint in the archive</p>
+            <ul class="cp-film-list">
+              <li>Salt of This Sea — Jacir, 2008</li>
+              <li>The Present — Nablusi, 2020</li>
             </ul>
-            <div style="margin-top:auto;display:flex;gap:.5rem;">
-              <a href="map.html#qalandiya" class="btn btn-primary">View on map</a>
-              <button class="btn secondary"
+            <div class="cp-card-actions">
+              <a href="map.html#qalandiya" class="cp-btn cp-btn-primary">View on Map</a>
+              <button class="cp-btn cp-btn-secondary"
                 data-popup-title="Qalandiya Checkpoint — حاجز قلنديا"
-                data-popup="<p><strong>Location:</strong> Between Jerusalem and Ramallah</p>
-<p><strong>Significance:</strong> One of the largest and most heavily fortified checkpoints in the West Bank. Qalandiya has become a symbol of restricted movement and daily hardship for Palestinians.</p>
-<p><strong>Featured in:</strong></p>
-<ul>
-  <li>Salt of This Sea (Annemarie Jacir, 2008)</li>
-  <li>The Present (Farah Nablusi, 2020)</li>
-</ul>
-<p>This checkpoint is the most documented in Palestinian cinema, representing both the physical barrier and the psychological impact of occupation.</p>
-<hr>
-<p><strong>Qalandia Checkpoint, March 2014: An obstacle to normal life</strong><br>
-<em>April 2014</em></p>
-<p>Human rights violations under the occupation are not limited to cases of violence, death and destruction. They are also part of the routine life of Palestinian residents, as shaped by Israeli authorities.</p>
-<p>Qalandia Checkpoint is a prominent example of this routine. It separates between Palestinian communities, between neighborhoods artificially severed from each other by the Separation Barrier. Most of the people who cross the checkpoint are residents of East Jerusalem who need to reach other parts of the city for work, school, or basic medical treatment.</p>
-<p>In most cases, these residents live only several kilometers away from their destinations, but every day they have to wait for hours in the long lines at the checkpoint, which currently has only three active security screening stations for cars and four for pedestrians – and not all of them operate all the time. When finally reached, the security screening is often a humiliating and lengthy procedure.</p>
-<p style='font-size:0.92em;color:#666;margin-top:0.7em;'><em>Source: “Qalandia Checkpoint, March 2014: An Obstacle to Normal Life”</em></p>"
->
+                data-popup="<p><strong>Location</strong><br>Between Jerusalem and Ramallah</p><p><strong>Significance</strong><br>One of the largest and most heavily fortified checkpoints in the West Bank. Qalandiya has become a symbol of restricted movement and daily hardship for Palestinians.</p><p><strong>Featured in</strong></p><ul><li>Salt of This Sea (Annemarie Jacir, 2008)</li><li>The Present (Farah Nablusi, 2020)</li></ul><p>This checkpoint is the most documented in Palestinian cinema, representing both the physical barrier and the psychological impact of occupation.</p><hr><p><strong>Qalandia Checkpoint, March 2014</strong><br>Qalandia Checkpoint separates Palestinian communities, between neighborhoods artificially severed from each other by the Separation Barrier. Most of the people who cross the checkpoint are residents of East Jerusalem who need to reach other parts of the city for work, school, or basic medical treatment. In most cases, these residents live only several kilometers away from their destinations, but every day they have to wait for hours in the long lines at the checkpoint.</p>">
                 Details
               </button>
             </div>
           </div>
         </div>
+ 
         <!-- Huwwara -->
-        <div class="card">
-          <img
-            src="assets/images/hucheck.jpg"
-            alt="Huwwara checkpoint"
-            onerror="this.onerror=null;this.src='https://picsum.photos/seed/huwwara/900/600';"
-          >
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Huwwara Checkpoint <span style="color:#288366;font-size:1em;">حاجز حوارة</span></h5>
-            <p class="small text-muted" style="margin:0 0 .2rem 0;">Seen in contemporary footage and some archive material.</p>
-            <ul style="margin-bottom:.7rem;">
-              <li>The Present — 2020</li>
+        <div class="cp-card">
+          <img class="cp-card-img" src="assets/images/hucheck.jpg" alt="Huwwara checkpoint" onerror="this.src='https://picsum.photos/seed/huwwara/900/600'">
+          <div class="cp-card-body">
+            <p class="cp-card-arabic">حاجز حوارة</p>
+            <h3 class="cp-card-title">Huwwara Checkpoint</h3>
+            <p class="cp-card-note">Contemporary footage and archive material</p>
+            <ul class="cp-film-list">
+              <li>The Present — Nablusi, 2020</li>
             </ul>
-            <div style="margin-top:auto;display:flex;gap:.5rem;">
-              <a href="map.html#huwwara" class="btn btn-primary">View on map</a>
-              <button class="btn secondary"
+            <div class="cp-card-actions">
+              <a href="map.html#huwwara" class="cp-btn cp-btn-primary">View on Map</a>
+              <button class="cp-btn cp-btn-secondary"
                 data-popup-title="Huwwara Checkpoint — حاجز حوارة"
-                data-popup="<p><strong>Location:</strong> South of Nablus</p>
-<p><strong>Significance:</strong> A major checkpoint controlling movement in and out of Nablus, one of the largest Palestinian cities. Huwwara has been a flashpoint for tensions and delays.</p>
-<p><strong>Featured in:</strong></p>
-<ul>
-  <li>The Present (Farah Nablusi, 2020)</li>
-</ul>
-<p>In recent years, Huwwara has been the site of significant incidents and represents the ongoing challenges Palestinians face in daily movement.</p>
-<hr>
-<p><strong>Details</strong></p>
-<p>Located at the southern entrance to Nablus. Includes a watchtower that is occasionally staffed by the military, and separate lanes for pedestrians and vehicles. The checkpoint is open and only rarely staffed, without a set schedule. After 7 Oct. 2023: The military has completely closed Huwarah checkpoint to Palestinian pedestrians and vehicles.</p>
-<p style='font-size:0.92em;color:#666;margin-top:0.7em;'><em>Source: “Huwarah”</em></p>"
->
+                data-popup="<p><strong>Location</strong><br>South of Nablus</p><p><strong>Significance</strong><br>A major checkpoint controlling movement in and out of Nablus, one of the largest Palestinian cities. Huwwara has been a flashpoint for tensions and delays.</p><p><strong>Featured in</strong></p><ul><li>The Present (Farah Nablusi, 2020)</li></ul><hr><p>Located at the southern entrance to Nablus. The checkpoint is open and only rarely staffed, without a set schedule. After 7 Oct. 2023: The military has completely closed Huwarah checkpoint to Palestinian pedestrians and vehicles.</p>">
                 Details
               </button>
             </div>
           </div>
         </div>
-        <!-- Container checkpoint -->
-        <div class="card">
-          <img
-            src="assets/images/container.jpg"
-            alt="Container checkpoint (Jerusalem)"
-            onerror="this.onerror=null;this.src='https://picsum.photos/seed/container/900/600';"
-          >
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Container Checkpoint (Jerusalem) <span style="color:#288366;font-size:1em;">حاجز الكونتينر (القدس)</span></h5>
-            <p class="small text-muted" style="margin:0 0 .2rem 0;">Known locally as the Container; appears in archive footage.</p>
-            <ul style="margin-bottom:.7rem;">
+ 
+        <!-- Container -->
+        <div class="cp-card">
+          <img class="cp-card-img" src="assets/images/container.jpg" alt="Container checkpoint" onerror="this.src='https://picsum.photos/seed/container/900/600'">
+          <div class="cp-card-body">
+            <p class="cp-card-arabic">حاجز الكونتينر (القدس)</p>
+            <h3 class="cp-card-title">Container Checkpoint</h3>
+            <p class="cp-card-note">Known locally as the Container; appears in archive footage</p>
+            <ul class="cp-film-list">
               <li>Example footage — dates TBD</li>
             </ul>
-            <div style="margin-top:auto;display:flex;gap:.5rem;">
-              <a href="map.html#container" class="btn btn-primary">View on map</a>
-              <button class="btn secondary"
+            <div class="cp-card-actions">
+              <a href="map.html#container" class="cp-btn cp-btn-primary">View on Map</a>
+              <button class="cp-btn cp-btn-secondary"
                 data-popup-title="Container Checkpoint — حاجز الكونتينر"
-                data-popup="<p><strong>Location:</strong> Near Jerusalem</p><p><strong>Significance:</strong> Named after the large shipping containers used in its construction, this checkpoint represents the makeshift yet permanent nature of many barriers.</p><p><strong>Featured in:</strong></p><ul><li>Various archive footage and documentary materials</li></ul><p>The Container checkpoint exemplifies how temporary structures become long-term obstacles, reshaping Palestinian geography and daily life.</p>">
+                data-popup="<p><strong>Location</strong><br>Near Jerusalem</p><p><strong>Significance</strong><br>Named after the large shipping containers used in its construction, this checkpoint represents the makeshift yet permanent nature of many barriers.</p><p>The Container checkpoint exemplifies how temporary structures become long-term obstacles, reshaping Palestinian geography and daily life.</p>">
                 Details
               </button>
             </div>
           </div>
         </div>
-        <!-- Bethlehem — Rachel Checkpoint -->
-        <div class="card">
-          <img
-            src="assets/images/bcheck.webp"
-            alt="Rachel (Bethlehem) checkpoint"
-            onerror="this.onerror=null;this.src='https://picsum.photos/seed/bethlehem/900/600';"
-          >
-          <div style="padding:1rem;display:flex;flex-direction:column;flex:1;">
-            <h5>Bethlehem — Rachel Checkpoint <span style="color:#288366;font-size:1em;">حاجز راحيل (بيت لحم)</span></h5>
-            <p class="small text-muted" style="margin:0 0 .2rem 0;">Featured in Jacir's Salt of This Sea and other films.</p>
-            <ul style="margin-bottom:.7rem;">
-              <li>Salt of This Sea — 2008</li>
-              <li>When I Saw You — 2012</li>
+ 
+        <!-- Bethlehem -->
+        <div class="cp-card">
+          <img class="cp-card-img" src="assets/images/bcheck.webp" alt="Rachel Bethlehem checkpoint" onerror="this.src='https://picsum.photos/seed/bethlehem/900/600'">
+          <div class="cp-card-body">
+            <p class="cp-card-arabic">حاجز راحيل (بيت لحم)</p>
+            <h3 class="cp-card-title">Bethlehem — Rachel Checkpoint</h3>
+            <p class="cp-card-note">Featured in Jacir's Salt of This Sea and other films</p>
+            <ul class="cp-film-list">
+              <li>Salt of This Sea — Jacir, 2008</li>
+              <li>When I Saw You — Jacir, 2012</li>
             </ul>
-            <div style="margin-top:auto;display:flex;gap:.5rem;">
-              <a href="map.html#bethlehem" class="btn btn-primary">View on map</a>
-              <button class="btn secondary"
+            <div class="cp-card-actions">
+              <a href="map.html#bethlehem" class="cp-btn cp-btn-primary">View on Map</a>
+              <button class="cp-btn cp-btn-secondary"
                 data-popup-title="Rachel (Bethlehem) Checkpoint — حاجز راحيل (Checkpoint 300)"
-                data-popup="<p><strong>Location:</strong> Northern entrance to Bethlehem</p>
-<p><strong>Significance:</strong> Also known as Checkpoint 300, this crossing point controls access between Bethlehem and Jerusalem. It's one of the busiest checkpoints, with thousands passing through daily for work.</p>
-<p><strong>Featured in:</strong></p>
-<ul>
-  <li>Salt of This Sea (Annemarie Jacir, 2008)</li>
-  <li>When I Saw You (Annemarie Jacir, 2012)</li>
-</ul>
-<p>The checkpoint's proximity to the Church of the Nativity makes it particularly significant, as it restricts access to one of Christianity's holiest sites.</p>">
+                data-popup="<p><strong>Location</strong><br>Northern entrance to Bethlehem</p><p><strong>Significance</strong><br>Also known as Checkpoint 300, this crossing point controls access between Bethlehem and Jerusalem. It's one of the busiest checkpoints, with thousands passing through daily for work.</p><p><strong>Featured in</strong></p><ul><li>Salt of This Sea (Annemarie Jacir, 2008)</li><li>When I Saw You (Annemarie Jacir, 2012)</li></ul><p>The checkpoint's proximity to the Church of the Nativity makes it particularly significant, as it restricts access to one of Christianity's holiest sites.</p>">
                 Details
               </button>
             </div>
           </div>
         </div>
-        <!-- Add more cards as needed -->
+ 
       </div>
     </div>
   </main>
-
-  <!-- Modal/Popup Structure -->
+ 
   <div class="modal-backdrop" id="checkpointModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-header">
@@ -471,59 +417,43 @@
       <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
-
+ 
   <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
-  
+  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+ 
   <script>
-    (function() {
-  // Make sure the DOM is ready
-  document.addEventListener('DOMContentLoaded', function() {
-    const backdrop = document.getElementById('checkpointModal');
-    const modal = backdrop.querySelector('.modal');
-    const titleEl = document.getElementById('modalTitle');
-    const bodyEl = document.getElementById('modalBody');
-    const closeBtn = backdrop.querySelector('.close');
-
-    function openModal(title, contentHtml) {
-      titleEl.textContent = title || '';
-      bodyEl.innerHTML = contentHtml || '';
-      backdrop.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      closeBtn.focus();
-    }
-
-    function closeModal() {
-      backdrop.classList.remove('open');
-      document.body.style.overflow = '';
-      titleEl.textContent = '';
-      bodyEl.innerHTML = '';
-    }
-
-    closeBtn.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', function(e) {
-      if (e.target === backdrop) closeModal();
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
     });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && backdrop.classList.contains('open')) {
-        closeModal();
+    document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+ 
+    document.addEventListener('DOMContentLoaded', function () {
+      const backdrop = document.getElementById('checkpointModal');
+      const titleEl = document.getElementById('modalTitle');
+      const bodyEl = document.getElementById('modalBody');
+      const closeBtn = backdrop.querySelector('.close');
+ 
+      function openModal(title, html) {
+        titleEl.textContent = title;
+        bodyEl.innerHTML = html;
+        backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
       }
-    });
-    modal.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
-
-    // Listen for button clicks with data-popup
-    document.querySelectorAll('button[data-popup]').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        const title = btn.getAttribute('data-popup-title') || 'Details';
-        const content = btn.getAttribute('data-popup') || '';
-        openModal(title, content);
+      function closeModal() {
+        backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      closeBtn.addEventListener('click', closeModal);
+      backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+ 
+      document.querySelectorAll('[data-popup]').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.preventDefault();
+          openModal(btn.getAttribute('data-popup-title') || 'Details', btn.getAttribute('data-popup') || '');
+        });
       });
     });
-  });
-})();
   </script>
 </body>
 </html>

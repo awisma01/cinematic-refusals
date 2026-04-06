@@ -448,3 +448,22 @@ body {
     min-width: 0;
   }
 }
+
+/* For custom modal popups *//* Importing IBM Plex Sans font */
+.modal-content {@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
+  background: #fff !important;
+  color: #222 !important;
+  font-family: 'IBM Plex Sans', Arial, sans-serif !important;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(23,66,59,0.13);
+}
+}  color: #222 !important;  background: #fff !important;.modal-content, .mapboxgl-popup-content {
+.modal-content h4 {
+  color: var(--gold) !important;
+  font-family: 'Oswald', Arial, sans-serif !important;
+  font-weight: 600;
+}
+
+
+}  font-weight: 600;  font-family: 'Oswald', Arial, sans-serif !important;  color: var(--gold) !important;.mapboxgl-popup-content h4 {.modal-content h4,}  box-shadow: 0 8px 32px rgba(23,66,59,0.13);  border-radius: 14px !important;  background: #fff !important;  color: #222 !important;  font-family: 'IBM Plex Sans', Arial, sans-serif !important;.modal-content, .mapboxgl-popup-content {}  color: #222; /* Use dark neutral for main text */  font-family: 'IBM Plex Sans', 'Cormorant Garamond', 'Georgia', serif;body, html {/* Importing IBM Plex Sans font */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');

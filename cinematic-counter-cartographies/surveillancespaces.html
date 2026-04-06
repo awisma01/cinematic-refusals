@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Surveillance Space — Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #e6a93a;
+      --teal: #6fe7c1;
+      --forest: #288366;
+      --dark-forest: #0a2321;
+      --sand: #beab5e;
+      --brown: #4e2e1e;
+      --crimson: #b94e3a;
+      --cream: #f7f3e9;
+
+      /* Typology accent colors */
+      --arch-color: #8b7355;
+      --arch-glow: rgba(139, 115, 85, 0.2);
+      --digital-color: #4a9eba;
+      --digital-glow: rgba(74, 158, 186, 0.2);
+      --temporal-color: #9b6b9b;
+      --temporal-glow: rgba(155, 107, 155, 0.2);
+      --intimate-color: #c47b5a;
+      --intimate-glow: rgba(196, 123, 90, 0.2);
+      --cinematic-color: #288366;
+      --cinematic-glow: rgba(40, 131, 102, 0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body, html {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      color: #1a1a1a;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body {
+      background: linear-gradient(160deg, #0a1a18 0%, #0f2d28 30%, #1a3a30 60%, #0b2820 100%);
+      background-attachment: fixed;
+    }
+
+    /* Scanline overlay — evokes surveillance monitor */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 255, 180, 0.012) 3px,
+        rgba(0, 255, 180, 0.012) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Topnav — matches site */
+    .topnav {
+      background: linear-gradient(180deg, rgba(10, 35, 33, 0.98) 0%, rgba(10, 35, 33, 0.95) 100%);
+      backdrop-filter: blur(10px);
+      color: var(--teal);
+      padding: 1.2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topnav .brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+
+    .topnav .menu {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .topnav .menu a {
+      color: #eaf7f2;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.3px;
+      text-decoration: none;
+    }
+
+    .topnav .menu a:hover,
+    .topnav .menu a.active {
+      background: rgba(230, 169, 58, 0.2);
+      color: var(--gold);
+    }
+
+    /* ===== HERO ===== */
+    .ss-hero {
+      position: relative;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Animated grid behind hero */
+    .ss-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(40, 131, 102, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(40, 131, 102, 0.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridDrift 30s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes gridDrift {
+      from { background-position: 0 0; }
+      to { background-position: 60px 60px; }
+    }
+
+    .ss-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--teal);
+      opacity: 0.7;
+      margin: 0 0 1.5rem 0;
+    }
+
+    .ss-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 700;
+      color: #e8f5f0;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    .ss-hero-title em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .ss-hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-style: italic;
+      color: rgba(232, 245, 240, 0.6);
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+      font-weight: 400;
+    }
+
+    /* Gold rule */
+    .gold-rule {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2.5rem auto;
+    }
+
+    /* ===== INTRO BLOCK ===== */
+    .ss-intro {
+      max-width: 820px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ss-intro-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(111, 231, 193, 0.15);
+      border-left: 3px solid var(--gold);
+      border-radius: 12px;
+      padding: 2.5rem 3rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .ss-intro-card p {
+      font-size: 1.2rem;
+      line-height: 2;
+      color: rgba(232, 245, 240, 0.88);
+      margin: 0 0 1.2rem;
+    }
+
+    .ss-intro-card p:last-child { margin: 0; }
+
+    /* ===== TYPOLOGY NAV ===== */
+    .typology-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      max-width: 900px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .typology-pill {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      border: 1px solid;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: transparent;
+      text-decoration: none;
+    }
+
+    .typology-pill[data-type="architectural"] {
+      border-color: var(--arch-color);
+      color: #c4a87a;
+    }
+    .typology-pill[data-type="architectural"]:hover {
+      background: var(--arch-glow);
+      color: #ddc496;
+    }
+
+    .typology-pill[data-type="digital"] {
+      border-color: var(--digital-color);
+      color: #7ab8d0;
+    }
+    .typology-pill[data-type="digital"]:hover {
+      background: var(--digital-glow);
+      color: #9ecfe3;
+    }
+
+    .typology-pill[data-type="temporal"] {
+      border-color: var(--temporal-color);
+      color: #c09ac0;
+    }
+    .typology-pill[data-type="temporal"]:hover {
+      background: var(--temporal-glow);
+      color: #d4b4d4;
+    }
+
+    .typology-pill[data-type="intimate"] {
+      border-color: var(--intimate-color);
+      color: #d49a7a;
+    }
+    .typology-pill[data-type="intimate"]:hover {
+      background: var(--intimate-glow);
+      color: #e8b494;
+    }
+
+    .typology-pill[data-type="cinematic"] {
+      border-color: var(--cinematic-color);
+      color: var(--teal);
+    }
+    .typology-pill[data-type="cinematic"]:hover {
+      background: var(--cinematic-glow);
+      color: #8ff5d8;
+    }
+
+    /* ===== TYPOLOGY SECTIONS ===== */
+    .typology-section {
+      max-width: 1100px;
+      margin: 0 auto 7rem;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+      scroll-margin-top: 100px;
+    }
+
+    /* Section header */
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .section-number {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.25);
+      margin-top: 0.5rem;
+      flex-shrink: 0;
+      writing-mode: vertical-rl;
+    }
+
+    .section-label-group { flex: 1; }
+
+    .section-type-tag {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 30px;
+      border: 1px solid;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 0 0 1rem;
+    }
+
+    .section-lead {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.8;
+      color: rgba(232, 245, 240, 0.65);
+      max-width: 700px;
+      margin: 0;
+    }
+
+    /* Architecture: stone/earth tones */
+    #architectural .section-type-tag {
+      border-color: var(--arch-color);
+      color: #c4a87a;
+    }
+    #architectural .section-title { color: #ddc496; }
+
+    /* Digital: cool blue */
+    #digital .section-type-tag {
+      border-color: var(--digital-color);
+      color: #7ab8d0;
+    }
+    #digital .section-title { color: #9ecfe3; }
+
+    /* Temporal: muted violet */
+    #temporal .section-type-tag {
+      border-color: var(--temporal-color);
+      color: #c09ac0;
+    }
+    #temporal .section-title { color: #d4b4d4; }
+
+    /* Intimate: warm terracotta */
+    #intimate .section-type-tag {
+      border-color: var(--intimate-color);
+      color: #d49a7a;
+    }
+    #intimate .section-title { color: #e8b494; }
+
+    /* Cinematic: site green */
+    #cinematic .section-type-tag {
+      border-color: var(--cinematic-color);
+      color: var(--teal);
+    }
+    #cinematic .section-title { color: #8ff5d8; }
+
+    /* ===== CONTENT GRID ===== */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .content-grid.wide { grid-template-columns: 2fr 1fr; }
+    .content-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+
+    /* Main prose block */
+    .prose-block {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 2.5rem;
+    }
+
+    .prose-block p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.95;
+      color: rgba(232, 245, 240, 0.82);
+      margin: 0 0 1.2rem;
+    }
+
+    .prose-block p:last-child { margin: 0; }
+
+    /* Keyword tags within text */
+    .kw {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82em;
+      padding: 0.1em 0.5em;
+      border-radius: 3px;
+      font-weight: 400;
+    }
+
+    #architectural .kw { background: rgba(139,115,85,0.25); color: #ddc496; }
+    #digital .kw { background: rgba(74,158,186,0.2); color: #9ecfe3; }
+    #temporal .kw { background: rgba(155,107,155,0.2); color: #d4b4d4; }
+    #intimate .kw { background: rgba(196,123,90,0.2); color: #e8b494; }
+    #cinematic .kw { background: rgba(40,131,102,0.25); color: #8ff5d8; }
+
+    /* Vocabulary / glossary card */
+    .vocab-card {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .vocab-card h4 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin: 0 0 1.5rem;
+    }
+
+    .vocab-list { list-style: none; padding: 0; margin: 0; }
+
+    .vocab-list li {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .vocab-list li:last-child { border-bottom: none; }
+
+    .vocab-term {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .vocab-def {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(232, 245, 240, 0.45);
+      line-height: 1.5;
+    }
+
+    #architectural .vocab-term { color: #c4a87a; }
+    #digital .vocab-term { color: #7ab8d0; }
+    #temporal .vocab-term { color: #c09ac0; }
+    #intimate .vocab-term { color: #d49a7a; }
+    #cinematic .vocab-term { color: var(--teal); }
+
+    /* Film reference cards */
+    .film-refs {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .film-ref-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1.4rem;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .film-ref-card:hover {
+      background: rgba(255,255,255,0.06);
+      transform: translateX(4px);
+    }
+
+    .film-ref-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 0.3rem;
+    }
+
+    .film-ref-dir {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      margin: 0 0 0.7rem;
+    }
+
+    .film-ref-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: rgba(232, 245, 240, 0.6);
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    #architectural .film-ref-title { color: #ddc496; }
+    #digital .film-ref-title { color: #9ecfe3; }
+    #temporal .film-ref-title { color: #d4b4d4; }
+    #intimate .film-ref-title { color: #e8b494; }
+    #cinematic .film-ref-title { color: #8ff5d8; }
+
+    /* Pull quote block */
+    .pull-quote {
+      background: rgba(0,0,0,0.3);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+      padding: 2rem 2.5rem;
+      margin: 0;
+    }
+
+    .pull-quote blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      line-height: 1.85;
+      color: rgba(232, 245, 240, 0.85);
+      margin: 0 0 1rem;
+    }
+
+    .pull-quote cite {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    /* Analytical categories — 3-column grid of tags */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .category-tag {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(232, 245, 240, 0.55);
+      transition: all 0.2s ease;
+    }
+
+    .category-tag:hover {
+      background: rgba(255,255,255,0.07);
+      color: rgba(232, 245, 240, 0.85);
+    }
+
+    .category-tag strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    #architectural .category-tag strong { color: #ddc496; }
+    #digital .category-tag strong { color: #9ecfe3; }
+    #temporal .category-tag strong { color: #d4b4d4; }
+    #intimate .category-tag strong { color: #e8b494; }
+    #cinematic .category-tag strong { color: #8ff5d8; }
+
+    /* ===== MATRIX TABLE ===== */
+    .matrix-section {
+      max-width: 1100px;
+      margin: 0 auto 7rem;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .matrix-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: #e8f5f0;
+      margin: 0 0 0.5rem;
+    }
+
+    .matrix-lead {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: rgba(232,245,240,0.5);
+      margin: 0 0 2.5rem;
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    .matrix-table th {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(232,245,240,0.4);
+      padding: 1rem 1.2rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .matrix-table td {
+      padding: 1.1rem 1.2rem;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: rgba(232, 245, 240, 0.75);
+      line-height: 1.6;
+    }
+
+    .matrix-table tr:hover td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .matrix-type-cell {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .matrix-table tr:nth-child(1) .matrix-type-cell { color: #c4a87a; }
+    .matrix-table tr:nth-child(2) .matrix-type-cell { color: #7ab8d0; }
+    .matrix-table tr:nth-child(3) .matrix-type-cell { color: #c09ac0; }
+    .matrix-table tr:nth-child(4) .matrix-type-cell { color: #d49a7a; }
+    .matrix-table tr:nth-child(5) .matrix-type-cell { color: var(--teal); }
+
+    /* ===== SECTION DIVIDER ===== */
+    .ss-divider {
+      max-width: 1100px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ss-divider-line {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: linear-gradient(180deg, rgba(10, 35, 33, 0.95) 0%, rgba(10, 35, 33, 0.98) 100%);
+      color: var(--teal);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.95rem;
+      font-family: 'Oswald', sans-serif;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== SCROLL TO TOP ===== */
+    #scrollTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 99;
+      background: var(--forest);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    #scrollTopBtn:hover {
+      background: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .content-grid,
+      .content-grid.wide,
+      .content-grid.three {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .section-number { writing-mode: horizontal-tb; }
+
+      .topnav { padding: 1rem 1.5rem; }
+
+      .topnav .menu a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.88rem;
+      }
+
+      .prose-block { padding: 1.8rem; }
+
+      .matrix-table { font-size: 0.85rem; }
+      .matrix-table th, .matrix-table td { padding: 0.8rem; }
+    }
+
+    @media (max-width: 600px) {
+      .ss-hero { padding: 4rem 1rem 2.5rem; }
+      .typology-nav { gap: 0.5rem; }
+      .typology-pill { font-size: 0.78rem; padding: 0.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="topnav">
+    <div class="brand">Cinematic Counter‑Cartographies</div>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="map.html">Map & Archive</a>
+      <a href="checkpoints.html">Checkpoints</a>
+      <a href="analysis.html">Visual Analysis</a>
+      <a href="surveillance-space.html" class="active">Surveillance Space</a>
+      
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="ss-hero">
+      <p class="ss-eyebrow">Research Framework</p>
+      <h1 class="ss-hero-title">The <em>Space</em> of Surveillance</h1>
+      <div class="gold-rule"></div>
+      <p class="ss-hero-subtitle">
+        Beyond the checkpoint: mapping the architectures, databases, durations, and intimacies through which Palestinian life is rendered legible, trackable, and controllable.
+      </p>
+    </section>
+
+    <!-- ===== TYPOLOGY NAV ===== -->
+    <nav class="typology-nav" aria-label="Jump to typology">
+      <a href="#architectural" class="typology-pill" data-type="architectural">I. Architectural</a>
+      <a href="#digital" class="typology-pill" data-type="digital">II. Digital</a>
+      <a href="#temporal" class="typology-pill" data-type="temporal">III. Temporal</a>
+      <a href="#intimate" class="typology-pill" data-type="intimate">IV. Intimate / Domestic</a>
+      <a href="#cinematic" class="typology-pill" data-type="cinematic">V. Cinematic</a>
+    </nav>
+
+    <!-- ===== INTRO ===== -->
+    <section class="ss-intro">
+      <div class="ss-intro-card">
+        <p>Checkpoints are the most visible expression of colonial control — but they are only one node in a much wider infrastructure of surveillance. This section maps five <em>typologies</em> of surveillance space that appear across Palestinian cinema from 2000 to 2025.</p>
+        <p>Each typology names a distinct register in which Palestinian life is rendered legible to power: the stone and steel of <strong>architectural</strong> enclosure; the algorithmic logic of <strong>digital</strong> biometrics; the weaponized stillness of <strong>temporal</strong> waiting; the occupation of <strong>intimate and domestic</strong> space; and the camera's own complicity — or refusal — as a <strong>cinematic</strong> surveillance apparatus.</p>
+        <p>Palestinian women filmmakers do not simply represent these spaces. They devise formal strategies — angles, ellipses, duration, offscreen sound — that refuse to reproduce the surveillance gaze even as they document it.</p>
+      </div>
+    </section>
+
+    <!-- ===========================
+         I. ARCHITECTURAL
+    ============================ -->
+    <section class="typology-section" id="architectural">
+      <div class="section-header">
+        <span class="section-number">01 / 05</span>
+        <div class="section-label-group">
+          <span class="section-type-tag">Typology I</span>
+          <h2 class="section-title">Architectural Space</h2>
+          <p class="section-lead">Cells, cameras, corridors, cages, waiting rooms — the built environment as instrument of control.</p>
+        </div>
+      </div>
+
+      <div class="content-grid wide">
+        <div class="prose-block">
+          <p>The architecture of Israeli military control is not incidental to surveillance — it <em>is</em> surveillance in material form. Checkpoints are engineered spaces: <span class="kw">turnstiles</span> that click, <span class="kw">caged corridors</span> that funnel bodies into single file, <span class="kw">watchtowers</span> whose sight lines are calculated, <span class="kw">waiting rooms</span> whose sightlessness is equally deliberate.</p>
+          <p>Scholar Eyal Weizman has described this as "the politics of verticality" — a three-dimensional sovereignty expressed through walls, barriers, and checkpoints that carve space into zones of visibility and invisibility, passage and prohibition.</p>
+          <p>Palestinian women filmmakers engage this architecture with precise formal awareness. Where surveillance design produces <em>legibility</em> — the readable body, the classified permit — cinema can produce <em>opacity</em>: holding on a wall, refusing the establishing shot, framing a corridor from within rather than surveying it from above.</p>
+
+          <div class="category-grid">
+            <div class="category-tag"><strong>Cells</strong>detention as spatial syntax</div>
+            <div class="category-tag"><strong>Cameras</strong>fixed-gaze CCTV infrastructure</div>
+            <div class="category-tag"><strong>Corridors</strong>enforced single-file movement</div>
+            <div class="category-tag"><strong>Cages</strong>Qalandiya's steel turnstiles</div>
+            <div class="category-tag"><strong>Watchtowers</strong>vertical sovereignty</div>
+            <div class="category-tag"><strong>Waiting rooms</strong>the architecture of delay</div>
+          </div>
+        </div>
+
+        <div class="vocab-card">
+          <h4>Key Concepts</h4>
+          <ul class="vocab-list">
+            <li>
+              <span class="vocab-term">Politics of Verticality</span>
+              <span class="vocab-def">Weizman's concept: control enacted through three-dimensional spatial arrangements, not just borders.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Carceral Geography</span>
+              <span class="vocab-def">The spatial logic that makes occupation and imprisonment continuous rather than exceptional.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Legibility</span>
+              <span class="vocab-def">The architectural demand that bodies be classifiable, readable, and sorted by a security apparatus.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Opacity</span>
+              <span class="vocab-def">Édouard Glissant's counter-concept: the right to refuse being made transparent to power.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div class="pull-quote">
+          <blockquote>"Traveling through a checkpoint is a confining and asphyxiating experience. The space itself teaches you your own containment."</blockquote>
+          <cite>— Helga Tawil-Souri</cite>
+        </div>
+
+        <div class="film-refs">
+          <div class="film-ref-card">
+            <p class="film-ref-title">Salt of This Sea (2008)</p>
+            <p class="film-ref-dir">dir. Annemarie Jacir</p>
+            <p class="film-ref-note">The checkpoint corridor becomes a recurring spatial motif — filmed from within, never from the surveillance tower. The caged walkway refuses the overhead gaze.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">Checkpoint (2003)</p>
+            <p class="film-ref-dir">dir. Yoav Shamir</p>
+            <p class="film-ref-note">Unusually, this doc <em>occupies</em> the surveillance position — illuminating how the camera itself can reproduce architectural power.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">3000 Nights (2015)</p>
+            <p class="film-ref-dir">dir. Mai Masri</p>
+            <p class="film-ref-note">The prison cell as total architectural surveillance: every surface a surface of control. Masri films intimacy persisting inside containment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ss-divider"><hr class="ss-divider-line"></div>
+
+    <!-- ===========================
+         II. DIGITAL
+    ============================ -->
+    <section class="typology-section" id="digital">
+      <div class="section-header">
+        <span class="section-number">02 / 05</span>
+        <div class="section-label-group">
+          <span class="section-type-tag">Typology II</span>
+          <h2 class="section-title">Digital Space</h2>
+          <p class="section-lead">Databases, permits, biometric IDs, population registries — surveillance before and beyond physical encounter.</p>
+        </div>
+      </div>
+
+      <div class="content-grid wide">
+        <div class="prose-block">
+          <p>The most powerful Israeli surveillance of Palestinian life is often invisible on screen: it operates through <span class="kw">databases</span>, <span class="kw">permit systems</span>, <span class="kw">biometric capture</span>, and <span class="kw">population registries</span> that determine movement long before a body reaches a turnstile. Palestinian life is rendered legible — nameable, trackable, deportable — through data rather than direct observation.</p>
+          <p>Scholars including Helga Tawil-Souri and Virginia Tilley have analyzed this infrastructure: the color-coded ID system, the Oslo-era permit regime, the digital population registry that determines who may claim residency in Jerusalem. These systems operate on a principle of <em>anticipatory surveillance</em>: the permit denied before the checkpoint is reached.</p>
+          <p>Cinema struggles with the digital: data is invisible, non-spectacular. Palestinian filmmakers address this through <em>formal indirection</em> — the unreturned call, the document read aloud, the waiting room whose cause is offscreen. The database appears as absence.</p>
+
+          <div class="category-grid">
+            <div class="category-tag"><strong>Permit systems</strong>pre-emptive restriction of movement</div>
+            <div class="category-tag"><strong>Biometrics</strong>fingerprint, iris, face capture</div>
+            <div class="category-tag"><strong>Color-coded IDs</strong>the Israeli ID classification regime</div>
+            <div class="category-tag"><strong>Population registry</strong>who can claim residency</div>
+            <div class="category-tag"><strong>Phone surveillance</strong>Pegasus & telecommunication monitoring</div>
+            <div class="category-tag"><strong>Drone imagery</strong>aerial data collection</div>
+          </div>
+        </div>
+
+        <div class="vocab-card">
+          <h4>Key Concepts</h4>
+          <ul class="vocab-list">
+            <li>
+              <span class="vocab-term">Anticipatory Surveillance</span>
+              <span class="vocab-def">Control enacted before any physical encounter — through data, permits, and classification systems.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Biopolitics</span>
+              <span class="vocab-def">Foucault/Mbembe: the governance of populations through life-making and life-withholding power.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Datafication</span>
+              <span class="vocab-def">Converting Palestinian bodies and movements into data points legible to the security apparatus.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Necropolitics</span>
+              <span class="vocab-def">Achille Mbembe: sovereignty expressed as the decision over who may live and who is left to die.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div class="film-refs">
+          <div class="film-ref-card">
+            <p class="film-ref-title">When I Saw You (2012)</p>
+            <p class="film-ref-dir">dir. Annemarie Jacir</p>
+            <p class="film-ref-note">Refugee documentation and camp registration — the paper and database trail that determines Tarek's possibilities. The ID card is the film's unseen protagonist.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">The Wanted 18 (2014)</p>
+            <p class="film-ref-dir">dir. Amer Shomali & Paul Cowan</p>
+            <p class="film-ref-note">The military order (a document) as the instrument that criminalizes cows. Bureaucratic text as surveillance apparatus.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">Wajib (2017)</p>
+            <p class="film-ref-dir">dir. Annemarie Jacir</p>
+            <p class="film-ref-note">Navigation of Israeli Arab identity cards and permit categories — the digital classification of who belongs where shapes every route the characters drive.</p>
+          </div>
+        </div>
+
+        <div class="pull-quote">
+          <blockquote>"Palestinian life is rendered legible — trackable, classifiable, deportable — before any body ever reaches a checkpoint. The database is the first checkpoint."</blockquote>
+          <cite>— Helga Tawil-Souri, Digital Occupation</cite>
+        </div>
+      </div>
+    </section>
+
+    <div class="ss-divider"><hr class="ss-divider-line"></div>
+
+    <!-- ===========================
+         III. TEMPORAL
+    ============================ -->
+    <section class="typology-section" id="temporal">
+      <div class="section-header">
+        <span class="section-number">03 / 05</span>
+        <div class="section-label-group">
+          <span class="section-type-tag">Typology III</span>
+          <h2 class="section-title">Temporal Space</h2>
+          <p class="section-lead">Waiting, delay, uncertainty, anticipatory punishment — time as a weapon and a site of resistance.</p>
+        </div>
+      </div>
+
+      <div class="content-grid wide">
+        <div class="prose-block">
+          <p>The checkpoint is not only a spatial boundary — it is a <em>temporal weapon</em>. Time at the checkpoint is confiscated: hours of waiting, the unpredictable click of the turnstile, the arbitrary extension of delay that teaches people their own subjection to a time they do not control. Tawil-Souri compares this to <span class="kw">solitary confinement</span> — not through walls, but through the suspension of time.</p>
+          <p>This temporal logic extends far beyond the checkpoint itself. The <span class="kw">waiting room</span> — at the permit office, the hospital, the consulate — reproduces the checkpoint's suspension without its steel. <span class="kw">Uncertainty</span> about permit renewal, about family reunification, about whether a road will be open tomorrow, constitutes what some scholars call <em>anticipatory punishment</em>: the penalty extracted before any action is taken.</p>
+          <p>Cinema is uniquely positioned to render duration. Palestinian filmmakers use long takes, static cameras, and deliberate slowness not as aesthetic indulgence but as formal argument: this is how long they wait. Time on screen becomes testimony.</p>
+
+          <div class="category-grid">
+            <div class="category-tag"><strong>Waiting</strong>the checkpoint queue as temporal weapon</div>
+            <div class="category-tag"><strong>Delay</strong>permit processing as punishment</div>
+            <div class="category-tag"><strong>Uncertainty</strong>living without timetable</div>
+            <div class="category-tag"><strong>Long takes</strong>duration as cinematic testimony</div>
+            <div class="category-tag"><strong>Anticipatory punishment</strong>pre-emptive deprivation</div>
+            <div class="category-tag"><strong>Dead time</strong>time stripped of agency or meaning</div>
+          </div>
+        </div>
+
+        <div class="vocab-card">
+          <h4>Key Concepts</h4>
+          <ul class="vocab-list">
+            <li>
+              <span class="vocab-term">Anticipatory Punishment</span>
+              <span class="vocab-def">The penalty of living under threat, delay, and uncertainty before any formal act of punishment.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Temporal Sovereignty</span>
+              <span class="vocab-def">The power to control not just space but when others may move through it.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Dead Time</span>
+              <span class="vocab-def">Time imposed as punishment — waiting without purpose, duration as humiliation.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Long Take</span>
+              <span class="vocab-def">Cinematic device: uninterrupted duration that forces the viewer to experience waiting alongside the subject.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div class="pull-quote">
+          <blockquote>"People are trained to listen for the 'click' of the turnstiles and to accept that their fate and time is not under their control."</blockquote>
+          <cite>— Helga Tawil-Souri</cite>
+        </div>
+
+        <div class="film-refs">
+          <div class="film-ref-card">
+            <p class="film-ref-title">Divine Intervention (2002)</p>
+            <p class="film-ref-dir">dir. Elia Suleiman</p>
+            <p class="film-ref-note">Waiting becomes absurdist comedy: static shots of checkpoint stillness accumulate into a political argument about temporal dispossession.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">3000 Nights (2015)</p>
+            <p class="film-ref-dir">dir. Mai Masri</p>
+            <p class="film-ref-note">The title is temporal: three thousand nights is the length of an unjust sentence. Duration is the film's political statement.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">The Present (2020)</p>
+            <p class="film-ref-dir">dir. Farah Nablusi</p>
+            <p class="film-ref-note">A single day stretches across the checkpoint — real time and screen time collapse as the protagonist waits for a return that may not come.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ss-divider"><hr class="ss-divider-line"></div>
+
+    <!-- ===========================
+         IV. INTIMATE / DOMESTIC
+    ============================ -->
+    <section class="typology-section" id="intimate">
+      <div class="section-header">
+        <span class="section-number">04 / 05</span>
+        <div class="section-label-group">
+          <span class="section-type-tag">Typology IV</span>
+          <h2 class="section-title">Intimate & Domestic Space</h2>
+          <p class="section-lead">Homes, hospitals, family life — the occupation of private space, and cinema's claim on the right to intimacy.</p>
+        </div>
+      </div>
+
+      <div class="content-grid wide">
+        <div class="prose-block">
+          <p>Occupation does not stop at the checkpoint. It enters the <span class="kw">home</span> through night raids, through the surveillance of family members, through the impossibility of family reunification under permit regimes. It enters the <span class="kw">hospital</span> through permit denials that prevent patients from reaching care. It governs <span class="kw">birth</span> — whether a child born in Jerusalem can be registered — and <span class="kw">death</span> — whether a body can be buried in the family village.</p>
+          <p>Palestinian women filmmakers are particularly attentive to this intimate register of surveillance. Where the checkpoint is legible as political space, the home, hospital, and kitchen are not — yet they are equally under occupation. Filming domesticity becomes an act of counter-mapping: asserting that Palestinian life continues inside structures of control, and doing so with the camera's full attention.</p>
+          <p>This attention constitutes what might be called a <em>politics of the ordinary</em>: the insistence that Palestinian daily life — love, family, food, labor — is both surveyable by power and irreducible to its surveillance logic.</p>
+
+          <div class="category-grid">
+            <div class="category-tag"><strong>Night raids</strong>home as site of military intrusion</div>
+            <div class="category-tag"><strong>Hospitals</strong>permit barriers to medical care</div>
+            <div class="category-tag"><strong>Family separation</strong>permit systems dividing households</div>
+            <div class="category-tag"><strong>Birth registration</strong>the bureaucratic gatekeeping of life</div>
+            <div class="category-tag"><strong>Domestic labor</strong>ordinary life under extraordinary control</div>
+            <div class="category-tag"><strong>Mourning</strong>surveillance of death and burial</div>
+          </div>
+        </div>
+
+        <div class="vocab-card">
+          <h4>Key Concepts</h4>
+          <ul class="vocab-list">
+            <li>
+              <span class="vocab-term">Intimate Occupation</span>
+              <span class="vocab-def">The extension of colonial control into domestic, familial, and bodily space.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Politics of the Ordinary</span>
+              <span class="vocab-def">The assertion that daily life — love, food, labor — is both politically constrained and irreducible to those constraints.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Family Reunification</span>
+              <span class="vocab-def">The permit process (often denied) that governs whether Palestinian families may live together.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Right to Futurity</span>
+              <span class="vocab-def">The claim — asserted by cinema — that Palestinian life has a future not defined by occupation.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div class="film-refs">
+          <div class="film-ref-card">
+            <p class="film-ref-title">3000 Nights (2015)</p>
+            <p class="film-ref-dir">dir. Mai Masri</p>
+            <p class="film-ref-note">The prison — total institutional space — becomes paradoxically domestic as Layal raises her baby inside. Maternity as refusal of carceral logic.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">Farha (2021)</p>
+            <p class="film-ref-dir">dir. Darin J. Sallam</p>
+            <p class="film-ref-note">The home as the last space of safety — and its violent entry. Filmed from within, the domestic becomes the unit of dispossession.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">Children of Shatila (1998)</p>
+            <p class="film-ref-dir">dir. Mai Masri</p>
+            <p class="film-ref-note">The refugee camp as permanent domestic space. Masri's camera stays at the level of children's faces — refusing to make the camp a spectacle.</p>
+          </div>
+        </div>
+
+        <div class="pull-quote">
+          <blockquote>"The checkpoint is a space where time is suspended, and the camera captures this suspension — but what the camera must also find is what endures inside that suspension."</blockquote>
+          <cite>— Mai Masri</cite>
+        </div>
+      </div>
+    </section>
+
+    <div class="ss-divider"><hr class="ss-divider-line"></div>
+
+    <!-- ===========================
+         V. CINEMATIC
+    ============================ -->
+    <section class="typology-section" id="cinematic">
+      <div class="section-header">
+        <span class="section-number">05 / 05</span>
+        <div class="section-label-group">
+          <span class="section-type-tag">Typology V</span>
+          <h2 class="section-title">Cinematic Space</h2>
+          <p class="section-lead">How the camera reproduces surveillance logic — and the formal strategies through which it refuses to.</p>
+        </div>
+      </div>
+
+      <div class="content-grid wide">
+        <div class="prose-block">
+          <p>The camera is itself a surveillance technology. It records, classifies, archives. News footage of checkpoints often adopts the perspective of the watchtower: overhead, scanning, objectifying. The documentary impulse — to show, to witness, to expose — risks reproducing the very gaze it intends to critique.</p>
+          <p>Palestinian women filmmakers are acutely aware of this tension. They develop what we might call <em>counter-surveillance aesthetics</em>: formal strategies that acknowledge the camera's power while refusing to deploy it as an instrument of control. These include the <span class="kw">averted angle</span> — filming beside rather than from above; the <span class="kw">ellipsis</span> — cutting before the moment of violation; <span class="kw">offscreen sound</span> — the checkpoint heard but not shown; and deliberate <span class="kw">withholding</span> — the refusal to make Palestinian suffering fully visible.</p>
+          <p>Suleiman's formulation is precise: occupation enters the film not as subject but as <em>condition of the image</em>. The counter-surveillance filmmaker does not photograph occupation — she photographs life under it, which is different.</p>
+
+          <div class="category-grid">
+            <div class="category-tag"><strong>Averted angle</strong>refusing the overhead gaze</div>
+            <div class="category-tag"><strong>Ellipsis</strong>cutting before violation</div>
+            <div class="category-tag"><strong>Offscreen sound</strong>the checkpoint heard, not shown</div>
+            <div class="category-tag"><strong>Long take</strong>duration as political argument</div>
+            <div class="category-tag"><strong>Withholding</strong>the politics of not showing</div>
+            <div class="category-tag"><strong>Opacity</strong>the right to not be made transparent</div>
+          </div>
+        </div>
+
+        <div class="vocab-card">
+          <h4>Key Concepts</h4>
+          <ul class="vocab-list">
+            <li>
+              <span class="vocab-term">Counter-Surveillance Aesthetics</span>
+              <span class="vocab-def">Formal strategies that refuse to reproduce the surveillance gaze even while documenting its effects.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Condition of the Image</span>
+              <span class="vocab-def">Suleiman: occupation is not the subject of the frame but the condition that makes the frame possible.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Formal Refusal</span>
+              <span class="vocab-def">The choice of angle, cut, or absence that constitutes political argument without showing the political object.</span>
+            </li>
+            <li>
+              <span class="vocab-term">Right to Opacity</span>
+              <span class="vocab-def">Glissant: the ethical claim that not all lives need to be fully visible to be worthy of respect.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div class="pull-quote">
+          <blockquote>"Occupation is total: it enters the film not as a subject but as a condition of the image."</blockquote>
+          <cite>— Elia Suleiman</cite>
+        </div>
+
+        <div class="film-refs">
+          <div class="film-ref-card">
+            <p class="film-ref-title">The Present (2020)</p>
+            <p class="film-ref-dir">dir. Farah Nablusi</p>
+            <p class="film-ref-note">The camera stays with Yusef's face, not the soldier's gun. The violence is formal: we hear it, register it, but the film refuses to give it the image it would want.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">Salt of This Sea (2008)</p>
+            <p class="film-ref-dir">dir. Annemarie Jacir</p>
+            <p class="film-ref-note">Jacir uses ellipsis precisely: the bank robbery cuts away before we see it complete. The film withholds spectacle to protect its subjects.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title">Divine Intervention (2002)</p>
+            <p class="film-ref-dir">dir. Elia Suleiman</p>
+            <p class="film-ref-note">Static takes, no dialogue. The surveillance camera's own logic — fixed, patient, recording — is turned into irony, then poetry.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ss-divider"><hr class="ss-divider-line"></div>
+
+    <!-- ===========================
+         SYNTHESIS MATRIX
+    ============================ -->
+    <section class="matrix-section">
+      <h2 class="matrix-heading">Surveillance Space: Comparative Matrix</h2>
+      <p class="matrix-lead">How each typology operates, and the cinematic strategies that engage it.</p>
+
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Typology</th>
+            <th>Sites / Mechanisms</th>
+            <th>Mode of Control</th>
+            <th>Cinematic Counter-Strategy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="matrix-type-cell">Architectural</td>
+            <td>Checkpoints, cages, corridors, watchtowers, cells</td>
+            <td>Physical enclosure; engineered legibility of moving bodies</td>
+            <td>Interior framing; refusing the overhead establishing shot; holding on walls</td>
+          </tr>
+          <tr>
+            <td class="matrix-type-cell">Digital</td>
+            <td>Permits, biometrics, ID systems, population registries, drones</td>
+            <td>Pre-emptive classification; anticipatory restriction before encounter</td>
+            <td>Documents read aloud; the unreturned call; absences that stand in for data</td>
+          </tr>
+          <tr>
+            <td class="matrix-type-cell">Temporal</td>
+            <td>Waiting rooms, queues, permit delays, uncertainty, checkpoint hours</td>
+            <td>Time as punishment; temporal sovereignty; "dead time" as humiliation</td>
+            <td>Long takes; real-time sequences; duration as testimony and argument</td>
+          </tr>
+          <tr>
+            <td class="matrix-type-cell">Intimate / Domestic</td>
+            <td>Homes, hospitals, family life, birth registration, mourning</td>
+            <td>Occupation of private space; governance of birth, family, and death</td>
+            <td>Close framing of faces; insisting on ordinary life; the kitchen as political space</td>
+          </tr>
+          <tr>
+            <td class="matrix-type-cell">Cinematic</td>
+            <td>The camera itself; angles, cuts, offscreen sound, withholding</td>
+            <td>Risk of reproducing surveillance gaze; the documentary impulse to expose</td>
+            <td>Averted angle; ellipsis; offscreen sound; deliberate opacity; formal refusal</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer class="footer">© 2026 Cinematic Counter‑Cartographies</footer>
+
+  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Smooth highlight active typology in nav
+    const sections = document.querySelectorAll('.typology-section');
+    const pills = document.querySelectorAll('.typology-pill');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          pills.forEach(p => p.style.opacity = '0.6');
+          const activePill = document.querySelector(`.typology-pill[href="#${entry.target.id}"]`);
+          if (activePill) activePill.style.opacity = '1';
+        }
+      });
+    }, { threshold: 0.3 });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>

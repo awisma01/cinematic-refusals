@@ -5,91 +5,207 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Map & Archive — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.18.0/mapbox-gl.css" rel="stylesheet">
   <style>
-    body { margin: 0; padding: 0; }
-    #map { position: absolute; top: 56px; bottom: 0; width: 100%; z-index: 1000; }
-    .search-bar-container {
-      position: absolute;
-      top: 72px; /* Lowered below the navbar */
-      left: 32px; /* Move to left side */
-      transform: none;
-      z-index: 1001;
-      background: rgba(255,255,255,0.95);
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(40,131,102,0.13);
-      padding: 0.5em 1em;
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-      width: 320px;
-      max-width: 90vw;
+    :root {
+      --gold: #e6a93a;
+      --teal: #6fe7c1;
+      --forest: #288366;
+      --crimson: #b94e3a;
     }
-    .search-bar-container input[type="text"] {
-      flex: 1;
-      border: none;
+
+    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+
+    body {
+      background: #0a1a18;
+      color: #e8f5f0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    /* NAV */
+    .topnav {
+      background: linear-gradient(180deg, rgba(10,35,33,0.99) 0%, rgba(10,35,33,0.97) 100%);
+      backdrop-filter: blur(10px);
+      padding: 1.1rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200; height: 60px; box-sizing: border-box;
+    }
+    .topnav .brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.5px;
+    }
+    .topnav .menu { display: flex; gap: 0.5rem; }
+    .topnav .menu a {
+      color: #eaf7f2; font-size: 0.88rem; font-weight: 500;
+      padding: 0.5rem 0.9rem; border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Oswald', sans-serif;
+      text-decoration: none;
+    }
+    .topnav .menu a:hover, .topnav .menu a.active {
+      background: rgba(230,169,58,0.2); color: var(--gold);
+    }
+
+    /* MAP */
+    #map {
+      position: fixed;
+      top: 60px; bottom: 0; left: 0; right: 0;
+      z-index: 1;
+    }
+
+    /* SEARCH BAR */
+    .search-panel {
+      position: fixed;
+      top: 76px; left: 20px;
+      z-index: 100;
+      width: 300px; max-width: 90vw;
+    }
+    .search-inner {
+      background: rgba(10,35,33,0.92);
+      border: 1px solid rgba(111,231,193,0.2);
+      border-radius: 10px;
+      backdrop-filter: blur(12px);
+      padding: 0.65rem 0.9rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .search-inner input[type="text"] {
+      flex: 1; border: none; background: transparent;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem; font-weight: 300;
+      color: #e8f5f0; outline: none;
+      letter-spacing: 0.05em;
+    }
+    .search-inner input::placeholder { color: rgba(232,245,240,0.3); }
+    .search-inner button {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 0.8rem; border-radius: 5px;
+      background: rgba(230,169,58,0.15);
+      border: 1px solid rgba(230,169,58,0.4);
+      color: var(--gold); cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .search-inner button:hover {
+      background: rgba(230,169,58,0.3);
+    }
+
+    #searchResults {
+      position: absolute; top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: rgba(10,35,33,0.96);
+      border: 1px solid rgba(111,231,193,0.15);
       border-radius: 8px;
-      padding: 0.5em;
-      font-size: 1rem;
-      outline: none;
-      background: #f7f6f2;
-      color: #222;
+      list-style: none; margin: 0; padding: 0;
+      z-index: 101;
+      max-height: 240px; overflow-y: auto;
+      display: none;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     }
-    .search-bar-container button {
-      background: #288366;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.5em 1em;
-      font-size: 1rem;
-      cursor: pointer;
-      font-weight: bold;
+    #searchResults li {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem; font-weight: 300;
+      padding: 0.7rem 1rem; cursor: pointer;
+      color: rgba(232,245,240,0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.2s;
     }
-    .search-bar-container button:hover {
-      background: #e6a93a;
-      color: #222;
+    #searchResults li:hover { background: rgba(230,169,58,0.1); color: var(--gold); }
+    #searchResults li:last-child { border-bottom: none; }
+    #searchResults .results-divider {
+      font-size: 0.65rem; letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(232,245,240,0.25);
+      background: rgba(0,0,0,0.2);
+      cursor: default;
     }
-    #map-legend {
-      position: absolute;
-      bottom: 32px;
-      left: 32px;
-      background: rgba(255,255,255,0.65); /* More transparent */
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(40,131,102,0.13);
-      padding: 1.1em 1.4em 1.1em 1.2em;
-      font-size: 1.05rem;
-      color: #222;
-      z-index: 1002;
-      min-width: 180px;
+    #searchResults .results-divider:hover { background: rgba(0,0,0,0.2); color: rgba(232,245,240,0.25); }
+
+    /* LEGEND */
+    .map-legend {
+      position: fixed;
+      bottom: 24px; left: 20px;
+      z-index: 100;
+      background: rgba(10,35,33,0.92);
+      border: 1px solid rgba(111,231,193,0.15);
+      border-radius: 10px;
+      padding: 1.1rem 1.3rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      min-width: 170px;
     }
-    #map-legend div {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.4em;
+    .legend-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(232,245,240,0.3);
+      margin: 0 0 0.9rem;
     }
-    #map-legend span {
-      display: inline-block;
-      margin-right: 0.7em;
+    .legend-row {
+      display: flex; align-items: center;
+      gap: 0.65rem; margin-bottom: 0.6rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.06em;
+      color: rgba(232,245,240,0.6);
     }
-    #map-legend .legend-color {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
+    .legend-row:last-child { margin-bottom: 0; }
+    .legend-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      flex-shrink: 0;
     }
-    #map-legend .checkpoint {
-      background: #e6a93a;
-      border: 2px solid #b94e3a;
+    .legend-dot.checkpoint {
+      background: var(--gold); border: 2px solid var(--crimson);
     }
-    #map-legend .search-result {
-      background: #288366;
-      border: 2px solid #fff;
+    .legend-dot.search-result {
+      background: var(--teal); border: 2px solid rgba(255,255,255,0.3);
     }
-    #map-legend .buildings {
-      width: 18px;
-      height: 18px;
-      background: linear-gradient(120deg,#e6a93a22 0%,#6fe7c1 100%);
-      border-radius: 4px;
-      border: 1.5px solid #288366;
+    .legend-dot.building {
+      width: 14px; height: 14px; border-radius: 3px;
+      background: linear-gradient(135deg, rgba(230,169,58,0.4), rgba(111,231,193,0.4));
+      border: 1px solid rgba(111,231,193,0.4);
+    }
+
+    /* Mapbox popup overrides */
+    .mapboxgl-popup-content {
+      background: rgba(10,35,33,0.95) !important;
+      border: 1px solid rgba(111,231,193,0.2) !important;
+      border-left: 2px solid var(--gold) !important;
+      color: #e8f5f0 !important;
+      border-radius: 10px !important;
+      padding: 1.2rem !important;
+      font-family: 'Cormorant Garamond', serif !important;
+      font-size: 1rem !important;
+      line-height: 1.7 !important;
+      max-height: 320px;
+      overflow-y: auto;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5) !important;
+      max-width: 320px !important;
+    }
+    .mapboxgl-popup-content strong {
+      color: var(--teal) !important;
+      font-family: 'Oswald', sans-serif !important;
+      font-size: 0.85rem !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+    }
+    .mapboxgl-popup-close-button {
+      color: rgba(232,245,240,0.4) !important;
+      font-size: 1.2rem !important;
+    }
+    .mapboxgl-popup-close-button:hover { color: var(--gold) !important; }
+    .mapboxgl-popup-tip { border-top-color: rgba(111,231,193,0.2) !important; }
+
+    @media (max-width: 768px) {
+      .topnav { padding: 0.9rem 1rem; }
+      .topnav .menu a { padding: 0.4rem 0.6rem; font-size: 0.78rem; }
+      .search-panel { top: 68px; left: 10px; width: calc(100vw - 20px); }
+      .map-legend { bottom: 12px; left: 10px; }
     }
   </style>
 </head>
@@ -101,76 +217,102 @@
       <a href="map.html" class="active">Map & Archive</a>
       <a href="checkpoints.html">Checkpoints</a>
       <a href="analysis.html">Visual Analysis</a>
-      <a href="not-mapped.html">What's Not Mapped</a>
+      <a href="surveillance-space.html">Surveillance Space</a>
+      
     </div>
   </nav>
 
-  <div class="search-bar-container">
-    <input type="text" id="searchInput" placeholder="Search for a place or location..." autocomplete="off" />
-    <button id="searchBtn">Search</button>
-    <ul id="searchResults" style="position:absolute;top:2.7em;left:0;width:100%;background:#fff;border-radius:0;box-shadow:none;list-style:none;margin:0;padding:0;z-index:1002;max-height:220px;overflow-y:auto;display:none;"></ul>
+  <div class="search-panel">
+    <div class="search-inner">
+      <input type="text" id="searchInput" placeholder="Search checkpoints or locations…" autocomplete="off" />
+      <button id="searchBtn">Search</button>
+    </div>
+    <ul id="searchResults"></ul>
   </div>
 
   <div id="map" role="region" aria-label="Interactive map of Palestinian checkpoints"></div>
 
-  <div id="map-legend">
-    <div style="font-weight: bold; margin-bottom: 0.5em;">Legend</div>
-    <div style="display: flex; align-items: center; margin-bottom: 0.4em;">
-      <span class="legend-color checkpoint"></span>
-      <span>Checkpoint</span>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 0.4em;">
-      <span class="legend-color search-result"></span>
-      <span>Search Result</span>
-    </div>
-    <div style="display: flex; align-items: center;">
-      <span class="buildings"></span>
-      <span>3D Buildings (zoom in)</span>
-    </div>
+  <div class="map-legend">
+    <p class="legend-title">Legend</p>
+    <div class="legend-row"><span class="legend-dot checkpoint"></span> Checkpoint</div>
+    <div class="legend-row"><span class="legend-dot search-result"></span> Search Result</div>
+    <div class="legend-row"><span class="legend-dot building"></span> 3D Buildings</div>
   </div>
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.18.0/mapbox-gl.js"></script>
   <script>
+    const checkpointGeoJSON = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": { "type": "Point", "coordinates": [35.2192, 31.8633] },
+          "properties": {
+            "title": "Qalandiya Checkpoint",
+            "arabic": "حاجز قلنديا",
+            "description": "<strong>District:</strong> Ramallah and al-Bira<br><strong>Type:</strong> Last Checkpoint before Israel<br><strong>Staffing:</strong> Permanently staffed<br><br>Qalandiya separates Palestinian communities between neighborhoods artificially severed by the Separation Barrier. It closed to Palestinian travel on 7 October 2023 and reopened for East Jerusalem residents only on 23 October 2023."
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": { "type": "Point", "coordinates": [35.2035, 31.7234] },
+          "properties": {
+            "title": "Checkpoint 300 — Bethlehem",
+            "arabic": "حاجز ٣٠٠ (بيت لحم)",
+            "description": "<strong>District:</strong> Bethlehem<br><strong>Type:</strong> Entry/Exit to Israel<br><strong>Staffing:</strong> Permanently staffed<br><br>Located on the border between Bethlehem and Jerusalem. One of the main entry and exit points for Palestinians traveling to and from Israel. Features a turnstile system and has been known for long waiting times."
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": { "type": "Point", "coordinates": [35.2726, 32.1762] },
+          "properties": {
+            "title": "Huwwara Checkpoint",
+            "arabic": "حاجز حوارة",
+            "description": "<strong>District:</strong> Nablus<br><strong>Type:</strong> Internal Checkpoint<br><strong>Staffing:</strong> Intermittently staffed<br><br>Located at the southern entrance to Nablus. After 7 Oct. 2023: completely closed to Palestinian pedestrians and vehicles."
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": { "type": "Point", "coordinates": [35.2976, 31.6927] },
+          "properties": {
+            "title": "Container Checkpoint (Wadi a-Nar)",
+            "arabic": "حاجز الكونتينر (وادي النار)",
+            "description": "<strong>District:</strong> Bethlehem<br><strong>Type:</strong> Internal Checkpoint<br><strong>Staffing:</strong> Permanently staffed<br><br>Situated east of Abu Dis. Controls Palestinian travel between the northern and southern West Bank. Since October 7, inspections have been strict."
+          }
+        }
+      ]
+    };
+
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXdpc21hMDEiLCJhIjoiY21sYjZudTJkMGs5ZTNkcTY2ZXRnbmt0NiJ9.3XcsI4p3lFOou3ulXWFXXQ';
 
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/standard-satellite',
-      center: [35.25, 31.95], // Centered to show all of West Bank
-      zoom: 9.2,              // Zoomed out to fit the outline
+      center: [35.25, 31.95],
+      zoom: 9.2,
       pitch: 45,
       bearing: -17.6,
       antialias: true
     });
 
+    const markerPopups = [];
+
     map.on('load', () => {
-      // --- Add checkpoint markers ---
-      const markerPopups = [];
       checkpointGeoJSON.features.forEach(feature => {
         const { title, arabic, description } = feature.properties;
 
-        // Use an orange watchtower SVG icon for the marker
         const el = document.createElement('div');
-        el.style.width = '38px';
-        el.style.height = '38px';
-        el.style.cursor = 'pointer';
+        el.style.cssText = 'width:36px;height:36px;cursor:pointer;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5));';
         el.innerHTML = `
-          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Tower base -->
+          <svg width="36" height="36" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="15" y="18" width="8" height="12" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
-            <!-- Tower top (cab) -->
             <rect x="13" y="13" width="12" height="6" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
-            <!-- Windows -->
-            <rect x="16.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
-            <rect x="19.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
-            <rect x="22.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
-            <!-- Tower legs -->
+            <rect x="16.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/>
+            <rect x="19.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/>
             <rect x="16" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
             <rect x="20" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
-            <!-- Optional: ground shadow -->
-            <ellipse cx="19" cy="36" rx="7" ry="2" fill="#e6a93a33"/>
-          </svg>
-        `;
+            <ellipse cx="19" cy="36" rx="7" ry="1.5" fill="rgba(230,169,58,0.2)"/>
+          </svg>`;
 
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(feature.geometry.coordinates)
@@ -178,367 +320,103 @@
 
         const popup = new mapboxgl.Popup({ offset: 18 })
           .setLngLat(feature.geometry.coordinates)
-          .setHTML(
-            `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
-          );
+          .setHTML(`<strong>${title}</strong><br><span style="font-family:'Cormorant Garamond',serif;font-size:1.1em;color:#6fe7c1;font-style:italic;">${arabic}</span><br><br>${description}`);
 
         markerPopups.push({ marker, popup, el });
 
         let isOpen = false;
-        el.addEventListener('click', function(e) {
+        el.addEventListener('click', e => {
           e.stopPropagation();
-          if (isOpen) {
-            popup.remove();
-            isOpen = false;
-          } else {
-            markerPopups.forEach(mp => mp.popup.remove());
+          if (isOpen) { popup.remove(); isOpen = false; }
+          else {
+            markerPopups.forEach(mp => { mp.popup.remove(); });
             popup.addTo(map);
             isOpen = true;
           }
         });
       });
 
-      // Close all popups when clicking elsewhere on the map
-      map.on('click', function() {
-        markerPopups.forEach(mp => mp.popup.remove());
-        if (window.searchMarker && window.searchMarker.getPopup()) {
-          window.searchMarker.getPopup().remove();
-        }
-      });
+      map.on('click', () => markerPopups.forEach(mp => mp.popup.remove()));
     });
 
+    // Search
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
     const searchResults = document.getElementById('searchResults');
 
-    let lastResults = [];
-
-    // Helper to extract Arabic name from feature or context
-    function getArabicName(feature) {
-      // Try direct property
-      if (feature.text_ar) return feature.text_ar;
-      // Try context array
-      if (feature.context) {
-        for (const c of feature.context) {
-          if (c.language === "ar" && c.text_ar) return c.text_ar;
-        }
-      }
-      return "";
-    }
-
-    // Helper: search checkpoints with Arabic fallback
     function searchCheckpoints(query) {
-      const lowerQuery = query.toLowerCase().trim();
-      return checkpointGeoJSON.features.filter(feature => {
-        const { title, arabic } = feature.properties;
-        return (
-          title.toLowerCase().includes(lowerQuery) ||
-          arabic.toLowerCase().includes(lowerQuery)
-        );
-      });
+      const q = query.toLowerCase().trim();
+      return checkpointGeoJSON.features.filter(f =>
+        f.properties.title.toLowerCase().includes(q) ||
+        f.properties.arabic.toLowerCase().includes(q)
+      );
     }
 
-    // Function to search global places using Mapbox Geocoding API
-    function searchGlobalPlaces(query, callback) {
+    function searchGlobal(query, cb) {
       fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}&language=en,ar`)
-        .then(response => response.json())
-        .then(data => {
-          callback(data.features);
-        });
+        .then(r => r.json()).then(d => cb(d.features));
     }
 
-    // --- Unified function to show search results ---
-    function showSearchResults(results, isCheckpoint) {
-      searchResults.innerHTML = "";
-      if (results.length === 0) {
-        searchResults.style.display = "none";
-        return;
-      }
+    function flyToResult(coords, html) {
+      map.flyTo({ center: coords, zoom: 15, essential: true });
+      if (window.searchMarker) { window.searchMarker.remove(); window.searchMarker = null; }
 
-      results.forEach(result => {
+      const el = document.createElement('div');
+      el.style.cssText = 'width:14px;height:14px;background:#6fe7c1;border:2px solid rgba(255,255,255,0.4);border-radius:50%;box-shadow:0 0 12px rgba(111,231,193,0.6);';
+
+      const popup = new mapboxgl.Popup({ offset: 12 }).setLngLat(coords).setHTML(html);
+      window.searchMarker = new mapboxgl.Marker({ element: el }).setLngLat(coords).setPopup(popup).addTo(map);
+      markerPopups.forEach(mp => mp.popup.remove());
+      searchResults.style.display = 'none';
+    }
+
+    function renderResults(cpResults, globalResults) {
+      searchResults.innerHTML = '';
+      if (!cpResults.length && !globalResults.length) { searchResults.style.display = 'none'; return; }
+
+      cpResults.forEach(r => {
         const li = document.createElement('li');
-        li.style.padding = "0.5em 1em";
-        li.style.cursor = "pointer";
-        li.style.borderBottom = "1px solid #eee";
-        if (isCheckpoint) {
-          li.textContent = `${result.properties.title} (${result.properties.arabic})`;
-        } else {
-          li.textContent = result.place_name;
-        }
-        li.addEventListener('click', () => {
-          let coordinates;
-          let popupHTML;
-          if (isCheckpoint) {
-            coordinates = result.geometry.coordinates;
-            popupHTML = `<strong>${result.properties.title}</strong><br><span style="font-size:1.1em;color:#288366;">${result.properties.arabic}</span><br>${result.properties.description}`;
-          } else {
-            coordinates = result.geometry.coordinates;
-            popupHTML = `<strong>${result.text}</strong><br>${result.place_name}`;
-          }
-
-          map.flyTo({ center: coordinates, zoom: 15, essential: true });
-
-          // Remove any existing search marker
-          if (window.searchMarker) {
-            window.searchMarker.remove();
-            window.searchMarker = null;
-          }
-
-          // Create marker for the search result
-          const searchEl = document.createElement('div');
-          searchEl.style.width = '38px';
-          searchEl.style.height = '38px';
-          searchEl.style.backgroundColor = isCheckpoint ? '#e6a93a' : '#288366';
-          searchEl.style.border = '2px solid #b94e3a';
-          searchEl.style.borderRadius = '50%';
-          searchEl.style.boxShadow = '0 2px 8px #0002';
-          searchEl.style.cursor = 'pointer';
-
-          const searchPopup = new mapboxgl.Popup({ offset: 18 })
-            .setLngLat(coordinates)
-            .setHTML(popupHTML);
-
-          window.searchMarker = new mapboxgl.Marker({ element: searchEl })
-            .setLngLat(coordinates)
-            .setPopup(searchPopup)
-            .addTo(map);
-
-          markerPopups.forEach(mp => mp.popup.remove());
-
-          searchResults.style.display = "none";
-        });
+        li.textContent = `${r.properties.title} (${r.properties.arabic})`;
+        li.style.background = 'rgba(230,169,58,0.05)';
+        li.addEventListener('click', () => flyToResult(r.geometry.coordinates,
+          `<strong>${r.properties.title}</strong><br><span style="color:#6fe7c1;font-style:italic;">${r.properties.arabic}</span><br><br>${r.properties.description}`));
         searchResults.appendChild(li);
       });
 
-      searchResults.style.display = "block";
-    }
-
-    // --- Combined function to show checkpoint and global search results ---
-    function showCombinedSearchResults(checkpointResults, globalResults) {
-      searchResults.innerHTML = "";
-      if (checkpointResults.length === 0 && globalResults.length === 0) {
-        searchResults.style.display = "none";
-        return;
+      if (cpResults.length && globalResults.length) {
+        const div = document.createElement('li');
+        div.textContent = 'Other places';
+        div.className = 'results-divider';
+        searchResults.appendChild(div);
       }
 
-      // Show checkpoint results first
-      checkpointResults.forEach(result => {
+      globalResults.slice(0, 4).forEach(r => {
         const li = document.createElement('li');
-        li.style.padding = "0.5em 1em";
-        li.style.cursor = "pointer";
-        li.style.borderBottom = "1px solid #eee";
-        li.textContent = `${result.properties.title} (${result.properties.arabic})`;
-        li.style.background = "#fffbe6";
-        li.addEventListener('click', () => {
-          const coordinates = result.geometry.coordinates;
-          const popupHTML = `<strong>${result.properties.title}</strong><br><span style="font-size:1.1em;color:#288366;">${result.properties.arabic}</span><br>${result.properties.description}`;
-
-          map.flyTo({ center: coordinates, zoom: 15, essential: true });
-
-          if (window.searchMarker) {
-            window.searchMarker.remove();
-            window.searchMarker = null;
-          }
-
-          const searchEl = document.createElement('div');
-          searchEl.style.width = '38px';
-          searchEl.style.height = '38px';
-          searchEl.style.backgroundColor = '#e6a93a';
-          searchEl.style.border = '2px solid #b94e3a';
-          searchEl.style.borderRadius = '50%';
-          searchEl.style.boxShadow = '0 2px 8px #0002';
-          searchEl.style.cursor = 'pointer';
-
-          const searchPopup = new mapboxgl.Popup({ offset: 18 })
-            .setLngLat(coordinates)
-            .setHTML(popupHTML);
-
-          window.searchMarker = new mapboxgl.Marker({ element: searchEl })
-            .setLngLat(coordinates)
-            .setPopup(searchPopup)
-            .addTo(map);
-
-          markerPopups.forEach(mp => mp.popup.remove());
-
-          searchResults.style.display = "none";
-        });
+        li.textContent = r.place_name;
+        li.addEventListener('click', () => flyToResult(r.geometry.coordinates,
+          `<strong>${r.text}</strong><br>${r.place_name}`));
         searchResults.appendChild(li);
       });
 
-      // Divider if both types exist
-      if (checkpointResults.length > 0 && globalResults.length > 0) {
-        const divider = document.createElement('li');
-        divider.style.padding = "0.3em 1em";
-        divider.style.fontSize = "0.95em";
-        divider.style.color = "#888";
-        divider.style.background = "#f7f6f2";
-        divider.textContent = "Other places";
-        divider.style.borderBottom = "1px solid #eee";
-        searchResults.appendChild(divider);
-      }
-
-      // Show global place results
-      globalResults.forEach(result => {
-        const li = document.createElement('li');
-        li.style.padding = "0.5em 1em";
-        li.style.cursor = "pointer";
-        li.style.borderBottom = "1px solid #eee";
-        li.textContent = result.place_name;
-        li.style.background = "#f7f6f2";
-        li.addEventListener('click', () => {
-          const coordinates = result.geometry.coordinates;
-          const popupHTML = `<strong>${result.text}</strong><br>${result.place_name}`;
-
-          map.flyTo({ center: coordinates, zoom: 15, essential: true });
-
-          if (window.searchMarker) {
-            window.searchMarker.remove();
-            window.searchMarker = null;
-          }
-
-          const searchEl = document.createElement('div');
-          searchEl.style.width = '38px';
-          searchEl.style.height = '38px';
-          searchEl.style.backgroundColor = '#288366';
-          searchEl.style.border = '2px solid #fff';
-          searchEl.style.borderRadius = '50%';
-          searchEl.style.boxShadow = '0 2px 8px #0002';
-          searchEl.style.cursor = 'pointer';
-
-          const searchPopup = new mapboxgl.Popup({ offset: 18 })
-            .setLngLat(coordinates)
-            .setHTML(popupHTML);
-
-          window.searchMarker = new mapboxgl.Marker({ element: searchEl })
-            .setLngLat(coordinates)
-            .setPopup(searchPopup)
-            .addTo(map);
-
-          markerPopups.forEach(mp => mp.popup.remove());
-
-          searchResults.style.display = "none";
-        });
-        searchResults.appendChild(li);
-      });
-
-      searchResults.style.display = "block";
+      searchResults.style.display = 'block';
     }
 
-    // Event: search button click
-    searchBtn.addEventListener('click', () => {
-      const query = searchInput.value;
-      if (!query) return;
+    function doSearch() {
+      const q = searchInput.value;
+      if (!q) return;
+      const cp = searchCheckpoints(q);
+      searchGlobal(q, g => renderResults(cp, g));
+    }
 
-      // Search checkpoints first
-      const checkpointResults = searchCheckpoints(query);
-
-      // Always search globally as well
-      searchGlobalPlaces(query, globalResults => {
-        showCombinedSearchResults(checkpointResults, globalResults);
-      });
+    searchBtn.addEventListener('click', doSearch);
+    searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value;
+      if (!q) { searchResults.style.display = 'none'; return; }
+      searchGlobal(q, g => renderResults(searchCheckpoints(q), g));
     });
 
-    // Event: search input keyup (for instant search)
-    searchInput.addEventListener('keyup', () => {
-      const query = searchInput.value;
-      if (!query) {
-        searchResults.style.display = "none";
-        return;
-      }
-
-      const checkpointResults = searchCheckpoints(query);
-
-      searchGlobalPlaces(query, globalResults => {
-        showCombinedSearchResults(checkpointResults, globalResults);
-      });
-    });
-
-    // Close search results when clicking outside
-    map.on('click', () => {
-      searchResults.style.display = "none";
-    });
-  </script>
-
-  <!-- Sample GeoJSON for checkpoints (replace with real data) -->
-  <script>
-    const checkpointGeoJSON = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [35.2192, 31.8633]
-          },
-          "properties": {
-            "title": "Qalandiya Checkpoint",
-            "arabic": "حاجز قلنديا",
-            "description": `
-              <strong>District:</strong> Ramallah and al-Bira<br>
-              <strong>Checkpoint Type:</strong> Last Checkpoint before Israel<br>
-              <strong>Staffing:</strong> Permanently staffed<br>
-              <strong>Details:</strong> Qalandiya Checkpoint also operated 24 hours a day until the war, allowing travel for Palestinian residents of East Jerusalem and West Bank residents with permits to enter Israel. It closed to Palestinian travel on 7 October 2023 and reopened for East Jerusalem residents only on 23 October 2023, Sunday through Thursday from 5:00 A.M. to 5:00 P.M. On 7 February 2024, the checkpoint was reopened for travel by Palestinian residents of the West Bank with permit to enter Israel, during the same limited operating hours. The crossing remains closed on Fridays.<br>
-              <span style='font-size:0.92em;color:#666;'><em>Source: “Qalandia”</em></span>
-            `
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [35.2035, 31.7234]
-          },
-          "properties": {
-            "title": "Checkpoint 300 — Bethlehem Checkpoint",
-            "arabic": "حاجز ٣٠٠ (بيت لحم)",
-            "description": `
-              <strong>District:</strong> Bethlehem<br>
-              <strong>Checkpoint Type:</strong> Entry/Exit to Israel<br>
-              <strong>Staffing:</strong> Permanently staffed<br>
-              <strong>Details:</strong> Checkpoint 300, also known as the Bethlehem Checkpoint, is located on the border between Bethlehem and Jerusalem. It is one of the main entry and exit points for Palestinians traveling to and from Israel. The checkpoint has been a site of significant tension and protest, especially during periods of heightened conflict. It features a turnstile system and has been known for its long waiting times.<br>
-              <span style='font-size:0.92em;color:#666;'><em>Source: “Checkpoint 300”</em></span>
-            `
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [35.2726, 32.1762]
-          },
-          "properties": {
-            "title": "Huwwara Checkpoint",
-            "arabic": "حاجز حوارة",
-            "description": `
-              <strong>District:</strong> Nablus<br>
-              <strong>Checkpoint Type:</strong> Internal Checkpoint<br>
-              <strong>Staffing:</strong> Intermittently staffed<br>
-              <strong>Details:</strong> Located at the southern entrance to Nablus. Includes a watchtower that is occasionally staffed by the military, and separate lanes for pedestrians and vehicles. The checkpoint is open and only rarely staffed, without a set schedule. After 7 Oct. 2023: The military has completely closed Huwarah checkpoint to Palestinian pedestrians and vehicles.<br>
-              <span style='font-size:0.92em;color:#666;'><em>Source: “Huwarah”</em></span>
-            `
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [35.2976, 31.6927]
-          },
-          "properties": {
-            "title": "Container Checkpoint (Wadi a-Nar)",
-            "arabic": "حاجز الكونتينر (وادي النار)",
-            "description": `
-              <strong>District:</strong> Bethlehem<br>
-              <strong>Checkpoint Type:</strong> Internal Checkpoint<br>
-              <strong>Staffing:</strong> Permanently staffed<br>
-              <strong>Details:</strong> Situated east of Abu Dis. Controls Palestinian travel between the northern and southern West Bank. Includes traffic lanes, access roads, road spikes, traffic lights, and road signs. Until the war, the checkpoint was open 24 hours a day, with random checks. Since October 7, inspections at the checkpoint have been strict. It is now open 24 hours a day for entering Bethlehem, most hours except from 6:00 A.M. to 9:00 A.M. for exiting.<br>
-              <span style='font-size:0.92em;color:#666;'><em>Source: “Container/Wadi a-Nar”</em></span>
-            `
-          }
-        }
-        // Add more features as needed
-      ]
-    };
+    map.on('click', () => { searchResults.style.display = 'none'; });
   </script>
 </body>
 </html>
