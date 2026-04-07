@@ -19,7 +19,7 @@
 
     body {
       margin: 0;
-      background: linear-gradient(160deg, #0a1a18 0%, #0f2d28 30%, #1a3a30 60%, #0b2820 100%);
+      background: linear-gradient(160deg, #1b3c34 0%, #2a5c4c 30%, #357a5a 60%, #23634c 100%);
       background-attachment: fixed;
       color: #e8f5f0;
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -366,6 +366,16 @@
     @media (max-width: 600px) {
       .film-grid { grid-template-columns: 1fr; }
       .page-hero { padding: 3.5rem 1rem 2.5rem; }
+    }
+
+    .cp-film-list li::before {
+      content: '—';
+      color: var(--gold);
+      opacity: 0.85; /* More visible */
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.1rem; /* Bigger */
+      font-weight: 700;  /* Bolder */
+      margin-right: 0.4em;
     }
   </style>
 </head>
