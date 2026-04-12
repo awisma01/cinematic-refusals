@@ -4,221 +4,227 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Map & Archive — Cinematic Counter-Cartographies</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.18.0/mapbox-gl.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
   <style>
     :root {
       --gold: #e6a93a;
       --teal: #6fe7c1;
       --forest: #288366;
       --crimson: #b94e3a;
+      --nav-h: 62px;
     }
-
+    *, *::before, *::after { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-
-    body {
-      background: #0a1a18;
-      color: #e8f5f0;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-    }
+    body { font-family: 'Cormorant Garamond', Georgia, serif; background: #0a1a18; color: #e8f5f0; }
 
     /* NAV */
     .topnav {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
       background: linear-gradient(180deg, rgba(10,35,33,0.99) 0%, rgba(10,35,33,0.97) 100%);
-      backdrop-filter: blur(10px);
-      padding: 1.1rem 3rem;
+      backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
       box-shadow: 0 2px 20px rgba(0,0,0,0.5);
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 200; height: 60px; box-sizing: border-box;
+      z-index: 200;
     }
     .topnav .brand {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.2rem; font-weight: 600;
-      color: var(--gold); letter-spacing: 0.5px;
+      font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.5px; text-decoration: none;
     }
-    .topnav .menu { display: flex; gap: 0.5rem; }
+    .topnav .menu { display: flex; gap: 0.4rem; }
     .topnav .menu a {
       color: #eaf7f2; font-size: 0.88rem; font-weight: 500;
       padding: 0.5rem 0.9rem; border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'Oswald', sans-serif;
-      text-decoration: none;
+      transition: all 0.25s; font-family: 'Oswald', sans-serif;
+      text-decoration: none; letter-spacing: 0.2px;
     }
-    .topnav .menu a:hover, .topnav .menu a.active {
-      background: rgba(230,169,58,0.2); color: var(--gold);
-    }
+    .topnav .menu a:hover, .topnav .menu a.active { background: rgba(230,169,58,0.18); color: var(--gold); }
 
     /* MAP */
-    #map {
-      position: fixed;
-      top: 60px; bottom: 0; left: 0; right: 0;
-      z-index: 1;
-    }
+    #map { position: fixed; top: var(--nav-h); bottom: 0; left: 0; right: 0; z-index: 1; }
 
-    /* SEARCH BAR */
+    /* SEARCH */
     .search-panel {
-      position: fixed;
-      top: 76px; left: 20px;
-      z-index: 100;
-      width: 300px; max-width: 90vw;
+      position: fixed; top: calc(var(--nav-h) + 16px);
+      left: 50%; transform: translateX(-50%);
+      z-index: 100; width: 420px; max-width: calc(100vw - 32px);
     }
     .search-inner {
-      background: rgba(10,35,33,0.92);
-      border: 1px solid rgba(111,231,193,0.2);
-      border-radius: 10px;
-      backdrop-filter: blur(12px);
-      padding: 0.65rem 0.9rem;
-      display: flex; align-items: center; gap: 0.5rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      background: rgba(10,35,33,0.94);
+      border: 1px solid rgba(111,231,193,0.22);
+      border-radius: 12px; backdrop-filter: blur(14px);
+      padding: 0.7rem 0.9rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.45);
     }
-    .search-inner input[type="text"] {
+    .search-inner input {
       flex: 1; border: none; background: transparent;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.82rem; font-weight: 300;
-      color: #e8f5f0; outline: none;
-      letter-spacing: 0.05em;
+      font-size: 0.84rem; font-weight: 300;
+      color: #e8f5f0; outline: none; letter-spacing: 0.04em;
     }
     .search-inner input::placeholder { color: rgba(232,245,240,0.3); }
     .search-inner button {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.72rem; font-weight: 500;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 0.4rem 0.8rem; border-radius: 5px;
-      background: rgba(230,169,58,0.15);
-      border: 1px solid rgba(230,169,58,0.4);
-      color: var(--gold); cursor: pointer;
-      transition: all 0.2s ease;
+      font-family: 'Oswald', sans-serif; font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.42rem 1rem; border-radius: 6px;
+      background: rgba(230,169,58,0.15); border: 1px solid rgba(230,169,58,0.45);
+      color: var(--gold); cursor: pointer; transition: all 0.2s; white-space: nowrap;
     }
-    .search-inner button:hover {
-      background: rgba(230,169,58,0.3);
-    }
+    .search-inner button:hover { background: rgba(230,169,58,0.3); }
 
     #searchResults {
-      position: absolute; top: calc(100% + 4px);
-      left: 0; right: 0;
-      background: rgba(10,35,33,0.96);
-      border: 1px solid rgba(111,231,193,0.15);
-      border-radius: 8px;
-      list-style: none; margin: 0; padding: 0;
-      z-index: 101;
-      max-height: 240px; overflow-y: auto;
-      display: none;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+      background: rgba(10,35,33,0.97); border: 1px solid rgba(111,231,193,0.15);
+      border-radius: 10px; list-style: none; margin: 0; padding: 0.4rem 0;
+      z-index: 101; max-height: 260px; overflow-y: auto; display: none;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.5);
     }
     #searchResults li {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.78rem; font-weight: 300;
-      padding: 0.7rem 1rem; cursor: pointer;
-      color: rgba(232,245,240,0.7);
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; font-weight: 300;
+      padding: 0.7rem 1.1rem; cursor: pointer;
+      color: rgba(232,245,240,0.75);
       border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: background 0.2s;
+      transition: background 0.18s, color 0.18s;
+      display: flex; align-items: center; gap: 0.5rem;
     }
-    #searchResults li:hover { background: rgba(230,169,58,0.1); color: var(--gold); }
     #searchResults li:last-child { border-bottom: none; }
-    #searchResults .results-divider {
-      font-size: 0.65rem; letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(232,245,240,0.25);
-      background: rgba(0,0,0,0.2);
-      cursor: default;
+    #searchResults li:hover { background: rgba(230,169,58,0.1); color: var(--gold); }
+    #searchResults li.divider {
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(232,245,240,0.2); background: rgba(0,0,0,0.15); cursor: default;
     }
-    #searchResults .results-divider:hover { background: rgba(0,0,0,0.2); color: rgba(232,245,240,0.25); }
+    #searchResults li.divider:hover { background: rgba(0,0,0,0.15); color: rgba(232,245,240,0.2); }
+    .result-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    li.cp-result .result-dot { background: var(--gold); }
+    li.place-result .result-dot { background: var(--teal); }
 
     /* LEGEND */
     .map-legend {
-      position: fixed;
-      bottom: 24px; left: 20px;
-      z-index: 100;
-      background: rgba(10,35,33,0.92);
-      border: 1px solid rgba(111,231,193,0.15);
-      border-radius: 10px;
-      padding: 1.1rem 1.3rem;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      position: fixed; bottom: 24px; left: 20px; z-index: 100;
+      background: rgba(10,35,33,0.93); border: 1px solid rgba(111,231,193,0.15);
+      border-radius: 12px; padding: 1.1rem 1.4rem;
+      backdrop-filter: blur(14px); box-shadow: 0 6px 24px rgba(0,0,0,0.45);
       min-width: 170px;
     }
     .legend-title {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem; letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: rgba(232,245,240,0.3);
-      margin: 0 0 0.9rem;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: rgba(232,245,240,0.28); margin: 0 0 0.9rem;
     }
     .legend-row {
-      display: flex; align-items: center;
-      gap: 0.65rem; margin-bottom: 0.6rem;
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.78rem; font-weight: 400;
-      letter-spacing: 0.06em;
+      display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.6rem;
+      font-family: 'Oswald', sans-serif; font-size: 0.78rem; font-weight: 400;
       color: rgba(232,245,240,0.6);
     }
     .legend-row:last-child { margin-bottom: 0; }
-    .legend-dot {
-      width: 14px; height: 14px; border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .legend-dot.checkpoint {
-      background: var(--gold); border: 2px solid var(--crimson);
-    }
-    .legend-dot.search-result {
-      background: var(--teal); border: 2px solid rgba(255,255,255,0.3);
-    }
-    .legend-dot.building {
-      width: 14px; height: 14px; border-radius: 3px;
-      background: linear-gradient(135deg, rgba(230,169,58,0.4), rgba(111,231,193,0.4));
-      border: 1px solid rgba(111,231,193,0.4);
-    }
+    .legend-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; }
+    .legend-dot.checkpoint { background: var(--gold); border: 2px solid var(--crimson); }
+    .legend-dot.search-result { background: var(--teal); border: 2px solid rgba(255,255,255,0.25); }
 
-    /* Mapbox popup overrides */
-    .mapboxgl-popup-content {
-      background: rgba(10,35,33,0.95) !important;
-      border: 1px solid rgba(111,231,193,0.2) !important;
-      border-left: 2px solid var(--gold) !important;
-      color: #e8f5f0 !important;
-      border-radius: 10px !important;
-      padding: 1.2rem !important;
-      font-family: 'Cormorant Garamond', serif !important;
-      font-size: 1rem !important;
-      line-height: 1.7 !important;
-      max-height: 320px;
-      overflow-y: auto;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5) !important;
-      max-width: 320px !important;
+    /* POPUP OVERRIDES */
+    .mapboxgl-popup-content { background: transparent !important; border-radius: 0 !important; padding: 0 !important; box-shadow: none !important; }
+    .mapboxgl-popup-tip { display: none !important; }
+    .mapboxgl-popup-close-button { display: none !important; }
+
+    /* CUSTOM POPUP CARD */
+    .cp-popup {
+      background: linear-gradient(140deg, #0a2321 0%, #163d30 100%);
+      border: 1px solid rgba(111,231,193,0.18);
+      border-radius: 16px; 
+      overflow: auto;                /* Enable scrolling */
+      width: 300px;
+      max-height: 350px;             /* Limit height so content can scroll */
+      box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(230,169,58,0.12);
+      font-family: 'Cormorant Garamond', serif;
+      animation: popupIn 0.28s cubic-bezier(.34,1.56,.64,1);
     }
-    .mapboxgl-popup-content strong {
-      color: var(--teal) !important;
-      font-family: 'Oswald', sans-serif !important;
-      font-size: 0.85rem !important;
-      letter-spacing: 0.1em !important;
-      text-transform: uppercase !important;
+    @keyframes popupIn {
+      from { opacity: 0; transform: scale(0.9) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
-    .mapboxgl-popup-close-button {
-      color: rgba(232,245,240,0.4) !important;
-      font-size: 1.2rem !important;
+    .cp-popup-bar { height: 3px; background: linear-gradient(90deg, var(--gold), #f0c060, var(--gold)); }
+    .cp-popup-header {
+      padding: 1rem 1.1rem 0.8rem; position: relative;
+      border-bottom: 1px solid rgba(111,231,193,0.1);
+      background: rgba(0,0,0,0.18);
     }
-    .mapboxgl-popup-close-button:hover { color: var(--gold) !important; }
-    .mapboxgl-popup-tip { border-top-color: rgba(111,231,193,0.2) !important; }
+    .cp-popup-header::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(111,231,193,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(111,231,193,0.05) 1px, transparent 1px);
+      background-size: 20px 20px; pointer-events: none;
+    }
+    .cp-popup-eyebrow {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--teal); opacity: 0.65; margin: 0 0 0.35rem; display: block;
+      position: relative; z-index: 1;
+    }
+    .cp-popup-title {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.22rem;
+      font-weight: 700; color: #ffffff; margin: 0 2rem 0.2rem 0;
+      line-height: 1.2; position: relative; z-index: 1;
+    }
+    .cp-popup-arabic {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.98rem;
+      font-style: italic; color: var(--teal); opacity: 0.75; margin: 0;
+      position: relative; z-index: 1;
+    }
+    .cp-popup-close {
+      position: absolute; top: 0.85rem; right: 0.9rem; z-index: 2;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5); font-size: 0.78rem; cursor: pointer;
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .cp-popup-close:hover { background: var(--gold); border-color: var(--gold); color: #0a2321; }
+    .cp-popup-row {
+      padding: 0.72rem 1.1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.98rem; line-height: 1.65; color: rgba(232,245,240,0.82);
+    }
+    .cp-popup-row:last-child { border-bottom: none; }
+    .cp-popup-label {
+      font-family: 'Oswald', sans-serif; font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); display: block; margin-bottom: 0.12rem;
+    }
+    .cp-popup-films { padding: 0.65rem 1.1rem 0.9rem; background: rgba(0,0,0,0.18); }
+    .cp-popup-films .cp-popup-label { margin-bottom: 0.4rem; }
+    .cp-film-tag {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; font-weight: 300;
+      padding: 0.22rem 0.55rem; border-radius: 20px;
+      border: 1px solid rgba(230,169,58,0.3); color: rgba(230,169,58,0.85);
+      margin: 0.18rem 0.18rem 0 0; white-space: nowrap;
+    }
 
     @media (max-width: 768px) {
-      .topnav { padding: 0.9rem 1rem; }
-      .topnav .menu a { padding: 0.4rem 0.6rem; font-size: 0.78rem; }
-      .search-panel { top: 68px; left: 10px; width: calc(100vw - 20px); }
-      .map-legend { bottom: 12px; left: 10px; }
+      .topnav { padding: 0 1rem; }
+      .topnav .menu a { padding: 0.4rem 0.55rem; font-size: 0.76rem; }
+      .search-panel { top: calc(var(--nav-h) + 10px); }
+      .map-legend { bottom: 10px; left: 10px; }
+      .cp-popup { width: 260px; }
     }
   </style>
 </head>
 <body>
+
   <nav class="topnav">
-    <div class="brand">Cinematic Counter‑Cartographies</div>
+    <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html" class="active">Map & Archive</a>
       <a href="checkpoints.html">Checkpoints</a>
       <a href="analysis.html">Visual Analysis</a>
       <a href="surveillance-space.html">Surveillance Space</a>
-      
+      <a href="not-mapped.html">What's Not Mapped</a>
     </div>
   </nav>
 
@@ -234,189 +240,214 @@
 
   <div class="map-legend">
     <p class="legend-title">Legend</p>
-    <div class="legend-row"><span class="legend-dot checkpoint"></span> Checkpoint</div>
-    <div class="legend-row"><span class="legend-dot search-result"></span> Search Result</div>
-    <div class="legend-row"><span class="legend-dot building"></span> 3D Buildings</div>
+    <div class="legend-row"><span class="legend-dot checkpoint"></span>Checkpoint</div>
+    <div class="legend-row"><span class="legend-dot search-result"></span>Search Result</div>
   </div>
 
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.18.0/mapbox-gl.js"></script>
   <script>
-    const checkpointGeoJSON = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": { "type": "Point", "coordinates": [35.2192, 31.8633] },
-          "properties": {
-            "title": "Qalandiya Checkpoint",
-            "arabic": "حاجز قلنديا",
-            "description": "<strong>District:</strong> Ramallah and al-Bira<br><strong>Type:</strong> Last Checkpoint before Israel<br><strong>Staffing:</strong> Permanently staffed<br><br>Qalandiya separates Palestinian communities between neighborhoods artificially severed by the Separation Barrier. It closed to Palestinian travel on 7 October 2023 and reopened for East Jerusalem residents only on 23 October 2023."
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": { "type": "Point", "coordinates": [35.2035, 31.7234] },
-          "properties": {
-            "title": "Checkpoint 300 — Bethlehem",
-            "arabic": "حاجز ٣٠٠ (بيت لحم)",
-            "description": "<strong>District:</strong> Bethlehem<br><strong>Type:</strong> Entry/Exit to Israel<br><strong>Staffing:</strong> Permanently staffed<br><br>Located on the border between Bethlehem and Jerusalem. One of the main entry and exit points for Palestinians traveling to and from Israel. Features a turnstile system and has been known for long waiting times."
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": { "type": "Point", "coordinates": [35.2726, 32.1762] },
-          "properties": {
-            "title": "Huwwara Checkpoint",
-            "arabic": "حاجز حوارة",
-            "description": "<strong>District:</strong> Nablus<br><strong>Type:</strong> Internal Checkpoint<br><strong>Staffing:</strong> Intermittently staffed<br><br>Located at the southern entrance to Nablus. After 7 Oct. 2023: completely closed to Palestinian pedestrians and vehicles."
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": { "type": "Point", "coordinates": [35.2976, 31.6927] },
-          "properties": {
-            "title": "Container Checkpoint (Wadi a-Nar)",
-            "arabic": "حاجز الكونتينر (وادي النار)",
-            "description": "<strong>District:</strong> Bethlehem<br><strong>Type:</strong> Internal Checkpoint<br><strong>Staffing:</strong> Permanently staffed<br><br>Situated east of Abu Dis. Controls Palestinian travel between the northern and southern West Bank. Since October 7, inspections have been strict."
-          }
-        }
-      ]
-    };
+    const checkpoints = [
+      {
+        coords: [35.2192, 31.8633],
+        title: "Qalandiya Checkpoint",
+        arabic: "حاجز قلنديا",
+        district: "Ramallah and al-Bira",
+        type: "Last checkpoint before Israel",
+        staffing: "Permanently staffed",
+        detail: "Qalandiya separates Palestinian communities severed by the Separation Barrier. Closed on 7 October 2023; reopened for East Jerusalem residents 23 October 2023 (Sun–Thu, 5am–5pm). Reopened for West Bank permit holders 7 February 2024. Remains closed Fridays.",
+        films: ["Salt of This Sea — Jacir, 2008", "The Present — Nablusi, 2020"]
+      },
+      {
+        coords: [35.2035, 31.7234],
+        title: "Checkpoint 300 — Bethlehem",
+        arabic: "حاجز ٣٠٠ (بيت لحم)",
+        district: "Bethlehem",
+        type: "Entry / Exit to Israel",
+        staffing: "Permanently staffed",
+        detail: "Located on the border between Bethlehem and Jerusalem. One of the busiest crossings — thousands pass daily for work. Features a turnstile system and persistent long queues.",
+        films: ["Salt of This Sea — Jacir, 2008", "When I Saw You — Jacir, 2012"]
+      },
+      {
+        coords: [35.2726, 32.1762],
+        title: "Huwwara Checkpoint",
+        arabic: "حاجز حوارة",
+        district: "Nablus",
+        type: "Internal checkpoint",
+        staffing: "Intermittently staffed",
+        detail: "At the southern entrance to Nablus. Staffed on no fixed schedule. After 7 October 2023, completely closed to Palestinian pedestrians and vehicles.",
+        films: ["The Present — Nablusi, 2020"]
+      },
+      {
+        coords: [35.2976, 31.6927],
+        title: "Container Checkpoint (Wadi a-Nar)",
+        arabic: "حاجز الكونتينر (وادي النار)",
+        district: "Bethlehem",
+        type: "Internal checkpoint",
+        staffing: "Permanently staffed",
+        detail: "East of Abu Dis, controlling travel between northern and southern West Bank. Since October 2023, strict inspections with limited outbound hours (closed 6–9am for exit).",
+        films: ["Archive footage — dates TBD"]
+      }
+    ];
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXdpc21hMDEiLCJhIjoiY21sYjZudTJkMGs5ZTNkcTY2ZXRnbmt0NiJ9.3XcsI4p3lFOou3ulXWFXXQ';
 
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/standard-satellite',
+      style: 'mapbox://styles/mapbox/streets-v12',
+      projection: 'globe',
+      zoom: 8.5,
       center: [35.25, 31.95],
-      zoom: 9.2,
-      pitch: 45,
-      bearing: -17.6,
       antialias: true
     });
 
-    const markerPopups = [];
+    map.addControl(new mapboxgl.NavigationControl());
+    map.scrollZoom.disable();
 
-    map.on('load', () => {
-      checkpointGeoJSON.features.forEach(feature => {
-        const { title, arabic, description } = feature.properties;
-
-        const el = document.createElement('div');
-        el.style.cssText = 'width:36px;height:36px;cursor:pointer;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5));';
-        el.innerHTML = `
-          <svg width="36" height="36" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="15" y="18" width="8" height="12" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
-            <rect x="13" y="13" width="12" height="6" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
-            <rect x="16.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/>
-            <rect x="19.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/>
-            <rect x="16" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
-            <rect x="20" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
-            <ellipse cx="19" cy="36" rx="7" ry="1.5" fill="rgba(230,169,58,0.2)"/>
-          </svg>`;
-
-        const marker = new mapboxgl.Marker({ element: el })
-          .setLngLat(feature.geometry.coordinates)
-          .addTo(map);
-
-        const popup = new mapboxgl.Popup({ offset: 18 })
-          .setLngLat(feature.geometry.coordinates)
-          .setHTML(`<strong>${title}</strong><br><span style="font-family:'Cormorant Garamond',serif;font-size:1.1em;color:#6fe7c1;font-style:italic;">${arabic}</span><br><br>${description}`);
-
-        markerPopups.push({ marker, popup, el });
-
-        let isOpen = false;
-        el.addEventListener('click', e => {
-          e.stopPropagation();
-          if (isOpen) { popup.remove(); isOpen = false; }
-          else {
-            markerPopups.forEach(mp => { mp.popup.remove(); });
-            popup.addTo(map);
-            isOpen = true;
-          }
-        });
-      });
-
-      map.on('click', () => markerPopups.forEach(mp => mp.popup.remove()));
+    map.on('style.load', () => {
+      map.setFog({});
     });
 
-    // Search
-    const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.getElementById('searchBtn');
-    const searchResults = document.getElementById('searchResults');
+    function buildPopupHTML(cp) {
+      const tags = cp.films.map(f => `<span class="cp-film-tag">${f}</span>`).join('');
+      return `<div class="cp-popup">
+        <div class="cp-popup-bar"></div>
+        <div class="cp-popup-header">
+          <span class="cp-popup-eyebrow">Checkpoint</span>
+          <p class="cp-popup-title">${cp.title}</p>
+          <p class="cp-popup-arabic">${cp.arabic}</p>
+          <button class="cp-popup-close" onclick="this.closest('.mapboxgl-popup').remove()">✕</button>
+        </div>
+        <div class="cp-popup-body">
+          <div class="cp-popup-row"><span class="cp-popup-label">District</span>${cp.district}</div>
+          <div class="cp-popup-row"><span class="cp-popup-label">Type</span>${cp.type}</div>
+          <div class="cp-popup-row"><span class="cp-popup-label">Staffing</span>${cp.staffing}</div>
+          <div class="cp-popup-row"><span class="cp-popup-label">Details</span>${cp.detail}</div>
+          <div class="cp-popup-films"><span class="cp-popup-label">Featured In</span>${tags}</div>
+        </div>
+      </div>`;
+    }
 
-    function searchCheckpoints(query) {
-      const q = query.toLowerCase().trim();
-      return checkpointGeoJSON.features.filter(f =>
-        f.properties.title.toLowerCase().includes(q) ||
-        f.properties.arabic.toLowerCase().includes(q)
+    const markerObjs = [];
+
+    checkpoints.forEach((cp, idx) => {
+      const el = document.createElement('div');
+      el.style.cssText = 'width:60px;height:60px;cursor:pointer;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6));transition:transform 0.2s ease;display:none;';
+      el.innerHTML = `<svg width="60" height="60" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="15" y="18" width="8" height="12" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
+        <rect x="13" y="13" width="12" height="6" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
+        <rect x="16.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/>
+        <rect x="19.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/>
+        <rect x="22.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/>
+        <rect x="16" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
+        <rect x="20" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
+        <ellipse cx="19" cy="36" rx="7" ry="1.5" fill="rgba(230,169,58,0.2)"/>
+      </svg>`;
+
+      el.addEventListener('mouseenter', () => { el.style.transform = 'scale(1.12) translateY(-4px)'; });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+
+      const popup = new mapboxgl.Popup({ offset: 20, closeButton: false, maxWidth: 'none' })
+        .setHTML(buildPopupHTML(cp));
+
+      new mapboxgl.Marker({ element: el }).setLngLat(cp.coords).addTo(map);
+      markerObjs.push({ el, popup });
+
+      let isOpen = false;
+      el.addEventListener('click', e => {
+        e.stopPropagation();
+        if (isOpen) {
+          popup.remove(); isOpen = false;
+        } else {
+          markerObjs.forEach(m => m.popup.remove());
+          popup.setLngLat(cp.coords).addTo(map);
+          isOpen = true;
+        }
+      });
+      popup.on('close', () => { isOpen = false; });
+    });
+
+    map.on('click', () => markerObjs.forEach(m => m.popup.remove()));
+
+    // Search
+    const searchInput  = document.getElementById('searchInput');
+    const searchBtn    = document.getElementById('searchBtn');
+    const resultsList  = document.getElementById('searchResults');
+    let searchMarker   = null;
+
+    function searchCPs(q) {
+      q = q.toLowerCase().trim();
+      return checkpoints.filter(cp =>
+        cp.title.toLowerCase().includes(q) ||
+        cp.arabic.includes(q) ||
+        cp.district.toLowerCase().includes(q)
       );
     }
 
-    function searchGlobal(query, cb) {
-      fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}&language=en,ar`)
-        .then(r => r.json()).then(d => cb(d.features));
+    function searchGlobal(q, cb) {
+      fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(q)}.json?access_token=${mapboxgl.accessToken}&language=en,ar&limit=4`)
+        .then(r => r.json()).then(d => cb(d.features || [])).catch(() => cb([]));
     }
 
-    function flyToResult(coords, html) {
-      map.flyTo({ center: coords, zoom: 15, essential: true });
-      if (window.searchMarker) { window.searchMarker.remove(); window.searchMarker = null; }
+    function renderResults(cpRes, globalRes) {
+      resultsList.innerHTML = '';
+      if (!cpRes.length && !globalRes.length) { resultsList.style.display = 'none'; return; }
 
-      const el = document.createElement('div');
-      el.style.cssText = 'width:14px;height:14px;background:#6fe7c1;border:2px solid rgba(255,255,255,0.4);border-radius:50%;box-shadow:0 0 12px rgba(111,231,193,0.6);';
-
-      const popup = new mapboxgl.Popup({ offset: 12 }).setLngLat(coords).setHTML(html);
-      window.searchMarker = new mapboxgl.Marker({ element: el }).setLngLat(coords).setPopup(popup).addTo(map);
-      markerPopups.forEach(mp => mp.popup.remove());
-      searchResults.style.display = 'none';
-    }
-
-    function renderResults(cpResults, globalResults) {
-      searchResults.innerHTML = '';
-      if (!cpResults.length && !globalResults.length) { searchResults.style.display = 'none'; return; }
-
-      cpResults.forEach(r => {
+      cpRes.forEach(cp => {
         const li = document.createElement('li');
-        li.textContent = `${r.properties.title} (${r.properties.arabic})`;
-        li.style.background = 'rgba(230,169,58,0.05)';
-        li.addEventListener('click', () => flyToResult(r.geometry.coordinates,
-          `<strong>${r.properties.title}</strong><br><span style="color:#6fe7c1;font-style:italic;">${r.properties.arabic}</span><br><br>${r.properties.description}`));
-        searchResults.appendChild(li);
+        li.className = 'cp-result';
+        li.innerHTML = `<span class="result-dot"></span>${cp.title} <span style="opacity:0.4;margin-left:0.3rem;">${cp.arabic}</span>`;
+        li.addEventListener('click', () => {
+          map.flyTo({ center: cp.coords, zoom: 20, essential: true, duration: 2000 });
+          const idx = checkpoints.indexOf(cp);
+          // Hide all markers and popups, then show only the matched one
+          markerObjs.forEach(m => { m.popup.remove(); m.el.style.display = 'none'; });
+          markerObjs[idx].el.style.display = 'block';
+          setTimeout(() => markerObjs[idx].popup.setLngLat(cp.coords).addTo(map), 900);
+          resultsList.style.display = 'none';
+          searchInput.value = cp.title;
+        });
+        resultsList.appendChild(li);
       });
 
-      if (cpResults.length && globalResults.length) {
-        const div = document.createElement('li');
-        div.textContent = 'Other places';
-        div.className = 'results-divider';
-        searchResults.appendChild(div);
+      if (cpRes.length && globalRes.length) {
+        const d = document.createElement('li'); d.className = 'divider'; d.textContent = 'Other places';
+        resultsList.appendChild(d);
       }
 
-      globalResults.slice(0, 4).forEach(r => {
+      globalRes.forEach(r => {
         const li = document.createElement('li');
-        li.textContent = r.place_name;
-        li.addEventListener('click', () => flyToResult(r.geometry.coordinates,
-          `<strong>${r.text}</strong><br>${r.place_name}`));
-        searchResults.appendChild(li);
+        li.className = 'place-result';
+        li.innerHTML = `<span class="result-dot"></span>${r.place_name}`;
+        li.addEventListener('click', () => {
+          map.flyTo({ center: r.geometry.coordinates, zoom: 13, essential: true });
+          if (searchMarker) { searchMarker.remove(); searchMarker = null; }
+          const el = document.createElement('div');
+          el.style.cssText = 'width:14px;height:14px;background:#6fe7c1;border:2px solid rgba(255,255,255,0.4);border-radius:50%;box-shadow:0 0 12px rgba(111,231,193,0.7);';
+          searchMarker = new mapboxgl.Marker({ element: el }).setLngLat(r.geometry.coordinates).addTo(map);
+          resultsList.style.display = 'none';
+          searchInput.value = r.place_name;
+        });
+        resultsList.appendChild(li);
       });
 
-      searchResults.style.display = 'block';
+      resultsList.style.display = 'block';
     }
 
     function doSearch() {
-      const q = searchInput.value;
-      if (!q) return;
-      const cp = searchCheckpoints(q);
-      searchGlobal(q, g => renderResults(cp, g));
+      const q = searchInput.value.trim();
+      if (!q) { resultsList.style.display = 'none'; return; }
+      searchGlobal(q, g => renderResults(searchCPs(q), g));
     }
 
     searchBtn.addEventListener('click', doSearch);
     searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
     searchInput.addEventListener('input', () => {
-      const q = searchInput.value;
-      if (!q) { searchResults.style.display = 'none'; return; }
-      searchGlobal(q, g => renderResults(searchCheckpoints(q), g));
+      const q = searchInput.value.trim();
+      if (!q) { resultsList.style.display = 'none'; return; }
+      searchGlobal(q, g => renderResults(searchCPs(q), g));
     });
-
-    map.on('click', () => { searchResults.style.display = 'none'; });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.search-panel')) resultsList.style.display = 'none';
+    });
   </script>
 </body>
 </html>
