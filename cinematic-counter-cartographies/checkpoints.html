@@ -566,6 +566,121 @@
         });
       });
     });
+
+    // Example checkpoint data with IDs
+    const checkpointGeoJSON = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": { "type": "Point", "coordinates": [35.2207, 31.8576] },
+          "properties": {
+            "id": "qalandiya",
+            "title": "Qalandiya Checkpoint",
+            "arabic": "حاجز قلنديا",
+            "description": "The main checkpoint between Ramallah and Jerusalem. Most documented checkpoint in the archive."
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": { "type": "Point", "coordinates": [35.2769, 31.8716] },
+          "properties": {
+            "id": "huwwara",
+            "title": "Huwwara Checkpoint",
+            "arabic": "حاجز حوارة",
+            "description": "A major checkpoint controlling movement in and out of Nablus."
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": { "type": "Point", "coordinates": [35.2700, 31.7300] },
+          "properties": {
+            "id": "container",
+            "title": "Container Checkpoint",
+            "arabic": "حاجز الكونتينر",
+            "description": "Known locally as the Container; appears in archive footage."
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": { "type": "Point", "coordinates": [35.2000, 31.7050] },
+          "properties": {
+            "id": "bethlehem",
+            "title": "Bethlehem — Rachel Checkpoint",
+            "arabic": "حاجز راحيل (بيت لحم)",
+            "description": "Featured in Jacir's Salt of This Sea and other films."
+          }
+        }
+        // ...add more as needed
+      ]
+    };
+
+    const markerPopups = [];
+
+    // Add markers and popups
+    checkpointGeoJSON.features.forEach(feature => {
+      const { id, title, arabic, description } = feature.properties;
+
+      // Create a custom marker element (orange watchtower)
+      const el = document.createElement('div');
+      el.style.width = '38px';
+      el.style.height = '38px';
+      el.style.cursor = 'pointer';
+      el.innerHTML = `
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="15" y="18" width="8" height="12" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
+          <rect x="13" y="13" width="12" height="6" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
+          <rect x="16.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
+          <rect x="19.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
+          <rect x="22.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
+          <rect x="16" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
+          <rect x="20" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
+          <ellipse cx="19" cy="36" rx="7" ry="2" fill="#e6a93a33"/>
+        </svg>
+      `;
+
+      const marker = new mapboxgl.Marker({ element: el })
+        .setLngLat(feature.geometry.coordinates)
+        .addTo(map);
+
+      const popup = new mapboxgl.Popup({ offset: 18 })
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML(
+          `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
+        );
+
+      markerPopups.push({ id, marker, popup, el, coords: feature.geometry.coordinates });
+
+      let isOpen = false;
+      el.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (isOpen) {
+          popup.remove();
+          isOpen = false;
+        } else {
+          markerPopups.forEach(mp => mp.popup.remove());
+          popup.addTo(map);
+          isOpen = true;
+        }
+      });
+    });
+
+    // --- Hash navigation ---
+    function openCheckpointFromHash() {
+      const hash = window.location.hash.replace('#', '');
+      if (!hash) return;
+      const found = markerPopups.find(mp => mp.id === hash);
+      if (found) {
+        map.flyTo({ center: found.coords, zoom: 14, essential: true });
+        markerPopups.forEach(mp => mp.popup.remove());
+        found.popup.addTo(map);
+      }
+    }
+
+    // Open popup if hash is present on load
+    map.on('load', openCheckpointFromHash);
+    // Also listen for hash changes (if user clicks another link)
+    window.addEventListener('hashchange', openCheckpointFromHash);
   </script>
 </body>
 </html>
