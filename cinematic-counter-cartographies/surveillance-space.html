@@ -1280,6 +1280,7 @@
 
   <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
+  <script src="translations.js"></script>
   <script>
     window.addEventListener('scroll', function () {
       document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
@@ -1301,20 +1302,6 @@
     }, { threshold: 0.3 });
 
     sections.forEach(s => observer.observe(s));
-
-    // Simple language toggle (for demonstration)
-    document.getElementById('langEn').onclick = function() {
-      this.classList.add('active');
-      document.getElementById('langAr').classList.remove('active');
-      document.body.dir = 'ltr';
-      // Add logic to show English content/hide Arabic if you implement both
-    };
-    document.getElementById('langAr').onclick = function() {
-      this.classList.add('active');
-      document.getElementById('langEn').classList.remove('active');
-      document.body.dir = 'rtl';
-      // Add logic to show Arabic content/hide English if you implement both
-    };
   </script>
 </body>
 </html>
