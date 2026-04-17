@@ -6,6 +6,31 @@
   <title>Surveillance Space — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- applyLang defined HERE in head so it exists before anything loads -->
+  <script>
+    window.applyLang = function(lang) {
+      var t = window._T && window._T[lang];
+      if (!t) return;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.querySelectorAll('[data-t]').forEach(function(el) {
+        var key = el.getAttribute('data-t');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      var btnEN = document.getElementById('btnEN');
+      var btnAR = document.getElementById('btnAR');
+      if (btnEN && btnAR) {
+        if (lang === 'en') {
+          btnEN.style.cssText = 'font-family:Oswald,sans-serif;font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:6px;background:#e6a93a;border:none;color:#0a2321;cursor:pointer;width:100%;';
+          btnAR.style.cssText = 'font-family:Amiri,serif;font-size:1rem;font-weight:600;padding:6px 14px;border-radius:6px;background:transparent;border:none;color:rgba(232,245,240,0.4);cursor:pointer;width:100%;';
+        } else {
+          btnAR.style.cssText = 'font-family:Amiri,serif;font-size:1rem;font-weight:600;padding:6px 14px;border-radius:6px;background:#e6a93a;border:none;color:#0a2321;cursor:pointer;width:100%;';
+          btnEN.style.cssText = 'font-family:Oswald,sans-serif;font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:6px;background:transparent;border:none;color:rgba(232,245,240,0.4);cursor:pointer;width:100%;';
+        }
+      }
+    };
+  </script>
   <style>
     :root {
       --arch-color:     #8b7355;
@@ -264,6 +289,16 @@
       .typology-pill { font-size:0.76rem; padding:0.45rem 0.9rem; }
     }
   </style>
+</head>
+<body>
+  <nav class="topnav" id="topnav"></nav>
+
+  <!-- Language toggle — hardcoded, onclick calls window.applyLang defined in <head> -->
+  <div style="position:fixed;bottom:88px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:4px;background:rgba(10,35,33,0.97);border:1px solid rgba(111,231,193,0.28);border-radius:10px;padding:5px;box-shadow:0 8px 28px rgba(0,0,0,0.6);">
+    <button id="btnEN" onclick="window.applyLang('en')" style="font-family:Oswald,sans-serif;font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:6px;background:#e6a93a;border:none;color:#0a2321;cursor:pointer;">EN</button>
+    <button id="btnAR" onclick="window.applyLang('ar')" style="font-family:Amiri,serif;font-size:1rem;font-weight:600;padding:6px 14px;border-radius:6px;background:transparent;border:none;color:rgba(232,245,240,0.42);cursor:pointer;">ع</button>
+  </div>
+
 </head>
 <body>
   <nav class="topnav" id="topnav"></nav>
@@ -652,16 +687,14 @@
   <footer class="footer" id="footer"></footer>
   <button id="scrollTopBtn" aria-label="Scroll to top" style="display:none;">↑</button>
 
-  <!-- Floating language toggle — injected by script after applyLang is defined -->
-
   <script src="js/shared.js"></script>
   <script>
     buildNav('surveillance');
     buildFooter();
     initScrollTop();
 
-    /* ── TRANSLATION TABLE (Palestinian Arabic dialect) ── */
-    const T = {
+    // T is defined as window._T so applyLang (in <head>) can access it
+    window._T = {
       en: {
         /* Hero */
         't-eyebrow':   'Research Framework',
@@ -909,107 +942,30 @@
       }
     };
 
-    let currentLang = 'en';
+    // Set initial language
+    window.applyLang('en');
 
-    /* Global so onclick attributes can call it directly */
-    function applyLang(lang) {
-      const t = T[lang];
-      currentLang = lang;
-      document.documentElement.lang = lang;
-      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-
-      /* Update every data-t element */
-      document.querySelectorAll('[data-t]').forEach(el => {
-        const key = el.getAttribute('data-t');
-        if (t[key] !== undefined) el.innerHTML = t[key];
-      });
-
-      /* Update floating toggle button styles */
-      const floatEn = document.getElementById('floatLangEn');
-      const floatAr = document.getElementById('floatLangAr');
-      if (floatEn && floatAr) {
-        if (lang === 'en') {
-          floatEn.style.background = '#e6a93a';
-          floatEn.style.color = '#0a2321';
-          floatAr.style.background = 'transparent';
-          floatAr.style.color = 'rgba(232,245,240,0.45)';
-        } else {
-          floatAr.style.background = '#e6a93a';
-          floatAr.style.color = '#0a2321';
-          floatEn.style.background = 'transparent';
-          floatEn.style.color = 'rgba(232,245,240,0.45)';
-        }
-      }
-
-      /* Also sync the nav toggle if it exists */
-      const navEn = document.getElementById('langEn');
-      const navAr = document.getElementById('langAr');
-      if (navEn) navEn.classList.toggle('active', lang === 'en');
-      if (navAr) navAr.classList.toggle('active', lang === 'ar');
-    }
-
-    /* Also wire up nav toggle buttons after nav renders */
-    document.addEventListener('click', e => {
-      if (e.target.id === 'langEn') applyLang('en');
-      if (e.target.id === 'langAr') applyLang('ar');
+    // Also sync nav lang buttons if present
+    document.addEventListener('click', function(e) {
+      if (e.target.id === 'langEn') window.applyLang('en');
+      if (e.target.id === 'langAr') window.applyLang('ar');
     });
 
-    /* Build the floating toggle now that applyLang is defined */
-    (function buildFloatingToggle() {
-      const wrap = document.createElement('div');
-      wrap.id = 'floatingLangToggle';
-      Object.assign(wrap.style, {
-        position: 'fixed', bottom: '90px', right: '20px', zIndex: '999',
-        display: 'flex', flexDirection: 'column', gap: '4px',
-        background: 'rgba(10,35,33,0.95)',
-        border: '1px solid rgba(111,231,193,0.2)',
-        borderRadius: '10px', padding: '6px',
-        boxShadow: '0 6px 24px rgba(0,0,0,0.5)',
-        backdropFilter: 'blur(12px)'
-      });
-
-      const enBtn = document.createElement('button');
-      enBtn.id = 'floatLangEn';
-      enBtn.textContent = 'EN';
-      Object.assign(enBtn.style, {
-        fontFamily: "'Oswald', sans-serif", fontSize: '0.78rem', fontWeight: '600',
-        padding: '0.35rem 0.8rem', borderRadius: '6px',
-        background: '#e6a93a', border: 'none', color: '#0a2321',
-        cursor: 'pointer', letterSpacing: '0.05em'
-      });
-      enBtn.addEventListener('click', () => applyLang('en'));
-
-      const arBtn = document.createElement('button');
-      arBtn.id = 'floatLangAr';
-      arBtn.textContent = 'ع';
-      Object.assign(arBtn.style, {
-        fontFamily: "'Amiri', serif", fontSize: '0.95rem', fontWeight: '600',
-        padding: '0.35rem 0.8rem', borderRadius: '6px',
-        background: 'transparent', border: 'none',
-        color: 'rgba(232,245,240,0.45)', cursor: 'pointer'
-      });
-      arBtn.addEventListener('click', () => applyLang('ar'));
-
-      wrap.appendChild(enBtn);
-      wrap.appendChild(arBtn);
-      document.body.appendChild(wrap);
-    })();
-
-    /* Typology nav scroll highlight */
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('.typology-section');
-      const pills    = document.querySelectorAll('.typology-pill');
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
+    // Typology scroll highlight
+    var sections = document.querySelectorAll('.typology-section');
+    var pills = document.querySelectorAll('.typology-pill');
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
           if (entry.isIntersecting) {
-            pills.forEach(p => p.style.opacity = '0.55');
-            const active = document.querySelector(`.typology-pill[href="#${entry.target.id}"]`);
+            pills.forEach(function(p) { p.style.opacity = '0.55'; });
+            var active = document.querySelector('.typology-pill[href="#' + entry.target.id + '"]');
             if (active) active.style.opacity = '1';
           }
         });
       }, { threshold: 0.25 });
-      sections.forEach(s => obs.observe(s));
-    });
+      sections.forEach(function(s) { obs.observe(s); });
+    }
   </script>
 </body>
 </html>
