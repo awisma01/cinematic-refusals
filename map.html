@@ -225,6 +225,7 @@
       <a href="analysis.html">Visual Analysis</a>
       <a href="surveillance-space.html">Surveillance Space</a>
       <a href="not-mapped.html">What's Not Mapped</a>
+      <a href="about.html">About</a>
     </div>
   </nav>
 
@@ -292,7 +293,7 @@
 
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/standard',
+      style: 'mapbox://styles/mapbox/streets-v12',
       projection: 'globe',
       zoom: 8.5,
       center: [35.25, 31.95],
@@ -452,5 +453,5 @@
       if (!e.target.closest('.search-panel')) resultsList.style.display = 'none';
     });
   </script>
-</body>
+  </body>
 </html>

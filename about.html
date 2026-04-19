@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(140deg, #0a2321 0%, #163d30 100%);
+      color: #e8f5f0;
+      font-family: 'Cormorant Garamond', serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+    main {
+      max-width: 800px;
+      margin: 3rem auto 4rem;
+      padding: 0 2rem;
+    }
+    .about-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(111,231,193,0.14);
+      border-radius: 12px;
+      padding: 2.5rem 2rem 2rem 2rem;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #e6a93a;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.01em;
+    }
+    h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      color: #e6a93a;
+      margin-top: 2.2rem;
+      letter-spacing: 0.02em;
+    }
+    .about-card p, .about-card ul {
+      font-size: 1.08rem;
+      line-height: 2;
+      color: rgba(232,245,240,0.87);
+      margin-bottom: 1.2rem;
+    }
+    .about-card ul {
+      margin-bottom: 1.5rem;
+      padding-left: 1.2em;
+    }
+    .about-card li {
+      margin-bottom: 0.3em;
+    }
+    .about-card a {
+      color: #e6a93a;
+      text-decoration: underline;
+      transition: color 0.18s;
+    }
+    .about-card a:hover {
+      color: #b94e3a;
+    }
+    @media (max-width: 600px) {
+      main {
+        padding: 0 0.5rem;
+      }
+      .about-card {
+        padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
+    /* Navbar styles for consistency */
+    .topnav {
+      background: rgba(10,35,33,0.98);
+      border-bottom: 1px solid rgba(111,231,193,0.13);
+      box-shadow: 0 2px 16px rgba(40,131,102,0.07);
+      padding: 0 2.5rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topnav .brand, .topnav .nav-logo {
+      font-family: 'Oswald',sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #e6a93a;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6em;
+    }
+    .topnav .menu, .topnav .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+    }
+    .topnav .menu a, .topnav .nav-links a {
+      font-family: 'Oswald',sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #e8f5f0;
+      text-decoration: none;
+      opacity: 0.82;
+      transition: color 0.18s, opacity 0.18s;
+      border-bottom: 2.5px solid transparent;
+      padding-bottom: 2px;
+    }
+    .topnav .menu a.active, .topnav .nav-links a.active {
+      color: #e6a93a;
+      opacity: 1;
+      border-bottom: 2.5px solid #e6a93a;
+    }
+    .topnav .menu a:hover:not(.active), .topnav .nav-links a:hover:not(.active) {
+      opacity: 1;
+      color: #fff7d6;
+    }
+    @media (max-width: 700px) {
+      .topnav {
+        flex-direction: column;
+        height: auto;
+        padding: 0 1rem;
+      }
+      .topnav .menu, .topnav .nav-links {
+        gap: 1.1rem;
+        margin-top: 0.5rem;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topnav">
+    <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
+    <div class="menu">
+      <a href="/index.html">Home</a>
+      <a href="/map.html">Map & Archive</a>
+      <a href="/checkpoints.html">Checkpoints</a>
+      <a href="/analysis.html">Visual Analysis</a>
+      <a href="/surveillance-space.html">Surveillance Space</a>
+      <a href="/about.html" class="active">About</a>
+    </div>
+  </nav>
+
+  <main>
+    <h1>About This Project</h1>
+    <div class="about-card">
+      <p>
+        <strong>Cinematic Counter-Cartographies</strong> is a research and digital humanities project exploring how Palestinian women filmmakers map, resist, and reimagine the architectures and infrastructures of surveillance and occupation. 
+      </p>
+      <p>
+        This site brings together a curated film archive, interactive maps, typologies of surveillance space, and critical analysis. It is intended as a resource for students, researchers, and anyone interested in the intersections of cinema, space, and power.
+      </p>
+      <h2>Project Team</h2>
+      <ul>
+        <li><strong>Your Name</strong> — Project Lead & Researcher</li>
+        <li><strong>Collaborator Name</strong> — Web Development</li>
+        <li><strong>Advisor Name</strong> — Academic Advisor</li>
+        <!-- Add more team members as needed -->
+      </ul>
+      <h2>Contact</h2>
+      <p>
+        For questions, feedback, or collaboration inquiries, please email: <a href="mailto:your.email@example.com">your.email@example.com</a>
+      </p>
+      <!-- Add more sections or acknowledgments as needed -->
+    </div>
+  </main>
+
+  <footer class="footer" id="footer"></footer>
+</body>
+</html>
