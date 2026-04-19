@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Explore how Palestinian women filmmakers map, resist, and reimagine the architectures and infrastructures of surveillance and occupation." />
   <title>Surveillance Space — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -331,7 +332,7 @@
     <!-- INTRO -->
     <section class="ss-intro">
       <div class="ss-intro-card">
-        <p id="t-intro-1">Checkpoints are the most visible expression of colonial control but they are only one node in a much wider infrastructure of surveillance. This section maps five <em>typologies</em> of surveillance space that appear across Palestinian cinema from 2000 to 2025.</p>
+        <p data-t="t-intro-1">Checkpoints are the most visible expression of colonial control but they are only one node in a much wider infrastructure of surveillance. This section maps five <em>typologies</em> of surveillance space that appear across Palestinian cinema from 2000 to 2025.</p>
         <p id="t-intro-2">Each typology names a distinct register in which Palestinian life is rendered legible to power: the stone and steel of <strong>architectural</strong> enclosure; the algorithmic logic of <strong>digital</strong> biometrics; the weaponized stillness of <strong>temporal</strong> waiting; the occupation of <strong>intimate and domestic</strong> space; and the camera's own complicity — or refusal — as a <strong>cinematic</strong> surveillance apparatus.</p>
         <p id="t-intro-3">Palestinian women filmmakers do not simply represent these spaces. They devise formal strategies — angles, ellipses, duration, offscreen sound — that refuse to reproduce the surveillance gaze even as they document it.</p>
       </div>
@@ -682,7 +683,6 @@
       </table>
     </section>
   </main>
-
   <footer class="footer" id="footer"></footer>
   <button id="scrollTopBtn" aria-label="Scroll to top" style="display:none;">↑</button>
 
@@ -744,7 +744,7 @@
         'dig-tag':    'النمط الثاني',      'dig-title':  'فضاء الرقمية',          'dig-lead':  'قواعد البيانات، التصاريح، الهوية البيومترية، سجلات السكان - المراقبة قبل وأبعد من اللقاء الجسدي.',
         'temp-tag':   'النمط الثالث',     'temp-title': 'فضاء الزمن',         'temp-lead': 'الانتظار، التأخير، عدم اليقين، العقوبة الاستباقية - الزمن كسلاح وموقع مقاومة.',
         'int-tag':    'النمط الرابع',      'int-title':  'فضاء الحميمة والخصوصية', 'int-lead': 'المنازل، المستشفيات، الحياة الأسرية - احتلال الفضاء الخاص، وحق السينما في الحميمية.',
-        'cin-tag':    'النمط الخامس',       'cin-title':  'فضاء السينما',        'cin-lead':  'كيف تعيد الكاميرا إنتاج منطق المراقبة - والاستراتيجيات الشكلية التي ترفض ذلك.',
+        'cin-tag':    'النمط الخامس',                                                 'cin-title':  'فضاء السينما',        'cin-lead':  'كيف تعيد الكاميرا إنتاج منطق المراقبة - والاستراتيجيات الشكلية التي ترفض ذلك.',
         /* Prose */
         'arch-p1': 'إن معمارية السيطرة العسكرية الإسرائيلية على الفلسطينيين ليست عرضية بالنسبة للمراقبة - بل هي المراقبة في شكلها المادي. نقاط التفتيش هي فضاءات مصممة هندسيًا: <span class="kw">البوابات الدوارة</span> التي تصدر صوت النقر، <span class="kw">الممرات المقيدة</span> التي توجه الأجساد في صف واحد، <span class="kw">أبراج المراقبة</span> التي تُحسب خطوط رؤيتها، <span class="kw">غرف الانتظار</span> التي تُصمم عمداً لتكون بلا رؤية.',
         'arch-p2': 'لقد وصف الباحث إيال ويزمن هذا بأنه "سياسة العمودية" - وهي سيادة ثلاثية الأبعاد تتجلى من خلال الجدران والحواجز ونقاط التفتيش التي تقطع الفضاء إلى مناطق رؤية وعدم رؤية، مرور وحظر.',
@@ -771,20 +771,21 @@
       window.applyLang(lang);
     })();
   </script>
-
   <script>
+Scroll to top button
+  <script>t.getElementById('scrollTopBtn');
     // 3. Scroll to top button
-    var scrollTopBtn = document.getElementById('scrollTopBtn');
+    var scrollTopBtn = document.getElementById('scrollTopBtn');t.documentElement.scrollTop > 200) {
     window.addEventListener('scroll', function() {
       if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        scrollTopBtn.style.display = 'block';
+        scrollTopBtn.style.display = 'block';TopBtn.style.display = 'none';
       } else {
         scrollTopBtn.style.display = 'none';
-      }
+      }ollTopBtn.addEventListener('click', function() {
     });
     scrollTopBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });ipt>
     });
-  </script>
-</body>
-</html>
+</body>ipt></body>
+
+</html></html>
