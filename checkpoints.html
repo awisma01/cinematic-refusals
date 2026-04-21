@@ -337,7 +337,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.15rem;
       line-height: 1.9;
-      color: #1e1e1e;
+      color: #fff; /* <-- changed from #1e1e1e to #fff */
       border-bottom: 1px solid #f0ece2;
     }
     .modal-body p:last-child { border-bottom: none; }
@@ -401,6 +401,22 @@
     @media (max-width: 600px) {
       .checkpoint-grid { grid-template-columns: 1fr; }
       .page-hero { padding: 3.5rem 1rem 2.5rem; }
+    }
+
+    /* Add this to ensure checkpoint popups have white text */
+    .mapboxgl-popup-content {
+      color: #fff !important;
+      background: #0d2420 !important;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem;
+      line-height: 1.8;
+      border-radius: 16px !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    }
+    .mapboxgl-popup-content p,
+    .mapboxgl-popup-content strong,
+    .mapboxgl-popup-content em {
+      color: #fff !important;
     }
   </style>
 </head>
