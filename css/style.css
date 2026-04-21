@@ -405,6 +405,25 @@ p { font-size: 1.1rem; line-height: 1.9; }
   color: rgba(185,78,58,0.9); vertical-align: middle; margin-left: 0.5rem;
 }
 
+/* Add this to your CSS file to make popup/modal font white */
+.modal-body,
+.mapboxgl-popup-content {
+  color: #fff !important;
+}
+.mapboxgl-popup-content {
+  background: #0d2420 !important;
+  border-radius: 16px !important;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+.mapboxgl-popup-content p,
+.mapboxgl-popup-content strong,
+.mapboxgl-popup-content em {
+  color: #fff !important;
+}
+
 /* ── SIDEBAR TAB (shared, used in checkpoints & analysis) ── */
 .sidebar-tab-wrap {
   position: fixed; right: 0; top: 50%; transform: translateY(-50%);
