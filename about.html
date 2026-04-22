@@ -1,140 +1,256 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --gold: #e6a93a;
+      --teal: #6fe7c1;
+      --forest: #288366;
+      --dark-forest: #0a2321;
+      --crimson: #b94e3a;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      background: linear-gradient(140deg, #0a2321 0%, #163d30 100%);
-      color: #e8f5f0;
-      font-family: 'Cormorant Garamond', serif;
       margin: 0;
+      background: linear-gradient(160deg, #1b3c34 0%, #2a5c4c 30%, #357a5a 60%, #23634c 100%);
+      background-attachment: fixed;
+      color: #e8f5f0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
       min-height: 100vh;
+      overflow-x: hidden;
     }
-    main {
-      max-width: 800px;
-      margin: 3rem auto 4rem;
-      padding: 0 2rem;
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
     }
-    .about-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(111,231,193,0.14);
-      border-radius: 12px;
-      padding: 2.5rem 2rem 2rem 2rem;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+
+    /* NAV */
+    .topnav {
+      background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      position: sticky; top: 0; z-index: 100;
     }
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #e6a93a;
-      margin-bottom: 1.2rem;
-      letter-spacing: 0.01em;
-    }
-    h2 {
+    .topnav .brand {
       font-family: 'Oswald', sans-serif;
-      font-size: 1.2rem;
-      color: #e6a93a;
-      margin-top: 2.2rem;
-      letter-spacing: 0.02em;
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.5px;
+      text-decoration: none;
     }
-    .about-card p, .about-card ul {
-      font-size: 1.08rem;
-      line-height: 2;
-      color: rgba(232,245,240,0.87);
-      margin-bottom: 1.2rem;
+    .topnav .menu { display: flex; gap: 0.5rem; }
+    .topnav .menu a {
+      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
+      padding: 0.55rem 1rem; border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
+      text-decoration: none;
     }
-    .about-card ul {
-      margin-bottom: 1.5rem;
-      padding-left: 1.2em;
+    .topnav .menu a:hover, .topnav .menu a.active {
+      background: rgba(230,169,58,0.2); color: var(--gold);
     }
-    .about-card li {
-      margin-bottom: 0.3em;
+
+    /* HERO */
+    .page-hero {
+      position: relative;
+      padding: 5rem 2rem 3.5rem;
+      text-align: center; z-index: 1;
     }
-    .about-card a {
-      color: #e6a93a;
-      text-decoration: underline;
-      transition: color 0.18s;
+    .page-hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(40,131,102,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(40,131,102,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridDrift 30s linear infinite;
+      z-index: -1;
     }
-    .about-card a:hover {
-      color: #b94e3a;
+    @keyframes gridDrift {
+      from { background-position: 0 0; }
+      to { background-position: 60px 60px; }
+    }
+    .page-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--teal);
+      opacity: 0.7; margin: 0 0 1.2rem;
+    }
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700; color: #e8f5f0;
+      margin: 0 0 0.5rem; line-height: 1.1;
+    }
+    .page-title em { color: var(--gold); font-style: italic; }
+    .gold-rule {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.5rem auto;
+    }
+    .page-lead {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-style: italic;
+      color: rgba(232,245,240,0.70);
+      max-width: 620px; margin: 0 auto;
+    }
+
+    /* MAIN CONTENT */
+    .about-outer {
+      max-width: 1000px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+      position: relative; z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* SECTION CARD */
+    .about-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(111,231,193,0.12);
+      border-radius: 16px;
+      padding: 2.8rem 3rem;
+      backdrop-filter: blur(6px);
+    }
+    .about-card.gold-left {
+      border-left: 3px solid var(--gold);
+    }
+    .about-card.teal-left {
+      border-left: 3px solid var(--teal);
+    }
+
+    .card-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem; font-weight: 300;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--teal); opacity: 0.7;
+      margin: 0 0 1rem; display: block;
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; color: #e8f5f0;
+      margin: 0 0 1.8rem; line-height: 1.2;
+    }
+    .card-title em { color: var(--gold); font-style: italic; }
+
+    .about-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; line-height: 2;
+      color: rgba(232,245,240,0.85);
+      margin: 0 0 1.2rem;
+    }
+    .about-card p:last-of-type { margin-bottom: 0; }
+
+    /* TWO-COL LAYOUT */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    /* FELLOWSHIP DETAILS BLOCK */
+    .detail-block {
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(111,231,193,0.1);
+      border-radius: 12px;
+      padding: 1.8rem;
+    }
+    .detail-block h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin: 0 0 1.2rem;
+    }
+    .detail-row {
+      display: flex; flex-direction: column;
+      gap: 0.2rem; padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .detail-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem; font-weight: 300;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--teal); opacity: 0.75;
+    }
+    .detail-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; color: rgba(232,245,240,0.88);
+      line-height: 1.5;
+    }
+
+    /* RESEARCH QUESTIONS */
+    .rq-list {
+      list-style: none; padding: 0; margin: 1.5rem 0 0;
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .rq-list li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem; font-weight: 600;
+      color: var(--teal);
+      padding: 0.9rem 1rem 0.9rem 2.8rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(111,231,193,0.1);
+      border-radius: 10px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .rq-list li::before {
+      content: attr(data-num);
+      position: absolute; left: 0.9rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem; color: var(--gold);
+      top: 50%; transform: translateY(-50%);
+    }
+
+    /* FOOTER */
+    .footer {
+      background: rgba(10,35,33,0.98);
+      color: var(--teal); text-align: center;
+      padding: 2rem; font-family: 'Oswald', sans-serif;
+      font-size: 0.88rem; letter-spacing: 0.1em;
+      position: relative; z-index: 1;
+    }
+
+    #scrollTopBtn {
+      display: none; position: fixed;
+      bottom: 32px; right: 32px; z-index: 99;
+      background: var(--forest); color: #fff;
+      border: none; border-radius: 50%;
+      width: 48px; height: 48px; font-size: 1.5rem;
+      cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
+
+    @media (max-width: 900px) {
+      .topnav { padding: 1rem 1.5rem; }
+      .topnav .menu a { padding: 0.5rem 0.7rem; font-size: 0.82rem; }
+      .two-col { grid-template-columns: 1fr; }
+      .deadline-grid { grid-template-columns: 1fr; }
+      .about-card { padding: 2rem 1.5rem; }
     }
     @media (max-width: 600px) {
-      main {
-        padding: 0 0.5rem;
-      }
-      .about-card {
-        padding: 1.2rem 0.7rem 1.2rem 0.7rem;
-      }
-      h1 {
-        font-size: 2rem;
-      }
-    }
-    /* Navbar styles for consistency */
-    .topnav {
-      background: rgba(10,35,33,0.98);
-      border-bottom: 1px solid rgba(111,231,193,0.13);
-      box-shadow: 0 2px 16px rgba(40,131,102,0.07);
-      padding: 0 2.5rem;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .topnav .brand, .topnav .nav-logo {
-      font-family: 'Oswald',sans-serif;
-      font-size: 1.25rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: #e6a93a;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.6em;
-    }
-    .topnav .menu, .topnav .nav-links {
-      display: flex;
-      gap: 2.2rem;
-      align-items: center;
-    }
-    .topnav .menu a, .topnav .nav-links a {
-      font-family: 'Oswald',sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: #e8f5f0;
-      text-decoration: none;
-      opacity: 0.82;
-      transition: color 0.18s, opacity 0.18s;
-      border-bottom: 2.5px solid transparent;
-      padding-bottom: 2px;
-    }
-    .topnav .menu a.active, .topnav .nav-links a.active {
-      color: #e6a93a;
-      opacity: 1;
-      border-bottom: 2.5px solid #e6a93a;
-    }
-    .topnav .menu a:hover:not(.active), .topnav .nav-links a:hover:not(.active) {
-      opacity: 1;
-      color: #fff7d6;
-    }
-    @media (max-width: 700px) {
-      .topnav {
-        flex-direction: column;
-        height: auto;
-        padding: 0 1rem;
-      }
-      .topnav .menu, .topnav .nav-links {
-        gap: 1.1rem;
-        margin-top: 0.5rem;
-        flex-wrap: wrap;
-      }
+      .page-hero { padding: 3.5rem 1rem 2.5rem; }
+      .site-map-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -142,36 +258,102 @@
   <nav class="topnav">
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
-      <a href="/index.html">Home</a>
-      <a href="/map.html">Map & Archive</a>
-      <a href="/checkpoints.html">Checkpoints</a>
-      <a href="/analysis.html">Visual Analysis</a>
-      <a href="/surveillance-space.html">Surveillance Space</a>
-      <a href="/about.html" class="active">About</a>
+      <a href="index.html">Home</a>
+      <a href="map.html">Map & Archive</a>
+      <a href="checkpoints.html">Checkpoints</a>
+      <a href="analysis.html">Visual Analysis</a>
+      <a href="surveillance-space.html">Surveillance Space</a>
+      <a href="about.html" class="active">About</a>
     </div>
   </nav>
 
   <main>
-    <h1>About This Project</h1>
-    <div class="about-card">
-      <p>
-        <strong>Cinematic Counter-Cartographies</strong> is a research and digital humanities project exploring how Palestinian women filmmakers map, resist, and reimagine the architectures and infrastructures of surveillance and occupation. 
-      </p>
-      <p>
-        This site brings together a curated film archive, interactive maps, typologies of surveillance space, and critical analysis. It is intended as a resource for students, researchers, and anyone interested in the intersections of cinema, space, and power.
-      </p>
-      <h2>Project Team</h2>
-      <ul>
-        <li><strong>Your Name</strong> — Project Lead & Researcher</li>
-        <li><strong>Collaborator Name</strong> — Web Development</li>
-        <li><strong>Advisor Name</strong> — Academic Advisor</li>
-        <!-- Add more team members as needed -->
-      </ul>
-      <h2>Contact</h2>
-      <p>
-        For questions, feedback, or collaboration inquiries, please email: <a href="mailto:your.email@example.com">your.email@example.com</a>
-      </p>
-      <!-- Add more sections or acknowledgments as needed -->
+    <section class="page-hero">
+      <p class="page-eyebrow">CHI Fellowship 2025–2026</p>
+      <h1 class="page-title">About the <em>Project</em></h1>
+      <div class="gold-rule"></div>
+      <p class="page-lead">A digital humanities research project mapping cinematic resistance in Palestinian women's filmmaking.</p>
+    </section>
+
+    <div class="about-outer">
+
+      <!-- PROJECT SUMMARY -->
+      <div class="about-card gold-left">
+        <span class="card-eyebrow">Project Summary</span>
+        <h2 class="card-title">Cinematic <em>Counter-Cartographies</em></h2>
+        <p>This project maps how Palestinian women filmmakers — principally Mai Masri, Annemarie Jacir, and Farah Nabulsi — create counter-cartographies through their cinematic treatment of Israeli checkpoints and surveillance infrastructure. Drawing on films released between 2000 and 2025, it argues that film and literature function as complementary counter-cartographic methods: while film captures the materiality of carceral space through architecture, movement, framing, and sound design, literature maps what surveillance cannot document — the interior consciousness, embodied memory, and emotional labor that sustain Palestinian life under occupation.</p>
+        <p>Central to the project is the concept of <em>sumud</em> — Palestinian steadfastness and creative persistence — as both a lived philosophy and an analytical framework. The digital archive tracks how sumud operates not as passive endurance but as active spatial, temporal, and cinematic refusal.</p>
+        <p>Methodologically, this is a digital humanities project that combines close formal analysis of film and literary texts with counter-cartographic spatial theory. Each checkpoint functions as a case study: a site that can be mapped geographically, traced across the film archive, and analyzed for how different directors film the same space differently over time. The digital format allows those three registers — geography, archive, and analysis — to exist in conversation rather than in sequence.</p>
+      </div>
+
+      <!-- RESEARCH QUESTIONS -->
+      <div class="about-card teal-left">
+        <span class="card-eyebrow">Guiding Questions</span>
+        <h2 class="card-title">What This Research Asks</h2>
+        <ul class="rq-list">
+          <li data-num="01">How do camera angles refuse the surveillance gaze?</li>
+          <li data-num="02">What do ellipses and offscreen space keep from view — and why does that matter politically?</li>
+          <li data-num="03">How does editing create a counternarrative to security footage?</li>
+          <li data-num="04">What is the politics of what these filmmakers choose <em>not</em> to show?</li>
+          <li data-num="05">How does feminist witnessing of carceral space prompt the imagination of Palestinian futures?</li>
+        </ul>
+      </div>
+
+      <!-- FELLOWSHIP + TIMELINE -->
+      <div class="about-card gold-left">
+        <span class="card-eyebrow">CHI Fellowship — Michigan State University</span>
+        <h2 class="card-title">Fellowship <em>Details</em></h2>
+        <div class="two-col">
+          <div class="detail-block">
+            <h3>Project Info</h3>
+            <div class="detail-row">
+              <span class="detail-label">Fellowship</span>
+              <span class="detail-value">CHI Fellowship 2025–2026</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Institution</span>
+              <span class="detail-value">Michigan State University</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Field</span>
+              <span class="detail-value">Digital Humanities / Film & Media Studies</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Archive Period</span>
+              <span class="detail-value">Palestinian Cinema, 2000–2025</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Primary Focus</span>
+              <span class="detail-value">Palestinian women filmmakers and checkpoint cinema</span>
+            </div>
+          </div>
+          <div class="detail-block">
+            <h3>Theoretical Frameworks</h3>
+            <div class="detail-row">
+              <span class="detail-label">Core Concept</span>
+              <span class="detail-value">Sumud as spatial and cinematic practice</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Surveillance Theory</span>
+              <span class="detail-value">Browne, Weizman, Tawil-Souri, Kotef & Amir</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Spatial Theory</span>
+              <span class="detail-value">Lefebvre, de Certeau, Peteet</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Feminist Framework</span>
+              <span class="detail-value">Lugones, Figueroa-Vásquez, Shalhoub-Kevorkian</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Film Studies</span>
+              <span class="detail-value">Gertz & Khleifi, Demos, Azoulay</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </main>
 
@@ -181,5 +363,13 @@
     <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
     <a href="https://yourpersonalwebsite.com" target="_blank" rel="noopener" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Personal Website</a>
   </footer>
+  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  </script>
 </body>
 </html>

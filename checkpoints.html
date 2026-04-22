@@ -103,7 +103,7 @@
     .page-lead {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem; font-style: italic;
-      color: rgba(232,245,240,0.55);
+      color: rgba(232,245,240,0.70);
       max-width: 620px; margin: 0 auto;
     }
 
@@ -148,47 +148,57 @@
       padding: 1.5rem;
       display: flex; flex-direction: column; flex: 1;
     }
+
+    /* FIX 7 — Arabic label opacity 0.7 → 0.85 */
     .cp-card-arabic {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1rem; font-style: italic;
-      color: var(--teal); opacity: 0.7;
+      color: var(--teal);
+      opacity: 0.85;
       margin: 0 0 0.5rem;
     }
+
     .cp-card-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;           /* Increased from 1.35rem */
-      font-weight: 1000;          /* Bolder */
+      font-size: 2rem;
+      font-weight: 1000;
       color: #e8f5f0;
       margin: 0 0 0.5rem;
-      line-height: 1.2;          /* Slightly tighter */
-      letter-spacing: 0.01em;    /* Optional: subtle spacing */
+      line-height: 1.2;
+      letter-spacing: 0.01em;
     }
+
+    /* FIX 2 — Card note opacity 0.35 → 0.75 for WCAG AA compliance */
     .cp-card-note {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem; font-weight: 300;
-      color: rgba(232,245,240,0.35);
+      font-size: 0.75rem; font-weight: 300;
+      color: rgba(232,245,240,0.75);
       margin: 0 0 1rem; font-style: italic;
     }
+
     .cp-film-list {
       list-style: none; padding: 0; margin: 0 0 1.5rem;
     }
+
+    /* FIX 1 — Film list text opacity 0.6 → 0.85, size 0.95rem → 1rem */
     .cp-film-list li {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
-      color: rgba(232,245,240,0.6);
+      font-size: 1rem;
+      color: rgba(232,245,240,0.85);
       padding: 0.3rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       display: flex; align-items: center; gap: 0.5rem;
     }
     .cp-film-list li::before {
       content: '—';
       color: var(--gold);
-      opacity: 0.85; /* More visible */
+      opacity: 0.85;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.1rem; /* Bigger */
-      font-weight: 700;  /* Bolder */
+      font-size: 1.1rem;
+      font-weight: 700;
       margin-right: 0.4em;
     }
+
     .cp-card-actions {
       display: flex; gap: 0.75rem;
       margin-top: auto; flex-wrap: wrap;
@@ -220,7 +230,7 @@
       border-color: var(--gold);
     }
 
-    /* MODAL — dynamic, readable */
+    /* MODAL */
     .modal-backdrop {
       position: fixed; inset: 0;
       background: rgba(5, 20, 18, 0.85);
@@ -251,7 +261,6 @@
       to   { opacity: 1; transform: scale(1)    translateY(0); }
     }
 
-    /* Colourful header band */
     .modal-header {
       padding: 1.6rem 1.8rem 1.3rem;
       display: flex; justify-content: space-between; align-items: flex-start;
@@ -260,7 +269,6 @@
       position: relative;
       overflow: hidden;
     }
-    /* Decorative grid lines inside header */
     .modal-header::before {
       content: '';
       position: absolute; inset: 0;
@@ -270,7 +278,6 @@
       background-size: 28px 28px;
       pointer-events: none;
     }
-    /* Gold accent bar across the top */
     .modal-header::after {
       content: '';
       position: absolute;
@@ -318,7 +325,6 @@
       transform: rotate(90deg);
     }
 
-    /* Body */
     .modal-body {
       padding: 0;
       overflow-y: auto;
@@ -330,47 +336,50 @@
     .modal-body::-webkit-scrollbar-track { background: transparent; }
     .modal-body::-webkit-scrollbar-thumb { background: rgba(111,231,193,0.25); border-radius: 2px; }
 
-    /* Each data row in the body */
+    /* FIX 3 — Modal body paragraphs: border colour, font size, line height */
     .modal-body p {
       margin: 0;
       padding: 1.1rem 1.8rem;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      line-height: 1.9;
-      color: #fff; /* <-- changed from #1e1e1e to #fff */
-      border-bottom: 1px solid #f0ece2;
+      font-size: 1.2rem;
+      line-height: 2;
+      color: rgba(232,245,240,0.9);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
     .modal-body p:last-child { border-bottom: none; }
 
+    /* FIX 4 — Modal strong labels: forest → teal so they're visible on dark bg */
     .modal-body strong {
       font-family: 'Oswald', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--forest);
+      color: var(--teal);
       display: block;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.3rem;
     }
 
+    /* FIX 5 — Modal lists: cream bg → dark, dark text → light */
     .modal-body ul {
       margin: 0;
       padding: 0.8rem 1.8rem 0.8rem 3rem;
-      border-bottom: 1px solid #f0ece2;
-      background: #fdfbf7;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.04);
     }
     .modal-body li {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.1rem;
-      color: #2a2a2a;
+      color: rgba(232,245,240,0.85);
       margin-bottom: 0.4rem;
       line-height: 1.7;
     }
     .modal-body li::marker { color: var(--gold); }
 
+    /* FIX 6 — Modal hr: light cream → subtle dark-bg-friendly line */
     .modal-body hr {
       border: none;
-      border-top: 3px solid #f5f0e8;
+      border-top: 1px solid rgba(255,255,255,0.08);
       margin: 0;
     }
 
@@ -403,7 +412,6 @@
       .page-hero { padding: 3.5rem 1rem 2.5rem; }
     }
 
-    /* Add this to ensure checkpoint popups have white text */
     .mapboxgl-popup-content {
       color: #fff !important;
       background: #0d2420 !important;
@@ -460,10 +468,10 @@
               <button class="cp-btn cp-btn-secondary"
                 data-popup-title="Qalandiya Checkpoint — حاجز قلنديا"
                 data-popup="
-                  <p><strong>Qalandiya is probably the most filmed checkpoint in Palestinian cinema, and honestly, it makes sense — it’s the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles that feel like livestock gates — this is exactly what Weizman means by the “politics of verticality.” Control is literally built into the environment.</strong></p>
-                  <p>In <em>Salt of This Sea</em>, Jacir doesn’t treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. That’s the point. The checkpoint’s power comes from how routine it becomes. Jacir leans into that ordinariness — no heightened tension, no spectacle — just the dull, grinding reality of being stopped again.</p>
-                  <p>The argument is simple: the checkpoint works because it’s everyday, not exceptional.</p>
-                  <p style='font-size:0.98em;color:#b94e3a;'><em>Cross-references: Salt of This Sea (2008), The Present (2020)</em></p>
+                  <p>Qalandiya is the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles — this is exactly what Weizman means by the <em>politics of verticality</em>. Control is literally built into the environment.</p>
+                  <p>In <em>Salt of This Sea</em>, Jacir doesn't treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. That's the point. The checkpoint's power comes from how routine it becomes — no heightened tension, no spectacle, just the grinding reality of being stopped again.</p>
+                  <p>The argument is simple: the checkpoint works because it's everyday, not exceptional.</p>
+                  <p style='font-size:0.98em; color: var(--teal);'><em>Cross-references: Salt of This Sea (2008), The Present (2020)</em></p>
                 ">
                 Details
               </button>
@@ -486,10 +494,10 @@
               <button class="cp-btn cp-btn-secondary"
                 data-popup-title="Huwwara Checkpoint — حاجز حوارة"
                 data-popup="
-                  <p><strong>Huwwara sits at the southern entrance to Nablus, and unlike Qalandiya’s urban claustrophobia, Huwwara is exposed — open landscape, open sky, and a checkpoint that cuts right through it. That exposure makes the architecture of control even more visible.</strong></p>
-                  <p>In <em>The Present</em>, Nabulsi shows how checkpoints don’t just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier’s mood becomes the clock — this is what Julie Peteet calls “carceral time.” You feel it before you even see the space.</p>
-                  <p>Nabulsi’s sound design does a lot of that work. The metal, the crowd noise, the commands — the viewer feels surveilled before they even understand the layout. It’s a sensory version of the checkpoint’s logic: you’re being watched whether you know where you are or not.</p>
-                  <p style='font-size:0.98em;color:#b94e3a;'><em>Cross-references: The Present (2020)</em></p>
+                  <p>Huwwara sits at the southern entrance to Nablus, and unlike Qalandiya's urban claustrophobia, Huwwara is exposed — open landscape, open sky, and a checkpoint that cuts right through it. That exposure makes the architecture of control even more visible.</p>
+                  <p>In <em>The Present</em>, Nabulsi shows how checkpoints don't just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier's mood becomes the clock — this is what Julie Peteet calls <em>carceral time</em>. You feel it before you even see the space.</p>
+                  <p>Nabulsi's sound design does much of that work. The metal, the crowd noise, the commands — the viewer feels surveilled before they understand the layout. It's a sensory version of the checkpoint's logic: you're being watched whether you know where you are or not.</p>
+                  <p style='font-size:0.98em; color: var(--teal);'><em>Cross-references: The Present (2020)</em></p>
                 ">
                 Details
               </button>
@@ -512,10 +520,10 @@
               <button class="cp-btn cp-btn-secondary"
                 data-popup-title="Container Checkpoint — حاجز الكونتينر"
                 data-popup="
-                  <p><strong>The Container is one of those checkpoints that rarely gets cinematic attention even though it’s strategically crucial. It controls movement between Bethlehem and Hebron and sits at a high point in the landscape, which means it quietly governs a huge amount of daily mobility.</strong></p>
-                  <p>Its relative absence from narrative film is actually telling. It shows how certain sites of control become iconic — Qalandiya, Rachel — while others remain underdocumented even though they’re just as disruptive. That gap is part of the story. It raises the question your project keeps circling: what do filmmakers choose not to show, and why?</p>
-                  <p>Including the Container in your archive is a way of mapping the full geography of control, not just the parts that already have cinematic visibility.</p>
-                  <p style='font-size:0.98em;color:#b94e3a;'><em>Cross-references: Archive footage, dates TBD</em></p>
+                  <p>The Container is one of those checkpoints that rarely gets cinematic attention even though it's strategically crucial. It controls movement between Bethlehem and Hebron and sits at a high point in the landscape, quietly governing a huge amount of daily mobility.</p>
+                  <p>Its relative absence from narrative film is actually telling. It shows how certain sites of control become iconic — Qalandiya, Rachel — while others remain underdocumented even though they're just as disruptive. That gap is part of the story. It raises the question this project keeps circling: what do filmmakers choose not to show, and why?</p>
+                  <p>Including the Container in the archive is a way of mapping the full geography of control, not just the parts that already have cinematic visibility.</p>
+                  <p style='font-size:0.98em; color: var(--teal);'><em>Cross-references: Archive footage, dates TBD</em></p>
                 ">
                 Details
               </button>
@@ -523,7 +531,7 @@
           </div>
         </div>
 
-        <!-- Bethlehem -->
+        <!-- Bethlehem / Rachel -->
         <div class="cp-card">
           <img class="cp-card-img" src="assets/images/bcheck.webp" alt="Rachel Bethlehem checkpoint" onerror="this.src='https://picsum.photos/seed/bethlehem/900/600'">
           <div class="cp-card-body">
@@ -539,11 +547,11 @@
               <button class="cp-btn cp-btn-secondary"
                 data-popup-title="Rachel (Bethlehem) Checkpoint — حاجز راحيل (Checkpoint 300)"
                 data-popup="
-                  <p><strong>Rachel Checkpoint is one of the most fortified crossings in the West Bank, and it shows up across multiple films, which makes it a good site for comparison.</strong></p>
-                  <p>In <em>Salt of This Sea</em>, it’s where the difference between Soraya’s American passport and Emad’s West Bank ID becomes spatially visible. They’re in the same shot but not in the same system. The checkpoint makes that hierarchy literal.</p>
-                  <p>In <em>When I Saw You</em>, the checkpoint works differently. The film is set in Jordan, so the checkpoint becomes more of a horizon than an immediate obstacle — the thing between Tarek and the Palestine he’s never seen but fully believes in. It’s both a physical barrier and an imagined one.</p>
-                  <p>So across films, Rachel shifts from a site of direct confrontation to a symbol of distance and longing. That flexibility is part of why it keeps showing up.</p>
-                  <p style='font-size:0.98em;color:#b94e3a;'><em>Cross-references: Salt of This Sea (2008), When I Saw You (2012)</em></p>
+                  <p>Rachel Checkpoint is one of the most fortified crossings in the West Bank, and it appears across multiple films, making it a strong site for comparison.</p>
+                  <p>In <em>Salt of This Sea</em>, it's where the difference between Soraya's American passport and Emad's West Bank ID becomes spatially visible. They're in the same shot but not in the same system. The checkpoint makes that hierarchy literal.</p>
+                  <p>In <em>When I Saw You</em>, the checkpoint works differently. The film is set in Jordan, so it becomes more of a horizon than an immediate obstacle — the thing between Tarek and the Palestine he's never seen but fully believes in. It's both a physical barrier and an imagined one.</p>
+                  <p>Across films, Rachel shifts from a site of direct confrontation to a symbol of distance and longing. That flexibility is part of why it keeps showing up.</p>
+                  <p style='font-size:0.98em; color: var(--teal);'><em>Cross-references: Salt of This Sea (2008), When I Saw You (2012)</em></p>
                 ">
                 Details
               </button>
@@ -610,7 +618,6 @@
       });
     });
 
-    // Example checkpoint data with IDs
     const checkpointGeoJSON = {
       "type": "FeatureCollection",
       "features": [
@@ -623,9 +630,9 @@
             "arabic": "حاجز قلنديا",
             "description": `
               <strong>Qalandiya Checkpoint / حاجز قلنديا</strong><br><br>
-              Qalandiya is probably the most filmed checkpoint in Palestinian cinema, and honestly, it makes sense — it’s the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles that feel like livestock gates — this is exactly what Weizman means by the “politics of verticality.” Control is literally built into the environment.<br><br>
-              In <em>Salt of This Sea</em>, Jacir doesn’t treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. That’s the point. The checkpoint’s power comes from how routine it becomes. Jacir leans into that ordinariness — no heightened tension, no spectacle — just the dull, grinding reality of being stopped again.<br><br>
-              The argument is simple: the checkpoint works because it’s everyday, not exceptional.<br><br>
+              Qalandiya is the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles — this is exactly what Weizman means by the <em>politics of verticality</em>. Control is literally built into the environment.<br><br>
+              In <em>Salt of This Sea</em>, Jacir doesn't treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. That's the point. The checkpoint's power comes from how routine it becomes.<br><br>
+              The argument is simple: the checkpoint works because it's everyday, not exceptional.<br><br>
               <em>Cross-references: Salt of This Sea (2008), The Present (2020)</em>
             `
           }
@@ -639,9 +646,9 @@
             "arabic": "حاجز حوارة",
             "description": `
               <strong>Huwwara Checkpoint / حاجز حوارة</strong><br><br>
-              Huwwara sits at the southern entrance to Nablus, and unlike Qalandiya’s urban claustrophobia, Huwwara is exposed — open landscape, open sky, and a checkpoint that cuts right through it. That exposure makes the architecture of control even more visible.<br><br>
-              In <em>The Present</em>, Nabulsi shows how checkpoints don’t just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier’s mood becomes the clock — this is what Julie Peteet calls “carceral time.” You feel it before you even see the space.<br><br>
-              Nabulsi’s sound design does a lot of that work. The metal, the crowd noise, the commands — the viewer feels surveilled before they even understand the layout. It’s a sensory version of the checkpoint’s logic: you’re being watched whether you know where you are or not.<br><br>
+              Huwwara sits at the southern entrance to Nablus, and unlike Qalandiya's urban claustrophobia, Huwwara is exposed — open landscape, open sky, and a checkpoint that cuts right through it.<br><br>
+              In <em>The Present</em>, Nabulsi shows how checkpoints don't just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier's mood becomes the clock — this is what Julie Peteet calls <em>carceral time</em>.<br><br>
+              Nabulsi's sound design does much of that work. The metal, the crowd noise, the commands — the viewer feels surveilled before they understand the layout.<br><br>
               <em>Cross-references: The Present (2020)</em>
             `
           }
@@ -655,9 +662,8 @@
             "arabic": "حاجز الكونتينر",
             "description": `
               <strong>Container Checkpoint / حاجز الكونتينر</strong><br><br>
-              The Container is one of those checkpoints that rarely gets cinematic attention even though it’s strategically crucial. It controls movement between Bethlehem and Hebron and sits at a high point in the landscape, which means it quietly governs a huge amount of daily mobility.<br><br>
-              Its relative absence from narrative film is actually telling. It shows how certain sites of control become iconic — Qalandiya, Rachel — while others remain underdocumented even though they’re just as disruptive. That gap is part of the story. It raises the question your project keeps circling: what do filmmakers choose not to show, and why?<br><br>
-              Including the Container in your archive is a way of mapping the full geography of control, not just the parts that already have cinematic visibility.<br><br>
+              The Container controls movement between Bethlehem and Hebron and sits at a high point in the landscape, quietly governing a large amount of daily mobility.<br><br>
+              Its relative absence from narrative film is telling. It shows how certain sites of control become iconic while others remain underdocumented even though they're just as disruptive. That gap raises the question this project keeps circling: what do filmmakers choose not to show, and why?<br><br>
               <em>Cross-references: Archive footage, dates TBD</em>
             `
           }
@@ -671,25 +677,21 @@
             "arabic": "حاجز راحيل (بيت لحم)",
             "description": `
               <strong>Rachel Checkpoint / حاجز راحيل (بيت لحم)</strong><br><br>
-              Rachel Checkpoint is one of the most fortified crossings in the West Bank, and it shows up across multiple films, which makes it a good site for comparison.<br><br>
-              In <em>Salt of This Sea</em>, it’s where the difference between Soraya’s American passport and Emad’s West Bank ID becomes spatially visible. They’re in the same shot but not in the same system. The checkpoint makes that hierarchy literal.<br><br>
-              In <em>When I Saw You</em>, the checkpoint works differently. The film is set in Jordan, so the checkpoint becomes more of a horizon than an immediate obstacle — the thing between Tarek and the Palestine he’s never seen but fully believes in. It’s both a physical barrier and an imagined one.<br><br>
-              So across films, Rachel shifts from a site of direct confrontation to a symbol of distance and longing. That flexibility is part of why it keeps showing up.<br><br>
+              Rachel Checkpoint appears across multiple films, making it a strong site for comparison.<br><br>
+              In <em>Salt of This Sea</em>, it's where the difference between Soraya's American passport and Emad's West Bank ID becomes spatially visible. They're in the same shot but not in the same system.<br><br>
+              In <em>When I Saw You</em>, the checkpoint becomes more of a horizon than an immediate obstacle — the thing between Tarek and the Palestine he's never seen but fully believes in. It's both a physical barrier and an imagined one.<br><br>
               <em>Cross-references: Salt of This Sea (2008), When I Saw You (2012)</em>
             `
           }
         }
-        // ...add more as needed
       ]
     };
 
     const markerPopups = [];
 
-    // Add markers and popups
     checkpointGeoJSON.features.forEach(feature => {
       const { id, title, arabic, description } = feature.properties;
 
-      // Create a custom marker element (orange watchtower)
       const el = document.createElement('div');
       el.style.width = '38px';
       el.style.height = '38px';
@@ -733,7 +735,6 @@
       });
     });
 
-    // --- Hash navigation ---
     function openCheckpointFromHash() {
       const hash = window.location.hash.replace('#', '');
       if (!hash) return;
@@ -745,9 +746,7 @@
       }
     }
 
-    // Open popup if hash is present on load
     map.on('load', openCheckpointFromHash);
-    // Also listen for hash changes (if user clicks another link)
     window.addEventListener('hashchange', openCheckpointFromHash);
   </script>
 </body>

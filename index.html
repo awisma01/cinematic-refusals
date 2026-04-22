@@ -319,13 +319,16 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.3);
       background: rgba(255,255,255,0.05);
     }
+
+    /* FIX 1 — Nav card number: opacity 0.20 → 0.45 (was 1.38:1 hard fail) */
     .nav-card-num {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.65rem;
       letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.45);
       margin: 0 0 1rem;
     }
+
     .nav-card h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.7rem;
@@ -333,12 +336,15 @@
       margin: 0 0 0.8rem;
       font-weight: 700;
     }
+
+    /* FIX 2 — Nav card description: opacity 0.55 → 0.70 (was 4.07:1, now passes AA) */
     .nav-card p {
       font-size: 1rem;
       line-height: 1.7;
-      color: rgba(232,245,240,0.55);
+      color: rgba(232,245,240,0.70);
       margin: 0 0 1.5rem;
     }
+
     .card-link {
       font-family: 'Oswald', sans-serif;
       font-size: 0.8rem;
@@ -421,7 +427,174 @@
     }
     #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
 
-    @media (max-width: 900px) {
+    /* HOOK */
+    .project-hook {
+      max-width: 900px; margin: 0 auto 5rem; padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+    .hook-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(111,231,193,0.12);
+      border-left: 3px solid var(--gold);
+      border-radius: 12px; padding: 2.5rem 3rem;
+    }
+    .hook-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--teal);
+      opacity: 0.7; margin: 0 0 1.2rem; display: block;
+    }
+    .hook-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; line-height: 2;
+      color: rgba(232,245,240,0.85); margin: 0 0 1.5rem;
+    }
+    .hook-link {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .hook-link:hover { opacity: 0.75; }
+
+    /* SPOTLIGHT */
+    .spotlight-section {
+      max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+    .spotlight-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--teal);
+      opacity: 0.7; margin: 0 0 1.5rem; display: block;
+    }
+    .spotlight-card {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(111,231,193,0.12);
+      border-radius: 16px; overflow: hidden;
+    }
+    .spotlight-image {
+      position: relative; min-height: 380px;
+    }
+    .spotlight-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      filter: brightness(0.75) saturate(0.85);
+      transition: filter 0.4s ease;
+      display: block;
+    }
+    .spotlight-card:hover .spotlight-image img { filter: brightness(0.85) saturate(1); }
+    .spotlight-overlay {
+      position: absolute; bottom: 1.2rem; left: 1.2rem;
+    }
+    .spotlight-year {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem; letter-spacing: 0.2em;
+      color: rgba(232,245,240,0.7);
+      background: rgba(10,35,33,0.8);
+      padding: 0.3rem 0.7rem; border-radius: 4px;
+    }
+    .spotlight-content {
+      padding: 2.5rem 2.8rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .spotlight-director {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
+      opacity: 0.85; margin: 0 0 0.5rem;
+    }
+    .spotlight-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 700;
+      color: #e8f5f0; margin: 0 0 1.2rem; line-height: 1.1;
+    }
+    .spotlight-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; line-height: 1.9;
+      color: rgba(232,245,240,0.80); margin: 0 0 1.5rem;
+    }
+    .spotlight-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-style: italic;
+      color: rgba(232,245,240,0.65);
+      border-left: 2px solid var(--gold);
+      padding-left: 1rem; margin: 0 0 1.8rem;
+      line-height: 1.7;
+    }
+    .spotlight-quote cite {
+      font-style: normal; font-size: 0.88rem;
+      color: var(--gold); display: block; margin-top: 0.4rem;
+    }
+    .spotlight-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      padding: 0.65rem 1.2rem; border-radius: 6px;
+      border: 1px solid rgba(111,231,193,0.3);
+      align-self: flex-start; transition: all 0.25s ease;
+    }
+    .spotlight-btn:hover {
+      background: rgba(230,169,58,0.1);
+      border-color: var(--gold); color: var(--gold);
+    }
+
+    /* ENTRY SECTION */
+    .entry-section {
+      max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+    .entry-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--teal);
+      opacity: 0.7; margin: 0 0 1.5rem; display: block;
+    }
+    .entry-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;
+    }
+    .entry-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(111,231,193,0.1);
+      border-radius: 14px; padding: 2rem 1.8rem;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .entry-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(230,169,58,0.35);
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+    }
+    .entry-icon {
+      font-size: 1.4rem; color: var(--gold);
+      opacity: 0.7; margin-bottom: 1rem; display: block;
+    }
+    .entry-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: #e8f5f0; margin: 0 0 0.75rem;
+    }
+    .entry-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; line-height: 1.8;
+      color: rgba(232,245,240,0.70);
+      margin: 0 0 1.5rem; flex: 1;
+    }
+    .entry-link {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--teal); margin-top: auto;
+      transition: color 0.2s;
+    }
+    .entry-card:hover .entry-link { color: var(--gold); }
+
+        @media (max-width: 900px) {
       .carousel-content { flex-direction: column; }
       .carousel-image { flex: 0 0 auto; width: 100%; height: 220px; }
       .carousel-nav.prev { left: 8px; }
@@ -509,67 +682,65 @@
 
     <div class="section-divider"><hr></div>
 
-    <!-- ABOUT -->
-    <section class="project-intro">
-      <div class="intro-card">
-        <p class="intro-eyebrow">About This Project</p>
-        <h2>Mapping Cinematic Resistance</h2>
-        <p>This research explores how Palestinian women filmmakers such as Mai Masri, Annemarie Jacir, and Farah Nablusi create counter-cartographies through their cinematic treatment of Israeli checkpoints.</p>
-        <p>I analyze three to five significant checkpoints and how they appear in films released from 2000 to 2025, highlighting how these same spaces are cinematically reimagined and captured over time. Each checkpoint exists as a case study in cinematic resistance.</p>
-        <p>While checkpoints are the most visible sites of colonial control, they are only one expression of a much broader surveillance environment that governs Palestinian movement, intimacy, and futurity.</p>
-
-        <ul class="question-list">
-          <li data-question="How do camera angles refuse the surveillance gaze?">How do camera angles refuse the surveillance gaze?</li>
-          <li data-question="What do ellipses and offscreen space keep from view?">What do ellipses and offscreen space keep from view?</li>
-          <li data-question="How does editing create a counternarrative to security footage?">How does editing create a counternarrative to security footage?</li>
-          <li data-question="What is the politics of what these filmmakers choose not to show?">What is the politics of what these filmmakers choose not to show?</li>
-        </ul>
+    <!-- HOOK -->
+    <section class="project-hook">
+      <div class="hook-card">
+        <p class="hook-eyebrow">The Argument</p>
+        <p class="hook-text">Palestinian women filmmakers do not simply document occupation — they devise formal strategies that refuse it. This archive maps how Mai Masri, Annemarie Jacir, and Farah Nabulsi transform checkpoints, carceral spaces, and surveillance infrastructures into sites of cinematic resistance across twenty-five years of Palestinian film.</p>
+        <a href="about.html" class="hook-link">Read the full research statement →</a>
       </div>
     </section>
 
-    <!-- MODAL -->
-    <div id="questionModal" class="modal-overlay" style="display:none;">
-      <div class="modal-content">
-        <button class="modal-close" aria-label="Close">&times;</button>
-        <h4 id="modal-question"></h4>
-        <div id="modal-answer"></div>
+    <div class="section-divider"><hr></div>
+
+    <!-- FEATURED FILM SPOTLIGHT -->
+    <section class="spotlight-section">
+      <p class="spotlight-eyebrow">Featured Film</p>
+      <div class="spotlight-card">
+        <div class="spotlight-image">
+          <img src="assets/images/present.jpg" alt="The Present — Farah Nabulsi, 2020" onerror="this.src='https://picsum.photos/seed/present/900/600'">
+          <div class="spotlight-overlay">
+            <span class="spotlight-year">2020</span>
+          </div>
+        </div>
+        <div class="spotlight-content">
+          <p class="spotlight-director">Farah Nabulsi</p>
+          <h2 class="spotlight-title">The Present</h2>
+          <p class="spotlight-body">A father and daughter attempt to cross Checkpoint 300 to buy an anniversary gift. What should take minutes stretches across an entire day. Nabulsi compresses the spatial logic of occupation into a single ordinary errand — showing how a checkpoint can swallow a life, one hour at a time.</p>
+          <blockquote class="spotlight-quote">
+            "Sometimes what is not shown is as powerful as what is."
+            <cite>— Farah Nabulsi</cite>
+          </blockquote>
+          <a href="analysis.html" class="spotlight-btn">View Film Analysis →</a>
+        </div>
       </div>
-    </div>
+    </section>
 
     <div class="section-divider"><hr></div>
 
-    <!-- NAV GRID -->
-    <section class="nav-grid">
-      <a href="map.html" class="nav-card">
-        <p class="nav-card-num">01 / 05</p>
-        <h2>Map & Archive</h2>
-        <p>Explore an interactive map and film archive of checkpoint locations and scenes from Palestinian cinema.</p>
-        <span class="card-link">Explore Map</span>
-      </a>
-      <a href="checkpoints.html" class="nav-card">
-        <p class="nav-card-num">02 / 05</p>
-        <h2>Checkpoints</h2>
-        <p>Browse case studies of key checkpoints and their cinematic representations across the archive.</p>
-        <span class="card-link">View Checkpoints</span>
-      </a>
-      <a href="analysis.html" class="nav-card">
-        <p class="nav-card-num">03 / 05</p>
-        <h2>Visual Analysis</h2>
-        <p>See visual breakdowns, film cards, and stills that reveal how filmmakers reimagine surveillance spaces.</p>
-        <span class="card-link">See Analysis</span>
-      </a>
-      <a href="surveillance-space.html" class="nav-card">
-        <p class="nav-card-num">04 / 05</p>
-        <h2>Surveillance Space</h2>
-        <p>Five typologies — architectural, digital, temporal, intimate, cinematic — mapping how occupation operates beyond the checkpoint.</p>
-        <span class="card-link">Enter Framework</span>
-      </a>
-      <a href="not-mapped.html" class="nav-card">
-        <p class="nav-card-num">05 / 05</p>
-        <h2>What's Not Mapped</h2>
-        <p>Discover moments of refusal, gaps in the archive, and the politics of cinematic omission.</p>
-        <span class="card-link">Learn More</span>
-      </a>
+    <!-- ENTRY POINTS -->
+    <section class="entry-section">
+      <p class="entry-eyebrow">Where to Begin</p>
+      <div class="entry-grid">
+        <a href="checkpoints.html" class="entry-card">
+          <span class="entry-icon">⬡</span>
+          <h3>Start with a Checkpoint</h3>
+          <p>Four case studies — Qalandiya, Huwwara, Rachel, Container — each one a site of resistance and refusal in the cinematic archive.</p>
+          <span class="entry-link">Enter Checkpoints →</span>
+        </a>
+        <a href="analysis.html" class="entry-card">
+          <span class="entry-icon">◈</span>
+          <h3>Start with a Film</h3>
+          <p>Nine films analyzed for how camera angles, editing, and sound design refuse the surveillance gaze they are forced to document.</p>
+          <span class="entry-link">Open Film Archive →</span>
+        </a>
+        <a href="surveillance-space.html" class="entry-card">
+          <span class="entry-icon">◎</span>
+          <h3>Start with a Framework</h3>
+          <p>Five typologies of surveillance space — architectural, digital, temporal, intimate, cinematic — that structure occupation beyond the checkpoint.</p>
+          <span class="entry-link">Enter Framework →</span>
+        </a>
+      </div>
     </section>
   </main>
 
@@ -619,26 +790,7 @@
       showSlide(0);
     });
 
-    // Question modal
-    const questionAnswers = {
-      "How do camera angles refuse the surveillance gaze?": "Camera angles subvert the dominant perspective by avoiding the typical overhead or watchful viewpoints associated with surveillance. Instead, they linger on faces, hands, or the environment from the subject's perspective, emphasizing agency and subjectivity.",
-      "What do ellipses and offscreen space keep from view?": "Ellipses and offscreen space allow filmmakers to withhold information, creating ambiguity and resisting the demand for total visibility. This can protect characters, preserve dignity, or highlight the limits of what can be represented.",
-      "How does editing create a counternarrative to security footage?": "Through montage, jump cuts, and non-linear sequencing, editing disrupts the seamless, objective flow of surveillance footage, foregrounding emotion, memory, and resistance rather than control.",
-      "What is the politics of what these filmmakers choose not to show?": "Omission is a form of refusal — challenging the expectation that Palestinian life must always be rendered visible and legible to outside observers. Not showing certain moments can assert privacy, autonomy, and the right to opacity."
-    };
 
-    document.querySelectorAll('.question-list li').forEach(li => {
-      li.addEventListener('click', function () {
-        const q = this.getAttribute('data-question');
-        document.getElementById('modal-question').textContent = q;
-        document.getElementById('modal-answer').textContent = questionAnswers[q] || '';
-        document.getElementById('questionModal').style.display = 'flex';
-      });
-    });
-
-    document.querySelector('.modal-close').onclick = () => document.getElementById('questionModal').style.display = 'none';
-    document.getElementById('questionModal').onclick = e => { if (e.target === document.getElementById('questionModal')) document.getElementById('questionModal').style.display = 'none'; };
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('questionModal').style.display = 'none'; });
   </script>
 </body>
 </html>
