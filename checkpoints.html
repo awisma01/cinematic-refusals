@@ -426,6 +426,83 @@
     .mapboxgl-popup-content em {
       color: #fff !important;
     }
+
+    /* NAV DROPDOWN */
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .nav-dropdown-trigger {
+      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
+      padding: 0.55rem 1rem; border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
+      text-decoration: none; background: none; border: none;
+      display: flex; align-items: center; gap: 0.35rem;
+      cursor: pointer; white-space: nowrap;
+    }
+    .nav-dropdown-trigger:hover,
+    .nav-dropdown-trigger.active {
+      background: rgba(230,169,58,0.2); color: var(--gold);
+    }
+    .nav-dropdown-arrow {
+      font-size: 0.65rem; opacity: 0.7;
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+    .nav-dropdown.open .nav-dropdown-arrow,
+    .nav-dropdown:hover .nav-dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 260px;
+      background: rgba(8,28,26,0.98);
+      border: 1px solid rgba(230,169,58,0.25);
+      border-radius: 12px;
+      padding: 0.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.55);
+      z-index: 200;
+      backdrop-filter: blur(16px);
+    }
+    .nav-dropdown.open .nav-dropdown-menu,
+    .nav-dropdown:hover .nav-dropdown-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .nav-dropdown-item {
+      display: flex; flex-direction: column; gap: 0.22rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.18s ease;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-dropdown-item:last-child { border-bottom: none; }
+    .nav-dropdown-item:hover, .nav-dropdown-item.active {
+      background: rgba(230,169,58,0.1);
+    }
+    .nav-dropdown-item-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.88rem; font-weight: 500;
+      letter-spacing: 0.05em; color: #e8f5f0;
+    }
+    .nav-dropdown-item.active .nav-dropdown-item-title { color: var(--gold); }
+    .nav-dropdown-item-desc {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.67rem; font-weight: 300;
+      color: rgba(232,245,240,0.50); line-height: 1.4;
+    }
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
+    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
+
   </style>
 </head>
 <body>
@@ -434,9 +511,27 @@
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html">Map & Archive</a>
-      <a href="checkpoints.html" class="active">Checkpoints</a>
-      <a href="analysis.html">Visual Analysis</a>
-      <a href="surveillance-space.html">Surveillance Space</a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="checkpoints.html" class="active" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Checkpoints</span>
+            <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
+          </a>
+          <a href="analysis.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Visual Analysis</span>
+            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
+          </a>
+          <a href="surveillance-space.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Surveillance Space</span>
+            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
+          </a>
+          <a href="not-mapped.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">What's Not Mapped</span>
+            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
+          </a>
+        </div>
+      </div>
       <a href="about.html">About</a>
     </div>
   </nav>
@@ -748,6 +843,29 @@
 
     map.on('load', openCheckpointFromHash);
     window.addEventListener('hashchange', openCheckpointFromHash);
+  
+    // Archive dropdown — click toggle for mobile, hover handles desktop
+    (function() {
+      var trigger = document.querySelector('.nav-dropdown-trigger');
+      var dropdown = document.querySelector('.nav-dropdown');
+      if (!trigger || !dropdown) return;
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = dropdown.classList.contains('open');
+        dropdown.classList.toggle('open', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+      });
+      document.addEventListener('click', function() {
+        dropdown.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          dropdown.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
   </script>
 </body>
 </html>

@@ -301,6 +301,195 @@
     .matrix-table tr:nth-child(4) .matrix-type-cell { color:#d49a7a; }
     .matrix-table tr:nth-child(5) .matrix-type-cell { color:var(--teal); }
 
+    /* WHAT'S NOT MAPPED DROPDOWN */
+    .wnm-trigger-section {
+      max-width: 1100px; margin: 0 auto 2rem; padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+    .wnm-trigger-btn {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(230,169,58,0.25);
+      border-radius: 14px;
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+    .wnm-trigger-btn:hover {
+      background: rgba(230,169,58,0.07);
+      border-color: rgba(230,169,58,0.5);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .wnm-trigger-left { display: flex; flex-direction: column; gap: 0.4rem; }
+    .wnm-trigger-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem; font-weight: 300;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.75;
+    }
+    .wnm-trigger-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 700; color: #e8f5f0; line-height: 1.1;
+    }
+    .wnm-trigger-title em { color: var(--gold); font-style: italic; }
+    .wnm-trigger-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-style: italic;
+      color: rgba(232,245,240,0.60); margin-top: 0.2rem;
+    }
+    .wnm-trigger-icon {
+      font-size: 2rem; color: var(--gold); opacity: 0.8;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      flex-shrink: 0; margin-left: 1.5rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 300;
+    }
+    .wnm-trigger-btn[aria-expanded="true"] .wnm-trigger-icon {
+      transform: rotate(45deg);
+    }
+
+    /* ACCORDION PANEL */
+    .wnm-panel {
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+      position: relative; z-index: 1;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.55s cubic-bezier(0.4,0,0.2,1),
+                  opacity 0.4s ease,
+                  margin 0.4s ease;
+      opacity: 0;
+    }
+    .wnm-panel.open {
+      max-height: 3000px;
+      opacity: 1;
+      margin-bottom: 4rem;
+    }
+    .wnm-panel-inner {
+      border: 1px solid rgba(230,169,58,0.2);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      background: rgba(0,0,0,0.18);
+      padding: 2.5rem 3rem;
+      display: flex; flex-direction: column; gap: 2rem;
+    }
+
+    /* opening quote inside panel */
+    .wnm-quote {
+      background: rgba(0,0,0,0.25);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 10px 10px 0;
+      padding: 1.6rem 2rem;
+    }
+    .wnm-quote blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-style: italic;
+      line-height: 1.85; color: rgba(232,245,240,0.88);
+      margin: 0 0 0.7rem;
+    }
+    .wnm-quote cite {
+      font-family: 'Oswald', sans-serif; font-size: 0.82rem;
+      font-weight: 500; letter-spacing: 0.1em;
+      color: var(--gold); font-style: normal;
+    }
+
+    /* prose inside panel */
+    .wnm-prose { display: flex; flex-direction: column; gap: 0; }
+    .wnm-prose p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.12rem; line-height: 2;
+      color: rgba(232,245,240,0.85); margin: 0 0 1.2rem;
+    }
+    .wnm-prose p:last-child { margin-bottom: 0; }
+
+    /* omission grid inside panel */
+    .wnm-subheading {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--teal); margin: 0 0 1rem; display: block;
+    }
+    .wnm-omission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.85rem;
+    }
+    .wnm-omission-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px; padding: 1.2rem;
+      transition: all 0.22s ease;
+    }
+    .wnm-omission-item:hover {
+      background: rgba(230,169,58,0.07);
+      border-color: rgba(230,169,58,0.25);
+      transform: translateY(-2px);
+    }
+    .wnm-omission-film {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--gold); margin: 0 0 0.2rem;
+    }
+    .wnm-omission-dir {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem; color: rgba(255,255,255,0.50);
+      margin: 0 0 0.65rem;
+    }
+    .wnm-omission-strategy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--teal);
+      opacity: 0.8; display: block; margin: 0 0 0.4rem;
+    }
+    .wnm-omission-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem; line-height: 1.65;
+      color: rgba(232,245,240,0.72); margin: 0;
+    }
+
+    /* gaps list inside panel */
+    .wnm-gap-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .wnm-gap-list li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; line-height: 1.75;
+      color: rgba(232,245,240,0.80);
+      padding: 0.85rem 1rem 0.85rem 2.6rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px; position: relative;
+    }
+    .wnm-gap-list li::before {
+      content: '○';
+      position: absolute; left: 0.8rem; top: 0.9rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem; color: var(--crimson); opacity: 0.7;
+    }
+
+    /* full page link button */
+    .wnm-full-link {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none;
+      padding: 0.75rem 1.4rem;
+      border: 1px solid rgba(230,169,58,0.4);
+      border-radius: 8px;
+      background: rgba(230,169,58,0.07);
+      transition: all 0.25s ease;
+      align-self: flex-start;
+    }
+    .wnm-full-link:hover {
+      background: rgba(230,169,58,0.15);
+      border-color: var(--gold);
+    }
+    .wnm-full-link::after { content: '→'; }
+
     /* RESPONSIVE */
     @media (max-width:900px) {
       .content-grid, .content-grid.wide { grid-template-columns:1fr; }
@@ -314,6 +503,83 @@
       .typology-nav { gap:0.45rem; }
       .typology-pill { font-size:0.76rem; padding:0.45rem 0.9rem; }
     }
+
+    /* NAV DROPDOWN */
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .nav-dropdown-trigger {
+      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
+      padding: 0.55rem 1rem; border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
+      text-decoration: none; background: none; border: none;
+      display: flex; align-items: center; gap: 0.35rem;
+      cursor: pointer; white-space: nowrap;
+    }
+    .nav-dropdown-trigger:hover,
+    .nav-dropdown-trigger.active {
+      background: rgba(230,169,58,0.2); color: var(--gold);
+    }
+    .nav-dropdown-arrow {
+      font-size: 0.65rem; opacity: 0.7;
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+    .nav-dropdown.open .nav-dropdown-arrow,
+    .nav-dropdown:hover .nav-dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 260px;
+      background: rgba(8,28,26,0.98);
+      border: 1px solid rgba(230,169,58,0.25);
+      border-radius: 12px;
+      padding: 0.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.55);
+      z-index: 200;
+      backdrop-filter: blur(16px);
+    }
+    .nav-dropdown.open .nav-dropdown-menu,
+    .nav-dropdown:hover .nav-dropdown-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .nav-dropdown-item {
+      display: flex; flex-direction: column; gap: 0.22rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.18s ease;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-dropdown-item:last-child { border-bottom: none; }
+    .nav-dropdown-item:hover, .nav-dropdown-item.active {
+      background: rgba(230,169,58,0.1);
+    }
+    .nav-dropdown-item-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.88rem; font-weight: 500;
+      letter-spacing: 0.05em; color: #e8f5f0;
+    }
+    .nav-dropdown-item.active .nav-dropdown-item-title { color: var(--gold); }
+    .nav-dropdown-item-desc {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.67rem; font-weight: 300;
+      color: rgba(232,245,240,0.50); line-height: 1.4;
+    }
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
+    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
+
   </style>
 </head>
 <body>
@@ -322,9 +588,27 @@
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html">Map & Archive</a>
-      <a href="checkpoints.html">Checkpoints</a>
-      <a href="analysis.html">Visual Analysis</a>
-      <a href="surveillance-space.html" class="active">Surveillance Space</a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="checkpoints.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Checkpoints</span>
+            <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
+          </a>
+          <a href="analysis.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Visual Analysis</span>
+            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
+          </a>
+          <a href="surveillance-space.html" class="active" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Surveillance Space</span>
+            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
+          </a>
+          <a href="not-mapped.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">What's Not Mapped</span>
+            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
+          </a>
+        </div>
+      </div>
       <a href="about.html">About</a>
     </div>
   </nav>
@@ -655,6 +939,73 @@
 
     <div class="ss-divider"><hr></div>
 
+    <!-- CARCERAL CONTINUUM -->
+    <section class="typology-section" id="continuum" style="margin-bottom:5rem;">
+      <div class="section-header">
+        <span class="section-number" style="color:rgba(255,255,255,0.45);">+</span>
+        <div class="section-label-group">
+          <span class="section-type-tag" style="border-color:var(--gold);color:var(--gold);">Synthesis</span>
+          <h2 class="section-title" style="color:#f0c060;">Feminist Witnessing and Palestinian Futures</h2>
+          <p class="section-lead">The carceral continuum does not confine itself to checkpoints and prisons — it infiltrates domestic, intimate, and bodily space. Palestinian women filmmakers witness from inside those spaces.</p>
+        </div>
+      </div>
+      <div class="content-grid wide">
+        <div class="prose-block">
+          <p>The concept of the carceral continuum connects all the works in this archive. Hagar Kotef and Merav Amir's analysis shows that checkpoints are never neutral or uniform spaces but operate through gendered logics that position Palestinian women's bodies as especially vulnerable to state control. Strip searches, forced waiting, interrogation about family members, the demand to remove clothing — these are not incidental indignities but part of how occupation disciplines and humiliates Palestinian women by making their bodies the site through which power is enacted.</p>
+          <p>Shalhoub-Kevorkian's work on "infiltrated intimacies" extends this analysis into the home. Occupation enters through night raids, through the surveillance of family members, through the impossibility of family reunification under permit regimes. Women live with a constant anticipation of intrusion — the late-night knock, the raid that disrupts the household, the interrogation that redraws the boundaries of privacy. Because Palestinian women artists inhabit these intimate spaces, they can witness from the inside: the fear after a raid, the emotional negotiations families make, the altered routines children develop, the sensory memories that linger after soldiers leave. These forms of knowledge never appear in military archives. They are structurally invisible.</p>
+          <p>The same cultural and religious norms that limit how Palestinian women appear in public create the exact blind spots that Israeli surveillance cannot reach. Browne's insight that surveillance is always racialized and gendered is crucial here: those blind spots become some of the most powerful counter-archival material in the archive. Palestinian women artists turn what surveillance is structurally unable to record into knowledge — feminist witnessing as epistemological practice and method for seeing, documenting, and preserving what the surveillance state is literally not designed to capture.</p>
+          <p>Masri witnesses through the body; Shibli witnesses through interior consciousness; Bisan Owda witnesses in real time through social media documentation, claiming the title of Hakawatiya — traditional Arabic oral storyteller — within the context of genocide to position her witnessing within a long tradition of Palestinian cultural memory-making. What they all share is a commitment to working in the spaces surveillance does not see, and turning those moments into records that matter politically.</p>
+          <p>This is how feminist witnessing opens space for imagining Palestinian futures — not by laying out a vision of liberation but by insisting again and again that Palestinian life exceeds what occupation tries to reduce it to. Haddad's formulation of sumud as a radical and daring act of imagination, aligned with Vizenor's concept of survivance — active presence over absence, the continuities of stories — frames this generative dimension of the archive. The act of documentation is itself the imagination: not imagining a future abstractly, but insisting daily that there is a future in which this will be remembered and in which these filmmakers will have been witnesses, not just victims.</p>
+        </div>
+        <div class="vocab-card">
+          <h4 style="color:rgba(255,255,255,0.55);">Key Concepts</h4>
+          <ul class="vocab-list">
+            <li>
+              <span class="vocab-term" style="color:var(--gold);">Carceral Continuum</span>
+              <span class="vocab-def">The understanding that carceral logic does not end at the checkpoint or prison gate but infiltrates domestic, intimate, and bodily life.</span>
+            </li>
+            <li>
+              <span class="vocab-term" style="color:var(--gold);">Faithful Witnessing</span>
+              <span class="vocab-def">Lugones: an active political commitment to recognizing resistance even against dominant common sense, and refusing to align with oppression.</span>
+            </li>
+            <li>
+              <span class="vocab-term" style="color:var(--gold);">Survivance</span>
+              <span class="vocab-def">Vizenor: active presence over absence, the continuities of stories — aligned here with sumud as generative world-making rather than mere survival.</span>
+            </li>
+            <li>
+              <span class="vocab-term" style="color:var(--gold);">Necessary Imagination</span>
+              <span class="vocab-def">The capacity — generated through feminist witnessing — to imagine Palestinian futures that exceed what occupation tries to reduce Palestinian life to.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="content-grid">
+        <div class="pull-quote">
+          <blockquote>"The act of documentation is itself the imagination: not imagining a future abstractly, but insisting daily that there is a future in which this will be remembered."</blockquote>
+          <cite>— Project Framework</cite>
+        </div>
+        <div class="film-refs">
+          <div class="film-ref-card">
+            <p class="film-ref-title" style="color:#f0c060;">3000 Nights (2015)</p>
+            <p class="film-ref-dir">dir. Mai Masri</p>
+            <p class="film-ref-note">Layla's insistence on holding her baby — asking again and again despite chains — is the archive's clearest image of sumud as embodied refusal of state control over the body.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title" style="color:#f0c060;">Minor Detail (2017)</p>
+            <p class="film-ref-dir">Adania Shibli</p>
+            <p class="film-ref-note">The narrator's obsessive counter-investigation into an erased archive — persisting without certainty, refusing to stop without resolution — is what sumud looks like in literary form.</p>
+          </div>
+          <div class="film-ref-card">
+            <p class="film-ref-title" style="color:#f0c060;">Bisan Owda (2023–present)</p>
+            <p class="film-ref-dir">Social media documentation</p>
+            <p class="film-ref-note">Claiming the title of Hakawatiya — traditional oral storyteller — Owda positions real-time genocide documentation within a long tradition of Palestinian cultural memory-making.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ss-divider"><hr></div>
+
     <!-- MATRIX -->
     <section class="matrix-section">
       <h2 class="matrix-heading" data-t="matrix-heading">Surveillance Space: Comparative Matrix</h2>
@@ -703,6 +1054,95 @@
       </table>
     </section>
   </main>
+
+  <!-- WHAT'S NOT MAPPED DROPDOWN TRIGGER -->
+  <div class="wnm-trigger-section">
+    <button class="wnm-trigger-btn" id="wnmTrigger" aria-expanded="false" aria-controls="wnmPanel">
+      <div class="wnm-trigger-left">
+        <span class="wnm-trigger-eyebrow">05 / 05 &nbsp;—&nbsp; Beyond the Archive</span>
+        <span class="wnm-trigger-title">What's <em>Not Mapped</em></span>
+        <span class="wnm-trigger-sub">The politics of omission, the gaps in the archive, and what this project refuses to show.</span>
+      </div>
+      <span class="wnm-trigger-icon" aria-hidden="true">+</span>
+    </button>
+  </div>
+
+  <!-- ACCORDION PANEL -->
+  <div class="wnm-panel" id="wnmPanel" role="region" aria-labelledby="wnmTrigger">
+    <div class="wnm-panel-inner">
+
+      <!-- Opening quote -->
+      <div class="wnm-quote">
+        <blockquote>"Occupation is total: it enters the film not as a subject but as a condition of the image."</blockquote>
+        <cite>— Elia Suleiman</cite>
+      </div>
+
+      <!-- Politics of omission prose -->
+      <div class="wnm-prose">
+        <span class="wnm-subheading">The Argument</span>
+        <p>The politics of omission runs through every film in this archive. Jacir uses ellipsis precisely: the bank robbery in <em>Salt of This Sea</em> cuts away before it completes. Masri blurs the doctor's face in <em>3000 Nights</em>. Nabulsi keeps the camera on Yusef's face rather than the soldier's gun in <em>The Present</em>. Shibli's narrator in <em>Minor Detail</em> obsessively recovers an archive that chose not to record.</p>
+        <p>These formal choices are not simply aesthetic. They constitute an epistemological claim: that not everything needs to be made visible to matter, that the right to opacity is a political right, and that the demand for total visibility is itself a form of colonial violence. Édouard Glissant's concept of opacity — the ethical claim that not all lives need to be fully transparent to be worthy of respect — runs through this archive as both its subject and its formal principle.</p>
+      </div>
+
+      <!-- Formal strategies grid -->
+      <div>
+        <span class="wnm-subheading">Formal Strategies of Withholding</span>
+        <div class="wnm-omission-grid">
+          <div class="wnm-omission-item">
+            <p class="wnm-omission-film">Salt of This Sea</p>
+            <p class="wnm-omission-dir">Jacir, 2008</p>
+            <span class="wnm-omission-strategy">Ellipsis</span>
+            <p class="wnm-omission-desc">The bank robbery cuts away before completion — withholding the moment of violation to protect subjects from becoming spectacle.</p>
+          </div>
+          <div class="wnm-omission-item">
+            <p class="wnm-omission-film">3000 Nights</p>
+            <p class="wnm-omission-dir">Masri, 2015</p>
+            <span class="wnm-omission-strategy">Anonymization</span>
+            <p class="wnm-omission-desc">The doctor's face is blurred — medicine reduced to anonymous hands, turned into an extension of the carceral system.</p>
+          </div>
+          <div class="wnm-omission-item">
+            <p class="wnm-omission-film">The Present</p>
+            <p class="wnm-omission-dir">Nabulsi, 2020</p>
+            <span class="wnm-omission-strategy">Averted angle</span>
+            <p class="wnm-omission-desc">The camera stays on Yusef's face, not the soldier's gun. The violence is formal: heard and felt but refused the image it would want.</p>
+          </div>
+          <div class="wnm-omission-item">
+            <p class="wnm-omission-film">When I Saw You</p>
+            <p class="wnm-omission-dir">Jacir, 2012</p>
+            <span class="wnm-omission-strategy">Unresolved ending</span>
+            <p class="wnm-omission-desc">We do not see whether Tarek crosses. The camera stays with uncertainty, refusing closure that would turn longing into a contained story.</p>
+          </div>
+          <div class="wnm-omission-item">
+            <p class="wnm-omission-film">Minor Detail</p>
+            <p class="wnm-omission-dir">Shibli, 2017</p>
+            <span class="wnm-omission-strategy">Counter-archival labor</span>
+            <p class="wnm-omission-desc">The narrator recovers what the official archive treated as a minor detail. Witnessing is inseparable from what the original record refused.</p>
+          </div>
+          <div class="wnm-omission-item">
+            <p class="wnm-omission-film">Divine Intervention</p>
+            <p class="wnm-omission-dir">Suleiman, 2002</p>
+            <span class="wnm-omission-strategy">Static refusal</span>
+            <p class="wnm-omission-desc">Static takes, no dialogue. The surveillance camera's own logic — fixed, patient, recording — is turned first into irony, then into poetry.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gaps in the archive -->
+      <div>
+        <span class="wnm-subheading">Gaps in This Archive</span>
+        <ul class="wnm-gap-list">
+          <li>Five films — <em>Wajib</em>, <em>May in the Summer</em>, <em>The Teacher</em>, <em>All That's Left of You</em>, and <em>Pomegranates and Myrrh</em> — do not yet have completed close readings. Their inclusion as placeholders names incompleteness rather than concealing it.</li>
+          <li>The archive focuses on Palestinian women filmmakers. Male directors whose work engages checkpoints appear only in supporting references — a methodological boundary, not a claim about significance.</li>
+          <li>The Container checkpoint appears without film cross-references beyond archive footage. Its relative absence from narrative cinema is itself analytically significant.</li>
+          <li>The bilingual translation currently covers this page only. The rest of the site remains English-only, which contradicts the project's commitment to refusing a single language of legibility.</li>
+        </ul>
+      </div>
+
+      <!-- Full page link -->
+      <a href="not-mapped.html" class="wnm-full-link">View the full What's Not Mapped page</a>
+
+    </div>
+  </div>
 
   <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
     © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
@@ -772,6 +1212,37 @@
       localStorage.setItem('preferredLang', 'ar');
     });
 
+    // What's Not Mapped accordion
+    (function() {
+      var trigger = document.getElementById('wnmTrigger');
+      var panel   = document.getElementById('wnmPanel');
+      if (!trigger || !panel) return;
+
+      trigger.addEventListener('click', function() {
+        var isOpen = panel.classList.contains('open');
+        if (isOpen) {
+          panel.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        } else {
+          panel.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+          // Smooth scroll to trigger after brief delay so panel height animates in
+          setTimeout(function() {
+            trigger.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 80);
+        }
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && panel.classList.contains('open')) {
+          panel.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+          trigger.focus();
+        }
+      });
+    })();
+
     // Scroll to top button
     var scrollTopBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', function() {
@@ -780,6 +1251,29 @@
     scrollTopBtn.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  
+    // Archive dropdown — click toggle for mobile, hover handles desktop
+    (function() {
+      var trigger = document.querySelector('.nav-dropdown-trigger');
+      var dropdown = document.querySelector('.nav-dropdown');
+      if (!trigger || !dropdown) return;
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = dropdown.classList.contains('open');
+        dropdown.classList.toggle('open', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+      });
+      document.addEventListener('click', function() {
+        dropdown.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          dropdown.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
   </script>
 </body>
 </html>
