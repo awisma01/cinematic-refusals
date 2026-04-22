@@ -42,11 +42,11 @@
     /* NAV */
     .topnav {
       background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
-      backdrop-filter: blur(10px);
       padding: 1.2rem 3rem;
       display: flex; align-items: center; justify-content: space-between;
       box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-      position: sticky; top: 0; z-index: 100;
+      position: sticky; top: 0; z-index: 1000;
+      overflow: visible;
     }
     .topnav .brand {
       font-family: 'Oswald', sans-serif;
@@ -54,7 +54,7 @@
       color: var(--gold); letter-spacing: 0.5px;
       text-decoration: none;
     }
-    .topnav .menu { display: flex; gap: 0.5rem; }
+    .topnav .menu { display: flex; gap: 0.5rem; overflow: visible; position: relative; }
     .topnav .menu a {
       color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
       padding: 0.55rem 1rem; border-radius: 6px;
@@ -116,7 +116,7 @@
       max-width: 1000px;
       margin: 0 auto 6rem;
       padding: 0 2rem;
-      position: relative; z-index: 1;
+      position: relative; z-index: auto;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -128,7 +128,6 @@
       border: 1px solid rgba(111,231,193,0.12);
       border-radius: 16px;
       padding: 2.8rem 3rem;
-      backdrop-filter: blur(6px);
     }
     .about-card.gold-left {
       border-left: 3px solid var(--gold);
@@ -228,7 +227,7 @@
       color: var(--teal); text-align: center;
       padding: 2rem; font-family: 'Oswald', sans-serif;
       font-size: 0.88rem; letter-spacing: 0.1em;
-      position: relative; z-index: 1;
+      position: relative; z-index: auto;
     }
 
     #scrollTopBtn {
@@ -294,8 +293,7 @@
       transform: translateY(-8px);
       transition: opacity 0.22s ease, transform 0.22s ease;
       box-shadow: 0 16px 48px rgba(0,0,0,0.55);
-      z-index: 200;
-      backdrop-filter: blur(16px);
+      z-index: 9999;
     }
     .nav-dropdown.open .nav-dropdown-menu,
     .nav-dropdown:hover .nav-dropdown-menu {
@@ -336,7 +334,7 @@
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
-      <a href="map.html">Map & Archive</a>
+      <a href="map.html">Map</a>
       <div class="nav-dropdown">
         <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">

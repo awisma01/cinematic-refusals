@@ -50,6 +50,10 @@
     .topnav {
       direction: ltr !important;
       unicode-bidi: isolate;
+      overflow: visible;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
     .topnav .brand,
     .topnav .menu,
@@ -76,7 +80,7 @@
     /* HERO */
     .ss-hero {
       position: relative; padding: 6rem 2rem 4rem;
-      text-align: center; z-index: 1; overflow: hidden;
+      text-align: center; z-index: auto; overflow: hidden;
     }
     .ss-hero::after {
       content: ""; position: absolute; inset: 0;
@@ -112,7 +116,7 @@
       display: flex; flex-wrap: wrap; gap: 0.75rem;
       justify-content: center; max-width: 900px;
       margin: 0 auto 4.5rem; padding: 0 2rem;
-      position: relative; z-index: 1;
+      position: relative; z-index: auto;
     }
     .typology-pill {
       font-family: 'Oswald', sans-serif; font-size: 0.84rem; font-weight: 500;
@@ -135,18 +139,18 @@
     .typology-pill[data-type="cinematic"]:hover     { background:var(--cinematic-glow); color:#8ff5d8; }
 
     /* INTRO */
-    .ss-intro { max-width:820px; margin:0 auto 5rem; padding:0 2rem; position:relative; z-index:1; }
+    .ss-intro { max-width:820px; margin:0 auto 5rem; padding:0 2rem; position:relative; z-index: auto; }
     .ss-intro-card {
       background:rgba(255,255,255,0.04); border:1px solid rgba(111,231,193,0.14);
       border-left:3px solid var(--gold); border-radius:12px;
-      padding:2.5rem 3rem; backdrop-filter:blur(8px);
+      padding:2.5rem 3rem;
     }
     html[dir="rtl"] .ss-intro-card { border-left:1px solid rgba(111,231,193,0.14); border-right:3px solid var(--gold); }
     .ss-intro-card p { font-size:1.15rem; line-height:2; color:rgba(232,245,240,0.87); margin:0 0 1.1rem; }
     .ss-intro-card p:last-child { margin:0; }
 
     /* TYPOLOGY SECTIONS */
-    .typology-section { max-width:1100px; margin:0 auto 7rem; padding:0 2rem; position:relative; z-index:1; scroll-margin-top:90px; }
+    .typology-section { max-width:1100px; margin:0 auto 7rem; padding:0 2rem; position:relative; z-index: auto; scroll-margin-top:90px; }
 
     .section-header {
       display:flex; align-items:flex-start; gap:2rem;
@@ -270,11 +274,11 @@
     #cinematic     .film-ref-title { color:#8ff5d8; }
 
     /* SECTION DIVIDER */
-    .ss-divider { max-width:1100px; margin:0 auto 5rem; padding:0 2rem; position:relative; z-index:1; }
+    .ss-divider { max-width:1100px; margin:0 auto 5rem; padding:0 2rem; position:relative; z-index: auto; }
     .ss-divider hr { border:none; border-top:1px solid rgba(255,255,255,0.07); }
 
     /* MATRIX */
-    .matrix-section { max-width:1100px; margin:0 auto 7rem; padding:0 2rem; position:relative; z-index:1; }
+    .matrix-section { max-width:1100px; margin:0 auto 7rem; padding:0 2rem; position:relative; z-index: auto; }
     .matrix-heading { font-family:'Cormorant Garamond',serif; font-size:clamp(1.7rem,3vw,2.4rem); font-weight:700; color:#e8f5f0; margin:0 0 0.4rem; }
     html[lang="ar"] .matrix-heading { font-family:'Amiri',serif; }
 
@@ -304,7 +308,7 @@
     /* WHAT'S NOT MAPPED DROPDOWN */
     .wnm-trigger-section {
       max-width: 1100px; margin: 0 auto 2rem; padding: 0 2rem;
-      position: relative; z-index: 1;
+      position: relative; z-index: auto;
     }
     .wnm-trigger-btn {
       width: 100%;
@@ -354,7 +358,7 @@
     /* ACCORDION PANEL */
     .wnm-panel {
       max-width: 1100px; margin: 0 auto; padding: 0 2rem;
-      position: relative; z-index: 1;
+      position: relative; z-index: auto;
       overflow: hidden;
       max-height: 0;
       transition: max-height 0.55s cubic-bezier(0.4,0,0.2,1),
@@ -545,8 +549,7 @@
       transform: translateY(-8px);
       transition: opacity 0.22s ease, transform 0.22s ease;
       box-shadow: 0 16px 48px rgba(0,0,0,0.55);
-      z-index: 200;
-      backdrop-filter: blur(16px);
+      z-index: 9999;
     }
     .nav-dropdown.open .nav-dropdown-menu,
     .nav-dropdown:hover .nav-dropdown-menu {
@@ -587,7 +590,7 @@
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
-      <a href="map.html">Map & Archive</a>
+      <a href="map.html">Map</a>
       <div class="nav-dropdown">
         <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">

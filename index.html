@@ -49,7 +49,6 @@
     /* NAV */
     .topnav {
       background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
-      backdrop-filter: blur(10px);
       padding: 1.2rem 3rem;
       display: flex;
       align-items: center;
@@ -57,7 +56,8 @@
       box-shadow: 0 2px 20px rgba(0,0,0,0.3);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
+      overflow: visible;
     }
     .topnav .brand {
       font-family: 'Oswald', sans-serif;
@@ -66,7 +66,7 @@
       color: var(--gold);
       letter-spacing: 0.5px;
     }
-    .topnav .menu { display: flex; gap: 0.5rem; }
+    .topnav .menu { display: flex; gap: 0.5rem; overflow: visible; position: relative; }
     .topnav .menu a {
       color: #eaf7f2;
       font-size: 0.9rem;
@@ -88,7 +88,7 @@
       position: relative;
       padding: 7rem 2rem 5rem;
       text-align: center;
-      z-index: 1;
+      z-index: auto;
       overflow: hidden;
     }
     .hero-section::after {
@@ -148,7 +148,7 @@
       border: 1px solid rgba(111,231,193,0.12);
       border-radius: 20px;
       position: relative;
-      z-index: 1;
+      z-index: auto;
     }
     .carousel-content {
       display: flex;
@@ -209,7 +209,7 @@
     .quote-author::before { content: '— '; }
 
     /* DIVIDER */
-    .section-divider { max-width: 1100px; margin: 0 auto 4rem; padding: 0 2rem; z-index: 1; position: relative; }
+    .section-divider { max-width: 1100px; margin: 0 auto 4rem; padding: 0 2rem; z-index: auto; position: relative; }
     .section-divider hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); }
 
     /* ABOUT SECTION */
@@ -218,7 +218,7 @@
       margin: 0 auto 5rem;
       padding: 0 2rem;
       position: relative;
-      z-index: 1;
+      z-index: auto;
     }
     .intro-card {
       background: rgba(255,255,255,0.04);
@@ -226,7 +226,6 @@
       border-left: 3px solid var(--gold);
       border-radius: 12px;
       padding: 3rem;
-      backdrop-filter: blur(8px);
     }
     .intro-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
@@ -292,7 +291,7 @@
       margin: 0 auto 5rem;
       padding: 0 2rem;
       position: relative;
-      z-index: 1;
+      z-index: auto;
     }
     .nav-card {
       background: rgba(255,255,255,0.03);
@@ -365,7 +364,6 @@
       background: rgba(0,0,0,0.7);
       display: flex;
       align-items: center; justify-content: center;
-      backdrop-filter: blur(4px);
     }
     .modal-content {
       background: #0f2d28;
@@ -412,7 +410,7 @@
       font-size: 0.9rem;
       letter-spacing: 0.1em;
       position: relative;
-      z-index: 1;
+      z-index: auto;
     }
 
     #scrollTopBtn {
@@ -430,7 +428,7 @@
     /* HOOK */
     .project-hook {
       max-width: 900px; margin: 0 auto 5rem; padding: 0 2rem;
-      position: relative; z-index: 1;
+      position: relative; z-index: auto;
     }
     .hook-card {
       background: rgba(255,255,255,0.04);
@@ -461,7 +459,7 @@
     /* SPOTLIGHT */
     .spotlight-section {
       max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem;
-      position: relative; z-index: 1;
+      position: relative; z-index: auto;
     }
     .spotlight-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
@@ -545,7 +543,7 @@
     /* ENTRY SECTION */
     .entry-section {
       max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem;
-      position: relative; z-index: 1;
+      position: relative; z-index: auto;
     }
     .entry-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
@@ -649,8 +647,7 @@
       transform: translateY(-8px);
       transition: opacity 0.22s ease, transform 0.22s ease;
       box-shadow: 0 16px 48px rgba(0,0,0,0.55);
-      z-index: 200;
-      backdrop-filter: blur(16px);
+      z-index: 9999;
     }
     .nav-dropdown.open .nav-dropdown-menu,
     .nav-dropdown:hover .nav-dropdown-menu {
@@ -691,7 +688,7 @@
     <div class="brand">Cinematic Counter‑Cartographies</div>
     <div class="menu">
       <a href="index.html" class="active">Home</a>
-      <a href="map.html">Map & Archive</a>
+      <a href="map.html">Map</a>
       <div class="nav-dropdown">
         <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Map & Archive — Cinematic Counter-Cartographies</title>
+  <title>Map — Cinematic Counter-Cartographies</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
@@ -19,33 +19,110 @@
     html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
     body { font-family: 'Cormorant Garamond', Georgia, serif; background: #0a1a18; color: #e8f5f0; }
 
-    /* NAV */
+    /* ── NAV ── */
     .topnav {
       position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
       background: linear-gradient(180deg, rgba(10,35,33,0.99) 0%, rgba(10,35,33,0.97) 100%);
-      backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem;
       box-shadow: 0 2px 20px rgba(0,0,0,0.5);
       z-index: 200;
+      overflow: visible;
     }
     .topnav .brand {
       font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 600;
       color: var(--gold); letter-spacing: 0.5px; text-decoration: none;
     }
-    .topnav .menu { display: flex; gap: 0.4rem; }
+    .topnav .menu { display: flex; gap: 0.4rem; align-items: center; overflow: visible; position: relative; }
     .topnav .menu a {
       color: #eaf7f2; font-size: 0.88rem; font-weight: 500;
       padding: 0.5rem 0.9rem; border-radius: 6px;
       transition: all 0.25s; font-family: 'Oswald', sans-serif;
       text-decoration: none; letter-spacing: 0.2px;
     }
-    .topnav .menu a:hover, .topnav .menu a.active { background: rgba(230,169,58,0.18); color: var(--gold); }
+    .topnav .menu a:hover, .topnav .menu a.active {
+      background: rgba(230,169,58,0.18); color: var(--gold);
+    }
 
-    /* MAP */
+    /* NAV DROPDOWN */
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .nav-dropdown-trigger {
+      color: #eaf7f2; font-size: 0.88rem; font-weight: 500;
+      padding: 0.5rem 0.9rem; border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'Oswald', sans-serif; letter-spacing: 0.2px;
+      text-decoration: none; background: none; border: none;
+      display: flex; align-items: center; gap: 0.35rem;
+      cursor: pointer; white-space: nowrap;
+    }
+    .nav-dropdown-trigger:hover,
+    .nav-dropdown-trigger.active {
+      background: rgba(230,169,58,0.18); color: var(--gold);
+    }
+    .nav-dropdown-arrow {
+      font-size: 0.65rem; opacity: 0.7;
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+    .nav-dropdown.open .nav-dropdown-arrow,
+    .nav-dropdown:hover .nav-dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 260px;
+      background: rgba(8,28,26,0.98);
+      border: 1px solid rgba(230,169,58,0.25);
+      border-radius: 12px;
+      padding: 0.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.55);
+      z-index: 9999;
+    }
+    .nav-dropdown.open .nav-dropdown-menu,
+    .nav-dropdown:hover .nav-dropdown-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .nav-dropdown-item {
+      display: flex; flex-direction: column; gap: 0.22rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.18s ease;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-dropdown-item:last-child { border-bottom: none; }
+    .nav-dropdown-item:hover, .nav-dropdown-item.active {
+      background: rgba(230,169,58,0.1);
+    }
+    .nav-dropdown-item-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.88rem; font-weight: 500;
+      letter-spacing: 0.05em; color: #e8f5f0;
+    }
+    .nav-dropdown-item.active .nav-dropdown-item-title { color: var(--gold); }
+    .nav-dropdown-item-desc {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.67rem; font-weight: 300;
+      color: rgba(232,245,240,0.50); line-height: 1.4;
+    }
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
+    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
+
+    /* ── MAP ── */
     #map { position: fixed; top: var(--nav-h); bottom: 0; left: 0; right: 0; z-index: 1; }
 
-    /* SEARCH */
+    /* ── SEARCH ── */
     .search-panel {
       position: fixed; top: calc(var(--nav-h) + 16px);
       left: 50%; transform: translateX(-50%);
@@ -54,7 +131,7 @@
     .search-inner {
       background: rgba(10,35,33,0.94);
       border: 1px solid rgba(111,231,193,0.22);
-      border-radius: 12px; backdrop-filter: blur(14px);
+      border-radius: 12px;
       padding: 0.7rem 0.9rem;
       display: flex; align-items: center; gap: 0.6rem;
       box-shadow: 0 6px 24px rgba(0,0,0,0.45);
@@ -101,12 +178,12 @@
     li.cp-result .result-dot { background: var(--gold); }
     li.place-result .result-dot { background: var(--teal); }
 
-    /* LEGEND */
+    /* ── LEGEND ── */
     .map-legend {
       position: fixed; bottom: 24px; left: 20px; z-index: 100;
       background: rgba(10,35,33,0.93); border: 1px solid rgba(111,231,193,0.15);
       border-radius: 12px; padding: 1.1rem 1.4rem;
-      backdrop-filter: blur(14px); box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.45);
       min-width: 170px;
     }
     .legend-title {
@@ -124,19 +201,19 @@
     .legend-dot.checkpoint { background: var(--gold); border: 2px solid var(--crimson); }
     .legend-dot.search-result { background: var(--teal); border: 2px solid rgba(255,255,255,0.25); }
 
-    /* POPUP OVERRIDES */
+    /* ── POPUP OVERRIDES ── */
     .mapboxgl-popup-content { background: transparent !important; border-radius: 0 !important; padding: 0 !important; box-shadow: none !important; }
     .mapboxgl-popup-tip { display: none !important; }
     .mapboxgl-popup-close-button { display: none !important; }
 
-    /* CUSTOM POPUP CARD */
+    /* ── CUSTOM POPUP CARD ── */
     .cp-popup {
       background: linear-gradient(140deg, #0a2321 0%, #163d30 100%);
       border: 1px solid rgba(111,231,193,0.18);
       border-radius: 16px;
-      overflow: auto;                /* Enable scrolling */
+      overflow: auto;
       width: 300px;
-      max-height: 350px;             /* Limit height so content can scroll */
+      max-height: 420px;
       box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(230,169,58,0.12);
       font-family: 'Cormorant Garamond', serif;
       animation: popupIn 0.28s cubic-bezier(.34,1.56,.64,1);
@@ -145,7 +222,7 @@
       from { opacity: 0; transform: scale(0.9) translateY(10px); }
       to   { opacity: 1; transform: scale(1) translateY(0); }
     }
-    .cp-popup-bar { height: 3px; background: linear-gradient(90deg, var(--gold), #f0c060, var(--gold)); }
+    .cp-popup-bar { height: 3px; background: linear-gradient(90deg, var(--gold), #f0c060, var(--gold)); flex-shrink: 0; }
     .cp-popup-header {
       padding: 1rem 1.1rem 0.8rem; position: relative;
       border-bottom: 1px solid rgba(111,231,193,0.1);
@@ -195,7 +272,11 @@
       letter-spacing: 0.25em; text-transform: uppercase;
       color: var(--teal); display: block; margin-bottom: 0.12rem;
     }
-    .cp-popup-films { padding: 0.65rem 1.1rem 0.9rem; background: rgba(0,0,0,0.18); }
+    .cp-popup-films {
+      padding: 0.65rem 1.1rem 0.5rem;
+      background: rgba(0,0,0,0.18);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
     .cp-popup-films .cp-popup-label { margin-bottom: 0.4rem; }
     .cp-film-tag {
       display: inline-block;
@@ -205,9 +286,36 @@
       margin: 0.18rem 0.18rem 0 0; white-space: nowrap;
     }
 
-    @media (max-width: 768px) {
+    /* ── CROSS-PAGE LINKS IN POPUP ── */
+    .cp-popup-links {
+      padding: 0.65rem 1.1rem 0.9rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .cp-popup-links .cp-popup-label { margin-bottom: 0.2rem; }
+    .cp-page-link {
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: 'Oswald', sans-serif; font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      padding: 0.45rem 0.7rem; border-radius: 6px;
+      border: 1px solid rgba(111,231,193,0.15);
+      background: rgba(111,231,193,0.04);
+      transition: all 0.2s ease;
+    }
+    .cp-page-link:hover {
+      background: rgba(230,169,58,0.1);
+      border-color: rgba(230,169,58,0.35);
+      color: var(--gold);
+    }
+    .cp-page-link::after { content: '→'; font-size: 0.7rem; opacity: 0.7; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
       .topnav { padding: 0 1rem; }
       .topnav .menu a { padding: 0.4rem 0.55rem; font-size: 0.76rem; }
+      .nav-dropdown-trigger { padding: 0.4rem 0.55rem; font-size: 0.76rem; }
+    }
+    @media (max-width: 768px) {
       .search-panel { top: calc(var(--nav-h) + 10px); }
       .map-legend { bottom: 10px; left: 10px; }
       .cp-popup { width: 260px; }
@@ -220,11 +328,28 @@
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
-      <a href="map.html" class="active">Map & Archive</a>
-      <a href="checkpoints.html">Checkpoints</a>
-      <a href="analysis.html">Visual Analysis</a>
-      <a href="surveillance-space.html">Surveillance Space</a>
-      <a href="not-mapped.html">What's Not Mapped</a>
+      <a href="map.html" class="active">Map</a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="checkpoints.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Checkpoints</span>
+            <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
+          </a>
+          <a href="analysis.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Visual Analysis</span>
+            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
+          </a>
+          <a href="surveillance-space.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Surveillance Space</span>
+            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
+          </a>
+          <a href="not-mapped.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">What's Not Mapped</span>
+            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
+          </a>
+        </div>
+      </div>
       <a href="about.html">About</a>
     </div>
   </nav>
@@ -248,6 +373,7 @@
   <script>
     const checkpoints = [
       {
+        id: 'qalandiya',
         coords: [35.2192, 31.8633],
         title: "Qalandiya Checkpoint",
         arabic: "حاجز قلنديا",
@@ -255,9 +381,14 @@
         type: "Last checkpoint before Israel",
         staffing: "Permanently staffed",
         detail: "Qalandiya separates Palestinian communities severed by the Separation Barrier. Closed on 7 October 2023; reopened for East Jerusalem residents 23 October 2023 (Sun–Thu, 5am–5pm). Reopened for West Bank permit holders 7 February 2024. Remains closed Fridays.",
-        films: ["Salt of This Sea — Jacir, 2008", "The Present — Nablusi, 2020"]
+        films: ["Salt of This Sea — Jacir, 2008", "The Present — Nablusi, 2020"],
+        links: [
+          { label: "Checkpoint Case Study", href: "checkpoints.html#qalandiya" },
+          { label: "Film Analysis", href: "analysis.html" }
+        ]
       },
       {
+        id: 'bethlehem',
         coords: [35.2035, 31.7234],
         title: "Checkpoint 300 — Bethlehem",
         arabic: "حاجز ٣٠٠ (بيت لحم)",
@@ -265,9 +396,14 @@
         type: "Entry / Exit to Israel",
         staffing: "Permanently staffed",
         detail: "Located on the border between Bethlehem and Jerusalem. One of the busiest crossings — thousands pass daily for work. Features a turnstile system and persistent long queues.",
-        films: ["Salt of This Sea — Jacir, 2008", "When I Saw You — Jacir, 2012"]
+        films: ["Salt of This Sea — Jacir, 2008", "When I Saw You — Jacir, 2012"],
+        links: [
+          { label: "Checkpoint Case Study", href: "checkpoints.html#bethlehem" },
+          { label: "Film Analysis", href: "analysis.html" }
+        ]
       },
       {
+        id: 'huwwara',
         coords: [35.2726, 32.1762],
         title: "Huwwara Checkpoint",
         arabic: "حاجز حوارة",
@@ -275,9 +411,14 @@
         type: "Internal checkpoint",
         staffing: "Intermittently staffed",
         detail: "At the southern entrance to Nablus. Staffed on no fixed schedule. After 7 October 2023, completely closed to Palestinian pedestrians and vehicles.",
-        films: ["The Present — Nablusi, 2020"]
+        films: ["The Present — Nablusi, 2020"],
+        links: [
+          { label: "Checkpoint Case Study", href: "checkpoints.html#huwwara" },
+          { label: "Film Analysis", href: "analysis.html" }
+        ]
       },
       {
+        id: 'container',
         coords: [35.2976, 31.6927],
         title: "Container Checkpoint (Wadi a-Nar)",
         arabic: "حاجز الكونتينر (وادي النار)",
@@ -285,7 +426,11 @@
         type: "Internal checkpoint",
         staffing: "Permanently staffed",
         detail: "East of Abu Dis, controlling travel between northern and southern West Bank. Since October 2023, strict inspections with limited outbound hours (closed 6–9am for exit).",
-        films: ["Archive footage — dates TBD"]
+        films: ["Archive footage — dates TBD"],
+        links: [
+          { label: "Checkpoint Case Study", href: "checkpoints.html#container" },
+          { label: "What's Not Mapped", href: "not-mapped.html" }
+        ]
       }
     ];
 
@@ -301,14 +446,14 @@
     });
 
     map.addControl(new mapboxgl.NavigationControl());
-    // scroll zoom enabled
 
-    map.on('style.load', () => {
-      map.setFog({});
-    });
+    map.on('style.load', () => { map.setFog({}); });
 
     function buildPopupHTML(cp) {
-      const tags = cp.films.map(f => `<span class="cp-film-tag">${f}</span>`).join('');
+      const tags  = cp.films.map(f => `<span class="cp-film-tag">${f}</span>`).join('');
+      const links = cp.links.map(l =>
+        `<a class="cp-page-link" href="${l.href}">${l.label}</a>`
+      ).join('');
       const lat = cp.coords[1].toFixed(5);
       const lng = cp.coords[0].toFixed(5);
       return `<div class="cp-popup">
@@ -320,12 +465,21 @@
           <button class="cp-popup-close" onclick="this.closest('.mapboxgl-popup').remove()">✕</button>
         </div>
         <div class="cp-popup-body">
-          <div class="cp-popup-row"><span class="cp-popup-label">Coordinates</span><span style="font-family:'IBM Plex Mono',monospace;font-size:0.82rem;letter-spacing:0.05em;color:rgba(111,231,193,0.75);">${lat}° N, ${lng}° E</span></div>
+          <div class="cp-popup-row">
+            <span class="cp-popup-label">Coordinates</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:0.82rem;letter-spacing:0.05em;color:rgba(111,231,193,0.75);">${lat}° N, ${lng}° E</span>
+          </div>
           <div class="cp-popup-row"><span class="cp-popup-label">District</span>${cp.district}</div>
           <div class="cp-popup-row"><span class="cp-popup-label">Type</span>${cp.type}</div>
           <div class="cp-popup-row"><span class="cp-popup-label">Staffing</span>${cp.staffing}</div>
           <div class="cp-popup-row"><span class="cp-popup-label">Details</span>${cp.detail}</div>
-          <div class="cp-popup-films"><span class="cp-popup-label">Featured In</span>${tags}</div>
+          <div class="cp-popup-films">
+            <span class="cp-popup-label">Featured In</span>${tags}
+          </div>
+          <div class="cp-popup-links">
+            <span class="cp-popup-label">Explore Further</span>
+            ${links}
+          </div>
         </div>
       </div>`;
     }
@@ -334,7 +488,7 @@
 
     checkpoints.forEach((cp, idx) => {
       const el = document.createElement('div');
-      el.style.cssText = 'width:60px;height:60px;cursor:pointer;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6));transition:transform 0.2s ease;display:none;';
+      el.style.cssText = 'width:60px;height:60px;cursor:pointer;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6));transition:transform 0.2s ease;';
       el.innerHTML = `<svg width="60" height="60" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="15" y="18" width="8" height="12" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
         <rect x="13" y="13" width="12" height="6" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
@@ -346,14 +500,20 @@
         <ellipse cx="19" cy="36" rx="7" ry="1.5" fill="rgba(230,169,58,0.2)"/>
       </svg>`;
 
-      el.addEventListener('mouseenter', () => { el.style.filter = 'drop-shadow(0 6px 14px rgba(230,169,58,0.5)) brightness(1.15)'; });
-      el.addEventListener('mouseleave', () => { el.style.filter = 'drop-shadow(0 4px 10px rgba(0,0,0,0.6))'; });
+      el.addEventListener('mouseenter', () => {
+        el.style.filter = 'drop-shadow(0 6px 14px rgba(230,169,58,0.5)) brightness(1.15)';
+        el.style.transform = 'scale(1.1)';
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.filter = 'drop-shadow(0 4px 10px rgba(0,0,0,0.6))';
+        el.style.transform = 'scale(1)';
+      });
 
       const popup = new mapboxgl.Popup({ offset: 20, closeButton: false, maxWidth: 'none' })
         .setHTML(buildPopupHTML(cp));
 
       new mapboxgl.Marker({ element: el }).setLngLat(cp.coords).addTo(map);
-      markerObjs.push({ el, popup });
+      markerObjs.push({ el, popup, cp });
 
       let isOpen = false;
       el.addEventListener('click', e => {
@@ -371,11 +531,27 @@
 
     map.on('click', () => markerObjs.forEach(m => m.popup.remove()));
 
-    // Search
-    const searchInput  = document.getElementById('searchInput');
-    const searchBtn    = document.getElementById('searchBtn');
-    const resultsList  = document.getElementById('searchResults');
-    let searchMarker   = null;
+    // ── Hash navigation from checkpoints.html ──────────────
+    function openFromHash() {
+      const hash = window.location.hash.replace('#', '');
+      if (!hash) return;
+      const found = markerObjs.find(m => m.cp.id === hash);
+      if (found) {
+        setTimeout(() => {
+          map.flyTo({ center: found.cp.coords, zoom: 14, essential: true });
+          markerObjs.forEach(m => m.popup.remove());
+          setTimeout(() => found.popup.setLngLat(found.cp.coords).addTo(map), 800);
+        }, 300);
+      }
+    }
+    map.on('load', openFromHash);
+    window.addEventListener('hashchange', openFromHash);
+
+    // ── Search ─────────────────────────────────────────────
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn   = document.getElementById('searchBtn');
+    const resultsList = document.getElementById('searchResults');
+    let searchMarker  = null;
 
     function searchCPs(q) {
       q = q.toLowerCase().trim();
@@ -400,12 +576,10 @@
         li.className = 'cp-result';
         li.innerHTML = `<span class="result-dot"></span>${cp.title} <span style="opacity:0.4;margin-left:0.3rem;">${cp.arabic}</span>`;
         li.addEventListener('click', () => {
-          map.flyTo({ center: cp.coords, zoom: 20, essential: true, duration: 2000 });
-          const idx = checkpoints.indexOf(cp);
-          // Hide all markers and popups, then show only the matched one
-          markerObjs.forEach(m => { m.popup.remove(); m.el.style.display = 'none'; });
-          markerObjs[idx].el.style.display = 'block';
-          setTimeout(() => markerObjs[idx].popup.setLngLat(cp.coords).addTo(map), 900);
+          map.flyTo({ center: cp.coords, zoom: 14, essential: true, duration: 1800 });
+          const found = markerObjs.find(m => m.cp.id === cp.id);
+          markerObjs.forEach(m => m.popup.remove());
+          if (found) setTimeout(() => found.popup.setLngLat(cp.coords).addTo(map), 900);
           resultsList.style.display = 'none';
           searchInput.value = cp.title;
         });
@@ -413,7 +587,8 @@
       });
 
       if (cpRes.length && globalRes.length) {
-        const d = document.createElement('li'); d.className = 'divider'; d.textContent = 'Other places';
+        const d = document.createElement('li');
+        d.className = 'divider'; d.textContent = 'Other places';
         resultsList.appendChild(d);
       }
 
@@ -452,13 +627,30 @@
     document.addEventListener('click', e => {
       if (!e.target.closest('.search-panel')) resultsList.style.display = 'none';
     });
+
+    // ── Archive dropdown toggle (mobile) ───────────────────
+    (function() {
+      var trigger  = document.querySelector('.nav-dropdown-trigger');
+      var dropdown = document.querySelector('.nav-dropdown');
+      if (!trigger || !dropdown) return;
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = dropdown.classList.contains('open');
+        dropdown.classList.toggle('open', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+      });
+      document.addEventListener('click', function() {
+        dropdown.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          dropdown.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
   </script>
 
-  <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
-    © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
-    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
-    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
-    <a href="https://yourpersonalwebsite.com" target="_blank" rel="noopener" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Personal Website</a>
-  </footer>
 </body>
 </html>
