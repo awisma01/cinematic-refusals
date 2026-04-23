@@ -7,571 +7,152 @@
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --gold: #e6a93a;
-      --teal: #6fe7c1;
-      --forest: #288366;
-      --crimson: #b94e3a;
-    }
-
-    html { scroll-behavior: smooth; }
-
+    :root { --gold:#e6a93a; --teal:#6fe7c1; --forest:#288366; --crimson:#b94e3a; }
+    html { scroll-behavior:smooth; }
     body {
-      margin: 0;
-      background: linear-gradient(160deg, #1b3c34 0%, #2a5c4c 30%, #357a5a 60%, #23634c 100%);
-      background-attachment: fixed;
-      color: #e8f5f0;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      min-height: 100vh;
-      overflow-x: hidden;
+      margin:0;
+      background:linear-gradient(160deg,#1b3c34 0%,#2a5c4c 30%,#357a5a 60%,#23634c 100%);
+      background-attachment:fixed; color:#e8f5f0;
+      font-family:'Cormorant Garamond',Georgia,serif;
+      min-height:100vh; overflow-x:hidden;
     }
-
     body::before {
-      content: "";
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px
-      );
-      pointer-events: none; z-index: 0;
+      content:""; position:fixed; top:0; left:0; width:100%; height:100%;
+      background-image:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,180,0.012) 3px,rgba(0,255,180,0.012) 4px);
+      pointer-events:none; z-index:0;
     }
 
     /* NAV */
     .topnav {
-      background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
-      padding: 1.2rem 3rem;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-      position: sticky; top: 0; z-index: 1000;
-      overflow: visible;
+      background:linear-gradient(180deg,rgba(10,35,33,0.98) 0%,rgba(10,35,33,0.95) 100%);
+      padding:1.2rem 3rem; display:flex; align-items:center; justify-content:space-between;
+      box-shadow:0 2px 20px rgba(0,0,0,0.3); position:sticky; top:0; z-index:1000; overflow:visible;
     }
-    .topnav .brand {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.3rem; font-weight: 600;
-      color: var(--gold); letter-spacing: 0.5px;
-    }
-    .topnav .menu { display: flex; gap: 0.5rem; overflow: visible; position: relative; }
-    .topnav .menu a {
-      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
-      padding: 0.55rem 1rem; border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
-      text-decoration: none;
-    }
-    .topnav .menu a:hover, .topnav .menu a.active {
-      background: rgba(230,169,58,0.2); color: var(--gold);
-    }
-
-    /* HERO */
-    .page-hero {
-      position: relative;
-      padding: 5rem 2rem 3.5rem;
-      text-align: center; z-index: 1;
-    }
-    .page-hero::after {
-      content: "";
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(40,131,102,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(40,131,102,0.06) 1px, transparent 1px);
-      background-size: 60px 60px;
-      animation: gridDrift 30s linear infinite;
-      z-index: -1;
-    }
-    @keyframes gridDrift {
-      from { background-position: 0 0; }
-      to { background-position: 60px 60px; }
-    }
-    .page-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--teal);
-      opacity: 0.7; margin: 0 0 1.2rem;
-    }
-    .page-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 700; color: #e8f5f0;
-      margin: 0 0 0.5rem; line-height: 1.1;
-    }
-    .page-title em { color: var(--gold); font-style: italic; }
-    .gold-rule {
-      width: 60px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 1.5rem auto;
-    }
-    .page-lead {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; font-style: italic;
-      color: rgba(232,245,240,0.70);
-      max-width: 620px; margin: 0 auto;
-    }
-
-    /* CHECKPOINT GRID */
-    .checkpoint-grid-outer {
-      max-width: 1200px;
-      margin: 0 auto 5rem;
-      padding: 0 2rem;
-      position: relative; z-index: auto;
-    }
-    .checkpoint-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    /* CHECKPOINT CARD */
-    .cp-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(111,231,193,0.1);
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-    }
-    .cp-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(230,169,58,0.35);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
-      background: rgba(255,255,255,0.05);
-    }
-    .cp-card-img {
-      width: 100%; height: 200px;
-      object-fit: cover; object-position: center;
-      display: block;
-      filter: brightness(0.8) saturate(0.85);
-      transition: filter 0.4s ease;
-    }
-    .cp-card:hover .cp-card-img { filter: brightness(0.9) saturate(1); }
-
-    .cp-card-body {
-      padding: 1.5rem;
-      display: flex; flex-direction: column; flex: 1;
-    }
-
-    /* FIX 7 — Arabic label opacity 0.7 → 0.85 */
-    .cp-card-arabic {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem; font-style: italic;
-      color: var(--teal);
-      opacity: 0.85;
-      margin: 0 0 0.5rem;
-    }
-
-    .cp-card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-weight: 1000;
-      color: #e8f5f0;
-      margin: 0 0 0.5rem;
-      line-height: 1.2;
-      letter-spacing: 0.01em;
-    }
-
-    /* FIX 2 — Card note opacity 0.35 → 0.75 for WCAG AA compliance */
-    .cp-card-note {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem; font-weight: 300;
-      color: rgba(232,245,240,0.75);
-      margin: 0 0 1rem; font-style: italic;
-    }
-
-    .cp-film-list {
-      list-style: none; padding: 0; margin: 0 0 1.5rem;
-    }
-
-    /* FIX 1 — Film list text opacity 0.6 → 0.85, size 0.95rem → 1rem */
-    .cp-film-list li {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      color: rgba(232,245,240,0.85);
-      padding: 0.3rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .cp-film-list li::before {
-      content: '—';
-      color: var(--gold);
-      opacity: 0.85;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-right: 0.4em;
-    }
-
-    .cp-card-actions {
-      display: flex; gap: 0.75rem;
-      margin-top: auto; flex-wrap: wrap;
-    }
-    .cp-btn {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.75rem; font-weight: 500;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      padding: 0.6rem 1.1rem; border-radius: 6px;
-      cursor: pointer; transition: all 0.25s ease;
-      text-decoration: none; display: inline-block;
-    }
-    .cp-btn-primary {
-      background: rgba(40,131,102,0.25);
-      border: 1px solid rgba(111,231,193,0.3);
-      color: var(--teal);
-    }
-    .cp-btn-primary:hover {
-      background: rgba(40,131,102,0.45);
-      border-color: var(--teal);
-    }
-    .cp-btn-secondary {
-      background: transparent;
-      border: 1px solid rgba(230,169,58,0.3);
-      color: var(--gold);
-    }
-    .cp-btn-secondary:hover {
-      background: rgba(230,169,58,0.1);
-      border-color: var(--gold);
-    }
-
-    /* MODAL */
-    .modal-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(5, 20, 18, 0.85);
-      display: none; z-index: 2000;
-      align-items: center; justify-content: center;
-      padding: 1.5rem;
-      -webkit-
-    }
-    .modal-backdrop.open { display: flex; }
-
-    .modal {
-      max-width: 600px; width: 95%;
-      background: #0d2420;
-      border-radius: 20px;
-      color: #e8f5f0;
-      max-height: 85vh;
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      box-shadow:
-        0 0 0 1px rgba(230,169,58,0.25),
-        0 30px 70px rgba(0,0,0,0.55),
-        0 8px 20px rgba(0,0,0,0.3);
-      animation: modalPopIn 0.35s cubic-bezier(.34,1.56,.64,1);
-    }
-    @keyframes modalPopIn {
-      from { opacity: 0; transform: scale(0.88) translateY(32px); }
-      to   { opacity: 1; transform: scale(1)    translateY(0); }
-    }
-
-    .modal-header {
-      padding: 1.6rem 1.8rem 1.3rem;
-      display: flex; justify-content: space-between; align-items: flex-start;
-      flex-shrink: 0;
-      background: linear-gradient(120deg, #0a2321 0%, #1a4a38 60%, #0f3328 100%);
-      position: relative;
-    }
-    .modal-header::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(111,231,193,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(111,231,193,0.07) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-    .modal-header::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--gold), #f0c060, var(--gold));
-    }
-
-    .modal-header-text { position: relative; z-index: 1; flex: 1; }
-
-    .modal-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem;
-      font-weight: 300;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--teal);
-      opacity: 0.7;
-      margin: 0 0 0.5rem;
-      display: block;
-    }
-    .modal h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.55rem; color: #ffffff;
-      margin: 0; font-weight: 700; line-height: 1.25;
-    }
-
-    .modal .close {
-      position: relative; z-index: 1;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.6);
-      font-size: 1rem; cursor: pointer;
-      transition: all 0.22s ease;
-      flex-shrink: 0; margin-left: 1.2rem; margin-top: 0.2rem;
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      line-height: 1;
-    }
-    .modal .close:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #0a2321;
-      transform: rotate(90deg);
-    }
-
-    .modal-body {
-      padding: 0;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #d4c9a0 transparent;
-      flex: 1;
-    }
-    .modal-body::-webkit-scrollbar { width: 4px; }
-    .modal-body::-webkit-scrollbar-track { background: transparent; }
-    .modal-body::-webkit-scrollbar-thumb { background: rgba(111,231,193,0.25); border-radius: 2px; }
-
-    /* FIX 3 — Modal body paragraphs: border colour, font size, line height */
-    .modal-body p {
-      margin: 0;
-      padding: 1.1rem 1.8rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      line-height: 2;
-      color: rgba(232,245,240,0.9);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .modal-body p:last-child { border-bottom: none; }
-
-    /* FIX 4 — Modal strong labels: forest → teal so they're visible on dark bg */
-    .modal-body strong {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--teal);
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-
-    /* FIX 5 — Modal lists: cream bg → dark, dark text → light */
-    .modal-body ul {
-      margin: 0;
-      padding: 0.8rem 1.8rem 0.8rem 3rem;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      background: rgba(255,255,255,0.04);
-    }
-    .modal-body li {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      color: rgba(232,245,240,0.85);
-      margin-bottom: 0.4rem;
-      line-height: 1.7;
-    }
-    .modal-body li::marker { color: var(--gold); }
-
-    /* FIX 6 — Modal hr: light cream → subtle dark-bg-friendly line */
-    .modal-body hr {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      margin: 0;
-    }
-
-    /* FOOTER */
-    .footer {
-      background: rgba(10,35,33,0.98);
-      color: var(--teal); text-align: center;
-      padding: 2rem; font-family: 'Oswald', sans-serif;
-      font-size: 0.88rem; letter-spacing: 0.1em;
-      position: relative; z-index: auto;
-    }
-
-    #scrollTopBtn {
-      display: none; position: fixed;
-      bottom: 32px; right: 32px; z-index: 99;
-      background: var(--forest); color: #fff;
-      border: none; border-radius: 50%;
-      width: 48px; height: 48px; font-size: 1.5rem;
-      cursor: pointer; transition: background 0.2s, transform 0.2s;
-    }
-    #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
-
-    @media (max-width: 900px) {
-      .topnav { padding: 1rem 1.5rem; }
-      .topnav .menu a { padding: 0.5rem 0.7rem; font-size: 0.82rem; }
-      .checkpoint-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-    }
-    @media (max-width: 600px) {
-      .checkpoint-grid { grid-template-columns: 1fr; }
-      .page-hero { padding: 3.5rem 1rem 2.5rem; }
-    }
-
-    .mapboxgl-popup-content {
-      color: #fff !important;
-      background: #0d2420 !important;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.08rem;
-      line-height: 1.8;
-      border-radius: 16px !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-    }
-    .mapboxgl-popup-content p,
-    .mapboxgl-popup-content strong,
-    .mapboxgl-popup-content em {
-      color: #fff !important;
-    }
+    .topnav .brand { font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:600; color:var(--gold); letter-spacing:0.5px; text-decoration:none; }
+    .topnav .menu { display:flex; gap:0.5rem; overflow:visible; position:relative; }
+    .topnav .menu a { color:#eaf7f2; font-size:0.9rem; font-weight:500; padding:0.55rem 1rem; border-radius:6px; transition:all 0.3s ease; font-family:'Oswald',sans-serif; letter-spacing:0.3px; text-decoration:none; }
+    .topnav .menu a:hover, .topnav .menu a.active { background:rgba(230,169,58,0.2); color:var(--gold); }
 
     /* NAV DROPDOWN */
-    .nav-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .nav-dropdown-trigger {
-      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
-      padding: 0.55rem 1rem; border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
-      text-decoration: none; background: none; border: none;
-      display: flex; align-items: center; gap: 0.35rem;
-      cursor: pointer; white-space: nowrap;
-    }
-    .nav-dropdown-trigger:hover,
-    .nav-dropdown-trigger.active {
-      background: rgba(230,169,58,0.2); color: var(--gold);
-    }
-    .nav-dropdown-arrow {
-      font-size: 0.65rem; opacity: 0.7;
-      transition: transform 0.25s ease;
-      display: inline-block;
-    }
-    .nav-dropdown.open .nav-dropdown-arrow,
-    .nav-dropdown:hover .nav-dropdown-arrow {
-      transform: rotate(180deg);
-    }
-    .nav-dropdown-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      min-width: 260px;
-      background: rgba(8,28,26,0.98);
-      border: 1px solid rgba(230,169,58,0.25);
-      border-radius: 12px;
-      padding: 0.5rem;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.22s ease, transform 0.22s ease;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.55);
-      z-index: 9999;
-    }
-    .nav-dropdown.open .nav-dropdown-menu,
-    .nav-dropdown:hover .nav-dropdown-menu {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    .nav-dropdown-item {
-      display: flex; flex-direction: column; gap: 0.22rem;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.18s ease;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .nav-dropdown-item:last-child { border-bottom: none; }
-    .nav-dropdown-item:hover, .nav-dropdown-item.active {
-      background: rgba(230,169,58,0.1);
-    }
-    .nav-dropdown-item-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.88rem; font-weight: 500;
-      letter-spacing: 0.05em; color: #e8f5f0;
-    }
-    .nav-dropdown-item.active .nav-dropdown-item-title { color: var(--gold); }
-    .nav-dropdown-item-desc {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.67rem; font-weight: 300;
-      color: rgba(232,245,240,0.50); line-height: 1.4;
-    }
-    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
-    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
+    .nav-dropdown { position:relative; display:inline-block; }
+    .nav-dropdown-trigger { color:#eaf7f2; font-size:0.9rem; font-weight:500; padding:0.55rem 1rem; border-radius:6px; transition:all 0.3s ease; font-family:'Oswald',sans-serif; letter-spacing:0.3px; text-decoration:none; background:none; border:none; display:flex; align-items:center; gap:0.35rem; cursor:pointer; white-space:nowrap; }
+    .nav-dropdown-trigger:hover, .nav-dropdown-trigger.active { background:rgba(230,169,58,0.2); color:var(--gold); }
+    .nav-dropdown-arrow { font-size:0.65rem; opacity:0.7; transition:transform 0.25s ease; display:inline-block; }
+    .nav-dropdown.open .nav-dropdown-arrow, .nav-dropdown:hover .nav-dropdown-arrow { transform:rotate(180deg); }
+    .nav-dropdown-menu { position:absolute; top:calc(100% + 8px); right:0; min-width:260px; background:rgba(8,28,26,0.98); border:1px solid rgba(230,169,58,0.25); border-radius:12px; padding:0.5rem; opacity:0; pointer-events:none; transform:translateY(-8px); transition:opacity 0.22s ease,transform 0.22s ease; box-shadow:0 16px 48px rgba(0,0,0,0.55); z-index:9999; }
+    .nav-dropdown.open .nav-dropdown-menu, .nav-dropdown:hover .nav-dropdown-menu { opacity:1; pointer-events:auto; transform:translateY(0); }
+    .nav-dropdown-item { display:flex; flex-direction:column; gap:0.22rem; padding:0.8rem 1rem; border-radius:8px; text-decoration:none; transition:background 0.18s ease; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .nav-dropdown-item:last-child { border-bottom:none; }
+    .nav-dropdown-item:hover, .nav-dropdown-item.active { background:rgba(230,169,58,0.1); }
+    .nav-dropdown-item-title { font-family:'Oswald',sans-serif; font-size:0.88rem; font-weight:500; letter-spacing:0.05em; color:#e8f5f0; }
+    .nav-dropdown-item.active .nav-dropdown-item-title { color:var(--gold); }
+    .nav-dropdown-item-desc { font-family:'IBM Plex Mono',monospace; font-size:0.67rem; font-weight:300; color:rgba(232,245,240,0.50); line-height:1.4; }
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color:var(--gold); }
+    .nav-dropdown-item:hover .nav-dropdown-item-desc { color:rgba(232,245,240,0.70); }
 
+    /* HERO */
+    .page-hero { position:relative; padding:5rem 2rem 3.5rem; text-align:center; z-index:1; }
+    .page-hero::after { content:""; position:absolute; inset:0; background-image:linear-gradient(rgba(40,131,102,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(40,131,102,0.06) 1px,transparent 1px); background-size:60px 60px; animation:gridDrift 30s linear infinite; z-index:-1; }
+    @keyframes gridDrift { from{background-position:0 0} to{background-position:60px 60px} }
+    .page-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:0.75rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--teal); opacity:0.7; margin:0 0 1.2rem; }
+    .page-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,5vw,4.5rem); font-weight:700; color:#e8f5f0; margin:0 0 0.5rem; line-height:1.1; }
+    .page-title em { color:var(--gold); font-style:italic; }
+    .gold-rule { width:60px; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:1.5rem auto; }
+    .page-lead { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-style:italic; color:rgba(232,245,240,0.70); max-width:620px; margin:0 auto; }
+
+    /* GRID */
+    .checkpoint-grid-outer { max-width:1200px; margin:0 auto 5rem; padding:0 2rem; position:relative; z-index:auto; }
+    .checkpoint-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.5rem; }
+
+    /* CARD */
+    .cp-card { background:rgba(255,255,255,0.03); border:1px solid rgba(111,231,193,0.1); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; transition:all 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .cp-card:hover { transform:translateY(-6px); border-color:rgba(230,169,58,0.35); box-shadow:0 12px 40px rgba(0,0,0,0.35); background:rgba(255,255,255,0.05); }
+    .cp-card-body { padding:1.5rem; display:flex; flex-direction:column; flex:1; }
+    .cp-card-arabic { font-family:'Cormorant Garamond',serif; font-size:1rem; font-style:italic; color:var(--teal); opacity:0.85; margin:0 0 0.5rem; }
+    .cp-card-title { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; color:#e8f5f0; margin:0 0 0.5rem; line-height:1.2; letter-spacing:0.01em; }
+    .cp-card-note { font-family:'IBM Plex Mono',monospace; font-size:0.75rem; font-weight:300; color:rgba(232,245,240,0.75); margin:0 0 1rem; font-style:italic; }
+    .cp-film-list { list-style:none; padding:0; margin:0 0 1.5rem; }
+    .cp-film-list li { font-family:'Cormorant Garamond',serif; font-size:1rem; color:rgba(232,245,240,0.85); padding:0.3rem 0; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; gap:0.5rem; }
+    .cp-film-list li::before { content:'—'; color:var(--gold); opacity:0.85; font-family:'IBM Plex Mono',monospace; font-size:1.1rem; font-weight:700; margin-right:0.4em; }
+    .cp-card-actions { display:flex; gap:0.75rem; margin-top:auto; flex-wrap:wrap; }
+    .cp-btn { font-family:'Oswald',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; padding:0.6rem 1.1rem; border-radius:6px; cursor:pointer; transition:all 0.25s ease; text-decoration:none; display:inline-block; }
+    .cp-btn-primary { background:rgba(40,131,102,0.25); border:1px solid rgba(111,231,193,0.3); color:var(--teal); }
+    .cp-btn-primary:hover { background:rgba(40,131,102,0.45); border-color:var(--teal); }
+    .cp-btn-secondary { background:transparent; border:1px solid rgba(230,169,58,0.3); color:var(--gold); }
+    .cp-btn-secondary:hover { background:rgba(230,169,58,0.1); border-color:var(--gold); }
 
     /* ── CAROUSEL ── */
-    .carousel-container {
-      width: 100%;
-      margin: 0 0 1rem 0;
-    }
-    .carousel-images-wrap {
-      position: relative;
-      width: 100%;
-      height: 220px;
-    }
-    .carousel-images {
-      width: 100%;
-      height: 220px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #111;
-    }
-    .carousel-img {
-      display: none;
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-    .carousel-img.active {
-      display: block;
-    }
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 36px; height: 36px;
-      background: rgba(10,35,33,0.82);
-      color: #e8f5f0;
-      border: 1px solid rgba(111,231,193,0.3);
-      border-radius: 50%;
-      font-size: 1.3rem;
-      cursor: pointer;
-      z-index: 5;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, color 0.2s;
-    }
-    .carousel-btn.prev { left: 8px; }
-    .carousel-btn.next { right: 8px; }
-    .carousel-btn:hover { background: var(--gold); color: #0a2321; border-color: var(--gold); }
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 0.45rem;
-      margin-top: 0.6rem;
-    }
-    .carousel-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: rgba(232,245,240,0.25);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .carousel-dot.active { background: var(--gold); }
+    /* Card carousel */
+    .cp-card .carousel-wrap { position:relative; width:100%; height:260px; }
+    .cp-card .carousel-track { width:100%; height:100%; overflow:hidden; background:#060f0d; border-radius:14px 14px 0 0; }
+    .cp-card .carousel-img { display:none; width:100%; height:100%; object-fit:cover; object-position:center; filter:brightness(0.88) saturate(0.9); transition:filter 0.35s ease; }
+    .cp-card .carousel-img.active { display:block; }
+    .cp-card:hover .carousel-img { filter:brightness(0.96) saturate(1); }
 
+    /* Modal carousel — same fixed height regardless of image count */
+    .modal-body .carousel-wrap { position:relative; width:100%; height:340px; flex-shrink:0; }
+    .modal-body .carousel-track { width:100%; height:340px; overflow:hidden; background:#060f0d; }
+    .modal-body .carousel-img { display:none; width:100%; height:340px; object-fit:cover; object-position:center; }
+    .modal-body .carousel-img.active { display:block; }
+
+    /* Shared nav buttons */
+    .carousel-btn {
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:38px; height:38px;
+      background:rgba(10,35,33,0.82); color:#e8f5f0;
+      border:1px solid rgba(111,231,193,0.35); border-radius:50%;
+      font-size:1.4rem; line-height:1; cursor:pointer; z-index:5;
+      display:flex; align-items:center; justify-content:center;
+      transition:background 0.2s,color 0.2s,border-color 0.2s;
+      box-shadow:0 2px 10px rgba(0,0,0,0.5);
+    }
+    .carousel-btn.prev { left:12px; }
+    .carousel-btn.next { right:12px; }
+    .carousel-btn:hover { background:var(--gold); color:#0a2321; border-color:var(--gold); }
+
+    /* Shared dots */
+    .carousel-dots { position:absolute; bottom:10px; left:0; right:0; display:flex; justify-content:center; gap:0.45rem; pointer-events:none; }
+    .carousel-dot { width:8px; height:8px; border-radius:50%; background:rgba(232,245,240,0.35); border:none; padding:0; cursor:pointer; pointer-events:auto; transition:background 0.2s,transform 0.2s; }
+    .carousel-dot.active { background:var(--gold); transform:scale(1.25); }
+
+    /* MODAL */
+    .modal-backdrop { position:fixed; inset:0; background:rgba(5,20,18,0.88); display:none; z-index:2000; align-items:center; justify-content:center; padding:1.5rem; }
+    .modal-backdrop.open { display:flex; }
+    .modal { max-width:720px; width:96%; background:#0d2420; border-radius:20px; color:#e8f5f0; max-height:92vh; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 0 0 1px rgba(230,169,58,0.25),0 30px 70px rgba(0,0,0,0.55); animation:modalPopIn 0.35s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes modalPopIn { from{opacity:0;transform:scale(0.88) translateY(32px)} to{opacity:1;transform:scale(1) translateY(0)} }
+    .modal-header { padding:1.4rem 1.8rem 1.1rem; display:flex; justify-content:space-between; align-items:flex-start; flex-shrink:0; background:linear-gradient(120deg,#0a2321 0%,#1a4a38 60%,#0f3328 100%); position:relative; }
+    .modal-header::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(111,231,193,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(111,231,193,0.07) 1px,transparent 1px); background-size:28px 28px; pointer-events:none; }
+    .modal-header::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),#f0c060,var(--gold)); }
+    .modal-header-text { position:relative; z-index:1; flex:1; }
+    .modal-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:0.65rem; font-weight:300; letter-spacing:0.35em; text-transform:uppercase; color:var(--teal); opacity:0.7; margin:0 0 0.4rem; display:block; }
+    .modal h3 { font-family:'Cormorant Garamond',serif; font-size:1.45rem; color:#fff; margin:0; font-weight:700; line-height:1.25; }
+    .modal .close { position:relative; z-index:1; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.6); font-size:1rem; cursor:pointer; transition:all 0.22s ease; flex-shrink:0; margin-left:1.2rem; margin-top:0.2rem; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    .modal .close:hover { background:var(--gold); border-color:var(--gold); color:#0a2321; transform:rotate(90deg); }
+    .modal-body { padding:0; overflow-y:auto; flex:1; scrollbar-width:thin; scrollbar-color:rgba(111,231,193,0.25) transparent; }
+    .modal-body::-webkit-scrollbar { width:4px; }
+    .modal-body::-webkit-scrollbar-thumb { background:rgba(111,231,193,0.25); border-radius:2px; }
+    .modal-body p { margin:0; padding:1rem 1.8rem; font-family:'Cormorant Garamond',serif; font-size:1.15rem; line-height:2; color:rgba(232,245,240,0.9); border-bottom:1px solid rgba(255,255,255,0.07); }
+    .modal-body p:last-child { border-bottom:none; }
+
+    /* FOOTER */
+    .footer { background:rgba(10,35,33,0.98); color:var(--teal); text-align:center; padding:2rem; font-family:'Oswald',sans-serif; font-size:0.88rem; letter-spacing:0.1em; position:relative; z-index:auto; }
+    #scrollTopBtn { display:none; position:fixed; bottom:32px; right:32px; z-index:99; background:var(--forest); color:#fff; border:none; border-radius:50%; width:48px; height:48px; font-size:1.5rem; cursor:pointer; transition:background 0.2s,transform 0.2s; }
+    #scrollTopBtn:hover { background:var(--gold); transform:translateY(-4px); }
+
+    @media(max-width:900px) { .topnav{padding:1rem 1.5rem;} .topnav .menu a{padding:0.5rem 0.7rem;font-size:0.82rem;} .checkpoint-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));} }
+    @media(max-width:600px) { .checkpoint-grid{grid-template-columns:1fr;} .page-hero{padding:3.5rem 1rem 2.5rem;} }
   </style>
 </head>
 <body>
   <nav class="topnav">
-    <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
+    <a href="index.html" class="brand">Cinematic Counter&#8209;Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
         <div class="nav-dropdown-menu">
-          <a href="checkpoints.html" class="active" class="nav-dropdown-item">
+          <a href="checkpoints.html" class="nav-dropdown-item active">
             <span class="nav-dropdown-item-title">Checkpoints</span>
             <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
           </a>
@@ -598,22 +179,20 @@
       <p class="page-eyebrow">Case Studies</p>
       <h1 class="page-title">Check<em>points</em></h1>
       <div class="gold-rule"></div>
-      <p class="page-lead">Key sites of colonial control and their cinematic representations — each checkpoint a case study in resistance and refusal.</p>
+      <p class="page-lead">Key sites of colonial control and their cinematic representations, each checkpoint a case study in resistance and refusal.</p>
     </section>
 
     <div class="checkpoint-grid-outer">
       <div class="checkpoint-grid">
 
-        <!-- Qalandiya -->
-        <div class="cp-card">
-          <img class="cp-card-img" src="assets/images/qalandiya.webp" alt="Qalandiya checkpoint" onerror="this.src='https://picsum.photos/seed/qalandiya/900/600'">
+        <div class="cp-card" data-cp-id="qalandiya">
           <div class="cp-card-body">
-            <p class="cp-card-arabic">حاجز قلنديا</p>
+            <p class="cp-card-arabic">&#1581;&#1575;&#1580;&#1586; &#1602;&#1604;&#1606;&#1583;&#1610;&#1575;</p>
             <h3 class="cp-card-title">Qalandiya Checkpoint</h3>
             <p class="cp-card-note">Most documented checkpoint in the archive</p>
             <ul class="cp-film-list">
-              <li>Salt of This Sea — Jacir, 2008</li>
-              <li>The Present — Nablusi, 2020</li>
+              <li>Salt of This Sea, Jacir, 2008</li>
+              <li>The Present, Nablusi, 2020</li>
             </ul>
             <div class="cp-card-actions">
               <a href="map.html#qalandiya" class="cp-btn cp-btn-primary">View on Map</a>
@@ -622,15 +201,13 @@
           </div>
         </div>
 
-        <!-- Huwwara -->
-        <div class="cp-card">
-          <img class="cp-card-img" src="assets/images/hucheck.jpg" alt="Huwwara checkpoint" onerror="this.src='https://picsum.photos/seed/huwwara/900/600'">
+        <div class="cp-card" data-cp-id="huwwara">
           <div class="cp-card-body">
-            <p class="cp-card-arabic">حاجز حوارة</p>
+            <p class="cp-card-arabic">&#1581;&#1575;&#1580;&#1586; &#1581;&#1608;&#1575;&#1585;&#1577;</p>
             <h3 class="cp-card-title">Huwwara Checkpoint</h3>
             <p class="cp-card-note">Contemporary footage and archive material</p>
             <ul class="cp-film-list">
-              <li>The Present — Nablusi, 2020</li>
+              <li>The Present, Nablusi, 2020</li>
             </ul>
             <div class="cp-card-actions">
               <a href="map.html#huwwara" class="cp-btn cp-btn-primary">View on Map</a>
@@ -639,37 +216,33 @@
           </div>
         </div>
 
-        <!-- Container -->
-        <div class="cp-card">
-          <img class="cp-card-img" src="assets/images/container.jpg" alt="Container checkpoint" onerror="this.src='https://picsum.photos/seed/container/900/600'">
+        <div class="cp-card" data-cp-id="bethlehem">
           <div class="cp-card-body">
-            <p class="cp-card-arabic">حاجز الكونتينر (القدس)</p>
-            <h3 class="cp-card-title">Container Checkpoint</h3>
-            <p class="cp-card-note">Known locally as the Container; appears in archive footage</p>
-            <ul class="cp-film-list">
-              <li>Example footage — dates TBD</li>
-            </ul>
-            <div class="cp-card-actions">
-              <a href="map.html#container" class="cp-btn cp-btn-primary">View on Map</a>
-              <button class="cp-btn cp-btn-secondary" data-cp-id="container">Details</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bethlehem / Rachel -->
-        <div class="cp-card">
-          <img class="cp-card-img" src="assets/images/bcheck.webp" alt="Rachel Bethlehem checkpoint" onerror="this.src='https://picsum.photos/seed/bethlehem/900/600'">
-          <div class="cp-card-body">
-            <p class="cp-card-arabic">حاجز راحيل (بيت لحم)</p>
-            <h3 class="cp-card-title">Bethlehem — Rachel Checkpoint</h3>
+            <p class="cp-card-arabic">&#1581;&#1575;&#1580;&#1586; &#1585;&#1575;&#1581;&#1610;&#1604; (&#1576;&#1610;&#1578; &#1604;&#1581;&#1605;)</p>
+            <h3 class="cp-card-title">Bethlehem &#8212; Rachel Checkpoint</h3>
             <p class="cp-card-note">Featured in Jacir's Salt of This Sea and other films</p>
             <ul class="cp-film-list">
-              <li>Salt of This Sea — Jacir, 2008</li>
-              <li>When I Saw You — Jacir, 2012</li>
+              <li>Salt of This Sea, Jacir, 2008</li>
+              <li>When I Saw You, Jacir, 2012</li>
             </ul>
             <div class="cp-card-actions">
               <a href="map.html#bethlehem" class="cp-btn cp-btn-primary">View on Map</a>
               <button class="cp-btn cp-btn-secondary" data-cp-id="bethlehem">Details</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cp-card" data-cp-id="container">
+          <div class="cp-card-body">
+            <p class="cp-card-arabic">&#1581;&#1575;&#1580;&#1586; &#1575;&#1604;&#1603;&#1608;&#1606;&#1578;&#1610;&#1606;&#1585; (&#1575;&#1604;&#1602;&#1583;&#1587;)</p>
+            <h3 class="cp-card-title">Container Checkpoint</h3>
+            <p class="cp-card-note">Known locally as the Container; appears in archive footage</p>
+            <ul class="cp-film-list">
+              <li>Example footage &#8212; dates TBD</li>
+            </ul>
+            <div class="cp-card-actions">
+              <a href="map.html#container" class="cp-btn cp-btn-primary">View on Map</a>
+              <button class="cp-btn cp-btn-secondary" data-cp-id="container">Details</button>
             </div>
           </div>
         </div>
@@ -692,12 +265,12 @@
   </div>
 
   <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
-    © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
+    &#169; 2025&#8211;2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
     <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
     <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
     <a href="https://yourpersonalwebsite.com" target="_blank" rel="noopener" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Personal Website</a>
   </footer>
-  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+  <button id="scrollTopBtn" aria-label="Scroll to top">&#8593;</button>
 
   <script>
     window.addEventListener('scroll', () => {
@@ -705,299 +278,112 @@
     });
     document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const backdrop = document.getElementById('checkpointModal');
-      const titleEl  = document.getElementById('modalTitle');
-      const bodyEl   = document.getElementById('modalBody');
-      const closeBtn = backdrop.querySelector('.close');
-
-      // All popup content stored here — no quote escaping issues
-      const checkpointData = {
-        qalandiya: {
-          title: 'Qalandiya Checkpoint — حاجز قلنديا',
-          images: [
-            'assets/images/qalandiya1.jpg',
-            'assets/images/qalandiya2.jpg',
-            'assets/images/qalandiya3.jpg',
-            'assets/images/qalandiya4.jpg'
-          ],
-          analysis: `<p>Qalandiya is the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles — this is exactly what Weizman means by the <em>politics of verticality</em>. Control is literally built into the environment.</p>
-            <p>In <em>Salt of This Sea</em>, Jacir doesn’t treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. The checkpoint’s power comes from how routine it becomes — no heightened tension, no spectacle, just the grinding reality of being stopped again.</p>
-            <p>The argument is simple: the checkpoint works because it’s everyday, not exceptional.</p>
-            <p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Salt of This Sea (2008), The Present (2020)</em></p>`
-        },
-        huwwara: {
-          title: 'Huwwara Checkpoint — حاجز حوارة',
-          images: [
-            'assets/images/hucheck.jpg'
-          ],
-          analysis: `<p>Huwwara sits at the southern entrance to Nablus, and unlike Qalandiya’s urban claustrophobia, Huwwara is exposed — open landscape, open sky, and a checkpoint that cuts right through it. That exposure makes the architecture of control even more visible.</p>
-            <p>In <em>The Present</em>, Nabulsi shows how checkpoints don’t just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier’s mood becomes the clock — this is what Julie Peteet calls <em>carceral time</em>. You feel it before you even see the space.</p>
-            <p>Nabulsi’s sound design does much of that work. The metal, the crowd noise, the commands — the viewer feels surveilled before they understand the layout.</p>
-            <p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: The Present (2020)</em></p>`
-        },
-        container: {
-          title: 'Container Checkpoint — حاجز الكونتينر',
-          images: [
-            'assets/images/container.jpg'
-          ],
-          analysis: `<p>The Container is one of those checkpoints that rarely gets cinematic attention even though it’s strategically crucial. It controls movement between Bethlehem and Hebron and sits at a high point in the landscape, quietly governing a huge amount of daily mobility.</p>
-            <p>Its relative absence from narrative film is actually telling. It shows how certain sites of control become iconic — Qalandiya, Rachel — while others remain underdocumented even though they’re just as disruptive. That gap is part of the story this project keeps circling: what do filmmakers choose not to show, and why?</p>
-            <p>Including the Container in the archive is a way of mapping the full geography of control, not just the parts that already have cinematic visibility.</p>
-            <p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Archive footage, dates TBD</em></p>`
-        },
-        bethlehem: {
-          title: 'Rachel (Bethlehem) Checkpoint — حاجز راحيل',
-          images: [
-            'assets/images/bethlehem1.jpg',
-            'assets/images/bethlehem2.jpg',
-            'assets/images/bethlehem3.jpg',
-            'assets/images/bethlehem4.jpg',
-            'assets/images/bethlehem5.jpg',
-            'assets/images/bethlehem6.jpg',
-            'assets/images/bethlehem7.jpg'
-          ],
-          analysis: `<p>Rachel Checkpoint is one of the most fortified crossings in the West Bank, and it appears across multiple films, making it a strong site for comparison.</p>
-            <p>In <em>Salt of This Sea</em>, it’s where the difference between Soraya’s American passport and Emad’s West Bank ID becomes spatially visible. They’re in the same shot but not in the same system. The checkpoint makes that hierarchy literal.</p>
-            <p>In <em>When I Saw You</em>, the checkpoint works differently. Set in Jordan, it becomes more of a horizon than an immediate obstacle — the thing between Tarek and the Palestine he’s never seen but fully believes in. It’s both a physical barrier and an imagined one.</p>
-            <p>Across films, Rachel shifts from a site of direct confrontation to a symbol of distance and longing. That flexibility is part of why it keeps showing up.</p>
-            <p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Salt of This Sea (2008), When I Saw You (2012)</em></p>`
-        }
-      };
-
-      function buildCarousel(images) {
-        if (!images || images.length === 0) return '';
-        const imgs = images.map((src, i) =>
-          `<img src="${src}" alt="Checkpoint image ${i+1}" class="carousel-img${i===0?' active':''}" onerror="this.style.display='none'">`
-        ).join('');
-        const dots = images.length > 1 ? images.map((_, i) =>
-          `<span class="carousel-dot${i===0?' active':''}"></span>`
-        ).join('') : '';
-        const nav = images.length > 1 ? `
-          <button class="carousel-btn prev" aria-label="Previous image">&#8249;</button>
-          <button class="carousel-btn next" aria-label="Next image">&#8250;</button>` : '';
-        return `
-          <div class="carousel-container">
-            <div class="carousel-images-wrap">
-              <div class="carousel-images">${imgs}</div>
-              ${nav}
-            </div>
-            ${dots ? `<div class="carousel-dots">${dots}</div>` : ''}
-          </div>`;
+    const checkpointData = {
+      qalandiya: {
+        title: 'Qalandiya Checkpoint, حاجز قلنديا',
+        images: ['assets/images/qalandiya1.jpg','assets/images/qalandiya2.jpg','assets/images/qalandiya3.jpg','assets/images/qalandiya4.jpg'],
+        analysis: '<p>Qalandiya is the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles, this is exactly what Weizman means by the <em>politics of verticality</em>. Control is literally built into the environment.</p><p>In <em>Salt of This Sea</em>, Jacir doesn\'t treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. The checkpoint\'s power comes from how routine it becomes, no heightened tension, no spectacle, just the grinding reality of being stopped again.</p><p>The argument is simple: the checkpoint works because it\'s everyday, not exceptional.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Salt of This Sea (2008), The Present (2020)</em></p>'
+      },
+      huwwara: {
+        title: 'Huwwara Checkpoint, حاجز حوارة',
+        images: ['assets/images/hucheck.jpg','assets/images/hucheck.jpg'],
+        analysis: '<p>Huwwara sits at the southern entrance to Nablus, and unlike Qalandiya\'s urban claustrophobia, Huwwara is exposed, open landscape, open sky, and a checkpoint that cuts right through it. That exposure makes the architecture of control even more visible.</p><p>In <em>The Present</em>, Nabulsi shows how checkpoints don\'t just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier\'s mood becomes the clock, this is what Julie Peteet calls <em>carceral time</em>. You feel it before you even see the space.</p><p>Nabulsi\'s sound design does much of that work. The metal, the crowd noise, the commands, the viewer feels surveilled before they understand the layout.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: The Present (2020)</em></p>'
+      },
+      container: {
+        title: 'Container Checkpoint, حاجز الكونتينر',
+        images: ['assets/images/container.jpg','assets/images/container.jpg'],
+        analysis: '<p>The Container is one of those checkpoints that rarely gets cinematic attention even though it\'s strategically crucial. It controls movement between Bethlehem and Hebron and sits at a high point in the landscape, quietly governing a huge amount of daily mobility.</p><p>Its relative absence from narrative film is actually telling. It shows how certain sites of control become iconic, Qalandiya, Rachel, while others remain underdocumented even though they\'re just as disruptive. That gap is part of the story this project keeps circling: what do filmmakers choose not to show, and why?</p><p>Including the Container in the archive is a way of mapping the full geography of control, not just the parts that already have cinematic visibility.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Archive footage, dates TBD</em></p>'
+      },
+      bethlehem: {
+        title: 'Rachel (Bethlehem) Checkpoint, حاجز راحيل',
+        images: ['assets/images/bethlehem1.jpeg','assets/images/bethlehem2.jpeg','assets/images/bethlehem3.jpg','assets/images/bethlehem4.jpeg','assets/images/bethlehem5.jpeg','assets/images/bethlehem6.jpeg','assets/images/bethlehem7.jpg'],
+        analysis: '<p>Rachel Checkpoint is one of the most fortified crossings in the West Bank, and it appears across multiple films, making it a strong site for comparison.</p><p>In <em>Salt of This Sea</em>, it\'s where the difference between Soraya\'s American passport and Emad\'s West Bank ID becomes spatially visible. They\'re in the same shot but not in the same system. The checkpoint makes that hierarchy literal.</p><p>In <em>When I Saw You</em>, the checkpoint works differently. Set in Jordan, it becomes more of a horizon than an immediate obstacle, the thing between Tarek and the Palestine he\'s never seen but fully believes in. It\'s both a physical barrier and an imagined one.</p><p>Across films, Rachel shifts from a site of direct confrontation to a symbol of distance and longing. That flexibility is part of why it keeps showing up.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Salt of This Sea (2008), When I Saw You (2012)</em></p>'
       }
+    };
 
-      function initCarousel(container) {
-        if (!container || container.dataset.bound) return;
-        const images  = container.querySelectorAll('.carousel-img');
-        const dots    = container.querySelectorAll('.carousel-dot');
-        const prevBtn = container.querySelector('.carousel-btn.prev');
-        const nextBtn = container.querySelector('.carousel-btn.next');
-        let current = 0;
+    function buildCarousel(images) {
+      if (!images || !images.length) return '';
+      const multi = images.length > 1;
+      const imgs = images.map((src, i) =>
+        '<img src="' + src + '" alt="Checkpoint photo ' + (i+1) + '" class="carousel-img' + (i===0?' active':'') + '" onerror="this.style.display=\'none\'">'
+      ).join('');
+      const nav = multi
+        ? '<button class="carousel-btn prev" aria-label="Previous photo">&#8249;</button><button class="carousel-btn next" aria-label="Next photo">&#8250;</button>'
+        : '';
+      const dots = multi
+        ? '<div class="carousel-dots">' + images.map(function(_,i){ return '<button class="carousel-dot' + (i===0?' active':'') + '" aria-label="Photo ' + (i+1) + '"></button>'; }).join('') + '</div>'
+        : '';
+      return '<div class="carousel-wrap"><div class="carousel-track">' + imgs + '</div>' + nav + dots + '</div>';
+    }
 
-        function show(idx) {
-          images.forEach((img, i) => img.classList.toggle('active', i === idx));
-          dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
-          current = idx;
-        }
-
-        if (prevBtn) prevBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          show((current - 1 + images.length) % images.length);
-        });
-        if (nextBtn) nextBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          show((current + 1) % images.length);
-        });
-        dots.forEach((dot, i) => {
-          dot.addEventListener('click', function(e) {
-            e.stopPropagation();
-            show(i);
-          });
-        });
-        container.dataset.bound = '1';
-        show(0);
+    function initCarousel(wrap) {
+      if (!wrap || wrap.dataset.bound) return;
+      var imgs = wrap.querySelectorAll('.carousel-img');
+      var dots = wrap.querySelectorAll('.carousel-dot');
+      var prev = wrap.querySelector('.carousel-btn.prev');
+      var next = wrap.querySelector('.carousel-btn.next');
+      if (!imgs.length) return;
+      var cur = 0;
+      function show(idx) {
+        cur = (idx + imgs.length) % imgs.length;
+        imgs.forEach(function(el,i){ el.classList.toggle('active', i===cur); });
+        dots.forEach(function(el,i){ el.classList.toggle('active', i===cur); });
       }
+      if (prev) prev.addEventListener('click', function(e){ e.stopPropagation(); show(cur-1); });
+      if (next) next.addEventListener('click', function(e){ e.stopPropagation(); show(cur+1); });
+      dots.forEach(function(dot,i){ dot.addEventListener('click', function(e){ e.stopPropagation(); show(i); }); });
+      wrap.dataset.bound = '1';
+    }
+
+    document.querySelectorAll('.cp-card[data-cp-id]').forEach(function(card) {
+      var cp = checkpointData[card.getAttribute('data-cp-id')];
+      if (!cp) return;
+      card.insertAdjacentHTML('afterbegin', buildCarousel(cp.images));
+      initCarousel(card.querySelector('.carousel-wrap'));
+    });
+
+    (function () {
+      var backdrop = document.getElementById('checkpointModal');
+      var titleEl  = document.getElementById('modalTitle');
+      var bodyEl   = document.getElementById('modalBody');
+      var closeBtn = backdrop.querySelector('.close');
 
       function openModal(id) {
-        const cp = checkpointData[id];
+        var cp = checkpointData[id];
         if (!cp) return;
         titleEl.textContent = cp.title;
         bodyEl.innerHTML = buildCarousel(cp.images) + cp.analysis;
         backdrop.classList.add('open');
         document.body.style.overflow = 'hidden';
-        const carousel = bodyEl.querySelector('.carousel-container');
-        if (carousel) initCarousel(carousel);
+        initCarousel(bodyEl.querySelector('.carousel-wrap'));
       }
-
       function closeModal() {
         backdrop.classList.remove('open');
         document.body.style.overflow = '';
       }
-
       closeBtn.addEventListener('click', closeModal);
-      backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-      document.querySelectorAll('[data-cp-id]').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+      backdrop.addEventListener('click', function(e){ if (e.target===backdrop) closeModal(); });
+      document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeModal(); });
+      document.querySelectorAll('button[data-cp-id]').forEach(function(btn) {
+        btn.addEventListener('click', function(e){
           e.preventDefault();
           openModal(this.getAttribute('data-cp-id'));
         });
       });
-    });
+    })();
 
-    const checkpointGeoJSON = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": { "type": "Point", "coordinates": [35.2207, 31.8576] },
-          "properties": {
-            "id": "qalandiya",
-            "title": "Qalandiya Checkpoint",
-            "arabic": "حاجز قلنديا",
-            "description": `
-              <strong>Qalandiya Checkpoint / حاجز قلنديا</strong><br><br>
-              Qalandiya is the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles — this is exactly what Weizman means by the <em>politics of verticality</em>. Control is literally built into the environment.<br><br>
-              In <em>Salt of This Sea</em>, Jacir doesn't treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. That's the point. The checkpoint's power comes from how routine it becomes.<br><br>
-              The argument is simple: the checkpoint works because it's everyday, not exceptional.<br><br>
-              <em>Cross-references: Salt of This Sea (2008), The Present (2020)</em>
-            `
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": { "type": "Point", "coordinates": [35.2769, 31.8716] },
-          "properties": {
-            "id": "huwwara",
-            "title": "Huwwara Checkpoint",
-            "arabic": "حاجز حوارة",
-            "description": `
-              <strong>Huwwara Checkpoint / حاجز حوارة</strong><br><br>
-              Huwwara sits at the southern entrance to Nablus, and unlike Qalandiya's urban claustrophobia, Huwwara is exposed — open landscape, open sky, and a checkpoint that cuts right through it.<br><br>
-              In <em>The Present</em>, Nabulsi shows how checkpoints don't just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier's mood becomes the clock — this is what Julie Peteet calls <em>carceral time</em>.<br><br>
-              Nabulsi's sound design does much of that work. The metal, the crowd noise, the commands — the viewer feels surveilled before they understand the layout.<br><br>
-              <em>Cross-references: The Present (2020)</em>
-            `
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": { "type": "Point", "coordinates": [35.2700, 31.7300] },
-          "properties": {
-            "id": "container",
-            "title": "Container Checkpoint",
-            "arabic": "حاجز الكونتينر",
-            "description": `
-              <strong>Container Checkpoint / حاجز الكونتينر</strong><br><br>
-              The Container controls movement between Bethlehem and Hebron and sits at a high point in the landscape, quietly governing a large amount of daily mobility.<br><br>
-              Its relative absence from narrative film is telling. It shows how certain sites of control become iconic while others remain underdocumented even though they're just as disruptive. That gap raises the question this project keeps circling: what do filmmakers choose not to show, and why?<br><br>
-              <em>Cross-references: Archive footage, dates TBD</em>
-            `
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": { "type": "Point", "coordinates": [35.2000, 31.7050] },
-          "properties": {
-            "id": "bethlehem",
-            "title": "Bethlehem — Rachel Checkpoint",
-            "arabic": "حاجز راحيل (بيت لحم)",
-            "description": `
-              <strong>Rachel Checkpoint / حاجز راحيل (بيت لحم)</strong><br><br>
-              Rachel Checkpoint appears across multiple films, making it a strong site for comparison.<br><br>
-              In <em>Salt of This Sea</em>, it's where the difference between Soraya's American passport and Emad's West Bank ID becomes spatially visible. They're in the same shot but not in the same system.<br><br>
-              In <em>When I Saw You</em>, the checkpoint becomes more of a horizon than an immediate obstacle — the thing between Tarek and the Palestine he's never seen but fully believes in. It's both a physical barrier and an imagined one.<br><br>
-              <em>Cross-references: Salt of This Sea (2008), When I Saw You (2012)</em>
-            `
-          }
-        }
-      ]
-    };
-
-    const markerPopups = [];
-
-    checkpointGeoJSON.features.forEach(feature => {
-      const { id, title, arabic, description } = feature.properties;
-
-      const el = document.createElement('div');
-      el.style.width = '38px';
-      el.style.height = '38px';
-      el.style.cursor = 'pointer';
-      el.innerHTML = `
-        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="18" width="8" height="12" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
-          <rect x="13" y="13" width="12" height="6" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
-          <rect x="16.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
-          <rect x="19.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
-          <rect x="22.5" y="15" width="2" height="2.5" rx="0.5" fill="#fff"/>
-          <rect x="16" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
-          <rect x="20" y="30" width="2" height="4" rx="1" fill="#b94e3a"/>
-          <ellipse cx="19" cy="36" rx="7" ry="2" fill="#e6a93a33"/>
-        </svg>
-      `;
-
-      const marker = new mapboxgl.Marker({ element: el })
-        .setLngLat(feature.geometry.coordinates)
-        .addTo(map);
-
-      const popup = new mapboxgl.Popup({ offset: 18 })
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML(
-          `<strong>${title}</strong><br><span style="font-size:1.1em;color:#288366;">${arabic}</span><br>${description}`
-        );
-
-      markerPopups.push({ id, marker, popup, el, coords: feature.geometry.coordinates });
-
-      let isOpen = false;
-      el.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (isOpen) {
-          popup.remove();
-          isOpen = false;
-        } else {
-          markerPopups.forEach(mp => mp.popup.remove());
-          popup.addTo(map);
-          isOpen = true;
-        }
-      });
-    });
-
-    function openCheckpointFromHash() {
-      const hash = window.location.hash.replace('#', '');
-      if (!hash) return;
-      const found = markerPopups.find(mp => mp.id === hash);
-      if (found) {
-        map.flyTo({ center: found.coords, zoom: 14, essential: true });
-        markerPopups.forEach(mp => mp.popup.remove());
-        found.popup.addTo(map);
-      }
-    }
-
-    map.on('load', openCheckpointFromHash);
-    window.addEventListener('hashchange', openCheckpointFromHash);
-  
-    // Archive dropdown — click toggle for mobile, hover handles desktop
-    (function() {
-      var trigger = document.querySelector('.nav-dropdown-trigger');
+    (function () {
+      var trigger  = document.querySelector('.nav-dropdown-trigger');
       var dropdown = document.querySelector('.nav-dropdown');
       if (!trigger || !dropdown) return;
-      trigger.addEventListener('click', function(e) {
+      trigger.addEventListener('click', function(e){
         e.stopPropagation();
-        var isOpen = dropdown.classList.contains('open');
-        dropdown.classList.toggle('open', !isOpen);
-        trigger.setAttribute('aria-expanded', String(!isOpen));
+        var open = dropdown.classList.contains('open');
+        dropdown.classList.toggle('open', !open);
+        trigger.setAttribute('aria-expanded', String(!open));
       });
-      document.addEventListener('click', function() {
-        dropdown.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          dropdown.classList.remove('open');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      });
+      document.addEventListener('click', function(){ dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); });
+      document.addEventListener('keydown', function(e){ if (e.key==='Escape'){ dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); } });
     })();
   </script>
 </body>
