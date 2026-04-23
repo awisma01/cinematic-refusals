@@ -1,0 +1,37 @@
+<script>
+document.addEventListener('click', function(e) {
+  // Only run if modal is open and carousel exists
+  const modal = document.getElementById('checkpointModal') || document.getElementById('filmModal');
+  if (!modal || !modal.classList.contains('open')) return;
+  const carousel = modal.querySelector('.carousel-container');
+  if (!carousel || carousel.dataset.bound) return;
+  const images = carousel.querySelectorAll('.carousel-img');
+  const dots = carousel.querySelectorAll('.carousel-dot');
+  const prevBtn = carousel.querySelector('.carousel-btn.prev');
+  const nextBtn = carousel.querySelector('.carousel-btn.next');
+  let current = 0;
+
+  function show(idx) {
+    images.forEach((img, i) => img.classList.toggle('active', i === idx));
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+    current = idx;
+  }
+
+  prevBtn.addEventListener('click', function(ev) {
+    ev.stopPropagation();
+    show((current - 1 + images.length) % images.length);
+  });
+  nextBtn.addEventListener('click', function(ev) {
+    ev.stopPropagation();
+    show((current + 1) % images.length);
+  });
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', function(ev) {
+      ev.stopPropagation();
+      show(i);
+    });
+  });
+  carousel.dataset.bound = "1";
+  show(current);
+});
+</script>

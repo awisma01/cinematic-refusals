@@ -1,0 +1,9 @@
+<div class="carousel-container">
+  <div class="carousel-images">
+    <img src="assets/images/qalandiya1.jpg" alt="Qalandiya 1" class="carousel-img active">
+    <img src="assets/images/qalandiya2.jpg" alt="Qalandiya 2" class="carousel-img">
+    <img src="assets/images/qalandiya3.jpg" alt="Qalandiya 3" class="carousel-img">
+    <img src="assets/images/qalandiya4.jpg" alt="Qalandiya 4" class="carousel-img">
+  </div>
+  <!-- carousel buttons and dots here -->
+</div>
