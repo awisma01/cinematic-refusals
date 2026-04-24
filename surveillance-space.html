@@ -305,6 +305,100 @@
     .matrix-table tr:nth-child(4) .matrix-type-cell { color:#d49a7a; }
     .matrix-table tr:nth-child(5) .matrix-type-cell { color:var(--teal); }
 
+
+    /* ── GLOSSARY TOOLTIPS ── */
+    .gloss-term {
+      border-bottom: 1px dotted rgba(230,169,58,0.6);
+      color: inherit;
+      cursor: help;
+      position: relative;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .gloss-term:hover { border-bottom-color: var(--gold); }
+    .gloss-tooltip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%; transform: translateX(-50%);
+      width: 280px;
+      background: #0a1e1b;
+      border: 1px solid rgba(230,169,58,0.3);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      z-index: 9000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      transform: translateX(-50%) translateY(4px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.55);
+    }
+    .gloss-term:hover .gloss-tooltip,
+    .gloss-term:focus .gloss-tooltip {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    /* Arrow */
+    .gloss-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(230,169,58,0.3);
+    }
+    .gloss-tooltip-term {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--gold); display: block;
+      margin-bottom: 0.4rem; line-height: 1.2;
+    }
+    .gloss-tooltip-def {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem; line-height: 1.7;
+      color: rgba(232,245,240,0.82);
+      display: block; margin-bottom: 0.6rem;
+    }
+    .gloss-tooltip-link {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      transition: color 0.15s;
+    }
+    .gloss-tooltip-link:hover { color: var(--gold); }
+    /* Keep tooltip visible on narrow viewports */
+    @media (max-width: 600px) {
+      .gloss-tooltip { width: 220px; left: 0; transform: none; }
+      .gloss-tooltip::after { left: 20px; }
+      .gloss-term:hover .gloss-tooltip { transform: none; }
+    }
+
+
+    /* BREADCRUMB */
+    .breadcrumb-nav {
+      max-width: 1100px; margin: 0 auto; padding: 1rem 2rem 0;
+      position: relative; z-index: 1;
+    }
+    .breadcrumb-nav ol {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; gap: 0.5rem; align-items: center;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
+      font-weight: 300; letter-spacing: 0.08em;
+      color: rgba(232,245,240,0.35);
+    }
+    .breadcrumb-nav li:not(:last-child)::after {
+      content: '/'; margin-left: 0.5rem; opacity: 0.4;
+    }
+    .breadcrumb-nav a {
+      color: rgba(232,245,240,0.45); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb-nav a:hover { color: var(--teal); }
+    .breadcrumb-nav [aria-current="page"] {
+      color: rgba(232,245,240,0.6);
+    }
+
     /* WHAT'S NOT MAPPED DROPDOWN */
     .wnm-trigger-section {
       max-width: 1100px; margin: 0 auto 2rem; padding: 0 2rem;
@@ -584,15 +678,16 @@
     .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
 
   </style>
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
-  <nav class="topnav">
+  <nav class="topnav" aria-label="Main navigation">
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
           <a href="checkpoints.html" class="nav-dropdown-item">
             <span class="nav-dropdown-item-title">Checkpoints</span>
@@ -602,7 +697,7 @@
             <span class="nav-dropdown-item-title">Visual Analysis</span>
             <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
           </a>
-          <a href="surveillance-space.html" class="nav-dropdown-item active">
+          <a href="surveillance-space.html" class="active" class="nav-dropdown-item">
             <span class="nav-dropdown-item-title">Surveillance Space</span>
             <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
           </a>
@@ -610,14 +705,13 @@
             <span class="nav-dropdown-item-title">What's Not Mapped</span>
             <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
           </a>
-          <a href="glossary.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Glossary</span>
-            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
-          </a>
         </div>
       </div>
       <a href="about.html">About</a>
     </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <div style="position:fixed;bottom:88px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:4px;background:rgba(10,35,33,0.97);border:1px solid rgba(111,231,193,0.28);border-radius:10px;padding:5px;box-shadow:0 8px 28px rgba(0,0,0,0.6);direction:ltr;">
@@ -644,8 +738,8 @@
     <section class="ss-intro">
       <div class="ss-intro-card">
         <p data-t="t-intro-1">Checkpoints are the most visible expression of colonial control but they are only one node in a much wider infrastructure of surveillance. This section maps five <em>typologies</em> of surveillance space that appear across Palestinian cinema from 2000 to 2025.</p>
-        <p data-t="t-intro-2">Each typology names a distinct register in which Palestinian life is rendered legible to power: the stone and steel of <strong>architectural</strong> enclosure; the algorithmic logic of <strong>digital</strong> biometrics; the weaponized stillness of <strong>temporal</strong> waiting; the occupation of <strong>intimate and domestic</strong> space; and the camera's own complicity, or refusal, as a <strong>cinematic</strong> surveillance apparatus.</p>
-        <p data-t="t-intro-3">Palestinian women filmmakers do not simply represent these spaces. They devise formal strategies, angles, ellipses, duration, offscreen sound, that refuse to reproduce the surveillance gaze even as they document it.</p>
+        <p data-t="t-intro-2">Each typology names a distinct register in which Palestinian life is rendered legible to power: the stone and steel of <strong>architectural</strong> enclosure; the algorithmic logic of <strong>digital</strong> biometrics; the weaponized stillness of <strong>temporal</strong> waiting; the occupation of <strong>intimate and domestic</strong> space; and the camera's own complicity — or refusal — as a <strong>cinematic</strong> surveillance apparatus.</p>
+        <p data-t="t-intro-3">Palestinian women filmmakers do not simply represent these spaces. They devise formal strategies — angles, ellipses, duration, offscreen sound — that refuse to reproduce the surveillance gaze even as they document it.</p>
       </div>
     </section>
 
@@ -656,14 +750,14 @@
         <div class="section-label-group">
           <span class="section-type-tag" data-t="arch-tag">Typology I</span>
           <h2 class="section-title" data-t="arch-title">Architectural Space</h2>
-          <p class="section-lead" data-t="arch-lead">Cells, cameras, corridors, cages, waiting rooms, the built environment as instrument of control.</p>
+          <p class="section-lead" data-t="arch-lead">Cells, cameras, corridors, cages, waiting rooms — the built environment as instrument of control.</p>
         </div>
       </div>
       <div class="content-grid wide">
         <div class="prose-block">
-          <p data-t="arch-p1">The architecture of Israeli military control is not incidental to surveillance, it <em>is</em> surveillance in material form. Checkpoints are engineered spaces: <span class="kw">turnstiles</span> that click, <span class="kw">caged corridors</span> that funnel bodies into single file, <span class="kw">watchtowers</span> whose sight lines are calculated, <span class="kw">waiting rooms</span> whose sightlessness is equally deliberate.</p>
-          <p data-t="arch-p2">Scholar Eyal Weizman has described this as "the politics of verticality" a three-dimensional sovereignty expressed through walls, barriers, and checkpoints that carve space into zones of visibility and invisibility, passage and prohibition.</p>
-          <p data-t="arch-p3">Palestinian women filmmakers engage this architecture with precise formal awareness. Where surveillance design produces <em>legibility</em>, the readable body, the classified permit, cinema can produce <em>opacity</em>: holding on a wall, refusing the establishing shot, framing a corridor from within rather than surveying it from above.</p>
+          <p data-t="arch-p1">The architecture of Israeli military control is not incidental to surveillance — it <em>is</em> surveillance in material form. Checkpoints are engineered spaces: <span class="kw">turnstiles</span> that click, <span class="kw">caged corridors</span> that funnel bodies into single file, <span class="kw">watchtowers</span> whose sight lines are calculated, <span class="kw">waiting rooms</span> whose sightlessness is equally deliberate.</p>
+          <p data-t="arch-p2">Scholar Eyal Weizman has described this as "the politics of verticality" — a three-dimensional sovereignty expressed through walls, barriers, and checkpoints that carve space into zones of visibility and invisibility, passage and prohibition.</p>
+          <p data-t="arch-p3">Palestinian women filmmakers engage this architecture with precise formal awareness. Where surveillance design produces <em>legibility</em> — the readable body, the classified permit — cinema can produce <em>opacity</em>: holding on a wall, refusing the establishing shot, framing a corridor from within rather than surveying it from above.</p>
           <div class="category-grid">
             <div class="category-tag"><strong data-t="cat-cells">Cells</strong><span data-t="cat-cells-def">detention as spatial syntax</span></div>
             <div class="category-tag"><strong data-t="cat-cameras">Cameras</strong><span data-t="cat-cameras-def">fixed-gaze CCTV infrastructure</span></div>
@@ -692,12 +786,12 @@
           <div class="film-ref-card">
             <p class="film-ref-title">Salt of This Sea (2008)</p>
             <p class="film-ref-dir">dir. Annemarie Jacir</p>
-            <p class="film-ref-note" data-t="arch-film1">The checkpoint corridor becomes a recurring spatial motif that is filmed from within, never from the surveillance tower. The caged walkway refuses the overhead gaze.</p>
+            <p class="film-ref-note" data-t="arch-film1">The checkpoint corridor becomes a recurring spatial motif — filmed from within, never from the surveillance tower. The caged walkway refuses the overhead gaze.</p>
           </div>
           <div class="film-ref-card">
             <p class="film-ref-title">Checkpoint (2003)</p>
             <p class="film-ref-dir">dir. Yoav Shamir</p>
-            <p class="film-ref-note" data-t="arch-film2">Unusually, this documentary <em>occupies</em> the surveillance position illuminating how the camera itself can reproduce architectural power.</p>
+            <p class="film-ref-note" data-t="arch-film2">Unusually, this documentary <em>occupies</em> the surveillance position — illuminating how the camera itself can reproduce architectural power.</p>
           </div>
           <div class="film-ref-card">
             <p class="film-ref-title">3000 Nights (2015)</p>
@@ -723,8 +817,8 @@
       <div class="content-grid wide">
         <div class="prose-block">
           <p data-t="dig-p1">The most powerful Israeli surveillance of Palestinian life is often invisible on screen: it operates through <span class="kw">databases</span>, <span class="kw">permit systems</span>, <span class="kw">biometric capture</span>, and <span class="kw">population registries</span> that determine movement long before a body reaches a turnstile.</p>
-          <p data-t="dig-p2">Scholars including Helga Tawil-Souri and Virginia Tilley have analyzed this infrastructure: the color-coded ID system, the Oslo-era permit regime, the digital population registry that determines who may claim residency in Jerusalem. These systems operate on a principle of <em>anticipatory surveillance</em>: the permit denied before the checkpoint is reached.</p>
-          <p data-t="dig-p3">Cinema struggles with the digital: data is invisible, non-spectacular. Palestinian filmmakers address this through <em>formal indirection</em> the unreturned call, the document read aloud, the waiting room whose cause is offscreen. The database appears as absence.</p>
+          <p data-t="dig-p2">Scholars including Helga Tawil-Souri and Virginia Tilley have analyzed this infrastructure: the color-coded ID system, the Oslo-era permit regime, the digital population registry that determines who may claim residency in Jerusalem. These systems operate on a principle of <em><span class="gloss-term" tabindex="0">anticipatory surveillance<span class="gloss-tooltip"><span class="gloss-tooltip-term">anticipatory surveillance</span><span class="gloss-tooltip-def">Control enacted before physical encounter — through databases, permits, and classification systems that determine movement before a body reaches a checkpoint.</span><a class="gloss-tooltip-link" href="glossary.html#term-anticipatory-surveillance">Full definition &rarr;</a></span></span></em>: the permit denied before the checkpoint is reached.</p>
+          <p data-t="dig-p3">Cinema struggles with the digital: data is invisible, non-spectacular. Palestinian filmmakers address this through <em>formal indirection</em> — the unreturned call, the document read aloud, the waiting room whose cause is offscreen. The database appears as absence.</p>
           <div class="category-grid">
             <div class="category-tag"><strong data-t="cat-permits">Permit systems</strong><span data-t="cat-permits-def">pre-emptive restriction of movement</span></div>
             <div class="category-tag"><strong data-t="cat-bio">Biometrics</strong><span data-t="cat-bio-def">fingerprint, iris, face capture</span></div>
@@ -737,7 +831,7 @@
         <div class="vocab-card">
           <h4 data-t="key-concepts">Key Concepts</h4>
           <ul class="vocab-list">
-            <li><span class="vocab-term" data-t="vc-anticipatory">Anticipatory Surveillance</span><span class="vocab-def" data-t="vd-anticipatory">Control enacted before any physical encounter through data, permits, and classification systems.</span></li>
+            <li><span class="vocab-term" data-t="vc-anticipatory">Anticipatory Surveillance</span><span class="vocab-def" data-t="vd-anticipatory">Control enacted before any physical encounter — through data, permits, and classification systems.</span></li>
             <li><span class="vocab-term" data-t="vc-biopolitics">Biopolitics</span><span class="vocab-def" data-t="vd-biopolitics">Foucault / Mbembe: the governance of populations through life-making and life-withholding power.</span></li>
             <li><span class="vocab-term" data-t="vc-datafication">Datafication</span><span class="vocab-def" data-t="vd-datafication">Converting Palestinian bodies and movements into data points legible to the security apparatus.</span></li>
             <li><span class="vocab-term" data-t="vc-necro">Necropolitics</span><span class="vocab-def" data-t="vd-necro">Achille Mbembe: sovereignty expressed as the decision over who may live and who is left to die.</span></li>
@@ -749,7 +843,7 @@
           <div class="film-ref-card">
             <p class="film-ref-title">When I Saw You (2012)</p>
             <p class="film-ref-dir">dir. Annemarie Jacir</p>
-            <p class="film-ref-note" data-t="dig-film1">Refugee documentation and camp registration where the paper and database trail that determines Tarek's possibilities. The ID card is the film's unseen protagonist.</p>
+            <p class="film-ref-note" data-t="dig-film1">Refugee documentation and camp registration — the paper and database trail that determines Tarek's possibilities. The ID card is the film's unseen protagonist.</p>
           </div>
           <div class="film-ref-card">
             <p class="film-ref-title">The Wanted 18 (2014)</p>
@@ -759,11 +853,11 @@
           <div class="film-ref-card">
             <p class="film-ref-title">Wajib (2017)</p>
             <p class="film-ref-dir">dir. Annemarie Jacir</p>
-            <p class="film-ref-note" data-t="dig-film3">Navigation of Israeli Arab identity cards and permit categories where the digital classification of who belongs where shapes every route the characters drive.</p>
+            <p class="film-ref-note" data-t="dig-film3">Navigation of Israeli Arab identity cards and permit categories — the digital classification of who belongs where shapes every route the characters drive.</p>
           </div>
         </div>
         <div class="pull-quote">
-          <blockquote data-t="dig-quote">"Palestinian life is rendered legible and trackable, classifiable, deportable before any body ever reaches a checkpoint. The database is the first checkpoint."</blockquote>
+          <blockquote data-t="dig-quote">"Palestinian life is rendered legible — trackable, classifiable, deportable — before any body ever reaches a checkpoint. The database is the first checkpoint."</blockquote>
           <cite>— Helga Tawil-Souri</cite>
         </div>
       </div>
@@ -778,13 +872,13 @@
         <div class="section-label-group">
           <span class="section-type-tag" data-t="temp-tag">Typology III</span>
           <h2 class="section-title" data-t="temp-title">Temporal Space</h2>
-          <p class="section-lead" data-t="temp-lead">Waiting, delay, uncertainty, anticipatory punishment, time as a weapon and a site of resistance.</p>
+          <p class="section-lead" data-t="temp-lead">Waiting, delay, uncertainty, <span class="gloss-term" tabindex="0">anticipatory punishment<span class="gloss-tooltip"><span class="gloss-tooltip-term">anticipatory punishment</span><span class="gloss-tooltip-def">The penalty extracted before any formal act of punishment — living under constant threat, delay, and uncertainty at checkpoints and permit offices.</span><a class="gloss-tooltip-link" href="glossary.html#term-anticipatory-punishment">Full definition &rarr;</a></span></span> — time as a weapon and a site of resistance.</p>
         </div>
       </div>
       <div class="content-grid wide">
         <div class="prose-block">
-          <p data-t="temp-p1">The checkpoint is not only a spatial boundary but it is a <em>temporal weapon</em>. Time at the checkpoint is confiscated: hours of waiting, the unpredictable click of the turnstile, the arbitrary extension of delay that teaches people their own subjection to a time they do not control. Tawil-Souri compares this to <span class="kw">solitary confinement</span>, not through walls, but through the suspension of time.</p>
-          <p data-t="temp-p2">This temporal logic extends far beyond the checkpoint itself. The <span class="kw">waiting room</span>, at the permit office, the hospital, the consulate, reproduces the checkpoint's suspension without its steel. <span class="kw">Uncertainty</span> about permit renewal constitutes what scholars call <em>anticipatory punishment</em>: the penalty extracted before any action is taken.</p>
+          <p data-t="temp-p1">The checkpoint is not only a spatial boundary — it is a <em>temporal weapon</em>. Time at the checkpoint is confiscated: hours of waiting, the unpredictable click of the turnstile, the arbitrary extension of delay that teaches people their own subjection to a time they do not control. Tawil-Souri compares this to <span class="kw">solitary confinement</span> — not through walls, but through the suspension of time.</p>
+          <p data-t="temp-p2">This temporal logic extends far beyond the checkpoint itself. The <span class="kw">waiting room</span> — at the permit office, the hospital, the consulate — reproduces the checkpoint's suspension without its steel. <span class="kw">Uncertainty</span> about permit renewal constitutes what scholars call <em>anticipatory punishment</em>: the penalty extracted before any action is taken.</p>
           <p data-t="temp-p3">Cinema is uniquely positioned to render duration. Palestinian filmmakers use long takes, static cameras, and deliberate slowness not as aesthetic indulgence but as formal argument: this is how long they wait. Time on screen becomes testimony.</p>
           <div class="category-grid">
             <div class="category-tag"><strong data-t="cat-waiting2">Waiting</strong><span data-t="cat-waiting2-def">the checkpoint queue as temporal weapon</span></div>
@@ -839,14 +933,14 @@
         <div class="section-label-group">
           <span class="section-type-tag" data-t="int-tag">Typology IV</span>
           <h2 class="section-title" data-t="int-title">Intimate &amp; Domestic Space</h2>
-          <p class="section-lead" data-t="int-lead">Homes, hospitals, family life, the occupation of private space, and cinema's claim on the right to intimacy.</p>
+          <p class="section-lead" data-t="int-lead">Homes, hospitals, family life — the occupation of private space, and cinema's claim on the right to intimacy.</p>
         </div>
       </div>
       <div class="content-grid wide">
         <div class="prose-block">
           <p data-t="int-p1">Occupation does not stop at the checkpoint. It enters the <span class="kw">home</span> through night raids, through the surveillance of family members, through the impossibility of family reunification under permit regimes. It enters the <span class="kw">hospital</span> through permit denials that prevent patients from reaching care.</p>
-          <p data-t="int-p2">Palestinian women filmmakers are particularly attentive to this intimate register of surveillance. Where the checkpoint is legible as political space, the home, hospital, and kitchen are not, yet they are equally under occupation. Filming domesticity becomes an act of counter-mapping.</p>
-          <p data-t="int-p3">This attention constitutes what might be called a <em>politics of the ordinary</em>: the insistence that Palestinian daily life, love, family, food, labor, is both surveyable by power and irreducible to its surveillance logic.</p>
+          <p data-t="int-p2">Palestinian women filmmakers are particularly attentive to this intimate register of surveillance. Where the checkpoint is legible as political space, the home, hospital, and kitchen are not — yet they are equally under occupation. Filming domesticity becomes an act of counter-mapping.</p>
+          <p data-t="int-p3">This attention constitutes what might be called a <em>politics of the ordinary</em>: the insistence that Palestinian daily life — love, family, food, labor — is both surveyable by power and irreducible to its surveillance logic.</p>
         </div>
         <div class="vocab-card">
           <h4 data-t="key-concepts">Key Concepts</h4>
@@ -892,14 +986,14 @@
         <div class="section-label-group">
           <span class="section-type-tag" data-t="cin-tag">Typology V</span>
           <h2 class="section-title" data-t="cin-title">Cinematic Space</h2>
-          <p class="section-lead" data-t="cin-lead">How the camera reproduces surveillance logic, and the formal strategies through which it refuses to.</p>
+          <p class="section-lead" data-t="cin-lead">How the camera reproduces surveillance logic — and the formal strategies through which it refuses to.</p>
         </div>
       </div>
       <div class="content-grid wide">
         <div class="prose-block">
-          <p data-t="cin-p1">The camera is itself a surveillance technology. It records, classifies, archives. News footage of checkpoints often adopts the perspective of the watchtower: overhead, scanning, objectifying. The documentary impulse, to show, to witness, to expose, risks reproducing the very gaze it intends to critique.</p>
-          <p data-t="cin-p2">Palestinian women filmmakers develop what we might call <em>counter-surveillance aesthetics</em>: formal strategies that acknowledge the camera's power while refusing to deploy it as an instrument of control. These include the <span class="kw">averted angle</span>, filming beside rather than from above; the <span class="kw">ellipsis</span>, cutting before the moment of violation; <span class="kw">offscreen sound</span>, the checkpoint heard but not shown.</p>
-          <p data-t="cin-p3">Suleiman's formulation is precise: occupation enters the film not as subject but as <em>condition of the image</em>. The counter-surveillance filmmaker does not photograph occupation, she photographs life under it, which is different.</p>
+          <p data-t="cin-p1">The camera is itself a surveillance technology. It records, classifies, archives. News footage of checkpoints often adopts the perspective of the watchtower: overhead, scanning, objectifying. The documentary impulse — to show, to witness, to expose — risks reproducing the very gaze it intends to critique.</p>
+          <p data-t="cin-p2">Palestinian women filmmakers develop what we might call <em><span class="gloss-term" tabindex="0">counter-surveillance aesthetics<span class="gloss-tooltip"><span class="gloss-tooltip-term">counter-surveillance aesthetics</span><span class="gloss-tooltip-def">Formal cinematic strategies that refuse to deploy the camera as an instrument of control — averted angles, ellipsis, offscreen sound, deliberate withholding.</span><a class="gloss-tooltip-link" href="glossary.html#term-counter-surveillance-aesthetics">Full definition &rarr;</a></span></span></em>: formal strategies that acknowledge the camera's power while refusing to deploy it as an instrument of control. These include the <span class="kw">averted angle</span> — filming beside rather than from above; the <span class="kw">ellipsis</span> — cutting before the moment of violation; <span class="kw">offscreen sound</span> — the checkpoint heard but not shown.</p>
+          <p data-t="cin-p3">Suleiman's formulation is precise: occupation enters the film not as subject but as <em>condition of the image</em>. The counter-surveillance filmmaker does not photograph occupation — she photographs life under it, which is different.</p>
           <div class="category-grid">
             <div class="category-tag"><strong data-t="cat-angle">Averted angle</strong><span data-t="cat-angle-def">refusing the overhead gaze</span></div>
             <div class="category-tag"><strong data-t="cat-ellipsis">Ellipsis</strong><span data-t="cat-ellipsis-def">cutting before violation</span></div>
@@ -953,16 +1047,16 @@
         <div class="section-label-group">
           <span class="section-type-tag" style="border-color:var(--gold);color:var(--gold);">Synthesis</span>
           <h2 class="section-title" style="color:#f0c060;">Feminist Witnessing and Palestinian Futures</h2>
-          <p class="section-lead">The carceral continuum does not confine itself to checkpoints and prisons, it infiltrates domestic, intimate, and bodily space. Palestinian women filmmakers witness from inside those spaces.</p>
+          <p class="section-lead">The <span class="gloss-term" tabindex="0">carceral continuum<span class="gloss-tooltip"><span class="gloss-tooltip-term">carceral continuum</span><span class="gloss-tooltip-def">The understanding that carceral logic infiltrates domestic, intimate, and bodily space — occupation does not stop at the checkpoint.</span><a class="gloss-tooltip-link" href="glossary.html#term-carceral-continuum">Full definition &rarr;</a></span></span> does not confine itself to checkpoints and prisons — it infiltrates domestic, intimate, and bodily space. Palestinian women filmmakers witness from inside those spaces.</p>
         </div>
       </div>
       <div class="content-grid wide">
         <div class="prose-block">
-          <p>The concept of the carceral continuum connects all the works in this archive. Hagar Kotef and Merav Amir's analysis shows that checkpoints are never neutral or uniform spaces but operate through gendered logics that position Palestinian women's bodies as especially vulnerable to state control. Strip searches, forced waiting, interrogation about family members, the demand to remove clothing, these are not incidental indignities but part of how occupation disciplines and humiliates Palestinian women by making their bodies the site through which power is enacted.</p>
-          <p>Shalhoub-Kevorkian's work on "infiltrated intimacies" extends this analysis into the home. Occupation enters through night raids, through the surveillance of family members, through the impossibility of family reunification under permit regimes. Women live with a constant anticipation of intrusion, the late-night knock, the raid that disrupts the household, the interrogation that redraws the boundaries of privacy. Because Palestinian women artists inhabit these intimate spaces, they can witness from the inside: the fear after a raid, the emotional negotiations families make, the altered routines children develop, the sensory memories that linger after soldiers leave. These forms of knowledge never appear in military archives. They are structurally invisible.</p>
-          <p>The same cultural and religious norms that limit how Palestinian women appear in public create the exact blind spots that Israeli surveillance cannot reach. Browne's insight that surveillance is always racialized and gendered is crucial here: those blind spots become some of the most powerful counter-archival material in the archive. Palestinian women artists turn what surveillance is structurally unable to record into knowledge, feminist witnessing as epistemological practice and method for seeing, documenting, and preserving what the surveillance state is literally not designed to capture.</p>
-          <p>Masri witnesses through the body; Shibli witnesses through interior consciousness; Bisan Owda witnesses in real time through social media documentation, claiming the title of Hakawatiya, traditional Arabic oral storyteller, within the context of genocide to position her witnessing within a long tradition of Palestinian cultural memory-making. What they all share is a commitment to working in the spaces surveillance does not see, and turning those moments into records that matter politically.</p>
-          <p>This is how feminist witnessing opens space for imagining Palestinian futures, not by laying out a vision of liberation but by insisting again and again that Palestinian life exceeds what occupation tries to reduce it to. Haddad's formulation of sumud as a radical and daring act of imagination, aligned with Vizenor's concept of survivance, active presence over absence, the continuities of stories, frames this generative dimension of the archive. The act of documentation is itself the imagination: not imagining a future abstractly, but insisting daily that there is a future in which this will be remembered and in which these filmmakers will have been witnesses, not just victims.</p>
+          <p>The concept of the carceral continuum connects all the works in this archive. Hagar Kotef and Merav Amir's analysis shows that checkpoints are never neutral or uniform spaces but operate through gendered logics that position Palestinian women's bodies as especially vulnerable to state control. Strip searches, forced waiting, interrogation about family members, the demand to remove clothing — these are not incidental indignities but part of how occupation disciplines and humiliates Palestinian women by making their bodies the site through which power is enacted.</p>
+          <p>Shalhoub-Kevorkian's work on "<span class="gloss-term" tabindex="0">infiltrated intimacies<span class="gloss-tooltip"><span class="gloss-tooltip-term">infiltrated intimacies</span><span class="gloss-tooltip-def">Shalhoub-Kevorkian: the occupation of domestic and bodily space — night raids, surveillance of family members, governance of birth and reproductive decisions.</span><a class="gloss-tooltip-link" href="glossary.html#term-infiltrated-intimacies">Full definition &rarr;</a></span></span>" extends this analysis into the home. Occupation enters through night raids, through the surveillance of family members, through the impossibility of family reunification under permit regimes. Women live with a constant anticipation of intrusion — the late-night knock, the raid that disrupts the household, the interrogation that redraws the boundaries of privacy. Because Palestinian women artists inhabit these intimate spaces, they can witness from the inside: the fear after a raid, the emotional negotiations families make, the altered routines children develop, the sensory memories that linger after soldiers leave. These forms of knowledge never appear in military archives. They are structurally invisible.</p>
+          <p>The same cultural and religious norms that limit how Palestinian women appear in public create the exact blind spots that Israeli surveillance cannot reach. Browne's insight that surveillance is always racialized and gendered is crucial here: those blind spots become some of the most powerful counter-archival material in the archive. Palestinian women artists turn what surveillance is structurally unable to record into knowledge — <span class="gloss-term" tabindex="0">feminist witnessing<span class="gloss-tooltip"><span class="gloss-tooltip-term">feminist witnessing</span><span class="gloss-tooltip-def">An epistemological practice for seeing and preserving what the surveillance state cannot capture — the intimate, bodily, and relational dimensions of occupation.</span><a class="gloss-tooltip-link" href="glossary.html#term-feminist-witnessing">Full definition &rarr;</a></span></span> as epistemological practice and method for seeing, documenting, and preserving what the surveillance state is literally not designed to capture.</p>
+          <p>Masri witnesses through the body; Shibli witnesses through interior consciousness; Bisan Owda witnesses in real time through social media documentation, claiming the title of Hakawatiya — traditional Arabic oral storyteller — within the context of genocide to position her witnessing within a long tradition of Palestinian cultural memory-making. What they all share is a commitment to working in the spaces surveillance does not see, and turning those moments into records that matter politically.</p>
+          <p>This is how feminist witnessing opens space for imagining Palestinian futures — not by laying out a vision of liberation but by insisting again and again that Palestinian life exceeds what occupation tries to reduce it to. Haddad's formulation of sumud as a radical and daring act of imagination, aligned with Vizenor's concept of <span class="gloss-term" tabindex="0">survivance<span class="gloss-tooltip"><span class="gloss-tooltip-term">survivance</span><span class="gloss-tooltip-def">Vizenor: active presence over absence — the continuities of stories as generative world-making rather than mere survival.</span><a class="gloss-tooltip-link" href="glossary.html#term-survivance">Full definition &rarr;</a></span></span> — active presence over absence, the continuities of stories — frames this generative dimension of the archive. The act of documentation is itself the imagination: not imagining a future abstractly, but insisting daily that there is a future in which this will be remembered and in which these filmmakers will have been witnesses, not just victims.</p>
         </div>
         <div class="vocab-card">
           <h4 style="color:rgba(255,255,255,0.55);">Key Concepts</h4>
@@ -995,7 +1089,7 @@
           <div class="film-ref-card">
             <p class="film-ref-title" style="color:#f0c060;">3000 Nights (2015)</p>
             <p class="film-ref-dir">dir. Mai Masri</p>
-            <p class="film-ref-note">Layal's insistence on holding her baby — asking again and again despite chains — is the archive's clearest image of sumud as embodied refusal of state control over the body.</p>
+            <p class="film-ref-note">Layla's insistence on holding her baby — asking again and again despite chains — is the archive's clearest image of sumud as embodied refusal of state control over the body.</p>
           </div>
           <div class="film-ref-card">
             <p class="film-ref-title" style="color:#f0c060;">Minor Detail (2017)</p>
@@ -1088,7 +1182,7 @@
       <div class="wnm-prose">
         <span class="wnm-subheading">The Argument</span>
         <p>The politics of omission runs through every film in this archive. Jacir uses ellipsis precisely: the bank robbery in <em>Salt of This Sea</em> cuts away before it completes. Masri blurs the doctor's face in <em>3000 Nights</em>. Nabulsi keeps the camera on Yusef's face rather than the soldier's gun in <em>The Present</em>. Shibli's narrator in <em>Minor Detail</em> obsessively recovers an archive that chose not to record.</p>
-        <p>These formal choices are not simply aesthetic. They constitute an epistemological claim: that not everything needs to be made visible to matter, that the right to opacity is a political right, and that the demand for total visibility is itself a form of colonial violence. Édouard Glissant's concept of opacity — the ethical claim that not all lives need to be fully transparent to be worthy of respect — runs through this archive as both its subject and its formal principle.</p>
+        <p>These formal choices are not simply aesthetic. They constitute an epistemological claim: that not everything needs to be made visible to matter, that the <span class="gloss-term" tabindex="0">opacity<span class="gloss-tooltip"><span class="gloss-tooltip-term">opacity</span><span class="gloss-tooltip-def">Glissant: the ethical claim that not all lives need to be transparent to power. The right to refuse being made fully readable and controllable.</span><a class="gloss-tooltip-link" href="glossary.html#term-opacity">Full definition &rarr;</a></span></span> is a political right, and that the demand for total visibility is itself a form of colonial violence. Édouard Glissant's concept of opacity — the ethical claim that not all lives need to be fully transparent to be worthy of respect — runs through this archive as both its subject and its formal principle.</p>
       </div>
 
       <!-- Formal strategies grid -->
@@ -1154,7 +1248,7 @@
   <nav aria-label="Breadcrumb" class="breadcrumb-nav">
     <ol>
       <li><a href="index.html">Home</a></li>
-      <li aria-current="page">[Current Page Name]</li>
+      <li aria-current="page">Surveillance Space</li>
     </ol>
   </nav>
 
@@ -1175,14 +1269,14 @@
         't-title':     'The <em>Space</em> of Surveillance',
         't-subtitle':  'Beyond the checkpoint: mapping the architectures, databases, durations, and intimacies through which Palestinian life is rendered legible, trackable, and controllable.',
         't-intro-1':   'Checkpoints are the most visible expression of colonial control but they are only one node in a much wider infrastructure of surveillance. This section maps five <em>typologies</em> of surveillance space that appear across Palestinian cinema from 2000 to 2025.',
-        't-intro-2':   'Each typology names a distinct register in which Palestinian life is rendered legible to power: the stone and steel of <strong>architectural</strong> enclosure; the algorithmic logic of <strong>digital</strong> biometrics; the weaponized stillness of <strong>temporal</strong> waiting; the occupation of <strong>intimate and domestic</strong> space; and the camera\'s own complicity, or refusal, as a <strong>cinematic</strong> surveillance apparatus.',
+        't-intro-2':   'Each typology names a distinct register in which Palestinian life is rendered legible to power: the stone and steel of <strong>architectural</strong> enclosure; the algorithmic logic of <strong>digital</strong> biometrics; the weaponized stillness of <strong>temporal</strong> waiting; the occupation of <strong>intimate and domestic</strong> space; and the camera\'s own complicity — or refusal — as a <strong>cinematic</strong> surveillance apparatus.',
         't-intro-3':   'Palestinian women filmmakers do not simply represent these spaces. They devise formal strategies — angles, ellipses, duration, offscreen sound — that refuse to reproduce the surveillance gaze even as they document it.',
         'nav-arch':'I. Architectural','nav-dig':'II. Digital','nav-temp':'III. Temporal','nav-int':'IV. Intimate / Domestic','nav-cin':'V. Cinematic',
-        'arch-tag':'Typology I','arch-title':'Architectural Space','arch-lead':'Cells, cameras, corridors, cages, waiting rooms, the built environment as instrument of control.',
+        'arch-tag':'Typology I','arch-title':'Architectural Space','arch-lead':'Cells, cameras, corridors, cages, waiting rooms — the built environment as instrument of control.',
         'dig-tag':'Typology II','dig-title':'Digital Space','dig-lead':'Databases, permits, biometric IDs, population registries — surveillance before and beyond physical encounter.',
-        'temp-tag':'Typology III','temp-title':'Temporal Space','temp-lead':'Waiting, delay, uncertainty, anticipatory punishment, time as a weapon and a site of resistance.',
-        'int-tag':'Typology IV','int-title':'Intimate & Domestic Space','int-lead':'Homes, hospitals, family life, the occupation of private space, and cinema\'s claim on the right to intimacy.',
-        'cin-tag':'Typology V','cin-title':'Cinematic Space','cin-lead':'How the camera reproduces surveillance logic, and the formal strategies through which it refuses to.',
+        'temp-tag':'Typology III','temp-title':'Temporal Space','temp-lead':'Waiting, delay, uncertainty, anticipatory punishment — time as a weapon and a site of resistance.',
+        'int-tag':'Typology IV','int-title':'Intimate & Domestic Space','int-lead':'Homes, hospitals, family life — the occupation of private space, and cinema\'s claim on the right to intimacy.',
+        'cin-tag':'Typology V','cin-title':'Cinematic Space','cin-lead':'How the camera reproduces surveillance logic — and the formal strategies through which it refuses to.',
         'key-concepts':'Key Concepts',
         'matrix-heading':'Surveillance Space: Comparative Matrix',
         'matrix-lead':'How each typology operates, and the cinematic strategies that engage it.',
@@ -1287,6 +1381,50 @@
           trigger.setAttribute('aria-expanded', 'false');
         }
       });
+    })();
+  </script>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="">Home</a>
+      <a href="map.html" class="">Map</a>
+      <span class="mobile-nav-section-label">Archive</span>
+      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
+      <a href="analysis.html" class="archive-item">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item active">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
+      <a href="about.html" class="">About</a>
+    </nav>
+  </div>
+
+  <!-- MOBILE NAV JS -->
+  <script>
+    (function() {
+      var btn    = document.getElementById('navHamburger');
+      var nav    = document.getElementById('mobileNav');
+      var close  = document.getElementById('mobileNavClose');
+      if (!btn || !nav) return;
+      function openNav() {
+        nav.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeNav() {
+        nav.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', openNav);
+      if (close) close.addEventListener('click', closeNav);
+      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
+      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
     })();
   </script>
 </body>

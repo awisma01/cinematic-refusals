@@ -648,14 +648,12 @@
       transition: opacity 0.22s ease, transform 0.22s ease;
       box-shadow: 0 16px 48px rgba(0,0,0,0.55);
       z-index: 9999;
-      display: none; /* Add this line */
     }
     .nav-dropdown.open .nav-dropdown-menu,
     .nav-dropdown:hover .nav-dropdown-menu {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
-      display: block; /* Add this line */
     }
     .nav-dropdown-item {
       display: flex; flex-direction: column; gap: 0.22rem;
@@ -684,17 +682,16 @@
     .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
 
   </style>
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
   <nav class="topnav" aria-label="Main navigation">
-    <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
+    <div class="brand">Cinematic Counter‑Cartographies</div>
     <div class="menu">
       <a href="index.html" class="active">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
-          Archive <span class="nav-dropdown-arrow">&#9662;</span>
-        </a>
+        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
           <a href="checkpoints.html" class="nav-dropdown-item">
             <span class="nav-dropdown-item-title">Checkpoints</span>
@@ -712,22 +709,14 @@
             <span class="nav-dropdown-item-title">What's Not Mapped</span>
             <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
           </a>
-          <a href="glossary.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Glossary</span>
-            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
-          </a>
         </div>
       </div>
       <a href="about.html">About</a>
+      <a href="glossary.html">Glossary</a>
     </div>
-  </nav>
-
-  <nav aria-label="Breadcrumb" class="breadcrumb-nav">
-    <ol>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="analysis.html">Visual Analysis</a></li>
-      <li aria-current="page">Current Page Title</li>
-    </ol>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <main>
@@ -794,7 +783,7 @@
     <section class="project-hook">
       <div class="hook-card">
         <p class="hook-eyebrow">The Argument</p>
-        <p class="hook-text">Palestinian women filmmakers do not simply document occupation. They devise formal strategies that refuse it. This archive maps how Mai Masri, Annemarie Jacir, and Farah Nabulsi transform checkpoints, carceral spaces, and surveillance infrastructures into sites of cinematic resistance across twenty-five years of Palestinian film.</p>
+        <p class="hook-text">Palestinian women filmmakers do not simply document occupation — they devise formal strategies that refuse it. This archive maps how Mai Masri, Annemarie Jacir, and Farah Nabulsi transform checkpoints, carceral spaces, and surveillance infrastructures into sites of cinematic resistance across twenty-five years of Palestinian film.</p>
         <a href="about.html" class="hook-link">Read the full research statement →</a>
       </div>
     </section>
@@ -806,18 +795,18 @@
       <p class="spotlight-eyebrow">Featured Film</p>
       <div class="spotlight-card">
         <div class="spotlight-image">
-          <img src="assets/images/3000nights.jpg" alt="3000 Nights — Mai Masri, 2015" onerror="this.src='https://picsum.photos/seed/3000nights/900/600'">
+          <img src="assets/images/present.jpg" alt="The Present — Farah Nabulsi, 2020" onerror="this.src='https://picsum.photos/seed/present/900/600'">
           <div class="spotlight-overlay">
-            <span class="spotlight-year">2015</span>
+            <span class="spotlight-year">2020</span>
           </div>
         </div>
         <div class="spotlight-content">
-          <p class="spotlight-director">Mai Masri</p>
-          <h2 class="spotlight-title">3000 Nights</h2>
-          <p class="spotlight-body"><em>3000 Nights</em> follows a young Palestinian schoolteacher who gives birth to her son in an Israeli prison. Masri’s film explores the totality of carceral control, showing how the logic of the checkpoint extends inward, into the body and the most intimate parts of life. Through close, unflinching camerawork, the film refuses to aestheticize suffering, focusing instead on the persistence and dignity of its protagonist.</p>
+          <p class="spotlight-director">Farah Nabulsi</p>
+          <h2 class="spotlight-title">The Present</h2>
+          <p class="spotlight-body">A father and daughter attempt to cross Checkpoint 300 to buy an anniversary gift. What should take minutes stretches across an entire day. Nabulsi compresses the spatial logic of occupation into a single ordinary errand — showing how a checkpoint can swallow a life, one hour at a time.</p>
           <blockquote class="spotlight-quote">
-            "The camera records what surveillance can’t: the humiliation of begging to hold your own child, the way the state inserts itself into reproduction, the violence that doesn’t show up on official paperwork."
-            <cite>Mai Masri</cite>
+            "Sometimes what is not shown is as powerful as what is."
+            <cite>— Farah Nabulsi</cite>
           </blockquote>
           <a href="analysis.html" class="spotlight-btn">View Film Analysis →</a>
         </div>
@@ -833,7 +822,7 @@
         <a href="checkpoints.html" class="entry-card">
           <span class="entry-icon">⬡</span>
           <h3>Start with a Checkpoint</h3>
-          <p>Four case studies: Qalandiya, Huwwara, Rachel, Container where each one a site of resistance and refusal in the cinematic archive.</p>
+          <p>Four case studies — Qalandiya, Huwwara, Rachel, Container — each one a site of resistance and refusal in the cinematic archive.</p>
           <span class="entry-link">Enter Checkpoints →</span>
         </a>
         <a href="analysis.html" class="entry-card">
@@ -845,7 +834,7 @@
         <a href="surveillance-space.html" class="entry-card">
           <span class="entry-icon">◎</span>
           <h3>Start with a Framework</h3>
-          <p>Five typologies of surveillance space: architectural, digital, temporal, intimate, cinematic — that structure occupation beyond the checkpoint.</p>
+          <p>Five typologies of surveillance space — architectural, digital, temporal, intimate, cinematic — that structure occupation beyond the checkpoint.</p>
           <span class="entry-link">Enter Framework →</span>
         </a>
       </div>
@@ -921,6 +910,50 @@
           trigger.setAttribute('aria-expanded', 'false');
         }
       });
+    })();
+  </script>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="map.html" class="">Map</a>
+      <span class="mobile-nav-section-label">Archive</span>
+      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
+      <a href="analysis.html" class="archive-item">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
+      <a href="about.html" class="">About</a>
+    </nav>
+  </div>
+
+  <!-- MOBILE NAV JS -->
+  <script>
+    (function() {
+      var btn    = document.getElementById('navHamburger');
+      var nav    = document.getElementById('mobileNav');
+      var close  = document.getElementById('mobileNavClose');
+      if (!btn || !nav) return;
+      function openNav() {
+        nav.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeNav() {
+        nav.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', openNav);
+      if (close) close.addEventListener('click', closeNav);
+      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
+      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
     })();
   </script>
 </body>
