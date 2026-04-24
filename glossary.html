@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Glossary — Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #e6a93a;
+      --teal: #6fe7c1;
+      --forest: #288366;
+      --crimson: #b94e3a;
+      --cat-spatial:     #7ab8d0;
+      --cat-feminist:    #d49a7a;
+      --cat-cinematic:   #6fe7c1;
+      --cat-political:   #c4a87a;
+      --cat-theoretical: #c09ac0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(160deg, #1b3c34 0%, #2a5c4c 30%, #357a5a 60%, #23634c 100%);
+      background-attachment: fixed;
+      color: #e8f5f0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px
+      );
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── NAV ── */
+    .topnav {
+      background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
+      padding: 1.2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      position: sticky; top: 0; z-index: 1000; overflow: visible;
+    }
+    .topnav .brand {
+      font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.5px; text-decoration: none;
+    }
+    .topnav .menu { display: flex; gap: 0.5rem; overflow: visible; position: relative; }
+    .topnav .menu a {
+      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
+      padding: 0.55rem 1rem; border-radius: 6px;
+      transition: all 0.3s ease; font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.3px; text-decoration: none;
+    }
+    .topnav .menu a:hover, .topnav .menu a.active { background: rgba(230,169,58,0.2); color: var(--gold); }
+
+    .nav-dropdown { position: relative; display: inline-block; }
+    .nav-dropdown-trigger {
+      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
+      padding: 0.55rem 1rem; border-radius: 6px;
+      transition: all 0.3s ease; font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.3px; text-decoration: none; background: none; border: none;
+      display: flex; align-items: center; gap: 0.35rem; cursor: pointer; white-space: nowrap;
+    }
+    .nav-dropdown-trigger:hover, .nav-dropdown-trigger.active { background: rgba(230,169,58,0.2); color: var(--gold); }
+    .nav-dropdown-arrow { font-size: 0.65rem; opacity: 0.7; transition: transform 0.25s ease; display: inline-block; }
+    .nav-dropdown.open .nav-dropdown-arrow, .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(180deg); }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 8px); right: 0; min-width: 260px;
+      background: rgba(8,28,26,0.98); border: 1px solid rgba(230,169,58,0.25);
+      border-radius: 12px; padding: 0.5rem; opacity: 0; pointer-events: none;
+      transform: translateY(-8px); transition: opacity 0.22s ease, transform 0.22s ease;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.55); z-index: 9999;
+    }
+    .nav-dropdown.open .nav-dropdown-menu, .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .nav-dropdown-item { display: flex; flex-direction: column; gap: 0.22rem; padding: 0.8rem 1rem; border-radius: 8px; text-decoration: none; transition: background 0.18s ease; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .nav-dropdown-item:last-child { border-bottom: none; }
+    .nav-dropdown-item:hover, .nav-dropdown-item.active { background: rgba(230,169,58,0.1); }
+    .nav-dropdown-item-title { font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.05em; color: #e8f5f0; }
+    .nav-dropdown-item.active .nav-dropdown-item-title { color: var(--gold); }
+    .nav-dropdown-item-desc { font-family: 'IBM Plex Mono', monospace; font-size: 0.67rem; font-weight: 300; color: rgba(232,245,240,0.50); line-height: 1.4; }
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
+    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
+
+    /* ── HERO ── */
+    .page-hero {
+      position: relative; padding: 5rem 2rem 3.5rem; text-align: center; z-index: 1;
+    }
+    .page-hero::after {
+      content: ""; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(40,131,102,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(40,131,102,0.06) 1px, transparent 1px);
+      background-size: 60px 60px; animation: gridDrift 30s linear infinite; z-index: -1;
+    }
+    @keyframes gridDrift { from{background-position:0 0} to{background-position:60px 60px} }
+    .page-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--teal); opacity: 0.7; margin: 0 0 1.2rem; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; color: #e8f5f0; margin: 0 0 0.5rem; line-height: 1.1; }
+    .page-title em { color: var(--gold); font-style: italic; }
+    .gold-rule { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 1.5rem auto; }
+    .page-lead { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; color: rgba(232,245,240,0.70); max-width: 620px; margin: 0 auto; }
+
+    /* ── CONTROLS ── */
+    .gloss-controls {
+      position: sticky; top: 62px; z-index: 50;
+      background: linear-gradient(180deg, rgba(27,60,52,0.97) 0%, rgba(27,60,52,0.94) 100%);
+      border-bottom: 1px solid rgba(111,231,193,0.1);
+      padding: 1rem 2rem;
+    }
+    .gloss-controls-inner {
+      max-width: 960px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0.8rem;
+    }
+    .gloss-search-row { display: flex; align-items: center; gap: 0.75rem; }
+    .gloss-search-wrap { position: relative; flex: 1; }
+    .gloss-search {
+      width: 100%; background: rgba(10,35,33,0.6);
+      border: 1px solid rgba(111,231,193,0.2); border-radius: 8px;
+      padding: 0.7rem 1rem 0.7rem 2.4rem;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.84rem;
+      font-weight: 300; color: #e8f5f0; outline: none;
+      transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .gloss-search::placeholder { color: rgba(232,245,240,0.28); }
+    .gloss-search:focus { border-color: rgba(111,231,193,0.45); }
+    .gloss-search-icon {
+      position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%);
+      font-size: 0.85rem; color: rgba(232,245,240,0.28); pointer-events: none;
+    }
+    .gloss-count {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
+      font-weight: 300; color: rgba(232,245,240,0.30);
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    .gloss-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .gloss-pill {
+      font-family: 'Oswald', sans-serif; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.3rem 0.9rem; border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(232,245,240,0.45); background: transparent;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .gloss-pill:hover { border-color: rgba(255,255,255,0.25); color: rgba(232,245,240,0.75); }
+    .gloss-pill.active[data-cat="all"]        { border-color: var(--gold);           color: var(--gold);           background: rgba(230,169,58,0.1); }
+    .gloss-pill.active[data-cat="spatial"]    { border-color: var(--cat-spatial);    color: var(--cat-spatial);    background: rgba(122,184,208,0.1); }
+    .gloss-pill.active[data-cat="feminist"]   { border-color: var(--cat-feminist);   color: var(--cat-feminist);   background: rgba(212,154,122,0.1); }
+    .gloss-pill.active[data-cat="cinematic"]  { border-color: var(--cat-cinematic);  color: var(--cat-cinematic);  background: rgba(111,231,193,0.1); }
+    .gloss-pill.active[data-cat="political"]  { border-color: var(--cat-political);  color: var(--cat-political);  background: rgba(196,168,122,0.1); }
+    .gloss-pill.active[data-cat="theoretical"]{ border-color: var(--cat-theoretical);color: var(--cat-theoretical);background: rgba(192,154,192,0.1); }
+
+    /* ── ALPHABET JUMP ── */
+    .alpha-jump {
+      max-width: 960px; margin: 1.5rem auto 0;
+      padding: 0 2rem;
+      display: flex; flex-wrap: wrap; gap: 0.25rem;
+      position: relative; z-index: 1;
+    }
+    .alpha-jump a {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
+      font-weight: 300; color: rgba(232,245,240,0.28);
+      text-decoration: none; padding: 0.25rem 0.45rem;
+      border-radius: 4px; transition: color 0.18s, background 0.18s;
+    }
+    .alpha-jump a.has-terms { color: rgba(232,245,240,0.52); }
+    .alpha-jump a.has-terms:hover { color: var(--teal); background: rgba(111,231,193,0.08); }
+
+    /* ── GLOSSARY LAYOUT ── */
+    .glossary-outer {
+      max-width: 960px; margin: 0 auto 6rem;
+      padding: 2rem 2rem 0;
+      position: relative; z-index: 1;
+      display: flex; gap: 2.5rem; align-items: flex-start;
+    }
+
+    /* ── SIDE COLUMN — letter nav ── */
+    .gloss-sidebar {
+      width: 36px; flex-shrink: 0;
+      position: sticky; top: 160px;
+      display: flex; flex-direction: column; gap: 0.15rem;
+    }
+    .gloss-sidebar a {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
+      font-weight: 300; letter-spacing: 0.08em;
+      color: rgba(232,245,240,0.25); text-decoration: none;
+      padding: 0.2rem 0.3rem; border-radius: 3px;
+      transition: color 0.18s, background 0.18s; text-align: center;
+    }
+    .gloss-sidebar a.has-terms { color: rgba(232,245,240,0.45); }
+    .gloss-sidebar a.has-terms:hover { color: var(--teal); background: rgba(111,231,193,0.08); }
+    .gloss-sidebar a.current { color: var(--gold); }
+
+    /* ── TERM GROUPS ── */
+    .gloss-main { flex: 1; min-width: 0; }
+
+    .letter-group { margin-bottom: 2.5rem; }
+    .letter-group.hidden { display: none; }
+    .letter-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 700;
+      color: rgba(230,169,58,0.15);
+      margin: 0 0 1rem; line-height: 1;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(230,169,58,0.1);
+      scroll-margin-top: 140px;
+    }
+
+    /* ── TERM CARD ── */
+    .term-card {
+      border-radius: 0 12px 12px 0;
+      border: 1px solid rgba(111,231,193,0.08);
+      border-left: 3px solid transparent;
+      padding: 1.5rem 1.8rem 1.4rem;
+      margin-bottom: 0.7rem;
+      transition: background 0.22s, border-color 0.22s;
+      scroll-margin-top: 140px;
+      position: relative;
+    }
+    .term-card:hover { background: rgba(255,255,255,0.04); }
+    .term-card.hidden { display: none; }
+
+    .term-card[data-cat="spatial"]     { border-left-color: rgba(122,184,208,0.45); }
+    .term-card[data-cat="feminist"]    { border-left-color: rgba(212,154,122,0.45); }
+    .term-card[data-cat="cinematic"]   { border-left-color: rgba(111,231,193,0.45); }
+    .term-card[data-cat="political"]   { border-left-color: rgba(196,168,122,0.45); }
+    .term-card[data-cat="theoretical"] { border-left-color: rgba(192,154,192,0.45); }
+
+    .term-card.highlight {
+      background: rgba(230,169,58,0.05);
+      border-left-color: var(--gold) !important;
+      border-color: rgba(230,169,58,0.22);
+    }
+
+    /* ── TERM HEADER ── */
+    .term-header { display: flex; align-items: baseline; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+    .term-name {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
+      font-weight: 700; color: #e8f5f0; margin: 0; flex: 1; min-width: 140px;
+    }
+    .term-category {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+      font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase;
+      padding: 0.18rem 0.6rem; border-radius: 20px; border: 1px solid;
+      white-space: nowrap;
+    }
+    .term-category.spatial     { border-color: rgba(122,184,208,0.4); color: var(--cat-spatial); }
+    .term-category.feminist    { border-color: rgba(212,154,122,0.4); color: var(--cat-feminist); }
+    .term-category.cinematic   { border-color: rgba(111,231,193,0.35); color: var(--cat-cinematic); }
+    .term-category.political   { border-color: rgba(196,168,122,0.4); color: var(--cat-political); }
+    .term-category.theoretical { border-color: rgba(192,154,192,0.4); color: var(--cat-theoretical); }
+
+    .term-source {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem;
+      font-weight: 300; color: rgba(232,245,240,0.28); font-style: italic;
+    }
+
+    /* ── TERM BODY ── */
+    .term-def {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.08rem;
+      line-height: 1.95; color: rgba(232,245,240,0.82); margin: 0;
+    }
+    .term-usage {
+      margin: 0.85rem 0 0; padding-top: 0.7rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-family: 'Cormorant Garamond', serif; font-size: 0.98rem;
+      font-style: italic; line-height: 1.7;
+      color: rgba(232,245,240,0.48);
+    }
+    .term-usage strong {
+      font-style: normal; color: var(--teal);
+      font-family: 'Oswald', sans-serif; font-size: 0.63rem;
+      letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+      display: block; margin-bottom: 0.25rem;
+    }
+
+    /* ── NO RESULTS ── */
+    .no-results {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
+      font-style: italic; color: rgba(232,245,240,0.3);
+      text-align: center; padding: 4rem 0; display: none;
+    }
+
+    /* ── FOOTER ── */
+    .footer { background: rgba(10,35,33,0.98); color: var(--teal); text-align: center; padding: 2rem; font-family: 'Oswald', sans-serif; font-size: 0.88rem; letter-spacing: 0.1em; position: relative; z-index: 1; }
+    #scrollTopBtn { display: none; position: fixed; bottom: 32px; right: 32px; z-index: 99; background: var(--forest); color: #fff; border: none; border-radius: 50%; width: 48px; height: 48px; font-size: 1.5rem; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
+
+    @media (max-width: 900px) {
+      .topnav { padding: 1rem 1.5rem; }
+      .gloss-controls { padding: 0.85rem 1.2rem; }
+      .gloss-sidebar { display: none; }
+      .glossary-outer { padding: 1.5rem 1rem 0; }
+    }
+    @media (max-width: 600px) {
+      .page-hero { padding: 3.5rem 1rem 2rem; }
+      .alpha-jump { display: none; }
+      .term-card { padding: 1.2rem 1.1rem 1.1rem; }
+      .term-name { font-size: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topnav">
+    <a href="index.html" class="brand">Cinematic Counter&#8209;Cartographies</a>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="map.html">Map</a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="checkpoints.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Checkpoints</span>
+            <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
+          </a>
+          <a href="analysis.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Visual Analysis</span>
+            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
+          </a>
+          <a href="surveillance-space.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Surveillance Space</span>
+            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
+          </a>
+          <a href="not-mapped.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">What's Not Mapped</span>
+            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
+          </a>
+          <a href="glossary.html" class="nav-dropdown-item active">
+            <span class="nav-dropdown-item-title">Glossary</span>
+            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
+          </a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <p class="page-eyebrow">Key Terms</p>
+      <h1 class="page-title"><em>Glossary</em></h1>
+      <div class="gold-rule"></div>
+      <p class="page-lead">Theoretical concepts, spatial frameworks, and critical vocabulary used across this archive. Terms marked with a dotted underline in the analysis pages link back here.</p>
+    </section>
+
+    <!-- STICKY CONTROLS -->
+    <div class="gloss-controls">
+      <div class="gloss-controls-inner">
+        <div class="gloss-search-row">
+          <div class="gloss-search-wrap">
+            <span class="gloss-search-icon">&#9998;</span>
+            <input class="gloss-search" id="glossSearch" type="text" placeholder="Search terms, definitions, scholars&#8230;" autocomplete="off">
+          </div>
+          <span class="gloss-count" id="glossCount"></span>
+        </div>
+        <div class="gloss-filter">
+          <button class="gloss-pill active" data-cat="all">All</button>
+          <button class="gloss-pill" data-cat="spatial">Spatial</button>
+          <button class="gloss-pill" data-cat="feminist">Feminist</button>
+          <button class="gloss-pill" data-cat="cinematic">Cinematic</button>
+          <button class="gloss-pill" data-cat="political">Political</button>
+          <button class="gloss-pill" data-cat="theoretical">Theoretical</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALPHABET JUMP (top) -->
+    <div class="alpha-jump" id="alphaJump"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="glossary-outer">
+
+      <!-- STICKY SIDE LETTER NAV (desktop only) -->
+      <nav class="gloss-sidebar" id="glossSidebar" aria-label="Jump to letter"></nav>
+
+      <!-- TERM CARDS -->
+      <div class="gloss-main" id="glossMain">
+        <p class="no-results" id="noResults">No terms match your search.</p>
+
+        <div class="letter-group" id="group-A">
+          <h2 class="letter-heading" id="letter-A">A</h2>
+
+          <div class="term-card" id="term-anticipatory-punishment" data-cat="political">
+            <div class="term-header">
+              <h3 class="term-name">Anticipatory Punishment</h3>
+              <span class="term-category political">Political</span>
+              <span class="term-source">Peteet; Tawil-Souri</span>
+            </div>
+            <p class="term-def">The penalty extracted before any formal act of punishment — the condition of living under constant threat, delay, and uncertainty. At Israeli checkpoints, the unpredictability of crossing times, the possibility of being turned back, and the revocation of permits all constitute forms of punishment that precede any specific violation. Palestinian life under occupation is shaped by this anticipatory logic.</p>
+            <p class="term-usage"><strong>In the archive</strong><em>The Present</em> (Nabulsi, 2020) enacts anticipatory punishment through duration: Yusef sleeps on cardboard the night before to hold his place in line, absorbing the penalty of the checkpoint before he has done anything at all.</p>
+          </div>
+
+          <div class="term-card" id="term-anticipatory-surveillance" data-cat="political">
+            <div class="term-header">
+              <h3 class="term-name">Anticipatory Surveillance</h3>
+              <span class="term-category political">Political</span>
+              <span class="term-source">Tawil-Souri; Tilley</span>
+            </div>
+            <p class="term-def">Control enacted before any physical encounter — through databases, permit systems, and classification systems that determine movement long before a body reaches a checkpoint. The Israeli permit regime, color-coded ID system, and population registry are instruments of anticipatory surveillance: the checkpoint's power begins in an office, not at a gate.</p>
+            <p class="term-usage"><strong>In the archive</strong> The Surveillance Space framework maps anticipatory surveillance as Digital Space — the most invisible and perhaps most powerful form of colonial control.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-C">
+          <h2 class="letter-heading" id="letter-C">C</h2>
+
+          <div class="term-card" id="term-carceral-continuum" data-cat="political">
+            <div class="term-header">
+              <h3 class="term-name">Carceral Continuum</h3>
+              <span class="term-category political">Political</span>
+              <span class="term-source">Gilmore; Shalhoub-Kevorkian</span>
+            </div>
+            <p class="term-def">The understanding that carceral logic does not confine itself to prisons or checkpoints but infiltrates domestic, intimate, and bodily space. Occupation enters the home through night raids, surveillance of family members, and the impossibility of family reunification. The carceral is not a discrete institution but a continuous atmosphere that reorganizes all of life.</p>
+            <p class="term-usage"><strong>In the archive</strong> <em>3000 Nights</em> (Masri, 2015) maps the carceral continuum most directly — the prison extends into Layla's body, her reproductive choices, and her relationship with her baby.</p>
+          </div>
+
+          <div class="term-card" id="term-carceral-time" data-cat="spatial">
+            <div class="term-header">
+              <h3 class="term-name">Carceral Time</h3>
+              <span class="term-category spatial">Spatial</span>
+              <span class="term-source">Peteet, Space and Mobility in Palestine</span>
+            </div>
+            <p class="term-def">Time weaponized through delay — hours of waiting at checkpoints, unpredictable crossing schedules, permit renewal timelines, and the arbitrary extension of detention. Peteet argues that the reorganization of Palestinian time around waiting and uncertainty is itself a form of discipline: it teaches Palestinians that their time is not their own. The checkpoint controls not just where Palestinians go but when.</p>
+            <p class="term-usage"><strong>In the archive</strong> <em>The Present</em> (Nabulsi, 2020) uses carceral time as its central formal argument. The film compresses an entire day into a single errand that should take minutes, showing how the checkpoint swallows ordinary life.</p>
+          </div>
+
+          <div class="term-card" id="term-counter-cartography" data-cat="spatial">
+            <div class="term-header">
+              <h3 class="term-name">Counter-Cartography</h3>
+              <span class="term-category spatial">Spatial</span>
+              <span class="term-source">de Certeau; Lefebvre</span>
+            </div>
+            <p class="term-def">The practice of representing space in ways that refuse or contest official cartographic power. De Certeau writes that "what the map cuts up, the story cuts across" — the map produces space as administered and controlled, while narrative and film substitute an embodied, relational, lived geography. Palestinian cultural production is counter-cartographic insofar as it narrates the land from within rather than surveying it from above.</p>
+            <p class="term-usage"><strong>In the archive</strong> <em>Salt of This Sea</em> (Jacir, 2008) is the archive's most explicitly counter-cartographic film — Jacir films West Bank roads as both beautiful and militarized, refusing the military map's reduction of Palestinian geography to security zones.</p>
+          </div>
+
+          <div class="term-card" id="term-counter-surveillance-aesthetics" data-cat="cinematic">
+            <div class="term-header">
+              <h3 class="term-name">Counter-Surveillance Aesthetics</h3>
+              <span class="term-category cinematic">Cinematic</span>
+              <span class="term-source">Project framework</span>
+            </div>
+            <p class="term-def">Formal cinematic strategies that acknowledge the camera's power while refusing to deploy it as an instrument of control. These include the averted angle (filming beside rather than from above), the ellipsis (cutting before the moment of violation), offscreen sound (the checkpoint heard but not shown), and deliberate withholding. Counter-surveillance aesthetics constitute a political argument made through form rather than content.</p>
+            <p class="term-usage"><strong>In the archive</strong> The Surveillance Space page maps five modes of counter-surveillance aesthetics across the film archive.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-D">
+          <h2 class="letter-heading" id="letter-D">D</h2>
+
+          <div class="term-card" id="term-dead-time" data-cat="political">
+            <div class="term-header">
+              <h3 class="term-name">Dead Time</h3>
+              <span class="term-category political">Political</span>
+              <span class="term-source">Tawil-Souri</span>
+            </div>
+            <p class="term-def">Time stripped of agency or meaning — waiting without purpose, duration experienced as humiliation. Dead time is not merely wasted time but time imposed as punishment: the checkpoint queue teaches Palestinians that their lives are on hold at the discretion of soldiers. Tawil-Souri compares the experience to forms of solitary confinement in which time itself becomes the instrument of discipline.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-E">
+          <h2 class="letter-heading" id="letter-E">E</h2>
+
+          <div class="term-card" id="term-ellipsis" data-cat="cinematic">
+            <div class="term-header">
+              <h3 class="term-name">Ellipsis</h3>
+              <span class="term-category cinematic">Cinematic</span>
+              <span class="term-source">Film studies; project framework</span>
+            </div>
+            <p class="term-def">A cut that omits — deliberately skipping over a moment rather than showing it. In Palestinian cinema, ellipsis is a political choice: withholding the moment of violation, the soldier's aggression, or the body's humiliation refuses to give those acts the image they would want. Ellipsis protects subjects from becoming spectacle while still acknowledging that something has happened.</p>
+            <p class="term-usage"><strong>In the archive</strong> Jacir uses ellipsis precisely in <em>Salt of This Sea</em>: the bank robbery cuts away before completion, withholding the moment of transgression to protect her characters.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-F">
+          <h2 class="letter-heading" id="letter-F">F</h2>
+
+          <div class="term-card" id="term-faithful-witnessing" data-cat="feminist">
+            <div class="term-header">
+              <h3 class="term-name">Faithful Witnessing</h3>
+              <span class="term-category feminist">Feminist</span>
+              <span class="term-source">Lugones, Pilgrimages/Peregrinajes</span>
+            </div>
+            <p class="term-def">An active political commitment to recognizing resistance even when it goes against dominant common sense, and refusing to align with oppression. Lugones frames faithful witnessing not as passive observation but as a practice of standing with oppressed people, interpreting behavior as resistant even when that interpretation is dangerous or uncomfortable. For Palestinian women artists, faithful witnessing becomes deeply spatial — attending to everything surveillance tries to erase.</p>
+            <p class="term-usage"><strong>In the archive</strong> <em>Minor Detail</em> (Shibli, 2017) enacts faithful witnessing through the narrator's obsessive counter-investigation into an erased archive — persisting without certainty, refusing to stop even without resolution.</p>
+          </div>
+
+          <div class="term-card" id="term-feminist-witnessing" data-cat="feminist">
+            <div class="term-header">
+              <h3 class="term-name">Feminist Witnessing</h3>
+              <span class="term-category feminist">Feminist</span>
+              <span class="term-source">Lugones; Figueroa-Vásquez; Shalhoub-Kevorkian</span>
+            </div>
+            <p class="term-def">An epistemological practice and method for seeing, documenting, and preserving what the surveillance state is not designed to capture — the interrogations, endless waiting, strip searches, verbal harassment, and the many ways occupation infiltrates domestic, emotional, and relational life. Feminist witnessing turns privacy into counter-archival material. It is not simply a woman's perspective on occupation but a distinct way of knowing what dominant archives exclude.</p>
+            <p class="term-usage"><strong>In the archive</strong> <em>3000 Nights</em> (Masri) witnesses through the body; <em>Minor Detail</em> (Shibli) through interior consciousness; Bisan Owda through real-time social media documentation.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-I">
+          <h2 class="letter-heading" id="letter-I">I</h2>
+
+          <div class="term-card" id="term-infiltrated-intimacies" data-cat="feminist">
+            <div class="term-header">
+              <h3 class="term-name">Infiltrated Intimacies</h3>
+              <span class="term-category feminist">Feminist</span>
+              <span class="term-source">Shalhoub-Kevorkian, Feminist Studies 2016</span>
+            </div>
+            <p class="term-def">The occupation of private, domestic, and bodily space by colonial power. Occupation does not stop at the checkpoint — it enters the home through night raids, surveillance of family members, and the impossibility of family reunification under permit regimes. Women live with a constant anticipation of intrusion: the late-night knock, the raid that disrupts the household, the interrogation that redraws the boundaries of privacy.</p>
+            <p class="term-usage"><strong>In the archive</strong> The Surveillance Space page maps infiltrated intimacies as the fourth typology — Intimate and Domestic Space.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-L">
+          <h2 class="letter-heading" id="letter-L">L</h2>
+
+          <div class="term-card" id="term-legibility" data-cat="spatial">
+            <div class="term-header">
+              <h3 class="term-name">Legibility</h3>
+              <span class="term-category spatial">Spatial</span>
+              <span class="term-source">Weizman; Glissant</span>
+            </div>
+            <p class="term-def">The architectural and political demand that bodies, populations, and spaces be classifiable, readable, and sortable by a security apparatus. The Israeli checkpoint is a machine for producing legibility — biometric capture, ID classification, permit categorization. Legibility is always produced against opacity; to be legible to power is to be controllable by it.</p>
+          </div>
+
+          <div class="term-card" id="term-long-take" data-cat="cinematic">
+            <div class="term-header">
+              <h3 class="term-name">Long Take</h3>
+              <span class="term-category cinematic">Cinematic</span>
+              <span class="term-source">Film studies; project framework</span>
+            </div>
+            <p class="term-def">An uninterrupted sequence of camera recording that forces the viewer to experience duration alongside the subject. In Palestinian cinema, the long take is a political device: it refuses the rapid-cut aesthetics of action cinema and substitutes waiting, endurance, and the weight of time. The camera stays because the subject must stay — witnessing the full length of what occupation imposes.</p>
+            <p class="term-usage"><strong>In the archive</strong> <em>Divine Intervention</em> (Suleiman, 2002) uses long static takes to turn the surveillance camera's own logic — fixed, patient, recording — into irony and then poetry.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-N">
+          <h2 class="letter-heading" id="letter-N">N</h2>
+
+          <div class="term-card" id="term-necessary-imagination" data-cat="theoretical">
+            <div class="term-header">
+              <h3 class="term-name">Necessary Imagination</h3>
+              <span class="term-category theoretical">Theoretical</span>
+              <span class="term-source">Project framework; Haddad</span>
+            </div>
+            <p class="term-def">The capacity — generated through feminist witnessing — to imagine Palestinian futures that exceed what occupation tries to reduce Palestinian life to. The necessary imagination is not abstract or utopian but grounded in the daily work of documentation, testimony, and survival. It insists that there is a future in which this will be remembered and in which these filmmakers will have been witnesses, not just victims.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-O">
+          <h2 class="letter-heading" id="letter-O">O</h2>
+
+          <div class="term-card" id="term-opacity" data-cat="theoretical">
+            <div class="term-header">
+              <h3 class="term-name">Opacity</h3>
+              <span class="term-category theoretical">Theoretical</span>
+              <span class="term-source">Glissant, Poetics of Relation</span>
+            </div>
+            <p class="term-def">Édouard Glissant's counter-concept to legibility — the ethical claim that not all lives need to be fully transparent to power to be worthy of respect. The right to opacity is the right to refuse being made fully readable, classifiable, and manageable by a colonial surveillance system. In Palestinian cinema, opacity functions as a formal principle: ellipsis, offscreen sound, and the averted angle all assert the right not to be seen on the state's terms.</p>
+            <p class="term-usage"><strong>In the archive</strong> The What's Not Mapped page is organized around the politics of opacity — the formal strategies through which Palestinian filmmakers refuse to reproduce the surveillance gaze they document.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-P">
+          <h2 class="letter-heading" id="letter-P">P</h2>
+
+          <div class="term-card" id="term-politics-of-unchilding" data-cat="political">
+            <div class="term-header">
+              <h3 class="term-name">Politics of Unchilding</h3>
+              <span class="term-category political">Political</span>
+              <span class="term-source">Shalhoub-Kevorkian, Incarcerated Childhood (2019)</span>
+            </div>
+            <p class="term-def">The logic through which Palestinian children — even in their mothers' wombs — are classified as potential or actual threats, stripping them of childhood and treating them as subjects of sovereign violence. Unchilding is a key component of the claim to colonial power: by denying Palestinian children the status of innocence, the state justifies surveillance, detention, and violence at the earliest stages of life.</p>
+            <p class="term-usage"><strong>In the archive</strong> <em>3000 Nights</em> (Masri, 2015) stages the politics of unchilding — the guard's response to Layla's baby makes explicit that even newborns are classified within carceral logic.</p>
+          </div>
+
+          <div class="term-card" id="term-politics-of-verticality" data-cat="spatial">
+            <div class="term-header">
+              <h3 class="term-name">Politics of Verticality</h3>
+              <span class="term-category spatial">Spatial</span>
+              <span class="term-source">Weizman, Hollow Land (2012)</span>
+            </div>
+            <p class="term-def">Eyal Weizman's concept describing how Israeli control operates three-dimensionally — fragmenting Palestinian space through the management of airspace, underground tunnels, and the elevation differentials between settlements and villages. The checkpoint embodies the politics of verticality in miniature: its watchtowers, elevated observation posts, and overhead cameras organize space as a hierarchy of visibility, with Israelis looking down and Palestinians looking up.</p>
+            <p class="term-usage"><strong>In the archive</strong> <em>The Present</em> (Nabulsi, 2020) visualizes the politics of verticality through overhead shots that render waiting Palestinians as a managed mass, directly echoing drone surveillance logic.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-S">
+          <h2 class="letter-heading" id="letter-S">S</h2>
+
+          <div class="term-card" id="term-slow-violence" data-cat="political">
+            <div class="term-header">
+              <h3 class="term-name">Slow Violence</h3>
+              <span class="term-category political">Political</span>
+              <span class="term-source">Nixon, Slow Violence and the Environmentalism of the Poor (2011)</span>
+            </div>
+            <p class="term-def">Rob Nixon's term for violence that occurs gradually and out of sight — not the explosive, spectacular violence that attracts media attention, but the slow degradation of bodies, landscapes, communities, and possibilities over time. Palestinian life under occupation is shaped by slow violence: the contamination of land and water, the erosion of community through permit denial, the psychological toll of checkpoints, and the generational loss of mobility and opportunity.</p>
+          </div>
+
+          <div class="term-card" id="term-sumud" data-cat="theoretical">
+            <div class="term-header">
+              <h3 class="term-name">Sumud</h3>
+              <span class="term-category theoretical">Theoretical</span>
+              <span class="term-source">Meari; Busse; Haddad</span>
+            </div>
+            <p class="term-def">Arabic: steadfastness, persistence, rootedness. Sumud emerged in the 1970s as a Palestinian philosophy of non-violent confrontation with occupation, describing both how Palestinians endure and how cultural work enacts that endurance. For Lena Meari, sumud is not passive but active: a "political being/becoming and continuous engagement with the flows and constraints of the colonial situation." Saleem Haddad identifies three registers of sumud: record-keeping and revitalization, bearing witness and collective memory, and radical imagination. Palestinian women filmmakers do all three simultaneously.</p>
+            <p class="term-usage"><strong>In the archive</strong> Sumud is the organizing framework of the entire archive — tracked across checkpoint films, literary texts, and social media documentation as both a lived practice and an analytical tool.</p>
+          </div>
+
+          <div class="term-card" id="term-survivance" data-cat="theoretical">
+            <div class="term-header">
+              <h3 class="term-name">Survivance</h3>
+              <span class="term-category theoretical">Theoretical</span>
+              <span class="term-source">Vizenor, Survivance: Narratives of Native Presence (2008)</span>
+            </div>
+            <p class="term-def">Gerald Vizenor's concept combining survival and resistance — active presence over absence, the continuities of stories rather than mere endurance. Survivance refuses the narrative of victimhood and frames Indigenous and Palestinian cultural production as generative world-making. Haddad draws on survivance to articulate sumud's imaginative dimension: documentation is not just preservation but the assertion of a future in which this moment will be remembered.</p>
+          </div>
+        </div>
+
+        <div class="letter-group" id="group-T">
+          <h2 class="letter-heading" id="letter-T">T</h2>
+
+          <div class="term-card" id="term-temporal-sovereignty" data-cat="spatial">
+            <div class="term-header">
+              <h3 class="term-name">Temporal Sovereignty</h3>
+              <span class="term-category spatial">Spatial</span>
+              <span class="term-source">Project framework; Peteet</span>
+            </div>
+            <p class="term-def">The power to control not just space but when others may move through it. The checkpoint exercises temporal sovereignty by making crossing times unpredictable, extending waits without explanation, and closing entirely without notice. Palestinians cannot plan their days, schedule work, or commit to appointments because their time is subject to military discretion. Temporal sovereignty is one of the most intimate forms of colonial control.</p>
+          </div>
+        </div>
+
+      </div><!-- end .gloss-main -->
+    </div><!-- end .glossary-outer -->
+  </main>
+
+  <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
+    &#169; 2025&#8211;2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
+    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
+    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
+    <a href="https://yourpersonalwebsite.com" target="_blank" rel="noopener" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Personal Website</a>
+  </footer>
+  <button id="scrollTopBtn" aria-label="Scroll to top">&#8593;</button>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="map.html">Map</a>
+      <span class="mobile-nav-section-label">Archive</span>
+      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
+      <a href="analysis.html" class="archive-item">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item active">Glossary</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    document.getElementById('scrollTopBtn').onclick = function() { window.scrollTo({ top:0, behavior:'smooth' }); };
+
+    // Build alphabet nav bars
+    (function() {
+      var groups  = document.querySelectorAll('.letter-group');
+      var topBar  = document.getElementById('alphaJump');
+      var sidebar = document.getElementById('glossSidebar');
+
+      groups.forEach(function(g) {
+        var letter = g.id.replace('group-', '');
+
+        var a1 = document.createElement('a');
+        a1.href = '#letter-' + letter;
+        a1.textContent = letter;
+        a1.classList.add('has-terms');
+        a1.setAttribute('data-letter', letter);
+        topBar.appendChild(a1);
+
+        var a2 = document.createElement('a');
+        a2.href = '#letter-' + letter;
+        a2.textContent = letter;
+        a2.classList.add('has-terms');
+        a2.setAttribute('data-letter', letter);
+        sidebar.appendChild(a2);
+      });
+    })();
+
+    // Count display
+    function updateCount() {
+      var visible = document.querySelectorAll('.term-card:not(.hidden)').length;
+      var total   = document.querySelectorAll('.term-card').length;
+      var el = document.getElementById('glossCount');
+      el.textContent = visible === total ? total + ' terms' : visible + ' of ' + total;
+      document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    // Filter visibility helpers
+    function applyVisibility(filterFn) {
+      document.querySelectorAll('.term-card').forEach(function(card) {
+        card.classList.toggle('hidden', !filterFn(card));
+      });
+      document.querySelectorAll('.letter-group').forEach(function(g) {
+        g.classList.toggle('hidden', g.querySelectorAll('.term-card:not(.hidden)').length === 0);
+      });
+      updateCount();
+    }
+
+    // Category filter
+    document.querySelectorAll('.gloss-pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        document.querySelectorAll('.gloss-pill').forEach(function(p){ p.classList.remove('active'); });
+        this.classList.add('active');
+        document.getElementById('glossSearch').value = '';
+        var cat = this.getAttribute('data-cat');
+        applyVisibility(function(card) {
+          return cat === 'all' || card.getAttribute('data-cat') === cat;
+        });
+      });
+    });
+
+    // Live search
+    document.getElementById('glossSearch').addEventListener('input', function() {
+      var q = this.value.toLowerCase().trim();
+      document.querySelectorAll('.gloss-pill').forEach(function(p){ p.classList.remove('active'); });
+      document.querySelector('.gloss-pill[data-cat="all"]').classList.add('active');
+      applyVisibility(function(card) {
+        return !q || card.textContent.toLowerCase().includes(q);
+      });
+    });
+
+    // Hash highlight
+    (function() {
+      if (!window.location.hash) return;
+      var el = document.querySelector(window.location.hash);
+      if (el && el.classList.contains('term-card')) {
+        setTimeout(function() {
+          el.classList.add('highlight');
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      }
+    })();
+
+    // Sidebar active letter on scroll
+    (function() {
+      var headings = document.querySelectorAll('.letter-heading');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var letter = entry.target.id.replace('letter-', '');
+            document.querySelectorAll('#glossSidebar a').forEach(function(a) {
+              a.classList.toggle('current', a.getAttribute('data-letter') === letter);
+            });
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      headings.forEach(function(h) { observer.observe(h); });
+    })();
+
+    updateCount();
+
+    // Nav dropdown
+    (function() {
+      var trigger  = document.querySelector('.nav-dropdown-trigger');
+      var dropdown = document.querySelector('.nav-dropdown');
+      if (!trigger || !dropdown) return;
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = dropdown.classList.contains('open');
+        dropdown.classList.toggle('open', !open);
+        trigger.setAttribute('aria-expanded', String(!open));
+      });
+      document.addEventListener('click', function() { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); });
+      document.addEventListener('keydown', function(e) { if (e.key==='Escape') { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); } });
+    })();
+
+    // Mobile nav
+    (function() {
+      var btn   = document.getElementById('navHamburger');
+      var nav   = document.getElementById('mobileNav');
+      var close = document.getElementById('mobileNavClose');
+      if (!btn || !nav) return;
+      function openNav()  { nav.classList.add('open');    btn.classList.add('open');    btn.setAttribute('aria-expanded','true');  document.body.style.overflow='hidden'; }
+      function closeNav() { nav.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+      btn.addEventListener('click', openNav);
+      if (close) close.addEventListener('click', closeNav);
+      nav.addEventListener('click', function(e){ if(e.target===nav) closeNav(); });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
+    })();
+  </script>
+</body>
+</html>
