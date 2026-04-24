@@ -142,15 +142,16 @@
     @media(max-width:900px) { .topnav{padding:1rem 1.5rem;} .topnav .menu a{padding:0.5rem 0.7rem;font-size:0.82rem;} .checkpoint-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));} }
     @media(max-width:600px) { .checkpoint-grid{grid-template-columns:1fr;} .page-hero{padding:3.5rem 1rem 2.5rem;} }
   </style>
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
-  <nav class="topnav">
-    <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="index.html" class="brand">Cinematic Counter&#8209;Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
         <div class="nav-dropdown-menu">
           <a href="checkpoints.html" class="nav-dropdown-item active">
             <span class="nav-dropdown-item-title">Checkpoints</span>
@@ -176,6 +177,9 @@
       </div>
       <a href="about.html">About</a>
     </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <main>
@@ -183,19 +187,16 @@
       <p class="page-eyebrow">Case Studies</p>
       <h1 class="page-title">Check<em>points</em></h1>
       <div class="gold-rule"></div>
-      <p class="page-lead">These key sites of colonial control and their cinematic representations, each checkpoint a case study in resistance and refusal.</p>
+      <p class="page-lead">Key sites of colonial control and their cinematic representations &#8212; each checkpoint a case study in resistance and refusal.</p>
     </section>
 
-    <nav aria-label="Breadcrumb" class="breadcrumb-nav">
-      <!-- ...breadcrumb... -->
+    <nav aria-label="Breadcrumb" class="breadcrumb-nav" style="max-width:1200px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;">
+      <ol style="list-style:none;display:flex;gap:0.5em;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:rgba(232,245,240,0.4);padding:0;margin:0;align-items:center;">
+        <li><a href="index.html" style="color:var(--teal);text-decoration:none;">Home</a></li>
+        <li style="margin:0 0.3em;opacity:0.4;">/</li>
+        <li aria-current="page" style="color:rgba(232,245,240,0.75);">Checkpoints</li>
+      </ol>
     </nav>
-
-    <!-- Add your real content here! -->
-    <section>
-      <h2>Film Case Studies</h2>
-      <p>Details about each film, analysis, etc.</p>
-      <!-- More content... -->
-    </section>
 
     <div class="checkpoint-grid-outer">
       <div class="checkpoint-grid">
@@ -206,8 +207,8 @@
             <h3 class="cp-card-title">Qalandiya Checkpoint</h3>
             <p class="cp-card-note">Most documented checkpoint in the archive</p>
             <ul class="cp-film-list">
-              <li>Salt of This Sea, Jacir, 2008</li>
-              <li>The Present, Nablusi, 2020</li>
+              <li>Salt of This Sea &#8212; Jacir, 2008</li>
+              <li>The Present &#8212; Nablusi, 2020</li>
             </ul>
             <div class="cp-card-actions">
               <a href="map.html#qalandiya" class="cp-btn cp-btn-primary">View on Map</a>
@@ -222,7 +223,7 @@
             <h3 class="cp-card-title">Huwwara Checkpoint</h3>
             <p class="cp-card-note">Contemporary footage and archive material</p>
             <ul class="cp-film-list">
-              <li>The Present, Nablusi, 2020</li>
+              <li>The Present &#8212; Nablusi, 2020</li>
             </ul>
             <div class="cp-card-actions">
               <a href="map.html#huwwara" class="cp-btn cp-btn-primary">View on Map</a>
@@ -237,8 +238,8 @@
             <h3 class="cp-card-title">Bethlehem &#8212; Rachel Checkpoint</h3>
             <p class="cp-card-note">Featured in Jacir's Salt of This Sea and other films</p>
             <ul class="cp-film-list">
-              <li>Salt of This Sea, Jacir, 2008</li>
-              <li>When I Saw You, Jacir, 2012</li>
+              <li>Salt of This Sea &#8212; Jacir, 2008</li>
+              <li>When I Saw You &#8212; Jacir, 2012</li>
             </ul>
             <div class="cp-card-actions">
               <a href="map.html#bethlehem" class="cp-btn cp-btn-primary">View on Map</a>
@@ -283,7 +284,7 @@
     &#169; 2025&#8211;2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
     <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
     <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
-    <a href="https://yourpersonalwebsite.com" target="_blank" rel="noopener" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Personal Website</a>
+    
   </footer>
   <button id="scrollTopBtn" aria-label="Scroll to top">&#8593;</button>
 
@@ -295,24 +296,24 @@
 
     const checkpointData = {
       qalandiya: {
-        title: 'Qalandiya Checkpoint, حاجز قلنديا',
+        title: 'Qalandiya Checkpoint \u2014 \u062d\u0627\u062c\u0632 \u0642\u0644\u0646\u062f\u064a\u0627',
         images: ['assets/images/qalandiya1.jpg','assets/images/qalandiya2.jpg','assets/images/qalandiya3.jpg','assets/images/qalandiya4.jpg'],
-        analysis: '<p>Qalandiya is the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles, this is exactly what Weizman means by the <em>politics of verticality</em>. Control is literally built into the environment.</p><p>In <em>Salt of This Sea</em>, Jacir doesn\'t treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. The checkpoint\'s power comes from how routine it becomes, no heightened tension, no spectacle, just the grinding reality of being stopped again.</p><p>The argument is simple: the checkpoint works because it\'s everyday, not exceptional.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Salt of This Sea (2008), The Present (2020)</em></p>'
+        analysis: '<p>Qalandiya is the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles \u2014 this is exactly what Weizman means by the <em>politics of verticality</em>. Control is literally built into the environment.</p><p>In <em>Salt of This Sea</em>, Jacir doesn\u2019t treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. The checkpoint\u2019s power comes from how routine it becomes \u2014 no heightened tension, no spectacle, just the grinding reality of being stopped again.</p><p>The argument is simple: the checkpoint works because it\u2019s everyday, not exceptional.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Salt of This Sea (2008), The Present (2020)</em></p>'
       },
       huwwara: {
-        title: 'Huwwara Checkpoint, حاجز حوارة',
+        title: 'Huwwara Checkpoint \u2014 \u062d\u0627\u062c\u0632 \u062d\u0648\u0627\u0631\u0629',
         images: ['assets/images/hucheck.jpg','assets/images/hucheck.jpg'],
-        analysis: '<p>Huwwara sits at the southern entrance to Nablus, and unlike Qalandiya\'s urban claustrophobia, Huwwara is exposed, open landscape, open sky, and a checkpoint that cuts right through it. That exposure makes the architecture of control even more visible.</p><p>In <em>The Present</em>, Nabulsi shows how checkpoints don\'t just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier\'s mood becomes the clock, this is what Julie Peteet calls <em>carceral time</em>. You feel it before you even see the space.</p><p>Nabulsi\'s sound design does much of that work. The metal, the crowd noise, the commands, the viewer feels surveilled before they understand the layout.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: The Present (2020)</em></p>'
+        analysis: '<p>Huwwara sits at the southern entrance to Nablus, and unlike Qalandiya\u2019s urban claustrophobia, Huwwara is exposed \u2014 open landscape, open sky, and a checkpoint that cuts right through it. That exposure makes the architecture of control even more visible.</p><p>In <em>The Present</em>, Nabulsi shows how checkpoints don\u2019t just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier\u2019s mood becomes the clock \u2014 this is what Julie Peteet calls <em>carceral time</em>. You feel it before you even see the space.</p><p>Nabulsi\u2019s sound design does much of that work. The metal, the crowd noise, the commands \u2014 the viewer feels surveilled before they understand the layout.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: The Present (2020)</em></p>'
       },
       container: {
-        title: 'Container Checkpoint, حاجز الكونتينر',
+        title: 'Container Checkpoint \u2014 \u062d\u0627\u062c\u0632 \u0627\u0644\u0643\u0648\u0646\u062a\u064a\u0646\u0631',
         images: ['assets/images/container.jpg','assets/images/container.jpg'],
-        analysis: '<p>The Container is one of those checkpoints that rarely gets cinematic attention even though it\'s strategically crucial. It controls movement between Bethlehem and Hebron and sits at a high point in the landscape, quietly governing a huge amount of daily mobility.</p><p>Its relative absence from narrative film is actually telling. It shows how certain sites of control become iconic, Qalandiya, Rachel, while others remain underdocumented even though they\'re just as disruptive. That gap is part of the story this project keeps circling: what do filmmakers choose not to show, and why?</p><p>Including the Container in the archive is a way of mapping the full geography of control, not just the parts that already have cinematic visibility.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Archive footage, dates TBD</em></p>'
+        analysis: '<p>The Container is one of those checkpoints that rarely gets cinematic attention even though it\u2019s strategically crucial. It controls movement between Bethlehem and Hebron and sits at a high point in the landscape, quietly governing a huge amount of daily mobility.</p><p>Its relative absence from narrative film is actually telling. It shows how certain sites of control become iconic \u2014 Qalandiya, Rachel \u2014 while others remain underdocumented even though they\u2019re just as disruptive. That gap is part of the story this project keeps circling: what do filmmakers choose not to show, and why?</p><p>Including the Container in the archive is a way of mapping the full geography of control, not just the parts that already have cinematic visibility.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Archive footage, dates TBD</em></p>'
       },
       bethlehem: {
-        title: 'Rachel (Bethlehem) Checkpoint, حاجز راحيل',
+        title: 'Rachel (Bethlehem) Checkpoint \u2014 \u062d\u0627\u062c\u0632 \u0631\u0627\u062d\u064a\u0644',
         images: ['assets/images/bethlehem1.jpeg','assets/images/bethlehem2.jpeg','assets/images/bethlehem3.jpg','assets/images/bethlehem4.jpeg','assets/images/bethlehem5.jpeg','assets/images/bethlehem6.jpeg','assets/images/bethlehem7.jpg'],
-        analysis: '<p>Rachel Checkpoint is one of the most fortified crossings in the West Bank, and it appears across multiple films, making it a strong site for comparison.</p><p>In <em>Salt of This Sea</em>, it\'s where the difference between Soraya\'s American passport and Emad\'s West Bank ID becomes spatially visible. They\'re in the same shot but not in the same system. The checkpoint makes that hierarchy literal.</p><p>In <em>When I Saw You</em>, the checkpoint works differently. Set in Jordan, it becomes more of a horizon than an immediate obstacle, the thing between Tarek and the Palestine he\'s never seen but fully believes in. It\'s both a physical barrier and an imagined one.</p><p>Across films, Rachel shifts from a site of direct confrontation to a symbol of distance and longing. That flexibility is part of why it keeps showing up.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Salt of This Sea (2008), When I Saw You (2012)</em></p>'
+        analysis: '<p>Rachel Checkpoint is one of the most fortified crossings in the West Bank, and it appears across multiple films, making it a strong site for comparison.</p><p>In <em>Salt of This Sea</em>, it\u2019s where the difference between Soraya\u2019s American passport and Emad\u2019s West Bank ID becomes spatially visible. They\u2019re in the same shot but not in the same system. The checkpoint makes that hierarchy literal.</p><p>In <em>When I Saw You</em>, the checkpoint works differently. Set in Jordan, it becomes more of a horizon than an immediate obstacle \u2014 the thing between Tarek and the Palestine he\u2019s never seen but fully believes in. It\u2019s both a physical barrier and an imagined one.</p><p>Across films, Rachel shifts from a site of direct confrontation to a symbol of distance and longing. That flexibility is part of why it keeps showing up.</p><p style="font-size:0.98em;color:var(--teal);"><em>Cross-references: Salt of This Sea (2008), When I Saw You (2012)</em></p>'
       }
     };
 
@@ -399,6 +400,51 @@
       });
       document.addEventListener('click', function(){ dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); });
       document.addEventListener('keydown', function(e){ if (e.key==='Escape'){ dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); } });
+    })();
+  </script>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="">Home</a>
+      <a href="map.html" class="">Map</a>
+      <span class="mobile-nav-section-label">Archive</span>
+      <a href="checkpoints.html" class="archive-item active">Checkpoints</a>
+      <a href="analysis.html" class="archive-item">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item">Glossary</a>
+      <a href="about.html" class="">About</a>
+    </nav>
+  </div>
+
+  <!-- MOBILE NAV JS -->
+  <script>
+    (function() {
+      var btn    = document.getElementById('navHamburger');
+      var nav    = document.getElementById('mobileNav');
+      var close  = document.getElementById('mobileNavClose');
+      if (!btn || !nav) return;
+      function openNav() {
+        nav.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeNav() {
+        nav.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', openNav);
+      if (close) close.addEventListener('click', closeNav);
+      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
+      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
     })();
   </script>
 </body>

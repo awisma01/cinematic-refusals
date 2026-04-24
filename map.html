@@ -26,7 +26,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem;
       box-shadow: 0 2px 20px rgba(0,0,0,0.5);
-      z-index: 200;
+      z-index: 1000;
       overflow: visible;
     }
     .topnav .brand {
@@ -320,87 +320,46 @@
       .map-legend { bottom: 10px; left: 10px; }
       .cp-popup { width: 260px; }
     }
-
-    /* Enable dropdown on hover for desktop */
-    @media (hover: hover) and (pointer: fine) {
-      .nav-dropdown:hover .nav-dropdown-menu,
-      .nav-dropdown:focus-within .nav-dropdown-menu {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: translateY(0) !important;
-      }
-      .nav-dropdown:hover .nav-dropdown-arrow,
-      .nav-dropdown:focus-within .nav-dropdown-arrow {
-        transform: rotate(180deg);
-      }
-    }
-
-    /* Optional: Prevent click from toggling on desktop */
-    @media (hover: hover) and (pointer: fine) {
-      .nav-dropdown-trigger {
-        pointer-events: none;
-      }
-      .nav-dropdown:hover .nav-dropdown-trigger,
-      .nav-dropdown:focus-within .nav-dropdown-trigger {
-        pointer-events: auto;
-      }
-    }
   </style>
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
 
-  <nav class="topnav">
+  <nav class="topnav" aria-label="Main navigation">
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html" class="active">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
-        <div class="nav-dropdown-menu" role="menu">
-          <ul style="margin:0;padding:0;list-style:none;">
-            <li>
-              <a href="checkpoints.html" class="nav-dropdown-item" role="menuitem">
-                <span class="nav-dropdown-item-title">Checkpoints</span>
-                <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
-              </a>
-            </li>
-            <li>
-              <a href="analysis.html" class="nav-dropdown-item" role="menuitem">
-                <span class="nav-dropdown-item-title">Visual Analysis</span>
-                <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
-              </a>
-            </li>
-            <li>
-              <a href="surveillance-space.html" class="nav-dropdown-item" role="menuitem">
-                <span class="nav-dropdown-item-title">Surveillance Space</span>
-                <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
-              </a>
-            </li>
-            <li>
-              <a href="not-mapped.html" class="nav-dropdown-item" role="menuitem">
-                <span class="nav-dropdown-item-title">What's Not Mapped</span>
-                <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
-              </a>
-            </li>
-            <li>
-              <a href="glossary.html" class="nav-dropdown-item" role="menuitem">
-                <span class="nav-dropdown-item-title">Glossary</span>
-                <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
-              </a>
-            </li>
-          </ul>
+        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="checkpoints.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Checkpoints</span>
+            <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
+          </a>
+          <a href="analysis.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Visual Analysis</span>
+            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
+          </a>
+          <a href="surveillance-space.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Surveillance Space</span>
+            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
+          </a>
+          <a href="not-mapped.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">What's Not Mapped</span>
+            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
+          </a>
+          <a href="glossary.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Glossary</span>
+            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
+          </a>
         </div>
       </div>
       <a href="about.html">About</a>
     </div>
-  </nav>
-
-  <nav aria-label="Breadcrumb" class="breadcrumb-nav" style="max-width:960px;margin:80px auto 1.5rem;padding:0 2rem;">
-    <ol style="list-style:none;display:flex;gap:0.5em;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:rgba(232,245,240,0.55);padding:0;margin:0;">
-      <li><a href="index.html" style="color:var(--teal);text-decoration:underline;">Home</a></li>
-      <li style="margin: 0 0.5em;">/</li>
-      <li aria-current="page" style="color:var(--gold);font-weight:600;">Map</li>
-    </ol>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <div class="search-panel">
@@ -511,7 +470,7 @@
           <span class="cp-popup-eyebrow">Checkpoint</span>
           <p class="cp-popup-title">${cp.title}</p>
           <p class="cp-popup-arabic">${cp.arabic}</p>
-          <button class="cp-popup-close" onclick="this.closest('.mapboxgl-popup').remove()">✕</button>
+          <button class="cp-popup-close" aria-label="Close checkpoint popup" onclick="this.closest('.mapboxgl-popup').remove()">✕</button>
         </div>
         <div class="cp-popup-body">
           <div class="cp-popup-row">
@@ -679,33 +638,72 @@
 
     // ── Archive dropdown toggle (mobile) ───────────────────
     (function() {
-      // Only enable click-to-toggle on touch devices
-      function isTouchDevice() {
-        return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-      }
       var trigger  = document.querySelector('.nav-dropdown-trigger');
       var dropdown = document.querySelector('.nav-dropdown');
       if (!trigger || !dropdown) return;
-      if (isTouchDevice()) {
-        trigger.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var isOpen = dropdown.classList.contains('open');
-          dropdown.classList.toggle('open', !isOpen);
-          trigger.setAttribute('aria-expanded', String(!isOpen));
-        });
-        document.addEventListener('click', function() {
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = dropdown.classList.contains('open');
+        dropdown.classList.toggle('open', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+      });
+      document.addEventListener('click', function() {
+        dropdown.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
           dropdown.classList.remove('open');
           trigger.setAttribute('aria-expanded', 'false');
-        });
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') {
-            dropdown.classList.remove('open');
-            trigger.setAttribute('aria-expanded', 'false');
-          }
-        });
-      }
+        }
+      });
     })();
   </script>
 
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="">Home</a>
+      <a href="map.html" class="active">Map</a>
+      <span class="mobile-nav-section-label">Archive</span>
+      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
+      <a href="analysis.html" class="archive-item">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item">Glossary</a>
+      <a href="about.html" class="">About</a>
+    </nav>
+  </div>
+
+  <!-- MOBILE NAV JS -->
+  <script>
+    (function() {
+      var btn    = document.getElementById('navHamburger');
+      var nav    = document.getElementById('mobileNav');
+      var close  = document.getElementById('mobileNavClose');
+      if (!btn || !nav) return;
+      function openNav() {
+        nav.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeNav() {
+        nav.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', openNav);
+      if (close) close.addEventListener('click', closeNav);
+      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
+      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
+    })();
+  </script>
 </body>
 </html>

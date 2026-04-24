@@ -43,7 +43,7 @@
       padding: 1.2rem 3rem;
       display: flex; align-items: center; justify-content: space-between;
       box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-      position: sticky; top: 0; z-index: 100;
+      position: sticky; top: 0; z-index: 1000;
       overflow: visible;
     }
     .topnav .brand {
@@ -104,7 +104,7 @@
     /* MAIN */
     .nm-outer {
       max-width: 1000px; margin: 0 auto 6rem;
-      padding: 0 2rem; position: relative; z-index: 1;
+      padding: 0 2rem; position: relative; z-index: auto;
       display: flex; flex-direction: column; gap: 2rem;
     }
 
@@ -236,7 +236,7 @@
       background: rgba(10,35,33,0.98); color: var(--teal);
       text-align: center; padding: 2rem;
       font-family: 'Oswald', sans-serif; font-size: 0.88rem;
-      letter-spacing: 0.1em; position: relative; z-index: 1;
+      letter-spacing: 0.1em; position: relative; z-index: auto;
     }
 
     #scrollTopBtn {
@@ -336,52 +336,45 @@
     .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
 
   </style>
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
-  <nav class="topnav">
+  <nav class="topnav" aria-label="Main navigation">
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
-        <div class="nav-dropdown-menu" role="menu">
-          <ul style="margin:0;padding:0;list-style:none;">
-            <li>
-              <a href="checkpoints.html" class="nav-dropdown-item" role="menuitem">
-                <span class="nav-dropdown-item-title">Checkpoints</span>
-                <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
-              </a>
-            </li>
-            <li>
-              <a href="analysis.html" class="nav-dropdown-item" role="menuitem">
-                <span class="nav-dropdown-item-title">Visual Analysis</span>
-                <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
-              </a>
-            </li>
-            <li>
-              <a href="surveillance-space.html" class="nav-dropdown-item" role="menuitem">
-                <span class="nav-dropdown-item-title">Surveillance Space</span>
-                <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
-              </a>
-            </li>
-            <li>
-              <a href="not-mapped.html" class="nav-dropdown-item active" role="menuitem">
-                <span class="nav-dropdown-item-title">What's Not Mapped</span>
-                <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
-              </a>
-            </li>
-            <li>
-              <a href="glossary.html" class="nav-dropdown-item" role="menuitem">
-                <span class="nav-dropdown-item-title">Glossary</span>
-                <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
-              </a>
-            </li>
-          </ul>
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="checkpoints.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Checkpoints</span>
+            <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
+          </a>
+          <a href="analysis.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Visual Analysis</span>
+            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
+          </a>
+          <a href="surveillance-space.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Surveillance Space</span>
+            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
+          </a>
+          <a href="not-mapped.html" class="active nav-dropdown-item">
+            <span class="nav-dropdown-item-title">What's Not Mapped</span>
+            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
+          </a>
+
+          <a href="glossary.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Glossary</span>
+            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
+          </a>
         </div>
       </div>
       <a href="about.html">About</a>
     </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <main>
@@ -397,23 +390,23 @@
       <!-- OPENING QUOTE -->
       <div class="opening-quote">
         <blockquote>"Occupation is total: it enters the film not as a subject but as a condition of the image."</blockquote>
-        <cite>Elia Suleiman</cite>
+        <cite>— Elia Suleiman</cite>
       </div>
 
       <!-- SECTION 1: THE POLITICS OF OMISSION -->
       <div class="prose-card gold-left">
         <span class="prose-eyebrow">The Argument</span>
         <h2 class="prose-heading">The <em>Politics of Omission</em></h2>
-        <p>The title of this section names what may be this  and was my starting point. The politics of omission runs through every film analyzed here. Jacir uses ellipsis precisely: the bank robbery in <em>Salt of This Sea</em> cuts away before it completes. Masri blurs the doctor's face in <em>3000 Nights</em>. Nabulsi keeps the camera on Yusef's face rather than the soldier's gun in <em>The Present</em>. Shibli's narrator in <em>Minor Detail</em> obsessively recovers an archive that chose not to record.</p>
-        <p>These formal choices are not simply aesthetic. They constitute an epistemological claim: that not everything needs to be made visible to matter, that the right to opacity is a political right, and that the demand for total visibility is itself a form of colonial violence. Édouard Glissant's concept of opacity, the ethical claim that not all lives need to be fully transparent to be worthy of respect, runs through the archive as both its subject and its formal principle.</p>
-        <p>The counter-surveillance filmmaker does not photograph occupation. She photographs life under it, which is different. This archive is an attempt to trace that difference, across checkpoints, across decades, across the work of filmmakers who have insisted, film by film, that Palestinian life exceeds the frame occupation tries to put around it.</p>
+        <p>The title of this section names what may be the archive's most important methodological commitment. The politics of omission runs through every film analyzed here. Jacir uses ellipsis precisely: the bank robbery in <em>Salt of This Sea</em> cuts away before it completes. Masri blurs the doctor's face in <em>3000 Nights</em>. Nabulsi keeps the camera on Yusef's face rather than the soldier's gun in <em>The Present</em>. Shibli's narrator in <em>Minor Detail</em> obsessively recovers an archive that chose not to record.</p>
+        <p>These formal choices are not simply aesthetic. They constitute an epistemological claim: that not everything needs to be made visible to matter, that the right to opacity is a political right, and that the demand for total visibility is itself a form of colonial violence. Édouard Glissant's concept of opacity — the ethical claim that not all lives need to be fully transparent to be worthy of respect — runs through the archive as both its subject and its formal principle.</p>
+        <p>The counter-surveillance filmmaker does not photograph occupation. She photographs life under it, which is different. This archive is an attempt to trace that difference — across checkpoints, across decades, across the work of filmmakers who have insisted, film by film, that Palestinian life exceeds the frame occupation tries to put around it.</p>
       </div>
 
       <!-- SECTION 2: FORMAL STRATEGIES -->
       <div class="prose-card teal-left">
         <span class="prose-eyebrow">Formal Strategies</span>
         <h2 class="prose-heading">How Filmmakers <em>Withhold</em></h2>
-        <p>Each film I have chosen in the archive develops its own approach to what it refuses to show. The strategies below are not evasions, they are arguments made through formal choice, using the language of cinema to refuse the logic of surveillance.</p>
+        <p>Each film in the archive develops its own approach to what it refuses to show. The strategies below are not evasions — they are arguments made through formal choice, using the language of cinema to refuse the logic of surveillance.</p>
 
         <div class="omission-grid">
           <div class="omission-item">
@@ -426,7 +419,7 @@
             <p class="omission-film">3000 Nights</p>
             <p class="omission-director">Masri, 2015</p>
             <span class="omission-strategy">Anonymization</span>
-            <p class="omission-desc">The doctor's face is barely highlighted, reducing the medical encounter to mostly focusing on his hands. Medicine becomes an extension of the carceral system rather than a human act.</p>
+            <p class="omission-desc">The doctor's face is blurred, reducing the medical encounter to anonymous hands. Medicine becomes an extension of the carceral system rather than a human act.</p>
           </div>
           <div class="omission-item">
             <p class="omission-film">The Present</p>
@@ -450,7 +443,7 @@
             <p class="omission-film">Divine Intervention</p>
             <p class="omission-director">Suleiman, 2002</p>
             <span class="omission-strategy">Static refusal</span>
-            <p class="omission-desc">Static takes, no dialogue. The surveillance camera's own logic, fixed, patient, recording, is turned first into irony, then into poetry.</p>
+            <p class="omission-desc">Static takes, no dialogue. The surveillance camera's own logic — fixed, patient, recording — is turned first into irony, then into poetry.</p>
           </div>
         </div>
       </div>
@@ -462,10 +455,10 @@
         <p>Every archive has limits. Part of being transparent about this project's methodology is naming what it cannot yet document, what it has chosen not to include, and what remains outside the frame of its current scope.</p>
 
         <ul class="gap-list">
-          <li data-marker="○">Five films in the archive, <em>Wajib</em>, <em>May in the Summer</em>, <em>The Teacher</em>, <em>All That's Left of You</em>, and <em>Pomegranates and Myrrh</em>, do not yet have completed close readings. Their inclusion as placeholders names the archive's incompleteness rather than concealing it.</li>
-          <li data-marker="○">The archive focuses on Palestinian women filmmakers, which means male directors whose work engages checkpoints, Elia Suleiman, Michel Khleifi, Hani Abu-Assad, appear only in supporting references rather than as primary subjects. That boundary is a methodological choice, not a claim that their work is less significant.</li>
-          <li data-marker="○">The Container checkpoint appears in the geographic archive without film cross-references beyond archive footage with dates TBD. Its inclusion marks a site of control that has not yet received the cinematic attention Qalandiya and Rachel have, which is itself analytically significant.</li>
-          <li data-marker="○">Documentary and social media documentation, including Bisan Owda's real-time witnessing, is referenced in the theoretical framework but not yet integrated as a formal archive category. The distinction between narrative film, documentary, and social media raises methodological questions the current archive does not fully resolve.</li>
+          <li data-marker="○">Five films in the archive — <em>Wajib</em>, <em>May in the Summer</em>, <em>The Teacher</em>, <em>All That's Left of You</em>, and <em>Pomegranates and Myrrh</em> — do not yet have completed close readings. Their inclusion as placeholders names the archive's incompleteness rather than concealing it.</li>
+          <li data-marker="○">The archive focuses on Palestinian women filmmakers, which means male directors whose work engages checkpoints — Elia Suleiman, Michel Khleifi, Hani Abu-Assad — appear only in supporting references rather than as primary subjects. That boundary is a methodological choice, not a claim that their work is less significant.</li>
+          <li data-marker="○">The Container checkpoint appears in the geographic archive without film cross-references beyond archive footage with dates TBD. Its inclusion marks a site of control that has not yet received the cinematic attention Qalandiya and Rachel have — which is itself analytically significant.</li>
+          <li data-marker="○">Documentary and social media documentation — including Bisan Owda's real-time witnessing — is referenced in the theoretical framework but not yet integrated as a formal archive category. The distinction between narrative film, documentary, and social media raises methodological questions the current archive does not fully resolve.</li>
           <li data-marker="○">The bilingual Arabic/English translation currently covers the Surveillance Space page. The rest of the site remains English-only, which contradicts the project's commitment to refusing a single language of legibility.</li>
         </ul>
       </div>
@@ -473,7 +466,7 @@
       <!-- SECTION 4: CLOSING -->
       <div class="closing-card">
         <p>The counter-surveillance filmmaker does not photograph occupation. She photographs life under it. And this archive does not map everything about Palestinian cinema or Palestinian space. It maps how Palestinian women filmmakers have insisted, across twenty-five years and across the specific geography of checkpoint sites, that Palestinian life exceeds the frame occupation tries to put around it.</p>
-        <p>What is not mapped here, the films not yet analyzed, the checkpoints not yet documented, the languages not yet supported, is not absence. It is the ongoing work of an archive that understands its own incompleteness as part of its argument. The project continues.</p>
+        <p>What is not mapped here — the films not yet analyzed, the checkpoints not yet documented, the languages not yet supported — is not absence. It is the ongoing work of an archive that understands its own incompleteness as part of its argument. The project continues.</p>
       </div>
 
     </div>
@@ -483,7 +476,7 @@
     © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
     <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
     <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
-    <a href="https://yourpersonalwebsite.com" target="_blank" rel="noopener" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Personal Website</a>
+    
   </footer>
   <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
@@ -517,13 +510,49 @@
     })();
   </script>
 
-  <figure class="quote-slide active" data-img="assets/images/cp6.jpg">
-    <blockquote class="quote-text">
-      The desire to express in an art form comes simply from a desire to compose an image for cinema. It is not my fault that when I go to Ramallah there is a checkpoint.
-    </blockquote>
-    <figcaption class="quote-author">Elia Suleiman</figcaption>
-  </figure>
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="">Home</a>
+      <a href="map.html" class="">Map</a>
+      <span class="mobile-nav-section-label">Archive</span>
+      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
+      <a href="analysis.html" class="archive-item">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item active">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item">Glossary</a>
+      <a href="about.html" class="">About</a>
+    </nav>
+  </div>
 
-  <hr class="section-divider">
+  <!-- MOBILE NAV JS -->
+  <script>
+    (function() {
+      var btn    = document.getElementById('navHamburger');
+      var nav    = document.getElementById('mobileNav');
+      var close  = document.getElementById('mobileNavClose');
+      if (!btn || !nav) return;
+      function openNav() {
+        nav.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeNav() {
+        nav.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', openNav);
+      if (close) close.addEventListener('click', closeNav);
+      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
+      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
+    })();
+  </script>
 </body>
 </html>

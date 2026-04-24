@@ -327,16 +327,47 @@
     .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
     .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
 
+
+    /* TERM CARDS (glossary preview on about page) */
+    .glossary-outer { display: flex; flex-direction: column; gap: 0.75rem; }
+    .term-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(111,231,193,0.08);
+      border-radius: 10px; padding: 1.3rem 1.6rem;
+      transition: border-color 0.22s, background 0.22s;
+    }
+    .term-card:hover { border-color: rgba(111,231,193,0.18); background: rgba(255,255,255,0.05); }
+    .term-card[data-cat="spatial"]     { border-left: 3px solid rgba(122,184,208,0.45); }
+    .term-card[data-cat="feminist"]    { border-left: 3px solid rgba(212,154,122,0.45); }
+    .term-card[data-cat="cinematic"]   { border-left: 3px solid rgba(111,231,193,0.45); }
+    .term-card[data-cat="political"]   { border-left: 3px solid rgba(196,168,122,0.45); }
+    .term-card[data-cat="theoretical"] { border-left: 3px solid rgba(192,154,192,0.45); }
+    .term-header { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+    .term-name { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 700; color: #e8f5f0; margin: 0; }
+    .term-category {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+      font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.18rem 0.6rem; border-radius: 20px; border: 1px solid;
+    }
+    .term-category.spatial     { border-color: rgba(122,184,208,0.4); color: #7ab8d0; }
+    .term-category.feminist    { border-color: rgba(212,154,122,0.4); color: #d49a7a; }
+    .term-category.cinematic   { border-color: rgba(111,231,193,0.35); color: var(--teal); }
+    .term-category.political   { border-color: rgba(196,168,122,0.4); color: #c4a87a; }
+    .term-category.theoretical { border-color: rgba(192,154,192,0.4); color: #c09ac0; }
+    .term-source { font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; font-weight: 300; color: rgba(232,245,240,0.28); font-style: italic; }
+    .term-def { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; line-height: 1.9; color: rgba(232,245,240,0.80); margin: 0; }
+
   </style>
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
-  <nav class="topnav">
+  <nav class="topnav" aria-label="Main navigation">
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
+        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
           <a href="checkpoints.html" class="nav-dropdown-item">
             <span class="nav-dropdown-item-title">Checkpoints</span>
@@ -358,10 +389,18 @@
             <span class="nav-dropdown-item-title">Glossary</span>
             <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
           </a>
+
+          <a href="glossary.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Glossary</span>
+            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
+          </a>
         </div>
       </div>
       <a href="about.html" class="active">About</a>
     </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <main>
@@ -378,16 +417,16 @@
       <div class="about-card gold-left">
         <span class="card-eyebrow">Project Summary</span>
         <h2 class="card-title">Cinematic <em>Counter-Cartographies</em></h2>
-        <p>This project maps how Palestinian women filmmakers, principally Mai Masri, Annemarie Jacir, and Farah Nabulsi, create counter-cartographies through their cinematic treatment of Israeli checkpoints and surveillance infrastructure. Drawing on films released between 2000 and 2025, it argues that film and literature function as complementary counter-cartographic methods: while film captures the materiality of carceral space through architecture, movement, framing, and sound design, literature maps what surveillance cannot document, the interior consciousness, embodied memory, and emotional labor that sustain Palestinian life under occupation.</p>
-        <p>Central to the project is the concept of <em>sumud</em>, Palestinian steadfastness and creative persistence, as both a lived philosophy and an analytical framework. The digital archive tracks how sumud operates not as passive endurance but as active spatial, temporal, and cinematic refusal.</p>
-        <p>Methodologically, this is a digital humanities project that combines close formal analysis of film and literary texts with counter-cartographic spatial theory. Each checkpoint functions as a case study: a site that can be mapped geographically, traced across the film archive, and analyzed for how different directors film the same space differently over time. The digital format allows those three registers, geography, archive, and analysis, to exist in conversation rather than in sequence.</p>
+        <p>This project maps how Palestinian women filmmakers — principally Mai Masri, Annemarie Jacir, and Farah Nabulsi — create counter-cartographies through their cinematic treatment of Israeli checkpoints and surveillance infrastructure. Drawing on films released between 2000 and 2025, it argues that film and literature function as complementary counter-cartographic methods: while film captures the materiality of carceral space through architecture, movement, framing, and sound design, literature maps what surveillance cannot document — the interior consciousness, embodied memory, and emotional labor that sustain Palestinian life under occupation.</p>
+        <p>Central to the project is the concept of <em>sumud</em> — Palestinian steadfastness and creative persistence — as both a lived philosophy and an analytical framework. The digital archive tracks how sumud operates not as passive endurance but as active spatial, temporal, and cinematic refusal.</p>
+        <p>Methodologically, this is a digital humanities project that combines close formal analysis of film and literary texts with counter-cartographic spatial theory. Each checkpoint functions as a case study: a site that can be mapped geographically, traced across the film archive, and analyzed for how different directors film the same space differently over time. The digital format allows those three registers — geography, archive, and analysis — to exist in conversation rather than in sequence.</p>
       </div>
 
       <!-- ABSTRACT -->
       <div class="about-card teal-left">
         <span class="card-eyebrow">Abstract</span>
         <h2 class="card-title"><em>Cinematic Counter-Cartographies</em></h2>
-        <p>This project maps how Palestinian women filmmakers, principally Mai Masri, Annemarie Jacir, and Farah Nabulsi, transform Israeli checkpoints and surveillance infrastructures into sites of cinematic resistance. Drawing on films released between 2000 and 2025, it argues that Palestinian cinema functions as counter-cartographic practice: refusing the spatial logic of occupation through formal strategies of framing, duration, ellipsis, and sound design. Central to the analysis is the concept of <em>sumud</em>, Palestinian steadfastness and creative persistence, as both a lived philosophy and an analytical framework. The digital archive maps five typologies of surveillance space across the cinematic record, demonstrating how feminist witnessing of carceral space prompts the generative imagination of Palestinian futures.</p>
+        <p>This project maps how Palestinian women filmmakers — principally Mai Masri, Annemarie Jacir, and Farah Nabulsi — transform Israeli checkpoints and surveillance infrastructures into sites of cinematic resistance. Drawing on films released between 2000 and 2025, it argues that Palestinian cinema functions as counter-cartographic practice: refusing the spatial logic of occupation through formal strategies of framing, duration, ellipsis, and sound design. Central to the analysis is the concept of <em>sumud</em> — Palestinian steadfastness and creative persistence — as both a lived philosophy and an analytical framework. The digital archive maps five typologies of surveillance space across the cinematic record, demonstrating how feminist witnessing of carceral space prompts the generative imagination of Palestinian futures.</p>
       </div>
 
       <!-- THEORETICAL FRAMEWORK -->
@@ -396,16 +435,16 @@
         <h2 class="card-title">Scholarly <em>Foundations</em></h2>
 
         <p style="font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);margin:0 0 0.6rem;">Counter-Cartography and the Production of Space</p>
-        <p>Henri Lefebvre's challenge to move beyond static definitions of space, to see it as a contested product of social relations and power, is foundational here. Palestinian artists are not only contesting space but creating new imaginaries and alternative forms of spatial knowledge that surveillance infrastructures cannot capture. De Certeau's complementary formulation that "what the map cuts up, the story cuts across" positions Palestinian film and literature as acts of spatial refusal: by refusing the spatial logics imposed by occupation, these artists narrate space differently, and the act of re-narration becomes a form of political resistance. Eyal Weizman's concept of the "politics of verticality" in <em>Hollow Land</em> extends this framework materially, theorizing how Israeli control operates three-dimensionally through checkpoint infrastructure, settlement patterns, and aerial surveillance.</p>
+        <p>Henri Lefebvre's challenge to move beyond static definitions of space — to see it as a contested product of social relations and power — is foundational here. Palestinian artists are not only contesting space but creating new imaginaries and alternative forms of spatial knowledge that surveillance infrastructures cannot capture. De Certeau's complementary formulation that "what the map cuts up, the story cuts across" positions Palestinian film and literature as acts of spatial refusal: by refusing the spatial logics imposed by occupation, these artists narrate space differently, and the act of re-narration becomes a form of political resistance. Eyal Weizman's concept of the "politics of verticality" in <em>Hollow Land</em> extends this framework materially, theorizing how Israeli control operates three-dimensionally through checkpoint infrastructure, settlement patterns, and aerial surveillance.</p>
 
         <p style="font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);margin:1.2rem 0 0.6rem;">Surveillance, Race, and the Gendered Gaze</p>
-        <p>Simone Browne's <em>Dark Matters</em> provides the critical lens for understanding how surveillance is always racialized and always gendered, operating differently on different bodies and creating blind spots precisely through those differences. Palestinians do not experience surveillance uniformly: their racialization under occupation produces different levels of scrutiny and forms of vulnerability, and these asymmetries are precisely what Palestinian women filmmakers make visible. Julie Peteet's <em>Space and Mobility in Palestine</em> centers the everyday Palestinian body, showing how the permit system, road closures, and checkpoints are designed to control Palestinian mobility, and through that control, Palestinian life. Peteet's concept of "carceral time", time weaponized through delay, is particularly important for understanding how Palestinian cinema uses duration as a formal argument.</p>
+        <p>Simone Browne's <em>Dark Matters</em> provides the critical lens for understanding how surveillance is always racialized and always gendered — operating differently on different bodies and creating blind spots precisely through those differences. Palestinians do not experience surveillance uniformly: their racialization under occupation produces different levels of scrutiny and forms of vulnerability, and these asymmetries are precisely what Palestinian women filmmakers make visible. Julie Peteet's <em>Space and Mobility in Palestine</em> centers the everyday Palestinian body, showing how the permit system, road closures, and checkpoints are designed to control Palestinian mobility — and through that control, Palestinian life. Peteet's concept of "carceral time" — time weaponized through delay — is particularly important for understanding how Palestinian cinema uses duration as a formal argument.</p>
 
         <p style="font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);margin:1.2rem 0 0.6rem;">Sumud: Steadfastness as Analytical Framework</p>
-        <p>Lena Meari's theorization of sumud is central to this project. For Meari, sumud is not passive endurance but active political confrontation, a "political being/becoming and continuous engagement with the flows and constraints of the colonial situation." Jane Busse advances this through her concept of "sumud as a spatial quotidian practice", showing how Palestinians generate alternative spatial knowledge simply by living and creating within occupied space. Saleem Haddad's three-part understanding of sumud, as record-keeping and revitalization, as bearing witness and collective memory, and as a radical and daring act of imagination, organizes the project's analytical framework. Palestinian women filmmakers do all three things simultaneously: they preserve, they witness, and they imagine.</p>
+        <p>Lena Meari's theorization of sumud is central to this project. For Meari, sumud is not passive endurance but active political confrontation — a "political being/becoming and continuous engagement with the flows and constraints of the colonial situation." Jane Busse advances this through her concept of "sumud as a spatial quotidian practice," showing how Palestinians generate alternative spatial knowledge simply by living and creating within occupied space. Saleem Haddad's three-part understanding of sumud — as record-keeping and revitalization, as bearing witness and collective memory, and as a radical and daring act of imagination — organizes the project's analytical framework. Palestinian women filmmakers do all three things simultaneously: they preserve, they witness, and they imagine.</p>
 
         <p style="font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);margin:1.2rem 0 0.6rem;">Feminist Witnessing</p>
-        <p>Maria Lugones' concept of faithful witnessing frames this project's feminist methodology. To witness faithfully is an active political commitment: standing with oppressed people against powerful institutions, recognizing resistance even when it goes against the grain of dominant common sense, and refusing the narrow worldview that siding with oppression demands. Yomaira Figueroa-Vásquez extends Lugones' thinking by showing how cultural production not only represents faithful witnessing but performs it, literature and film becoming sites where artists build counter-archival records that dominant systems are not structured to recognize. Nadera Shalhoub-Kevorkian's concept of "infiltrated intimacies" shifts the focus from visible militarized spaces into the deeply private zones of Palestinian women's lives, showing how occupation shapes daily routines, relationships, safety, and reproductive decisions. Because women inhabit these intimate spaces, they can witness from the inside, capturing forms of knowledge that neither counter-cartography nor the checkpoint camera can hold.</p>
+        <p>Maria Lugones' concept of faithful witnessing frames this project's feminist methodology. To witness faithfully is an active political commitment: standing with oppressed people against powerful institutions, recognizing resistance even when it goes against the grain of dominant common sense, and refusing the narrow worldview that siding with oppression demands. Yomaira Figueroa-Vásquez extends Lugones' thinking by showing how cultural production not only represents faithful witnessing but performs it — literature and film becoming sites where artists build counter-archival records that dominant systems are not structured to recognize. Nadera Shalhoub-Kevorkian's concept of "infiltrated intimacies" shifts the focus from visible militarized spaces into the deeply private zones of Palestinian women's lives, showing how occupation shapes daily routines, relationships, safety, and reproductive decisions. Because women inhabit these intimate spaces, they can witness from the inside — capturing forms of knowledge that neither counter-cartography nor the checkpoint camera can hold.</p>
       </div>
 
       <!-- RESEARCH QUESTIONS -->
@@ -414,7 +453,7 @@
         <h2 class="card-title">What This Research Asks</h2>
         <ul class="rq-list">
           <li data-num="01">How do camera angles refuse the surveillance gaze?</li>
-          <li data-num="02">What do ellipses and offscreen space keep from view, and why does that matter politically?</li>
+          <li data-num="02">What do ellipses and offscreen space keep from view — and why does that matter politically?</li>
           <li data-num="03">How does editing create a counternarrative to security footage?</li>
           <li data-num="04">What is the politics of what these filmmakers choose <em>not</em> to show?</li>
           <li data-num="05">How does feminist witnessing of carceral space prompt the imagination of Palestinian futures?</li>
@@ -423,7 +462,7 @@
 
       <!-- FELLOWSHIP + TIMELINE -->
       <div class="about-card gold-left">
-        <span class="card-eyebrow">CHI Fellowship, Michigan State University</span>
+        <span class="card-eyebrow">CHI Fellowship — Michigan State University</span>
         <h2 class="card-title">Fellowship <em>Details</em></h2>
         <div class="two-col">
           <div class="detail-block">
@@ -475,66 +514,64 @@
         </div>
       </div>
 
-      <!-- GLOSSARY SECTION -->
-      <section class="about-card teal-left" id="glossary-section" style="margin-top:3.5rem;">
+
+
+      <!-- GLOSSARY PREVIEW -->
+      <section class="about-card teal-left" id="glossary-section" style="margin-top:1rem;">
         <span class="card-eyebrow">Key Terms</span>
-        <h2 class="card-title">Glossary of Concepts</h2>
-        <p style="font-size:1.08rem;max-width:700px;">
-          Theoretical concepts, spatial frameworks, and critical vocabulary used across this archive. Hover over underlined terms in the analysis pages to see definitions in place. For the full interactive glossary, visit the <a href="glossary.html" style="color:var(--gold);text-decoration:underline;">Glossary page</a>.
-        </p>
-        <div class="glossary-outer" style="margin:2.5rem 0 0 0;max-width:800px;">
-          <div class="term-card" id="term-sumud" data-cat="theoretical">
+        <h2 class="card-title">Glossary of <em>Concepts</em></h2>
+        <p style="font-size:1.08rem;max-width:700px;margin-bottom:2rem;">Theoretical concepts, spatial frameworks, and critical vocabulary used across this archive. Hover over underlined terms in the analysis pages to see definitions in place. For the full interactive glossary, visit the <a href="glossary.html" style="color:var(--gold);text-decoration:underline;">Glossary page</a>.</p>
+        <div class="glossary-outer" style="max-width:820px;">
+          <div class="term-card" id="term-sumud-about" data-cat="theoretical">
             <div class="term-header">
               <h3 class="term-name">Sumud</h3>
               <span class="term-category theoretical">Theoretical</span>
               <span class="term-source">Meari; Busse; Haddad</span>
             </div>
-            <p class="term-def">Arabic: steadfastness, persistence, rootedness. Sumud emerged in the 1970s as a Palestinian philosophy of non-violent confrontation with occupation, describing both how Palestinians endure and how cultural work enacts that endurance. For Lena Meari, sumud is not passive but active: a "political being/becoming and continuous engagement with the flows and constraints of the colonial situation." Saleem Haddad identifies three registers of sumud: record-keeping and revitalization, bearing witness and collective memory, and radical imagination. Palestinian women filmmakers do all three simultaneously.</p>
+            <p class="term-def">Arabic: steadfastness, persistence, rootedness. Sumud is not passive endurance but active political confrontation — a "political being/becoming and continuous engagement with the flows and constraints of the colonial situation." Saleem Haddad identifies three registers: record-keeping, bearing witness, and radical imagination. Palestinian women filmmakers do all three simultaneously.</p>
           </div>
-          <div class="term-card" id="term-counter-cartography" data-cat="spatial">
+          <div class="term-card" id="term-counter-cart-about" data-cat="spatial">
             <div class="term-header">
               <h3 class="term-name">Counter-Cartography</h3>
               <span class="term-category spatial">Spatial</span>
               <span class="term-source">de Certeau; Lefebvre</span>
             </div>
-            <p class="term-def">The practice of representing space in ways that refuse or contest official cartographic power. De Certeau writes that "what the map cuts up, the story cuts across" — the map produces space as administered and controlled, while narrative and film can substitute an embodied, relational, lived geography. Palestinian cultural production is counter-cartographic insofar as it narrates the land from within rather than surveying it from above.</p>
+            <p class="term-def">Representing space in ways that refuse official cartographic power. De Certeau: "what the map cuts up, the story cuts across." Palestinian film narrates the land from within rather than surveying it from above.</p>
           </div>
-          <div class="term-card" id="term-carceral-continuum" data-cat="political">
+          <div class="term-card" id="term-carceral-about" data-cat="political">
             <div class="term-header">
               <h3 class="term-name">Carceral Continuum</h3>
               <span class="term-category political">Political</span>
               <span class="term-source">Gilmore; Shalhoub-Kevorkian</span>
             </div>
-            <p class="term-def">The understanding that carceral logic does not confine itself to prisons or checkpoints but infiltrates domestic, intimate, and bodily space. Occupation enters the home through night raids, surveillance of family members, and the impossibility of family reunification. The carceral is not a discrete institution but a continuous atmosphere that reorganizes all of life.</p>
+            <p class="term-def">Carceral logic does not confine itself to prisons or checkpoints but infiltrates domestic, intimate, and bodily space. The carceral is not a discrete institution but a continuous atmosphere that reorganizes all of life.</p>
           </div>
-          <div class="term-card" id="term-ellipsis" data-cat="cinematic">
+          <div class="term-card" id="term-ellipsis-about" data-cat="cinematic">
             <div class="term-header">
               <h3 class="term-name">Ellipsis</h3>
               <span class="term-category cinematic">Cinematic</span>
               <span class="term-source">Film studies; project framework</span>
             </div>
-            <p class="term-def">A cut that omits — deliberately skipping over a moment rather than showing it. In the context of Palestinian cinema, ellipsis is a political choice: withholding the moment of violation, the soldier's aggression, or the body's humiliation refuses to give those acts the image they would want. Ellipsis protects subjects from becoming spectacle while still acknowledging that something has happened.</p>
+            <p class="term-def">A cut that omits — deliberately skipping over a moment. In Palestinian cinema, ellipsis protects subjects from becoming spectacle while still acknowledging that something has happened.</p>
           </div>
-          <div class="term-card" id="term-faithful-witnessing" data-cat="feminist">
+          <div class="term-card" id="term-faithful-about" data-cat="feminist">
             <div class="term-header">
               <h3 class="term-name">Faithful Witnessing</h3>
               <span class="term-category feminist">Feminist</span>
               <span class="term-source">Lugones, Pilgrimages/Peregrinajes</span>
             </div>
-            <p class="term-def">An active political commitment to recognizing resistance even when it goes against dominant common sense, and refusing to align with oppression. Lugones frames faithful witnessing not as passive observation but as a practice of standing with oppressed people, interpreting behavior as resistant even when that interpretation is dangerous or uncomfortable. For Palestinian women artists, faithful witnessing becomes deeply spatial — attending to everything surveillance tries to erase.</p>
+            <p class="term-def">An active political commitment to recognizing resistance even when it goes against dominant common sense. For Palestinian women artists, faithful witnessing becomes deeply spatial — attending to everything surveillance tries to erase.</p>
           </div>
-          <div class="term-card" id="term-politics-of-verticality" data-cat="spatial">
+          <div class="term-card" id="term-verticality-about" data-cat="spatial">
             <div class="term-header">
               <h3 class="term-name">Politics of Verticality</h3>
               <span class="term-category spatial">Spatial</span>
               <span class="term-source">Weizman, Hollow Land (2012)</span>
             </div>
-            <p class="term-def">Eyal Weizman's concept describing how Israeli control operates three-dimensionally — fragmenting Palestinian space not just along horizontal borders but through the management of airspace, underground tunnels, and the elevation differentials between settlements and villages. The checkpoint embodies the politics of verticality in miniature: its watchtowers, elevated observation posts, and overhead cameras organize space as a hierarchy of visibility, with Israelis looking down and Palestinians looking up.</p>
+            <p class="term-def">Weizman: Israeli control operates three-dimensionally through airspace, tunnels, and elevation differentials. The checkpoint embodies verticality in miniature — watchtowers and overhead cameras organize space as a hierarchy of visibility.</p>
           </div>
         </div>
-        <p style="margin-top:2.5rem;font-size:1rem;color:rgba(232,245,240,0.7);">
-          For more terms and full definitions, see the <a href="glossary.html" style="color:var(--gold);text-decoration:underline;">complete glossary</a>.
-        </p>
+        <p style="margin-top:2rem;font-size:1rem;color:rgba(232,245,240,0.65);">For more terms and full definitions, see the <a href="glossary.html" style="color:var(--gold);text-decoration:underline;">complete glossary</a>.</p>
       </section>
 
     </div>
@@ -544,7 +581,7 @@
     © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
     <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
     <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
-    <a href="https://yourpersonalwebsite.com" target="_blank" rel="noopener" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Personal Website</a>
+    
   </footer>
   <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
@@ -554,7 +591,7 @@
     });
     document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   
-    // Archive dropdown, click toggle for mobile, hover handles desktop
+    // Archive dropdown — click toggle for mobile, hover handles desktop
     (function() {
       var trigger = document.querySelector('.nav-dropdown-trigger');
       var dropdown = document.querySelector('.nav-dropdown');
@@ -575,6 +612,51 @@
           trigger.setAttribute('aria-expanded', 'false');
         }
       });
+    })();
+  </script>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="">Home</a>
+      <a href="map.html" class="">Map</a>
+      <span class="mobile-nav-section-label">Archive</span>
+      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
+      <a href="analysis.html" class="archive-item">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
+      <a href="about.html" class="active">About</a>
+      <a href="glossary.html">Glossary</a>
+    </nav>
+  </div>
+
+  <!-- MOBILE NAV JS -->
+  <script>
+    (function() {
+      var btn    = document.getElementById('navHamburger');
+      var nav    = document.getElementById('mobileNav');
+      var close  = document.getElementById('mobileNavClose');
+      if (!btn || !nav) return;
+      function openNav() {
+        nav.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeNav() {
+        nav.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', openNav);
+      if (close) close.addEventListener('click', closeNav);
+      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
+      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
     })();
   </script>
 </body>
