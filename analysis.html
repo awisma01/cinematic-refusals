@@ -148,8 +148,18 @@
     }
     .film-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
+    }
+    @media (max-width: 1000px) {
+      .film-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .film-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* FILM CARD */
@@ -604,7 +614,31 @@
       <div class="film-grid">
 
         <div class="film-card">
-          <img class="film-card-img" src="assets/images/salt.jpg" alt="Salt of This Sea poster">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/salt.jpg">
+                <source src="assets/videos/saltvideo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;">
+                <source src="assets/videos/saltvideo2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;">
+                <source src="assets/videos/saltvideo3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators">
+                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+                <span class="carousel-dot" style="color:#888;">●</span>
+                <span class="carousel-dot" style="color:#888;">●</span>
+              </span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
           <div class="film-card-body">
             <p class="film-card-badge">Annemarie Jacir</p>
             <h3 class="film-card-title">Salt of This Sea</h3>
@@ -613,6 +647,68 @@
             <button class="film-card-btn"
               data-popup-title="Salt of This Sea — Analysis"
               data-popup="
+<style>
+  .carousel-responsive {
+    max-width: 700px;
+    margin: 0 auto 1.2rem;
+  }
+  .carousel-responsive .carousel-track {
+    width: 100%;
+  }
+  .carousel-responsive .carousel-item {
+    width: 100%;
+    max-height: 400px;
+    min-height: 220px;
+    object-fit: contain;
+    background: #000;
+    display: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  }
+  .carousel-responsive .carousel-item.active {
+    display: block;
+  }
+  .carousel-responsive .carousel-controls {
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  .carousel-responsive .carousel-dot {
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin: 0 0.18em;
+    transition: color 0.2s;
+  }
+  @media (max-width: 800px) {
+    .modal { max-width: 98vw !important; }
+    .carousel-responsive { max-width: 98vw; }
+    .carousel-responsive .carousel-item { max-height: 240px; }
+  }
+</style>
+<div class='carousel-responsive carousel'>
+  <div class='carousel-track'>
+    <video class='carousel-item active' controls poster='assets/images/salt.jpg'>
+      <source src='assets/videos/saltvideo.mp4' type='video/mp4'>
+      Your browser does not support the video tag.
+    </video>
+    <video class='carousel-item' controls poster='assets/images/salt.jpg'>
+      <source src='assets/videos/saltvideo2.mp4' type='video/mp4'>
+      Your browser does not support the video tag.
+    </video>
+    <video class='carousel-item' controls poster='assets/images/salt.jpg'>
+      <source src='assets/videos/saltvideo3.mp4' type='video/mp4'>
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class='carousel-controls'>
+    <button type='button' class='carousel-prev' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;' aria-label='Previous'>&#8592;</button>
+    <span class='carousel-indicators'>
+      <span class='carousel-dot' style='color:#e6a93a;'>●</span>
+      <span class='carousel-dot' style='color:#888;'>●</span>
+      <span class='carousel-dot' style='color:#888;'>●</span>
+    </span>
+    <button type='button' class='carousel-next' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;' aria-label='Next'>&#8594;</button>
+  </div>
+</div>
 <p><strong>Salt of This Sea / Annemarie Jacir / 2008</strong></p>
 <p><em>Checkpoint Coverage: 2 of 4</em></p>
 <p>Annemarie Jacir's <em>Salt of This Sea</em> broadens the checkpoint film frame by extending into the entire West Bank landscape rather than isolating a single barrier. The film revolves around Soraya, a Palestinian-American visitor, and Emad, whose movement is restricted by his West Bank ID — making the mobility hierarchy Julie Peteet theorizes immediately visible. Although they travel together, their experiences differ entirely depending on documentation and gender.</p>
@@ -624,7 +720,21 @@
         </div>
 
         <div class="film-card">
-          <img class="film-card-img" src="assets/images/present.jpg" alt="The Present poster" onerror="this.src='https://picsum.photos/seed/present/400/600'">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/present.jpg">
+                <source src="assets/videos/presentclip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators">
+                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+              </span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
           <div class="film-card-body">
             <p class="film-card-badge">Farah Nablusi</p>
             <h3 class="film-card-title">The Present</h3>
@@ -645,7 +755,21 @@
         </div>
 
         <div class="film-card">
-          <img class="film-card-img" src="assets/images/when.jpeg" alt="When I Saw You poster" onerror="this.src='https://picsum.photos/seed/when/400/600'">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/when.jpeg">
+                <source src="assets/videos/whenclip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators">
+                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+              </span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
           <div class="film-card-body">
             <p class="film-card-badge">Annemarie Jacir</p>
             <h3 class="film-card-title">When I Saw You</h3>
@@ -665,11 +789,31 @@
         </div>
 
         <div class="film-card">
-          <!-- Replace image with video for 3000 Nights -->
-          <video class="film-card-img" controls poster="assets/images/3000_Nights.jpg" style="width:100%;height:200px;object-fit:cover;object-position:center;background:rgba(0,0,0,0.3);display:block;">
-            <source src="assets/videos/3000nightsclip.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/3000_Nights.jpg">
+                <source src="assets/videos/3000nightsclip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights2.jpg" style="display:none;">
+                <source src="assets/videos/3000nightsclip2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights3.jpg" style="display:none;">
+                <source src="assets/videos/3000nightsclip3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators">
+                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+                <span class="carousel-dot" style="color:#888;">●</span>
+                <span class="carousel-dot" style="color:#888;">●</span>
+              </span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
           <div class="film-card-body">
             <p class="film-card-badge">Mai Masri</p>
             <h3 class="film-card-title">3000 Nights</h3>
@@ -752,7 +896,21 @@
 </button>
 
         <div class="film-card">
-          <img class="film-card-img" src="assets/images/teacher.jpeg" alt="The Teacher poster" onerror="this.src='https://picsum.photos/seed/teacher/400/600'">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/teacher.jpeg">
+                <source src="assets/videos/teacherclip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators">
+                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+              </span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
           <div class="film-card-body">
             <p class="film-card-badge">Farah Nablusi</p>
             <h3 class="film-card-title">The Teacher</h3>
@@ -765,7 +923,21 @@
         </div>
 
         <div class="film-card">
-          <img class="film-card-img" src="assets/images/wajib.jpg" alt="Wajib poster" onerror="this.src='https://picsum.photos/seed/wajib/400/600'">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/wajib.jpg">
+                <source src="assets/videos/wajibclip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators">
+                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+              </span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
           <div class="film-card-body">
             <p class="film-card-badge">Annemarie Jacir</p>
             <h3 class="film-card-title">Wajib</h3>
@@ -778,7 +950,21 @@
         </div>
 
         <div class="film-card">
-          <img class="film-card-img" src="assets/images/may.jpg" alt="May in the Summer poster" onerror="this.src='https://picsum.photos/seed/may/400/600'">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/may.jpg">
+                <source src="assets/videos/mayclip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators">
+                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+              </span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
           <div class="film-card-body">
             <p class="film-card-badge">Annemarie Jacir</p>
             <h3 class="film-card-title">May in the Summer</h3>
@@ -791,7 +977,21 @@
         </div>
 
         <div class="film-card">
-          <img class="film-card-img" src="assets/images/left.jpeg" alt="All That's Left of You poster" onerror="this.src='https://picsum.photos/seed/left/400/600'">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/left.jpeg">
+                <source src="assets/videos/leftclip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators">
+                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+              </span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
           <div class="film-card-body">
             <p class="film-card-badge">Cherien Dabis</p>
             <h3 class="film-card-title">All That's Left of You</h3>
@@ -804,7 +1004,21 @@
         </div>
 
         <div class="film-card">
-          <img class="film-card-img" src="assets/images/pom.jpg" alt="Pomegranates and Myrrh poster" onerror="this.src='https://picsum.photos/seed/pom/400/600'">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/pom.jpg">
+                <source src="assets/videos/pomclip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators">
+                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+              </span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
           <div class="film-card-body">
             <p class="film-card-badge">Najwa Najjar</p>
             <h3 class="film-card-title">Pomegranates and Myrrh</h3>
