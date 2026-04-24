@@ -733,8 +733,8 @@
 
     <!-- QUOTE CAROUSEL -->
     <section class="quote-carousel" style="position:relative;z-index:1;">
-      <button class="carousel-nav prev" id="quote-prev" aria-label="Previous quote">‹</button>
-      <button class="carousel-nav next" id="quote-next" aria-label="Next quote">›</button>
+      <button class="carousel-nav prev" id="quote-prev" aria-label="Previous quote"><span aria-hidden="true">‹</span></button>
+      <button class="carousel-nav next" id="quote-next" aria-label="Next quote"><span aria-hidden="true">›</span></button>
       <div class="carousel-content">
         <div class="carousel-image">
           <img id="quote-image" src="assets/images/checkp1.jpg" alt="Quote illustration">
@@ -798,20 +798,22 @@
       <p class="spotlight-eyebrow">Featured Film</p>
       <div class="spotlight-card">
         <div class="spotlight-image">
-          <img src="assets/images/present.jpg" alt="The Present — Farah Nabulsi, 2020" onerror="this.src='https://picsum.photos/seed/present/900/600'">
+          <img src="assets/images/3000nights.jpg" alt="3000 Nights, Mai Masri, 2015" onerror="this.src='https://picsum.photos/seed/3000nights/900/600'">
           <div class="spotlight-overlay">
-            <span class="spotlight-year">2020</span>
+            <span class="spotlight-year">2015</span>
           </div>
         </div>
         <div class="spotlight-content">
-          <p class="spotlight-director">Farah Nabulsi</p>
-          <h2 class="spotlight-title">The Present</h2>
-          <p class="spotlight-body">A father and daughter attempt to cross Checkpoint 300 to buy an anniversary gift. What should take minutes stretches across an entire day. Nabulsi compresses the spatial logic of occupation into a single ordinary errand — showing how a checkpoint can swallow a life, one hour at a time.</p>
+          <p class="spotlight-director">Mai Masri</p>
+          <h2 class="spotlight-title">3000 Nights</h2>
+          <p class="spotlight-body">
+            Imprisoned on false charges, a young Palestinian schoolteacher gives birth to her son in an Israeli prison. As she navigates the carceral system, her story becomes one of resistance, solidarity, and survival under occupation. Masri’s film explores the carceral continuum—how the logic of the prison extends into the body, motherhood, and everyday life.
+          </p>
           <blockquote class="spotlight-quote">
-            "Sometimes what is not shown is as powerful as what is."
-            <cite>— Farah Nabulsi</cite>
+            "The carceral is not a discrete institution but a continuous atmosphere that reorganizes all of life."
+            <cite>— Ruth Wilson Gilmore</cite>
           </blockquote>
-          <a href="analysis.html" class="spotlight-btn">View Film Analysis →</a>
+          <a href="analysis.html#3000nights" class="spotlight-btn">View Film Analysis →</a>
         </div>
       </div>
     </section>
@@ -850,7 +852,7 @@
     <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
     
   </footer>
-  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+  <button id="scrollTopBtn" aria-label="Scroll to top"><span aria-hidden="true">↑</span></button>
 
   <script>
     window.addEventListener('scroll', () => {
@@ -920,7 +922,7 @@
   <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
     <div class="mobile-nav-header">
       <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
     </div>
     <nav class="mobile-nav-links">
       <a href="index.html" class="active">Home</a>

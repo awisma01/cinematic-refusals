@@ -190,7 +190,7 @@
       <p class="page-lead">Key sites of colonial control and their cinematic representations &#8212; each checkpoint a case study in resistance and refusal.</p>
     </section>
 
-    <nav aria-label="Breadcrumb" class="breadcrumb-nav" style="max-width:1200px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;">
+    <nav aria-label="Breadcrumb" role="navigation" class="breadcrumb-nav" style="max-width:1200px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;">
       <ol style="list-style:none;display:flex;gap:0.5em;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:rgba(232,245,240,0.4);padding:0;margin:0;align-items:center;">
         <li><a href="index.html" style="color:var(--teal);text-decoration:none;">Home</a></li>
         <li style="margin:0 0.3em;opacity:0.4;">/</li>
@@ -274,7 +274,7 @@
           <span class="modal-eyebrow">Checkpoint Case Study</span>
           <h3 id="modalTitle"></h3>
         </div>
-        <button class="close" aria-label="Close modal">&times;</button>
+        <button class="close" aria-label="Close modal"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body" id="modalBody"></div>
     </div>
@@ -286,7 +286,7 @@
     <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
     
   </footer>
-  <button id="scrollTopBtn" aria-label="Scroll to top">&#8593;</button>
+  <button id="scrollTopBtn" aria-label="Scroll to top"><span aria-hidden="true">&#8593;</span></button>
 
   <script>
     window.addEventListener('scroll', () => {
@@ -324,7 +324,7 @@
         '<img src="' + src + '" alt="Checkpoint photo ' + (i+1) + '" class="carousel-img' + (i===0?' active':'') + '" onerror="this.style.display=\'none\'">'
       ).join('');
       const nav = multi
-        ? '<button class="carousel-btn prev" aria-label="Previous photo">&#8249;</button><button class="carousel-btn next" aria-label="Next photo">&#8250;</button>'
+        ? '<button class="carousel-btn prev" aria-label="Previous photo"><span aria-hidden="true">&#8249;</span></button><button class="carousel-btn next" aria-label="Next photo"><span aria-hidden="true">&#8250;</span></button>'
         : '';
       const dots = multi
         ? '<div class="carousel-dots">' + images.map(function(_,i){ return '<button class="carousel-dot' + (i===0?' active':'') + '" aria-label="Photo ' + (i+1) + '"></button>'; }).join('') + '</div>'
@@ -407,7 +407,7 @@
   <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
     <div class="mobile-nav-header">
       <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
     </div>
     <nav class="mobile-nav-links">
       <a href="index.html" class="">Home</a>

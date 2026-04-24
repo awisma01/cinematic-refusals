@@ -320,6 +320,11 @@
       .map-legend { bottom: 10px; left: 10px; }
       .cp-popup { width: 260px; }
     }
+
+    /* Add this to your CSS */
+    .mapboxgl-marker > div {
+      transform: translate(-50%, -50%);
+    }
   </style>
   <link rel="stylesheet" href="css/mobile.css">
 </head>
@@ -496,7 +501,7 @@
 
     checkpoints.forEach((cp, idx) => {
       const el = document.createElement('div');
-      el.style.cssText = 'width:60px;height:60px;cursor:pointer;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6));transition:transform 0.2s ease;';
+      el.style.cssText = 'width:60px;height:60px;cursor:pointer;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6));transition:transform 0.2s ease;transform:translate(-50%, -50%);';
       el.innerHTML = `<svg width="60" height="60" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="15" y="18" width="8" height="12" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
         <rect x="13" y="13" width="12" height="6" rx="2" fill="#e6a93a" stroke="#b94e3a" stroke-width="1.2"/>
@@ -665,7 +670,7 @@
   <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
     <div class="mobile-nav-header">
       <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">&times;</button>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
     </div>
     <nav class="mobile-nav-links">
       <a href="index.html" class="">Home</a>
