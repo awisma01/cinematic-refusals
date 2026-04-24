@@ -681,6 +681,52 @@
     .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
     .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
 
+    /* OLIVE SVG DEFINITION (hidden, for reuse) */
+    #olive-svg-def {
+      display:none;
+    }
+    #olive-icon {
+      viewBox: 0 0 64 64;
+    }
+    #olive-icon ellipse {
+      fill: #7a8450;
+      stroke: #4e5a2e;
+      stroke-width: 3;
+    }
+    #olive-icon ellipse:nth-child(2) {
+      fill: #b3bc7c;
+      fill-opacity: 0.7;
+    }
+    #olive-icon path {
+      stroke: #4e5a2e;
+      stroke-width: 3;
+      fill: none;
+    }
+
+    /* DYNAMIC OLIVES (decorative, animated) */
+    #olive-decor {
+      pointer-events: none;
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+    }
+    .olive-float {
+      position: absolute;
+      opacity: 0.18;
+      filter: blur(0.5px) drop-shadow(0 2px 8px #4e5a2e33);
+      animation: oliveFloat 18s linear infinite;
+      will-change: transform;
+    }
+    .olive-float-1 { left: 7vw; top: 18vh; animation-delay: 0s; }
+    .olive-float-2 { right: 10vw; top: 32vh; animation-delay: 4s; }
+    .olive-float-4 { right: 4vw; bottom: 18vh; animation-delay: 12s; }
+
+    @keyframes oliveFloat {
+      0%   { transform: translateY(0) rotate(0deg) scale(1);}
+      50%  { transform: translateY(-30px) rotate(10deg) scale(1.08);}
+      100% { transform: translateY(0) rotate(0deg) scale(1);}
+    }
+
   </style>
   <link rel="stylesheet" href="css/mobile.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='32' cy='38' rx='18' ry='24' fill='%237a8450' stroke='%234e5a2e' stroke-width='3'/%3E%3Cellipse cx='38' cy='28' rx='4' ry='10' fill='%23b3bc7c' fill-opacity='0.7'/%3E%3Cpath d='M32 14 Q34 8 44 8' stroke='%234e5a2e' stroke-width='3' fill='none'/%3E%3C/svg%3E">
@@ -846,6 +892,30 @@
       </div>
     </section>
   </main>
+
+  <!-- OLIVE SVG DEFINITION (hidden, for reuse) -->
+  <svg id="olive-svg-def" style="display:none;" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="olive-icon" viewBox="0 0 64 64">
+      <!-- Main olive -->
+      <ellipse cx="32" cy="38" rx="18" ry="24" fill="#7a8450" stroke="#4e5a2e" stroke-width="3"/>
+      <ellipse cx="38" cy="28" rx="4" ry="10" fill="#b3bc7c" fill-opacity="0.7"/>
+      <path d="M32 14 Q34 8 44 8" stroke="#4e5a2e" stroke-width="3" fill="none"/>
+      <!-- Short branch -->
+      <path d="M32 14 Q28 6 18 10" stroke="#4e5a2e" stroke-width="2.2" fill="none"/>
+      <!-- Leaf -->
+      <ellipse cx="14" cy="8" rx="7" ry="3" fill="#8fa96b" stroke="#4e5a2e" stroke-width="1.2" transform="rotate(-18 14 8)"/>
+      <!-- Second olive (smaller, on branch) -->
+      <ellipse cx="20" cy="12" rx="5" ry="7" fill="#7a8450" stroke="#4e5a2e" stroke-width="1.5" transform="rotate(-12 20 12)"/>
+      <ellipse cx="22" cy="10" rx="1.2" ry="2.5" fill="#b3bc7c" fill-opacity="0.7" transform="rotate(-12 22 10)"/>
+    </symbol>
+  </svg>
+
+  <!-- DYNAMIC OLIVES (decorative, animated) -->
+  <div id="olive-decor">
+    <svg class="olive-float olive-float-1" width="48" height="48"><use href="#olive-icon"/></svg>
+    <svg class="olive-float olive-float-2" width="36" height="36"><use href="#olive-icon"/></svg>
+    <svg class="olive-float olive-float-4" width="32" height="32"><use href="#olive-icon"/></svg>
+  </div>
 
   <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
     © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
