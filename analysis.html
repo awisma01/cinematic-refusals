@@ -90,7 +90,7 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.75rem; letter-spacing: 0.35em;
       text-transform: uppercase; color: var(--teal);
-      <span class="gloss-term" tabindex="0">opacity<span class="gloss-tooltip"><span class="gloss-tooltip-term">opacity</span><span class="gloss-tooltip-def">Glissant: the ethical claim that not all lives need to be transparent to power. The right to refuse being made fully readable and controllable.</span><a class="gloss-tooltip-link" href="glossary.html#term-opacity">Full definition &rarr;</a></span></span>: 0.7; margin: 0 0 1.2rem;
+      opacity: 0.7; margin: 0 0 1.2rem;
     }
     .page-title {
       font-family: 'Cormorant Garamond', serif;
@@ -106,7 +106,6 @@
       margin: 1.5rem auto;
     }
 
-    /* FIX 1 — Page lead: opacity 0.55 → 0.70 (was 4.00:1, now passes AA) */
     .page-lead {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem; font-style: italic;
@@ -152,14 +151,10 @@
       gap: 1.5rem;
     }
     @media (max-width: 1000px) {
-      .film-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .film-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 600px) {
-      .film-grid {
-        grid-template-columns: 1fr;
-      }
+      .film-grid { grid-template-columns: 1fr; }
     }
 
     /* FILM CARD */
@@ -190,7 +185,6 @@
       display: flex; flex-direction: column; flex: 1;
     }
 
-    /* FIX 2 — Badge: drop opacity, use #f0b84a (lighter gold that passes AA on card bg) */
     .film-card-badge {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.7rem; letter-spacing: 0.15em;
@@ -205,7 +199,6 @@
       color: #e8f5f0; margin: 0 0 0.4rem;
     }
 
-    /* FIX 3 — Meta year: opacity 0.35 → 0.70 (was 2.06:1 hard fail, now 7.49:1) */
     .film-card-meta {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.75rem; font-weight: 300;
@@ -213,7 +206,6 @@
       margin: 0 0 1rem;
     }
 
-    /* FIX 4 — Coverage: opacity 0.50 → 0.72 (was 3.13:1 large-only, now passes AA) */
     .film-card-coverage {
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.95rem; font-style: italic;
@@ -237,6 +229,27 @@
     .film-card-btn:hover {
       background: rgba(230,169,58,0.12);
       border-color: var(--gold); color: var(--gold);
+    }
+
+    /* CAROUSEL */
+    .carousel-responsive { max-width: 700px; margin: 0 auto 1.2rem; }
+    .carousel-responsive .carousel-track { width: 100%; }
+    .carousel-responsive .carousel-item {
+      width: 100%; max-height: 400px; min-height: 220px;
+      object-fit: contain; background: #000;
+      display: none; border-radius: 10px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    }
+    .carousel-responsive .carousel-item.active { display: block; }
+    .carousel-responsive .carousel-controls { text-align: center; margin-top: 0.5rem; }
+    .carousel-responsive .carousel-dot {
+      font-size: 1.2rem; cursor: pointer;
+      margin: 0 0.18em; transition: color 0.2s;
+    }
+    @media (max-width: 800px) {
+      .modal { max-width: 98vw !important; }
+      .carousel-responsive { max-width: 98vw; }
+      .carousel-responsive .carousel-item { max-height: 240px; }
     }
 
     /* MODAL */
@@ -380,45 +393,32 @@
     }
     #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
 
-
-    /* ── GLOSSARY TOOLTIPS ── */
+    /* GLOSSARY TOOLTIPS */
     .gloss-term {
       border-bottom: 1px dotted rgba(230,169,58,0.6);
-      color: inherit;
-      cursor: help;
-      position: relative;
-      text-decoration: none;
-      transition: border-color 0.2s;
+      color: inherit; cursor: help; position: relative;
+      text-decoration: none; transition: border-color 0.2s;
     }
     .gloss-term:hover { border-bottom-color: var(--gold); }
     .gloss-tooltip {
-      position: absolute;
-      bottom: calc(100% + 10px);
+      position: absolute; bottom: calc(100% + 10px);
       left: 50%; transform: translateX(-50%);
-      width: 280px;
-      background: #0a1e1b;
+      width: 280px; background: #0a1e1b;
       border: 1px solid rgba(230,169,58,0.3);
-      border-radius: 10px;
-      padding: 1rem 1.1rem;
-      z-index: 9000;
-      opacity: 0;
-      pointer-events: none;
+      border-radius: 10px; padding: 1rem 1.1rem;
+      z-index: 9000; opacity: 0; pointer-events: none;
       transition: opacity 0.2s ease, transform 0.2s ease;
       transform: translateX(-50%) translateY(4px);
       box-shadow: 0 12px 36px rgba(0,0,0,0.55);
     }
     .gloss-term:hover .gloss-tooltip,
     .gloss-term:focus .gloss-tooltip {
-      opacity: 1;
-      pointer-events: auto;
+      opacity: 1; pointer-events: auto;
       transform: translateX(-50%) translateY(0);
     }
-    /* Arrow */
     .gloss-tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%; left: 50%;
-      transform: translateX(-50%);
+      content: ''; position: absolute;
+      top: 100%; left: 50%; transform: translateX(-50%);
       border: 6px solid transparent;
       border-top-color: rgba(230,169,58,0.3);
     }
@@ -438,11 +438,9 @@
       font-family: 'Oswald', sans-serif;
       font-size: 0.65rem; font-weight: 500;
       letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--teal); text-decoration: none;
-      transition: color 0.15s;
+      color: var(--teal); text-decoration: none; transition: color 0.15s;
     }
     .gloss-tooltip-link:hover { color: var(--gold); }
-    /* Keep tooltip visible on narrow viewports */
     @media (max-width: 600px) {
       .gloss-tooltip { width: 220px; left: 0; transform: none; }
       .gloss-tooltip::after { left: 20px; }
@@ -459,21 +457,8 @@
       .page-hero { padding: 3.5rem 1rem 2.5rem; }
     }
 
-    .cp-film-list li::before {
-      content: '—';
-      color: var(--gold);
-      opacity: 0.85;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-right: 0.4em;
-    }
-
     /* NAV DROPDOWN */
-    .nav-dropdown {
-      position: relative;
-      display: inline-block;
-    }
+    .nav-dropdown { position: relative; display: inline-block; }
     .nav-dropdown-trigger {
       color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
       padding: 0.55rem 1rem; border-radius: 6px;
@@ -483,53 +468,36 @@
       display: flex; align-items: center; gap: 0.35rem;
       cursor: pointer; white-space: nowrap;
     }
-    .nav-dropdown-trigger:hover,
-    .nav-dropdown-trigger.active {
+    .nav-dropdown-trigger:hover, .nav-dropdown-trigger.active {
       background: rgba(230,169,58,0.2); color: var(--gold);
     }
     .nav-dropdown-arrow {
       font-size: 0.65rem; opacity: 0.7;
-      transition: transform 0.25s ease;
-      display: inline-block;
+      transition: transform 0.25s ease; display: inline-block;
     }
     .nav-dropdown.open .nav-dropdown-arrow,
-    .nav-dropdown:hover .nav-dropdown-arrow {
-      transform: rotate(180deg);
-    }
+    .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(180deg); }
     .nav-dropdown-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      min-width: 260px;
-      background: rgba(8,28,26,0.98);
-      border: 1px solid rgba(230,169,58,0.25);
-      border-radius: 12px;
-      padding: 0.5rem;
-      opacity: 0;
-      pointer-events: none;
+      position: absolute; top: calc(100% + 8px); right: 0;
+      min-width: 260px; background: rgba(8,28,26,0.98);
+      border: 1px solid rgba(230,169,58,0.25); border-radius: 12px;
+      padding: 0.5rem; opacity: 0; pointer-events: none;
       transform: translateY(-8px);
       transition: opacity 0.22s ease, transform 0.22s ease;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.55);
-      z-index: 9999;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.55); z-index: 9999;
     }
     .nav-dropdown.open .nav-dropdown-menu,
     .nav-dropdown:hover .nav-dropdown-menu {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
+      opacity: 1; pointer-events: auto; transform: translateY(0);
     }
     .nav-dropdown-item {
       display: flex; flex-direction: column; gap: 0.22rem;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.18s ease;
+      padding: 0.8rem 1rem; border-radius: 8px;
+      text-decoration: none; transition: background 0.18s ease;
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .nav-dropdown-item:last-child { border-bottom: none; }
-    .nav-dropdown-item:hover, .nav-dropdown-item.active {
-      background: rgba(230,169,58,0.1);
-    }
+    .nav-dropdown-item:hover, .nav-dropdown-item.active { background: rgba(230,169,58,0.1); }
     .nav-dropdown-item-title {
       font-family: 'Oswald', sans-serif;
       font-size: 0.88rem; font-weight: 500;
@@ -543,24 +511,23 @@
     }
     .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
     .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
-
   </style>
   <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
   <nav class="topnav" aria-label="Main navigation">
-    <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
+    <a href="index.html" class="brand">Cinematic Counter&#8209;Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
         <div class="nav-dropdown-menu">
           <a href="checkpoints.html" class="nav-dropdown-item">
             <span class="nav-dropdown-item-title">Checkpoints</span>
             <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
           </a>
-          <a href="analysis.html" class="active" class="nav-dropdown-item">
+          <a href="analysis.html" class="nav-dropdown-item active">
             <span class="nav-dropdown-item-title">Visual Analysis</span>
             <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
           </a>
@@ -601,7 +568,7 @@
       </ol>
     </nav>
 
-    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.25);margin:0 0 0.5rem;position:relative;z-index:1;">Single click to filter · Double click any pill to reset</p>
+    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.25);margin:0 0 0.5rem;position:relative;z-index:1;">Single click to filter &middot; Double click any pill to reset</p>
     <nav class="filter-bar" aria-label="Filter films by director">
       <button class="filter-pill active">All Films</button>
       <button class="filter-pill">Annemarie Jacir</button>
@@ -613,28 +580,26 @@
     <div class="film-grid-outer">
       <div class="film-grid">
 
+        <!-- ═══ Salt of This Sea ═══ -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
               <video class="carousel-item active film-card-img" controls poster="assets/images/salt.jpg">
                 <source src="assets/videos/saltvideo.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
               <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;">
                 <source src="assets/videos/saltvideo2.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
               <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;">
                 <source src="assets/videos/saltvideo3.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
               <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">●</span>
-                <span class="carousel-dot" style="color:#888;">●</span>
-                <span class="carousel-dot" style="color:#888;">●</span>
+                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
+                <span class="carousel-dot" style="color:#888;">&#9679;</span>
+                <span class="carousel-dot" style="color:#888;">&#9679;</span>
               </span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
@@ -646,91 +611,22 @@
             <p class="film-card-coverage">Coverage: 2 of 4 checkpoints</p>
             <button class="film-card-btn"
               data-popup-title="Salt of This Sea — Analysis"
-              data-popup="
-<style>
-  .carousel-responsive {
-    max-width: 700px;
-    margin: 0 auto 1.2rem;
-  }
-  .carousel-responsive .carousel-track {
-    width: 100%;
-  }
-  .carousel-responsive .carousel-item {
-    width: 100%;
-    max-height: 400px;
-    min-height: 220px;
-    object-fit: contain;
-    background: #000;
-    display: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-  }
-  .carousel-responsive .carousel-item.active {
-    display: block;
-  }
-  .carousel-responsive .carousel-controls {
-    text-align: center;
-    margin-top: 0.5rem;
-  }
-  .carousel-responsive .carousel-dot {
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin: 0 0.18em;
-    transition: color 0.2s;
-  }
-  @media (max-width: 800px) {
-    .modal { max-width: 98vw !important; }
-    .carousel-responsive { max-width: 98vw; }
-    .carousel-responsive .carousel-item { max-height: 240px; }
-  }
-</style>
-<div class='carousel-responsive carousel'>
-  <div class='carousel-track'>
-    <video class='carousel-item active' controls poster='assets/images/salt.jpg'>
-      <source src='assets/videos/saltvideo.mp4' type='video/mp4'>
-      Your browser does not support the video tag.
-    </video>
-    <video class='carousel-item' controls poster='assets/images/salt.jpg'>
-      <source src='assets/videos/saltvideo2.mp4' type='video/mp4'>
-      Your browser does not support the video tag.
-    </video>
-    <video class='carousel-item' controls poster='assets/images/salt.jpg'>
-      <source src='assets/videos/saltvideo3.mp4' type='video/mp4'>
-      Your browser does not support the video tag.
-    </video>
-  </div>
-  <div class='carousel-controls'>
-    <button type='button' class='carousel-prev' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;' aria-label='Previous'>&#8592;</button>
-    <span class='carousel-indicators'>
-      <span class='carousel-dot' style='color:#e6a93a;'>●</span>
-      <span class='carousel-dot' style='color:#888;'>●</span>
-      <span class='carousel-dot' style='color:#888;'>●</span>
-    </span>
-    <button type='button' class='carousel-next' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;' aria-label='Next'>&#8594;</button>
-  </div>
-</div>
-<p><strong>Salt of This Sea / Annemarie Jacir / 2008</strong></p>
-<p><em>Checkpoint Coverage: 2 of 4</em></p>
-<p>Annemarie Jacir's <em>Salt of This Sea</em> broadens the checkpoint film frame by extending into the entire West Bank landscape rather than isolating a single barrier. The film revolves around Soraya, a Palestinian-American visitor, and Emad, whose movement is restricted by his West Bank ID — making the mobility hierarchy Julie Peteet theorizes immediately visible. Although they travel together, their experiences differ entirely depending on documentation and gender.</p>
-<p>Jacir's <span class='gloss-term' tabindex='0'>counter-cartography<span class='gloss-tooltip'><span class='gloss-tooltip-term'>counter-cartography</span><span class='gloss-tooltip-def'>Representing space in ways that refuse official cartographic power. De Certeau: 'What the map cuts up, the story cuts across.'</span><a class='gloss-tooltip-link' href='glossary.html#term-counter-cartography'>Full definition &rarr;</a></span></span> argument emerges in her road sequences. She films the West Bank as both beautiful and militarized without resolving that tension. The camera moves across hills, olive groves, and settlement roads in a way that refuses the military map's flattening of Palestinian geography into security zones. This is Jackie Wang's <span class='gloss-term' tabindex='0'>carceral continuum<span class='gloss-tooltip'><span class='gloss-tooltip-term'>carceral continuum</span><span class='gloss-tooltip-def'>The understanding that carceral logic infiltrates domestic, intimate, and bodily space — occupation does not stop at the checkpoint.</span><a class='gloss-tooltip-link' href='glossary.html#term-carceral-continuum'>Full definition &rarr;</a></span></span> logic made visible: confinement created not by walls but by the reorganization of everyday space. The mobility asymmetry between Soraya's American passport and Emad's West Bank ID becomes the film's central spatial argument — they occupy the same frame but move through fundamentally different versions of the same space.</p>
-<p>Jacir's comment that she had to give herself permission to narrate connects directly to Ariella Azoulay's civil contract of photography, which locates political responsibility in the ethical relation between subject, maker, and viewer rather than in state authorization. To film this land, name these places, and follow these bodies through these spaces is already a counter-sovereign act.</p>
-<p><em>Checkpoints featured: Qalandiya, Rachel/Bethlehem</em><br><em>Related analysis: The Present, When I Saw You</em></p>
-">Details</button>
+              data-popup="<div class='carousel-responsive carousel'><div class='carousel-track'><video class='carousel-item active' controls poster='assets/images/salt.jpg'><source src='assets/videos/saltvideo.mp4' type='video/mp4'>Your browser does not support the video tag.</video><video class='carousel-item' controls poster='assets/images/salt.jpg'><source src='assets/videos/saltvideo2.mp4' type='video/mp4'>Your browser does not support the video tag.</video><video class='carousel-item' controls poster='assets/images/salt.jpg'><source src='assets/videos/saltvideo3.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div><div class='carousel-controls'><button type='button' class='carousel-prev' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;' aria-label='Previous'>&#8592;</button><span class='carousel-indicators'><span class='carousel-dot' style='color:#e6a93a;'>&#9679;</span><span class='carousel-dot' style='color:#888;'>&#9679;</span><span class='carousel-dot' style='color:#888;'>&#9679;</span></span><button type='button' class='carousel-next' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;' aria-label='Next'>&#8594;</button></div></div><p><strong>Salt of This Sea / Annemarie Jacir / 2008</strong></p><p><em>Checkpoint Coverage: 2 of 4</em></p><p>Annemarie Jacir's <em>Salt of This Sea</em> broadens the checkpoint film frame by extending into the entire West Bank landscape rather than isolating a single barrier. The film revolves around Soraya, a Palestinian-American visitor, and Emad, whose movement is restricted by his West Bank ID — making the mobility hierarchy Julie Peteet theorizes immediately visible.</p><p>Jacir's counter-cartography argument emerges in her road sequences. She films the West Bank as both beautiful and militarized without resolving that tension. The camera moves across hills, olive groves, and settlement roads in a way that refuses the military map's flattening of Palestinian geography into security zones. The mobility asymmetry between Soraya's American passport and Emad's West Bank ID becomes the film's central spatial argument — they occupy the same frame but move through fundamentally different versions of the same space.</p><p><em>Checkpoints featured: Qalandiya, Rachel/Bethlehem</em><br><em>Related analysis: The Present, When I Saw You</em></p>">Details</button>
           </div>
         </div>
 
+        <!-- ═══ The Present ═══ -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
               <video class="carousel-item active film-card-img" controls poster="assets/images/present.jpg">
                 <source src="assets/videos/presentclip.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
               <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
               </span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
@@ -742,30 +638,22 @@
             <p class="film-card-coverage">Coverage: 3 of 4 checkpoints</p>
             <button class="film-card-btn"
               data-popup-title="The Present — Analysis"
-              data-popup="
-<p><strong>The Present / Farah Nabulsi / 2020</strong></p>
-<p><em>Checkpoint Coverage: 3 of 4</em></p>
-<p>Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day and a single errand: a father and daughter attempting to cross Checkpoint 300 to buy an anniversary gift. The film opens before the crossing begins, with Yusef sleeping on cardboard to secure his place in line — an image that captures Peteet's <span class='gloss-term' tabindex='0'>carceral time<span class='gloss-tooltip><span class='gloss-tooltip-term'>carceral time</span><span class='gloss-tooltip-def'>Time weaponized through delay. Peteet: checkpoints teach Palestinians that their time is not their own through unpredictable waits and arbitrary closures.</span><a class='gloss-tooltip-link' href='glossary.html#term-carceral-time'>Full definition &rarr;</a></span></span> before a word of dialogue has been spoken.</p>
-<p>Nabulsi's visual composition draws on Weizman's <span class='gloss-term' tabindex='0'>politics of verticality<span class='gloss-tooltip><span class='gloss-tooltip-term'>politics of verticality</span><span class='gloss-tooltip-def'>Weizman: Israeli control operates three-dimensionally through walls, checkpoints, and aerial surveillance — carving space into zones of visibility and prohibition.</span><a class='gloss-tooltip-link' href='glossary.html#term-politics-of-verticality'>Full definition &rarr;</a></span></span>. Overhead shots render the crowd of waiting men as a managed mass, echoing aerial surveillance logic. Low-angle shots then follow boys scaling the bars to cut the line — small acts of spatial refusal that the camera treats with quiet attention. Between these two perspectives, Nabulsi refuses to give the checkpoint a single authoritative point of view, which is itself a formal counter to the surveillance gaze.</p>
-<p>The sound design escalates this: metal turnstiles, soldiers' commands, the press of bodies, distant traffic create an environment of constant monitoring before spatial orientation is established. The viewer feels the checkpoint's pressure before understanding its layout — replicating the sensory experience Adania Shibli's narrator describes in <em>Minor Detail</em> when her body reacts to checkpoints before her mind has processed them.</p>
-<p>Yusef and Yasmine's persistence — returning to the line, waiting again, refusing to turn back — enacts <span class='gloss-term' tabindex='0'>sumud<span class='gloss-tooltip'><span class='gloss-tooltip-term'>sumud</span><span class='gloss-tooltip-def'>Steadfastness — not passive endurance but active political confrontation, a continuous engagement with colonial conditions that transforms the subject.</span><a class='gloss-tooltip-link' href='glossary.html#term-sumud'>Full definition &rarr;</a></span></span> not as dramatic gesture but as repetition. That is what endurance looks like when it is not aestheticized.</p>
-<p><em>Checkpoints featured: Qalandiya, Huwwara, Rachel/Bethlehem</em><br><em>Related analysis: Salt of This Sea, 3000 Nights</em></p>
-">Details</button>
+              data-popup="<p><strong>The Present / Farah Nabulsi / 2020</strong></p><p><em>Checkpoint Coverage: 3 of 4</em></p><p>Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day and a single errand: a father and daughter attempting to cross Checkpoint 300 to buy an anniversary gift. The film opens before the crossing begins, with Yusef sleeping on cardboard to secure his place in line — an image that captures carceral time before a word of dialogue has been spoken.</p><p>Nabulsi's visual composition draws on the politics of verticality. Overhead shots render the crowd of waiting men as a managed mass, echoing aerial surveillance logic. Low-angle shots then follow boys scaling the bars to cut the line — small acts of spatial refusal that the camera treats with quiet attention.</p><p>Yusef and Yasmine's persistence — returning to the line, waiting again, refusing to turn back — enacts sumud not as dramatic gesture but as repetition.</p><p><em>Checkpoints featured: Qalandiya, Huwwara, Rachel/Bethlehem</em><br><em>Related analysis: Salt of This Sea, 3000 Nights</em></p>">Details</button>
           </div>
         </div>
 
+        <!-- ═══ When I Saw You ═══ -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
               <video class="carousel-item active film-card-img" controls poster="assets/images/when.jpeg">
                 <source src="assets/videos/whenclip.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
               <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
               </span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
@@ -777,39 +665,30 @@
             <p class="film-card-coverage">Coverage: 1 of 4 checkpoints</p>
             <button class="film-card-btn"
               data-popup-title="When I Saw You — Analysis"
-              data-popup="
-<p><strong>When I Saw You / Annemarie Jacir / 2012</strong></p>
-<p><em>Checkpoint Coverage: 1 of 4</em></p>
-<p><em>When I Saw You</em> is the archive's most spatially displaced film, set in a Jordanian refugee camp in 1967 and treating Palestine as something across a border — imagined, longed for, calculated toward. Jacir refuses to frame the camp as temporary or liminal. It is a lived world with its own social fabric, routines, and forms of knowledge. That refusal is itself a counter-cartographic move.</p>
-<p>The checkpoint in this film functions differently than in Nabulsi or Jacir's own <em>Salt of This Sea</em>. It appears not as daily obstacle but as horizon and limit — the thing that stands between Tarek and the Palestine he has never seen but completely believes in. His obsessive attention to the patrol truck's timing in the final sequence — counting intervals, calculating movement, trying to map a crossing — is a child's version of counter-cartography. He has not yet learned that the checkpoint cannot be solved by clever timing.</p>
-<p>Jacir ends the film without resolution. We do not see whether Tarek crosses. The camera stays with uncertainty. That unresolved ending enacts the film's argument about sumud: endurance is not the same as arrival, and the insistence on return does not depend on its completion to be meaningful.</p>
-<p><em>Checkpoints featured: Jordanian border crossing, Rachel/Bethlehem context</em><br><em>Related analysis: Salt of This Sea, Against the Loveless World</em></p>
-">Details</button>
+              data-popup="<p><strong>When I Saw You / Annemarie Jacir / 2012</strong></p><p><em>Checkpoint Coverage: 1 of 4</em></p><p><em>When I Saw You</em> is the archive's most spatially displaced film, set in a Jordanian refugee camp in 1967 and treating Palestine as something across a border — imagined, longed for, calculated toward. Jacir refuses to frame the camp as temporary or liminal. It is a lived world with its own social fabric, routines, and forms of knowledge. That refusal is itself a counter-cartographic move.</p><p>The checkpoint in this film functions differently than in Nabulsi or Jacir's own <em>Salt of This Sea</em>. It appears not as daily obstacle but as horizon and limit — the thing that stands between Tarek and the Palestine he has never seen but completely believes in.</p><p>Jacir ends the film without resolution. We do not see whether Tarek crosses. The camera stays with uncertainty. That unresolved ending enacts the film's argument about sumud: endurance is not the same as arrival.</p><p><em>Checkpoints featured: Jordanian border crossing, Rachel/Bethlehem context</em><br><em>Related analysis: Salt of This Sea, Against the Loveless World</em></p>">Details</button>
           </div>
         </div>
 
+        <!-- ═══ 3000 Nights ═══ -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
               <video class="carousel-item active film-card-img" controls poster="assets/images/3000_Nights.jpg">
                 <source src="assets/videos/3000nightsclip.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
               <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights2.jpg" style="display:none;">
                 <source src="assets/videos/3000nightsclip2.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
               <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights3.jpg" style="display:none;">
                 <source src="assets/videos/3000nightsclip3.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
               <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">●</span>
-                <span class="carousel-dot" style="color:#888;">●</span>
-                <span class="carousel-dot" style="color:#888;">●</span>
+                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
+                <span class="carousel-dot" style="color:#888;">&#9679;</span>
+                <span class="carousel-dot" style="color:#888;">&#9679;</span>
               </span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
@@ -821,92 +700,22 @@
             <p class="film-card-coverage">Coverage: Prison, checkpoints</p>
             <button class="film-card-btn"
               data-popup-title="3000 Nights — Analysis"
-              data-popup="
-<style>
-  .carousel-responsive {
-    max-width: 700px;
-    margin: 0 auto 1.2rem;
-  }
-  .carousel-responsive .carousel-track {
-    width: 100%;
-  }
-  .carousel-responsive .carousel-item {
-    width: 100%;
-    max-height: 400px;
-    min-height: 220px;
-    object-fit: contain;
-    background: #000;
-    display: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-  }
-  .carousel-responsive .carousel-item.active {
-    display: block;
-  }
-  .carousel-responsive .carousel-controls {
-    text-align: center;
-    margin-top: 0.5rem;
-  }
-  .carousel-responsive .carousel-dot {
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin: 0 0.18em;
-    transition: color 0.2s;
-  }
-  @media (max-width: 800px) {
-    .modal { max-width: 98vw !important; }
-    .carousel-responsive { max-width: 98vw; }
-    .carousel-responsive .carousel-item { max-height: 240px; }
-  }
-</style>
-<div class='carousel-responsive carousel'>
-  <div class='carousel-track'>
-    <video class='carousel-item active' controls poster='assets/images/3000_Nights.jpg'>
-      <source src='assets/videos/3000nightsclip.mp4' type='video/mp4'>
-      Your browser does not support the video tag.
-    </video>
-    <video class='carousel-item' controls poster='assets/images/3000_Nights2.jpg'>
-      <source src='assets/videos/3000nightsclip2.mp4' type='video/mp4'>
-      Your browser does not support the video tag.
-    </video>
-    <video class='carousel-item' controls poster='assets/images/3000_Nights3.jpg'>
-      <source src='assets/videos/3000nightsclip3.mp4' type='video/mp4'>
-      Your browser does not support the video tag.
-    </video>
-  </div>
-  <div class='carousel-controls'>
-    <button type='button' class='carousel-prev' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;' aria-label='Previous'>&#8592;</button>
-    <span class='carousel-indicators'>
-      <span class='carousel-dot' style='color:#e6a93a;'>●</span>
-      <span class='carousel-dot' style='color:#888;'>●</span>
-      <span class='carousel-dot' style='color:#888;'>●</span>
-    </span>
-    <button type='button' class='carousel-next' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;' aria-label='Next'>&#8594;</button>
-  </div>
-</div>
-<p><strong>3000 Nights / Mai Masri / 2015</strong></p>
-<p><em>Checkpoint Coverage: Prison, checkpoints</em></p>
-<p>Mai Masri's <em>3000 Nights</em> is set entirely within an Israeli prison, and through Layla's experience shows how imprisonment lands differently on Palestinian women. Her confinement is not only about being locked in a cell but about how the prison targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p>
-<p>The film's most formally concentrated moment is Layla's birth scene. Masri refuses wide shots or any authoritative perspective, locking the camera inside Layla's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands and legs, her face in pain. The absence of music is a deliberate formal refusal to aestheticize the moment. The doctor's face is blurred, reducing the medical encounter to anonymous hands and turning medicine into an extension of the carceral system rather than a source of care.</p>
-<p>This is <span class='gloss-term' tabindex='0'>feminist witnessing<span class='gloss-tooltip><span class='gloss-tooltip-term'>feminist witnessing</span><span class='gloss-tooltip-def'>An epistemological practice for seeing and preserving what the surveillance state cannot capture — the intimate, bodily, and relational dimensions of occupation.</span><a class='gloss-tooltip-link' href='glossary.html#term-feminist-witnessing'>Full definition &rarr;</a></span></span> enacted through film: making the spectator bear witness to forms of violence that are unrecorded or dismissed. When the guard responds to the doctor's announcement that the baby is healthy with 'we won't have a problem finding a home for him,' the film makes explicit how surveillance, reproduction, and state power intersect.</p>
-<p>Layla's refusal to stop asking to hold her baby is the film's clearest image of sumud: not dramatic, not cinematic, but persistent and embodied, refusing to accept the state's full claim on her body.</p>
-<p><em>Checkpoints featured: Prison environment; checkpoint references</em><br><em>Related analysis: Minor Detail, Bisan Owda documentation</em></p>
-">
-  Details
-</button>
+              data-popup="<div class='carousel-responsive carousel'><div class='carousel-track'><video class='carousel-item active' controls poster='assets/images/3000_Nights.jpg'><source src='assets/videos/3000nightsclip.mp4' type='video/mp4'>Your browser does not support the video tag.</video><video class='carousel-item' controls poster='assets/images/3000_Nights2.jpg'><source src='assets/videos/3000nightsclip2.mp4' type='video/mp4'>Your browser does not support the video tag.</video><video class='carousel-item' controls poster='assets/images/3000_Nights3.jpg'><source src='assets/videos/3000nightsclip3.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div><div class='carousel-controls'><button type='button' class='carousel-prev' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;' aria-label='Previous'>&#8592;</button><span class='carousel-indicators'><span class='carousel-dot' style='color:#e6a93a;'>&#9679;</span><span class='carousel-dot' style='color:#888;'>&#9679;</span><span class='carousel-dot' style='color:#888;'>&#9679;</span></span><button type='button' class='carousel-next' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;' aria-label='Next'>&#8594;</button></div></div><p><strong>3000 Nights / Mai Masri / 2015</strong></p><p><em>Checkpoint Coverage: Prison, checkpoints</em></p><p>Mai Masri's <em>3000 Nights</em> is set entirely within an Israeli prison, and through Layla's experience shows how imprisonment lands differently on Palestinian women. Her confinement is not only about being locked in a cell but about how the prison targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p><p>The film's most formally concentrated moment is Layla's birth scene. Masri refuses wide shots or any authoritative perspective, locking the camera inside Layla's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands and legs, her face in pain. The absence of music is a deliberate formal refusal to aestheticize the moment.</p><p>Layla's refusal to stop asking to hold her baby is the film's clearest image of sumud: not dramatic, not cinematic, but persistent and embodied, refusing to accept the state's full claim on her body.</p><p><em>Checkpoints featured: Prison environment; checkpoint references</em><br><em>Related analysis: Minor Detail, Bisan Owda documentation</em></p>">Details</button>
+          </div>
+        </div>
 
+        <!-- ═══ The Teacher ═══ -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
               <video class="carousel-item active film-card-img" controls poster="assets/images/teacher.jpeg">
                 <source src="assets/videos/teacherclip.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
               <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
               </span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
@@ -918,22 +727,22 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="The Teacher — Analysis"
-              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
+              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
+        <!-- ═══ Wajib ═══ -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
               <video class="carousel-item active film-card-img" controls poster="assets/images/wajib.jpg">
                 <source src="assets/videos/wajibclip.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
               <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
               </span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
@@ -945,22 +754,22 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="Wajib — Analysis"
-              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
+              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
+        <!-- ═══ May in the Summer ═══ -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
               <video class="carousel-item active film-card-img" controls poster="assets/images/may.jpg">
                 <source src="assets/videos/mayclip.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
               <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
               </span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
@@ -972,22 +781,22 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="May in the Summer — Analysis"
-              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
+              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
+        <!-- ═══ All That's Left of You ═══ -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
               <video class="carousel-item active film-card-img" controls poster="assets/images/left.jpeg">
                 <source src="assets/videos/leftclip.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
               <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
               </span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
@@ -999,22 +808,22 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="All That's Left of You — Analysis"
-              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
+              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
+        <!-- ═══ Pomegranates and Myrrh ═══ -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
               <video class="carousel-item active film-card-img" controls poster="assets/images/pom.jpg">
                 <source src="assets/videos/pomclip.mp4" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
               <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">●</span>
+                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
               </span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
@@ -1026,14 +835,15 @@
             <p class="film-card-coverage">Coverage: Will add soon</p>
             <button class="film-card-btn"
               data-popup-title="Pomegranates and Myrrh — Analysis"
-              data-popup="<div class='coming-soon'>⧖ &nbsp; Analysis coming soon</div>">View Analysis</button>
+              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
           </div>
         </div>
 
-      </div>
-    </div>
+      </div><!-- /.film-grid -->
+    </div><!-- /.film-grid-outer -->
   </main>
 
+  <!-- MODAL -->
   <div class="modal-backdrop" id="filmModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-header">
@@ -1048,12 +858,11 @@
   </div>
 
   <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
-    © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
+    &copy; 2025&ndash;2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
     <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
     <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
-    
   </footer>
-  <button id="scrollTopBtn" aria-label="Scroll to top"><span aria-hidden="true">↑</span></button>
+  <button id="scrollTopBtn" aria-label="Scroll to top"><span aria-hidden="true">&#8593;</span></button>
 
   <script>
     window.addEventListener('scroll', () => {
@@ -1061,10 +870,11 @@
     });
     document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
+    // Modal
     (function () {
       const backdrop = document.getElementById('filmModal');
-      const titleEl = document.getElementById('modalTitle');
-      const bodyEl = document.getElementById('modalBody');
+      const titleEl  = document.getElementById('modalTitle');
+      const bodyEl   = document.getElementById('modalBody');
       const closeBtn = backdrop.querySelector('.close');
 
       function openModal(title, html) {
@@ -1087,6 +897,7 @@
       });
     })();
 
+    // Filter pills
     const directorMap = {
       'Annemarie Jacir': 'Annemarie Jacir',
       'Mai Masri': 'Mai Masri',
@@ -1100,11 +911,8 @@
         const badge = card.querySelector('.film-card-badge').textContent.trim();
         if (director === 'all') {
           card.style.display = '';
-          card.style.animation = 'none';
-          requestAnimationFrame(() => { card.style.animation = ''; });
         } else if (director === 'other') {
-          const show = !knownDirectors.includes(badge);
-          card.style.display = show ? '' : 'none';
+          card.style.display = !knownDirectors.includes(badge) ? '' : 'none';
         } else {
           card.style.display = badge === director ? '' : 'none';
         }
@@ -1131,18 +939,14 @@
           document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
           this.classList.add('active');
           const label = this.textContent.trim();
-          if (label === 'All Films') {
-            filterCards('all');
-          } else {
-            filterCards(directorMap[label] || label);
-          }
+          filterCards(label === 'All Films' ? 'all' : (directorMap[label] || label));
         }, 220);
       });
     });
-  
-    // Archive dropdown — click toggle for mobile, hover handles desktop
+
+    // Archive dropdown
     (function() {
-      var trigger = document.querySelector('.nav-dropdown-trigger');
+      var trigger  = document.querySelector('.nav-dropdown-trigger');
       var dropdown = document.querySelector('.nav-dropdown');
       if (!trigger || !dropdown) return;
       trigger.addEventListener('click', function(e) {
@@ -1163,50 +967,39 @@
       });
     })();
 
-    // --- VIDEO CAROUSEL FOR POPUP ---
-    document.addEventListener('click', function(e) {
-      // Wait for modal to open and check for carousel
+    // Shared carousel initialiser — works for both cards and modal
+    function initCarousel(carousel) {
+      var items = carousel.querySelectorAll('.carousel-item');
+      var dots  = carousel.querySelectorAll('.carousel-dot');
+      var prev  = carousel.querySelector('.carousel-prev');
+      var next  = carousel.querySelector('.carousel-next');
+      var idx   = 0;
+      if (!items.length) return;
+
+      function show(i) {
+        items.forEach((el, j) => {
+          el.style.display = j === i ? 'block' : 'none';
+          if (el.tagName === 'VIDEO' && j !== i) { el.pause(); el.currentTime = 0; }
+        });
+        dots.forEach((d, j) => { d.style.color = j === i ? '#e6a93a' : '#888'; });
+        idx = i;
+      }
+      if (prev) prev.onclick = function(ev) { ev.stopPropagation(); show((idx + items.length - 1) % items.length); };
+      if (next) next.onclick = function(ev) { ev.stopPropagation(); show((idx + 1) % items.length); };
+      dots.forEach((d, i) => { d.onclick = function(ev) { ev.stopPropagation(); show(i); }; });
+      show(0);
+    }
+
+    // Init all card-level carousels on page load
+    document.querySelectorAll('.film-card .carousel').forEach(initCarousel);
+
+    // Init carousel inside modal after it opens
+    document.addEventListener('click', function() {
       setTimeout(function() {
-        // Only target carousels inside the modal body
         var modalBody = document.getElementById('modalBody');
         if (!modalBody) return;
         var carousel = modalBody.querySelector('.carousel');
-        if (!carousel) return;
-        var items = carousel.querySelectorAll('.carousel-item');
-        var dots = carousel.querySelectorAll('.carousel-dot');
-        var prev = carousel.querySelector('.carousel-prev');
-        var next = carousel.querySelector('.carousel-next');
-        let idx = 0;
-
-        function show(i) {
-          items.forEach((el, j) => {
-            el.style.display = j === i ? 'block' : 'none';
-            if (el.tagName === 'VIDEO') {
-              if (j !== i) { el.pause(); el.currentTime = 0; }
-            }
-          });
-          dots.forEach((d, j) => {
-            d.style.color = j === i ? '#e6a93a' : '#888';
-          });
-          idx = i;
-        }
-        if (prev && next) {
-          prev.onclick = function(ev) {
-            ev.stopPropagation();
-            show((idx + items.length - 1) % items.length);
-          };
-          next.onclick = function(ev) {
-            ev.stopPropagation();
-            show((idx + 1) % items.length);
-          };
-        }
-        dots.forEach((d, i) => {
-          d.onclick = function(ev) {
-            ev.stopPropagation();
-            show(i);
-          };
-        });
-        show(0);
+        if (carousel) initCarousel(carousel);
       }, 100);
     });
   </script>
@@ -1218,37 +1011,26 @@
       <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
     </div>
     <nav class="mobile-nav-links">
-      <a href="index.html" class="">Home</a>
-      <a href="map.html" class="">Map</a>
+      <a href="index.html">Home</a>
+      <a href="map.html">Map</a>
       <span class="mobile-nav-section-label">Archive</span>
       <a href="checkpoints.html" class="archive-item">Checkpoints</a>
       <a href="analysis.html" class="archive-item active">Visual Analysis</a>
       <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
       <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
       <a href="glossary.html" class="archive-item">Glossary</a>
-      <a href="about.html" class="">About</a>
+      <a href="about.html">About</a>
     </nav>
   </div>
 
-  <!-- MOBILE NAV JS -->
   <script>
     (function() {
-      var btn    = document.getElementById('navHamburger');
-      var nav    = document.getElementById('mobileNav');
-      var close  = document.getElementById('mobileNavClose');
+      var btn   = document.getElementById('navHamburger');
+      var nav   = document.getElementById('mobileNav');
+      var close = document.getElementById('mobileNavClose');
       if (!btn || !nav) return;
-      function openNav() {
-        nav.classList.add('open');
-        btn.classList.add('open');
-        btn.setAttribute('aria-expanded','true');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeNav() {
-        nav.classList.remove('open');
-        btn.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-        document.body.style.overflow = '';
-      }
+      function openNav()  { nav.classList.add('open'); btn.classList.add('open'); btn.setAttribute('aria-expanded','true'); document.body.style.overflow = 'hidden'; }
+      function closeNav() { nav.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
       btn.addEventListener('click', openNav);
       if (close) close.addEventListener('click', closeNav);
       nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });

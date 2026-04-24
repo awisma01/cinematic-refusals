@@ -18,6 +18,9 @@
   --temporal-color: #9b6b9b;
   --intimate-color: #c47b5a;
   --cinematic-color:#288366;
+
+  /* Olive accent color */
+  --olive: #7a8450;
 }
 
 /* ── RESET ── */
@@ -60,9 +63,86 @@ p { font-size: 1.1rem; line-height: 1.9; }
   margin: 1.8rem auto;
 }
 
-/* ── SECTION DIVIDER ── */
-.section-divider { max-width: 1100px; margin: 0 auto 4rem; padding: 0 2rem; z-index:1; position:relative; }
-.section-divider hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); }
+/* Olive accent for headings and highlights */
+.hero-main-title em {
+  color: var(--olive);
+  font-style: italic;
+}
+
+.gold-rule {
+  background: linear-gradient(90deg, transparent, var(--olive), transparent);
+}
+
+.spotlight-year {
+  background: rgba(122,132,80,0.85);
+  color: #fff;
+}
+
+.card-eyebrow,
+.intro-eyebrow,
+.hook-eyebrow,
+.spotlight-eyebrow,
+.entry-eyebrow {
+  color: var(--olive);
+}
+
+.nav-card:hover {
+  border-color: var(--olive);
+}
+
+.nav-card:hover .card-link {
+  color: var(--olive);
+}
+
+.entry-card:hover {
+  border-color: var(--olive);
+}
+
+.entry-card:hover .entry-link {
+  color: var(--olive);
+}
+
+.carousel-dot {
+  color: var(--olive);
+}
+
+a,
+a:visited {
+  color: var(--olive);
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+/* Olive accent for buttons */
+.spotlight-btn,
+.hook-link,
+.entry-link {
+  color: var(--olive);
+  border-color: var(--olive);
+}
+
+.spotlight-btn:hover,
+.hook-link:hover,
+.entry-link:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Olive accent for scroll to top button */
+#scrollTopBtn {
+  background: var(--olive);
+}
+
+#scrollTopBtn:hover {
+  background: var(--gold);
+}
+
+/* Olive accent for mobile nav overlay */
+.mobile-nav-overlay {
+  border-top: 4px solid var(--olive);
+}
 
 /* ================================================
    NAV — with dropdown support
