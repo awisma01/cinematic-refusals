@@ -320,6 +320,31 @@
       .map-legend { bottom: 10px; left: 10px; }
       .cp-popup { width: 260px; }
     }
+
+    /* Enable dropdown on hover for desktop */
+    @media (hover: hover) and (pointer: fine) {
+      .nav-dropdown:hover .nav-dropdown-menu,
+      .nav-dropdown:focus-within .nav-dropdown-menu {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: translateY(0) !important;
+      }
+      .nav-dropdown:hover .nav-dropdown-arrow,
+      .nav-dropdown:focus-within .nav-dropdown-arrow {
+        transform: rotate(180deg);
+      }
+    }
+
+    /* Optional: Prevent click from toggling on desktop */
+    @media (hover: hover) and (pointer: fine) {
+      .nav-dropdown-trigger {
+        pointer-events: none;
+      }
+      .nav-dropdown:hover .nav-dropdown-trigger,
+      .nav-dropdown:focus-within .nav-dropdown-trigger {
+        pointer-events: auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -330,28 +355,52 @@
       <a href="index.html">Home</a>
       <a href="map.html" class="active">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
-        <div class="nav-dropdown-menu">
-          <a href="checkpoints.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Checkpoints</span>
-            <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
-          </a>
-          <a href="analysis.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Visual Analysis</span>
-            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
-          </a>
-          <a href="surveillance-space.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Surveillance Space</span>
-            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
-          </a>
-          <a href="not-mapped.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">What's Not Mapped</span>
-            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
-          </a>
+        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
+        <div class="nav-dropdown-menu" role="menu">
+          <ul style="margin:0;padding:0;list-style:none;">
+            <li>
+              <a href="checkpoints.html" class="nav-dropdown-item" role="menuitem">
+                <span class="nav-dropdown-item-title">Checkpoints</span>
+                <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
+              </a>
+            </li>
+            <li>
+              <a href="analysis.html" class="nav-dropdown-item" role="menuitem">
+                <span class="nav-dropdown-item-title">Visual Analysis</span>
+                <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
+              </a>
+            </li>
+            <li>
+              <a href="surveillance-space.html" class="nav-dropdown-item" role="menuitem">
+                <span class="nav-dropdown-item-title">Surveillance Space</span>
+                <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
+              </a>
+            </li>
+            <li>
+              <a href="not-mapped.html" class="nav-dropdown-item" role="menuitem">
+                <span class="nav-dropdown-item-title">What's Not Mapped</span>
+                <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
+              </a>
+            </li>
+            <li>
+              <a href="glossary.html" class="nav-dropdown-item" role="menuitem">
+                <span class="nav-dropdown-item-title">Glossary</span>
+                <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <a href="about.html">About</a>
     </div>
+  </nav>
+
+  <nav aria-label="Breadcrumb" class="breadcrumb-nav" style="max-width:960px;margin:80px auto 1.5rem;padding:0 2rem;">
+    <ol style="list-style:none;display:flex;gap:0.5em;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:rgba(232,245,240,0.55);padding:0;margin:0;">
+      <li><a href="index.html" style="color:var(--teal);text-decoration:underline;">Home</a></li>
+      <li style="margin: 0 0.5em;">/</li>
+      <li aria-current="page" style="color:var(--gold);font-weight:600;">Map</li>
+    </ol>
   </nav>
 
   <div class="search-panel">
@@ -630,25 +679,31 @@
 
     // ── Archive dropdown toggle (mobile) ───────────────────
     (function() {
+      // Only enable click-to-toggle on touch devices
+      function isTouchDevice() {
+        return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      }
       var trigger  = document.querySelector('.nav-dropdown-trigger');
       var dropdown = document.querySelector('.nav-dropdown');
       if (!trigger || !dropdown) return;
-      trigger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var isOpen = dropdown.classList.contains('open');
-        dropdown.classList.toggle('open', !isOpen);
-        trigger.setAttribute('aria-expanded', String(!isOpen));
-      });
-      document.addEventListener('click', function() {
-        dropdown.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
+      if (isTouchDevice()) {
+        trigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var isOpen = dropdown.classList.contains('open');
+          dropdown.classList.toggle('open', !isOpen);
+          trigger.setAttribute('aria-expanded', String(!isOpen));
+        });
+        document.addEventListener('click', function() {
           dropdown.classList.remove('open');
           trigger.setAttribute('aria-expanded', 'false');
-        }
-      });
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            dropdown.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
     })();
   </script>
 

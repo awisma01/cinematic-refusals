@@ -648,12 +648,14 @@
       transition: opacity 0.22s ease, transform 0.22s ease;
       box-shadow: 0 16px 48px rgba(0,0,0,0.55);
       z-index: 9999;
+      display: none; /* Add this line */
     }
     .nav-dropdown.open .nav-dropdown-menu,
     .nav-dropdown:hover .nav-dropdown-menu {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
+      display: block; /* Add this line */
     }
     .nav-dropdown-item {
       display: flex; flex-direction: column; gap: 0.22rem;
@@ -684,13 +686,15 @@
   </style>
 </head>
 <body>
-  <nav class="topnav">
+  <nav class="topnav" aria-label="Main navigation">
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html" class="active">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
+        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+          Archive <span class="nav-dropdown-arrow">&#9662;</span>
+        </a>
         <div class="nav-dropdown-menu">
           <a href="checkpoints.html" class="nav-dropdown-item">
             <span class="nav-dropdown-item-title">Checkpoints</span>
@@ -716,6 +720,14 @@
       </div>
       <a href="about.html">About</a>
     </div>
+  </nav>
+
+  <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+    <ol>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="analysis.html">Visual Analysis</a></li>
+      <li aria-current="page">Current Page Title</li>
+    </ol>
   </nav>
 
   <main>
