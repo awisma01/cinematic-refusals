@@ -82,9 +82,10 @@
     .legend-row{display:flex;align-items:center;gap:0.65rem;margin-bottom:0.55rem;font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:400;color:rgba(232,245,240,0.6);}
     .legend-row:last-child{margin-bottom:0;}
     .legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
-    .legend-dot.checkpoint{background:var(--gold);border:2px solid var(--crimson);}
-    .legend-dot.user-checkpoint{background:var(--teal);border:2px solid var(--forest);}
-    .legend-dot.pending{background:rgba(185,78,58,0.45);border:2px solid rgba(230,169,58,0.5);}
+    .legend-dot.curated{background:#4ec87a;border:2px solid #267a48;}
+    .legend-dot.placeholder{background:#f0d020;border:2px solid #a09010;}
+    .legend-dot.community{background:#f07830;border:2px solid #a04818;}
+    .legend-dot.pending{background:rgba(240,120,48,0.5);border:2px solid rgba(240,208,32,0.7);outline:2px dashed rgba(240,208,32,0.5);outline-offset:1px;}
     .legend-dot.search-result{background:rgba(111,231,193,0.4);border:2px solid rgba(255,255,255,0.25);}
 
     /* MAPBOX POPUP RESET */
@@ -442,8 +443,9 @@
 <!-- LEGEND -->
 <div class="map-legend">
   <p class="legend-title">Legend</p>
-  <div class="legend-row"><span class="legend-dot checkpoint"></span>Checkpoint</div>
-  <div class="legend-row"><span class="legend-dot user-checkpoint"></span>Added</div>
+  <div class="legend-row"><span class="legend-dot curated"></span>Curated entry</div>
+  <div class="legend-row"><span class="legend-dot placeholder"></span>More info coming</div>
+  <div class="legend-row"><span class="legend-dot community"></span>Community added</div>
   <div class="legend-row"><span class="legend-dot pending"></span>Pending review</div>
   <div class="legend-row"><span class="legend-dot search-result"></span>Search result</div>
 </div>
@@ -649,7 +651,18 @@ const SEED_CHECKPOINTS=[
   {id:'qalandiya',coords:[35.2192,31.8633],title:"Qalandiya Checkpoint",arabic:"حاجز قلنديا",district:"Ramallah and al-Bira",type:"Last checkpoint before Israel",filterType:"entry",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Qalandiya separates Palestinian communities severed by the Separation Barrier. Closed on 7 October 2023; reopened for East Jerusalem residents 23 October 2023 (Sun–Thu, 5am–5pm). Reopened for West Bank permit holders 7 February 2024. Remains closed Fridays.",films:["Salt of This Sea — Jacir, 2008","The Present — Nablusi, 2020"],images:['assets/images/qalandiya1.jpg','assets/images/qalandiya2.jpg','assets/images/qalandiya3.jpg','assets/images/qalandiya4.jpg'],analysis:'<p>Qalandiya is the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles — this is exactly what Weizman means by the <em>politics of verticality</em>.</p><p>In <em>Salt of This Sea</em>, Jacir doesn\'t treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. The checkpoint\'s power comes from how routine it becomes.</p>',seed:true},
   {id:'bethlehem',coords:[35.2035,31.7234],title:"Checkpoint 300 — Bethlehem",arabic:"حاجز ٣٠٠ (بيت لحم)",district:"Bethlehem",type:"Entry / Exit to Israel",filterType:"entry",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located on the border between Bethlehem and Jerusalem. One of the busiest crossings — thousands pass daily for work. Features a turnstile system and persistent long queues.",films:["Salt of This Sea — Jacir, 2008","When I Saw You — Jacir, 2012"],images:['assets/images/bethlehem1.jpeg','assets/images/bethlehem2.jpeg','assets/images/bethlehem3.jpg','assets/images/bethlehem4.jpeg','assets/images/bethlehem5.jpeg','assets/images/bethlehem6.jpeg','assets/images/bethlehem7.jpg'],analysis:'<p>In <em>Salt of This Sea</em>, Rachel Checkpoint is where the difference between Soraya\'s American passport and Emad\'s West Bank ID becomes spatially visible. The checkpoint makes hierarchy literal — two people in the same shot but not in the same system.</p><p>In <em>When I Saw You</em>, it works differently: less immediate obstacle, more mythic horizon — the thing between Tarek and a Palestine he\'s never seen but fully believes in.</p>',seed:true},
   {id:'huwwara',coords:[35.2726,32.1762],title:"Huwwara Checkpoint",arabic:"حاجز حوارة",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Intermittently staffed",filterStaff:"intermittent",detail:"At the southern entrance to Nablus. Staffed on no fixed schedule. After 7 October 2023, completely closed to Palestinian pedestrians and vehicles.",films:["The Present — Nablusi, 2020"],images:['assets/images/hucheck.jpg'],analysis:'<p>Huwwara is exposed — open landscape, open sky, a checkpoint that cuts right through it. In <em>The Present</em>, Nabulsi shows how checkpoints don\'t just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier\'s mood becomes the clock — what Peteet calls <em>carceral time</em>.</p>',seed:true},
-  {id:'container',coords:[35.2976,31.6927],title:"Container Checkpoint (Wadi a-Nar)",arabic:"حاجز الكونتينر (وادي النار)",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"East of Abu Dis, controlling travel between northern and southern West Bank. Since October 2023, strict inspections with limited outbound hours (closed 6–9am for exit).",films:["Archive footage — dates TBD"],images:['assets/images/container.jpg'],analysis:'<p>The Container rarely gets cinematic attention even though it\'s strategically crucial — controlling movement between Bethlehem and Hebron. Its absence from narrative film is itself telling: certain sites become iconic while others remain underdocumented. That gap is part of the story.</p>',seed:true}
+  {id:'container',coords:[35.2976,31.6927],title:"Container Checkpoint (Wadi a-Nar)",arabic:"حاجز الكونتينر (وادي النار)",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"East of Abu Dis, controlling travel between northern and southern West Bank. Since October 2023, strict inspections with limited outbound hours (closed 6–9am for exit).",films:["Archive footage — dates TBD"],images:['assets/images/container.jpg'],analysis:'<p>The Container rarely gets cinematic attention even though it\'s strategically crucial — controlling movement between Bethlehem and Hebron. Its absence from narrative film is itself telling: certain sites become iconic while others remain underdocumented. That gap is part of the story.</p>',seed:true},
+  // ── PLACEHOLDER CHECKPOINTS (yellow markers — analysis to be added) ──
+  {id:'beit_iba',coords:[35.1782,32.2185],title:"Beit Iba Checkpoint",arabic:"حاجز بيت إيبا",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Western entrance to Nablus. One of the primary checkpoints controlling access to the city from the west.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'awarta',coords:[35.3102,32.1538],title:"Awarta Checkpoint",arabic:"حاجز عوارة",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement on Route 60 south of Nablus near the village of Awarta.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'beit_el',coords:[35.2287,31.9467],title:"Beit El Checkpoint",arabic:"حاجز بيت إيل",district:"Ramallah and al-Bira",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located on the northern outskirts of Ramallah near the Beit El settlement.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'gilo',coords:[35.1844,31.7283],title:"Gilo Checkpoint",arabic:"حاجز غيلو",district:"Bethlehem",type:"Entry / Exit to Israel",filterType:"entry",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Southern entry/exit point between Bethlehem and Jerusalem, adjacent to the Gilo settlement.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'al_hamra',coords:[35.4556,32.0523],title:"Al-Hamra Checkpoint",arabic:"حاجز الحمرا",district:"Jericho",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located in the northern Jordan Valley on Route 90. Controls movement between the northern West Bank and the Jordan Valley.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'tayasir',coords:[35.5243,32.2687],title:"Tayasir Checkpoint",arabic:"حاجز طياسير",district:"Tubas",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls access to the northern Jordan Valley. Palestinians require special permits to pass.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'jaba',coords:[35.2518,31.6958],title:"Jaba Checkpoint",arabic:"حاجز جبع",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located south of Jerusalem near the village of Jaba on Route 60.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'hebron_h2',coords:[35.1262,31.5252],title:"Hebron H2 Checkpoint",arabic:"حاجز الخليل (ح٢)",district:"Hebron",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement into the H2 zone of Hebron under Israeli military control. Palestinian movement is heavily restricted throughout the old city.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'abu_dis',coords:[35.2895,31.7622],title:"Abu Dis Checkpoint",arabic:"حاجز أبو ديس",district:"Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Separates Abu Dis from East Jerusalem. The Separation Barrier runs directly through this area, cutting the village off from the city.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'ras_al_amud',coords:[35.2428,31.7728],title:"Ras al-Amud Checkpoint",arabic:"حاجز رأس العامود",district:"Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement between the Ras al-Amud neighbourhood and the rest of East Jerusalem.",films:[],images:[],analysis:'',seed:true,placeholder:true}
 ];
 const SEED_FILMS=[
   {id:'film_salt',title:"Salt of This Sea",director:"Annemarie Jacir",year:2008,country:"Palestine / Belgium",genre:"Narrative feature",notes:"A Palestinian-American woman returns to Palestine to reclaim her grandfather's home. Engages directly with checkpoints, bureaucracy, and spatial control.",checkpointIds:["qalandiya","bethlehem"],seed:true},
@@ -990,7 +1003,17 @@ function resetMarkerHighlight(){highlightFilmOnMap([]);}
 ══════════════════════════════ */
 function addMarker(cp){
   const el=document.createElement('div');
-  const fill=cp.seed?'#e6a93a':'#6fe7c1',stroke=cp.seed?'#b94e3a':'#288366';
+  // GREEN = curated archive (seed, not placeholder)
+  // YELLOW = placeholder — more info coming (seed + placeholder)
+  // ORANGE = community-added or approved submission (not seed)
+  let fill, stroke;
+  if (!cp.seed) {
+    fill = '#f07830'; stroke = '#a04818'; // orange
+  } else if (cp.placeholder) {
+    fill = '#f0d020'; stroke = '#a09010'; // yellow
+  } else {
+    fill = '#4ec87a'; stroke = '#267a48'; // green
+  }
   el.style.cssText='width:54px;height:54px;cursor:pointer;position:relative;';
   const inner=document.createElement('div');
   inner.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6));transition:filter 0.2s;pointer-events:none;';
@@ -1005,7 +1028,8 @@ function addMarker(cp){
     <ellipse cx="19" cy="36" rx="7" ry="1.5" fill="rgba(230,169,58,0.2)"/>
   </svg>`;
   el.appendChild(inner);
-  el.addEventListener('mouseenter',()=>{inner.style.filter='drop-shadow(0 6px 16px rgba(230,169,58,0.55)) brightness(1.18)';});
+  const glowColor = !cp.seed ? 'rgba(240,120,48,0.65)' : cp.placeholder ? 'rgba(240,208,32,0.65)' : 'rgba(78,200,122,0.65)';
+  el.addEventListener('mouseenter',()=>{inner.style.filter=`drop-shadow(0 6px 16px ${glowColor}) brightness(1.18)`;});
   el.addEventListener('mouseleave',()=>{inner.style.filter='drop-shadow(0 4px 10px rgba(0,0,0,0.6))';});
   el.addEventListener('click',e=>{e.stopPropagation();openCheckpoint(cp.id);});
   const marker=new mapboxgl.Marker({element:el,anchor:'center'}).setLngLat(cp.coords).addTo(map);
