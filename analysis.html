@@ -523,10 +523,6 @@
       <div class="nav-dropdown">
         <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
         <div class="nav-dropdown-menu">
-          <a href="checkpoints.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Checkpoints</span>
-            <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
-          </a>
           <a href="analysis.html" class="nav-dropdown-item active">
             <span class="nav-dropdown-item-title">Visual Analysis</span>
             <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
@@ -553,6 +549,10 @@
   </nav>
 
   <main>
+    <button id="translateBtn" style="position: absolute; top: 1.5rem; right: 2.5rem; z-index: 1200; background: var(--teal); color: #0a2321; border: none; border-radius: 8px; padding: 0.5rem 1.2rem; font-family: 'Oswald', sans-serif; font-size: 0.92rem; font-weight: 500; letter-spacing: 0.08em; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.10); transition: background 0.2s;">
+      Translate
+    </button>
+
     <section class="page-hero">
       <p class="page-eyebrow">Film Archive</p>
       <h1 class="page-title">Visual <em>Analysis</em></h1>
@@ -1002,6 +1002,11 @@
         if (carousel) initCarousel(carousel);
       }, 100);
     });
+
+    // Translation button (placeholder functionality)
+    document.getElementById('translateBtn').onclick = function() {
+      alert('Translation feature coming soon!');
+    };
   </script>
 
   <!-- MOBILE NAV OVERLAY -->
