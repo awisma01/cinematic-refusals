@@ -41,7 +41,7 @@
     #map{position:fixed;top:var(--nav-h);bottom:0;left:0;right:0;z-index:1;transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
     body.panel-open #map{left:var(--panel-w);}
 
-    /* PANEL OPEN TAB — persistent invite button on left edge */
+    /* PANEL OPEN TAB */
     .panel-tab{position:fixed;top:50%;left:0;z-index:190;transform:translateY(-50%);transition:transform 0.42s cubic-bezier(0.4,0,0.2,1),opacity 0.3s;}
     .panel-tab.hidden{opacity:0;pointer-events:none;}
     body.panel-open .panel-tab{transform:translateY(-50%) translateX(-100%);}
@@ -110,7 +110,7 @@
     .cp-add-btn.film{background:rgba(111,231,193,0.07);border-color:rgba(111,231,193,0.22);color:var(--teal);}
     .cp-add-btn.film:hover{background:rgba(111,231,193,0.16);border-color:var(--teal);}
 
-    /* Panel main tabs: Checkpoints / Films */
+    /* Panel main tabs */
     .cp-panel-tabs{display:flex;border-bottom:1px solid rgba(111,231,193,0.1);flex-shrink:0;}
     .cp-panel-tab{flex:1;padding:0.5rem 0;font-family:'Oswald',sans-serif;font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;background:transparent;border:none;color:rgba(232,245,240,0.35);cursor:pointer;transition:all 0.18s;border-bottom:2px solid transparent;margin-bottom:-1px;}
     .cp-panel-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
@@ -161,7 +161,7 @@
     .cp-film-mini{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.08rem 0.32rem;border-radius:10px;border:1px solid rgba(230,169,58,0.18);color:rgba(230,169,58,0.55);}
     .cp-empty-state{padding:2rem 1.5rem;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:300;color:rgba(232,245,240,0.22);letter-spacing:0.04em;line-height:1.8;}
 
-    /* Film list panel tab */
+    /* Film list */
     .film-list{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.18) transparent;list-style:none;margin:0;padding:0;}
     .film-list::-webkit-scrollbar{width:3px;}
     .film-list::-webkit-scrollbar-thumb{background:rgba(111,231,193,0.18);}
@@ -215,7 +215,7 @@
     .cp-detail-analysis p{margin:0 0 0.7rem;}
     .cp-detail-analysis p:last-child{margin-bottom:0;}
 
-    /* Admin action row in detail */
+    /* Admin action row */
     .cp-detail-admin-row{padding:0.55rem 1.2rem 0.85rem;display:flex;gap:0.6rem;flex-wrap:wrap;}
     .cp-detail-edit-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:6px;border:1px solid rgba(111,231,193,0.28);color:rgba(111,231,193,0.65);background:transparent;cursor:pointer;transition:all 0.18s;}
     .cp-detail-edit-btn:hover{background:rgba(111,231,193,0.08);border-color:var(--teal);color:var(--teal);}
@@ -228,7 +228,8 @@
     .panel-close-btn:hover{background:var(--crimson);border-color:var(--crimson);color:#fff;}
 
     /* ════ MODALS ════ */
-    .create-backdrop{position:fixed;inset:0;background:rgba(5,20,18,0.86);display:none;z-index=3000;align-items:center;justify-content:center;padding:1.5rem;}
+    /* FIX: was z-index=3000 (= not :), corrected to z-index:3000 */
+    .create-backdrop{position:fixed;inset:0;background:rgba(5,20,18,0.86);display:none;z-index:3000;align-items:center;justify-content:center;padding:1.5rem;}
     .create-backdrop.open{display:flex;}
     .create-modal{max-width:520px;width:96%;background:#0d2420;border-radius:18px;color:#e8f5f0;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(230,169,58,0.2),0 28px 64px rgba(0,0,0,0.55);animation:modalIn 0.3s cubic-bezier(.34,1.56,.64,1);}
     @keyframes modalIn{from{opacity:0;transform:scale(0.88) translateY(28px)}to{opacity:1;transform:scale(1) translateY(0)}}
@@ -274,7 +275,7 @@
     .cp-checkbox-label input{accent-color:var(--gold);}
     .cp-checkbox-label.checked{background:rgba(230,169,58,0.09);border-color:rgba(230,169,58,0.35);color:rgba(230,169,58,0.85);}
 
-    /* Submission list items */
+    /* Submission items */
     .sub-item{padding:0.85rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06);position:relative;}
     .sub-item-type{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal);opacity:0.6;margin:0 0 0.18rem;}
     .sub-item-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#e8f5f0;margin:0 0 0.12rem;}
@@ -285,13 +286,15 @@
     .sub-reject{font-family:'Oswald',sans-serif;font-size:0.58rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.7rem;border-radius:6px;background:rgba(185,78,58,0.1);border:1px solid rgba(185,78,58,0.3);color:rgba(185,78,58,0.75);cursor:pointer;transition:all 0.18s;}
     .sub-reject:hover{background:rgba(185,78,58,0.2);border-color:var(--crimson);color:var(--crimson);}
     .sub-item-detail{font-family:'Cormorant Garamond',serif;font-size:0.88rem;color:rgba(232,245,240,0.55);line-height:1.55;margin:0 0 0.45rem;font-style:italic;}
-    /* Pending checkpoint marker pulse */
     @keyframes pendingPulse{0%,100%{opacity:1}50%{opacity:0.55}}
 
     /* Map click hint */
     .map-click-hint{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:rgba(10,35,33,0.95);border:1px solid rgba(230,169,58,0.38);border-radius:10px;padding:0.6rem 1.1rem;font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;color:var(--gold);z-index:500;display:none;box-shadow:0 6px 24px rgba(0,0,0,0.4);animation:hintPulse 1.5s ease-in-out infinite;}
     @keyframes hintPulse{0%,100%{opacity:1}50%{opacity:0.65}}
     .map-click-hint.visible{display:block;}
+
+    /* Info module */
+    .map-info-module{position:fixed;top:calc(var(--nav-h) + 18px);left:50%;transform:translateX(-50%);z-index:120;max-width:540px;width:90vw;background:rgba(10,35,33,0.97);border:1.5px solid var(--teal);border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.22);padding:1.5rem 2.2rem 1.2rem 2.2rem;margin:0 auto;backdrop-filter:blur(2px);}
 
     @media(max-width:900px){
       :root{--panel-w:100vw;}
@@ -304,7 +307,6 @@
       .form-row{grid-template-columns:1fr;}
     }
   </style>
-  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
 
@@ -325,10 +327,20 @@
     </div>
     <a href="about.html">About</a>
   </div>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- PERSISTENT PANEL TAB (invite to open panel) -->
+<!-- INFO MODULE -->
+<div class="map-info-module" id="infoModule">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+    <h2 style="font-family:'Oswald',sans-serif;font-size:1.25rem;font-weight:600;letter-spacing:0.04em;color:var(--teal);margin:0 0 0.7rem 0;">About the Map</h2>
+    <button onclick="document.getElementById('infoModule').style.display='none'" style="background:none;border:none;color:rgba(232,245,240,0.4);cursor:pointer;font-size:1.1rem;padding:0;line-height:1;" title="Close">✕</button>
+  </div>
+  <p style="font-size:1.04rem;line-height:1.7;margin:0 0 0.7rem 0;">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
+  <p style="font-size:0.98rem;line-height:1.6;margin:0 0 0.7rem 0;"><strong>How to use:</strong> Click any marker to view details and analysis, or use the left panel to browse and filter. Switch between "Checkpoints" and "Films" in the panel to explore from different perspectives.</p>
+  <p style="font-size:0.98rem;line-height:1.6;margin:0;"><strong>Why this map matters:</strong> Space is not neutral. By linking geography with film, it shows how Palestinian women filmmakers document, resist, and reimagine the spatial realities of occupation.</p>
+</div>
+
+<!-- PERSISTENT PANEL TAB -->
 <div class="panel-tab" id="panelTab" onclick="openPanel()">
   <div class="panel-tab-inner">
     <span class="panel-tab-dot"></span>
@@ -342,14 +354,13 @@
   <div class="cp-panel-header">
     <span class="cp-panel-heading">Archive</span>
     <div class="cp-panel-add-btns">
-      <button class="cp-add-btn suggest" id="suggestBtn" onclick="openModal('suggestModal')" title="Suggest a checkpoint or film">Suggest +</button>
+      <button class="cp-add-btn suggest" id="suggestBtn" onclick="openModal('suggestModal')">Suggest +</button>
       <button id="adminLockBtn" title="Admin login" style="background:none;border:none;cursor:pointer;font-size:1rem;padding:0.2rem 0.35rem;opacity:0.4;transition:opacity 0.2s;" onclick="toggleAdminLock()">🔒</button>
-      <button class="cp-add-btn film" id="addFilmBtn" style="display:none;">+ Film</button>
-      <button class="cp-add-btn checkpoint" id="addCheckpointBtn" style="display:none;">+ Checkpoint</button>
+      <button class="cp-add-btn film" id="addFilmBtn" style="display:none;" onclick="requireAdmin(openAddFilmModal)">+ Film</button>
+      <button class="cp-add-btn checkpoint" id="addCheckpointBtn" style="display:none;" onclick="requireAdmin(openAddCheckpointModal)">+ Checkpoint</button>
     </div>
   </div>
 
-  <!-- Checkpoints / Films tab switcher -->
   <div class="cp-panel-tabs">
     <button class="cp-panel-tab active" id="tabCheckpoints" onclick="switchPanelTab('checkpoints')">Checkpoints</button>
     <button class="cp-panel-tab" id="tabFilms" onclick="switchPanelTab('films')">Films</button>
@@ -378,7 +389,6 @@
       <div class="cp-filter-pane" id="filter-film"></div>
       <div class="cp-filter-pane" id="filter-year"></div>
     </div>
-
     <div class="cp-panel-inner cp-panel-view-list" id="cpPanelInner">
       <div class="cp-list-wrap">
         <ul class="cp-list" id="cpList" role="list"></ul>
@@ -410,12 +420,12 @@
     </div>
   </div>
 
-  <!-- SUBMISSIONS VIEW (admin only, hidden until logged in) -->
+  <!-- SUBMISSIONS VIEW -->
   <div id="submissionsView" style="flex:1;display:none;flex-direction:column;overflow:hidden;">
     <div style="padding:0.65rem 1rem 0.5rem;border-bottom:1px solid rgba(111,231,193,0.08);background:rgba(0,0,0,0.14);flex-shrink:0;">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(232,245,240,0.3);">Awaiting your review</span>
     </div>
-    <ul style="flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.18) transparent;list-style:none;margin:0;padding:0;" id="submissionsList"></ul>
+    <ul style="flex:1;overflow-y:auto;scrollbar-width:thin;list-style:none;margin:0;padding:0;" id="submissionsList"></ul>
     <div class="cp-empty-state" id="submissionsEmpty" style="display:none;">No pending submissions.</div>
   </div>
 </aside>
@@ -542,7 +552,7 @@
   </div>
 </div>
 
-<!-- SUGGEST MODAL (public) -->
+<!-- SUGGEST MODAL -->
 <div class="create-backdrop" id="suggestModal">
   <div class="create-modal">
     <div class="create-modal-bar teal"></div>
@@ -576,10 +586,11 @@
             </select>
           </div>
         </div>
-        <div class="form-group"><label class="form-label">Status / Notes</label><textarea class="form-textarea" id="sugCpDetail" placeholder="What do you know about this checkpoint? Current status, operational hours, significance…"></textarea></div>
+        <div class="form-group"><label class="form-label">Status / Notes</label><textarea class="form-textarea" id="sugCpDetail" placeholder="What do you know about this checkpoint?"></textarea></div>
         <div class="form-group">
           <label class="form-label">Location</label>
           <div class="form-row">
+            <!-- FIX: was max="2099 placeholder= — missing closing quote on max attribute -->
             <div><input class="form-input" id="sugCpLat" placeholder="Latitude e.g. 31.8633" /><span class="form-hint">or pick on map</span></div>
             <div><input class="form-input" id="sugCpLng" placeholder="Longitude e.g. 35.2192" /></div>
           </div>
@@ -590,7 +601,8 @@
         <div class="form-group"><label class="form-label">Film Title</label><input class="form-input" id="sugFilmTitle" placeholder="e.g. The Present" /></div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">Director</label><input class="form-input" id="sugFilmDirector" placeholder="e.g. Farouk Nabulsi" /></div>
-          <div class="form-group"><label class="form-label">Year</label><input class="form-input" id="sugFilmYear" type="number" min="1900" max="2099 placeholder="e.g. 2020" /></div>
+          <!-- FIX: was max="2099 placeholder= with missing closing quote -->
+          <div class="form-group"><label class="form-label">Year</label><input class="form-input" id="sugFilmYear" type="number" min="1900" max="2099" placeholder="e.g. 2020" /></div>
         </div>
         <div class="form-group"><label class="form-label">Country / Production</label><input class="form-input" id="sugFilmCountry" placeholder="e.g. Palestine / UK" /></div>
         <div class="form-group"><label class="form-label">Why is this relevant?</label><textarea class="form-textarea" id="sugFilmNotes" placeholder="How does this film engage with checkpoints, movement restrictions, or spatial control?"></textarea></div>
@@ -626,35 +638,18 @@
   </div>
 </div>
 
-<!-- MOBILE NAV -->
-<div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
-  <div class="mobile-nav-header">
-    <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
-    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
-  </div>
-  <nav class="mobile-nav-links">
-    <a href="index.html">Home</a>
-    <a href="map.html" class="active">Map</a>
-    <span class="mobile-nav-section-label">Archive</span>
-    <a href="analysis.html" class="archive-item">Visual Analysis</a>
-    <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
-    <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
-    <a href="glossary.html" class="archive-item">Glossary</a>
-    <a href="about.html">About</a>
-  </nav>
-</div>
-
-<!-- TRANSLATION BUTTON -->
-<button id="translateBtn" style="position: absolute; top: 1.5rem; right: 2.5rem; z-index: 1200; background: var(--teal); color: #0a2321; border: none; border-radius: 8px; padding: 0.5rem 1.2rem; font-family: 'Oswald', sans-serif; font-size: 0.92rem; font-weight: 500; letter-spacing: 0.08em; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.10); transition: background 0.2s;">
+<!-- TRANSLATE BUTTON -->
+<button id="translateBtn" style="position:fixed;top:calc(var(--nav-h) + 12px);right:2.5rem;z-index:1200;background:var(--teal);color:#0a2321;border:none;border-radius:8px;padding:0.5rem 1.2rem;font-family:'Oswald',sans-serif;font-size:0.92rem;font-weight:500;letter-spacing:0.08em;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.10);transition:background 0.2s;">
   Translate
 </button>
-<script>
-  document.getElementById('translateBtn').onclick = function() {
-    alert('Translation feature coming soon!');
-  };
-</script>
 
 <script>
+/* ══════════════════════════════
+   FIX: ADMIN_HASH defined at top level (was missing entirely)
+   Password: misolily
+══════════════════════════════ */
+const ADMIN_HASH = 'f1c40308ddf6d45bc4bf431ca636a99fee778794de78ab150ec2d5f0ca9365e1';
+
 /* ══════════════════════════════
    SEED DATA
 ══════════════════════════════ */
@@ -662,19 +657,19 @@ const SEED_CHECKPOINTS=[
   {id:'qalandiya',coords:[35.2192,31.8633],title:"Qalandiya Checkpoint",arabic:"حاجز قلنديا",district:"Ramallah and al-Bira",type:"Last checkpoint before Israel",filterType:"entry",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Qalandiya separates Palestinian communities severed by the Separation Barrier. Closed on 7 October 2023; reopened for East Jerusalem residents 23 October 2023 (Sun–Thu, 5am–5pm). Reopened for West Bank permit holders 7 February 2024. Remains closed Fridays.",films:["Salt of This Sea — Jacir, 2008","The Present — Nablusi, 2020"],images:['assets/images/qalandiya1.jpg','assets/images/qalandiya2.jpg','assets/images/qalandiya3.jpg','assets/images/qalandiya4.jpg'],analysis:'<p>Qalandiya is the main bottleneck between Ramallah and Jerusalem, and its architecture makes the politics impossible to ignore. The concrete slabs, the metal cages, the turnstiles — this is exactly what Weizman means by the <em>politics of verticality</em>.</p><p>In <em>Salt of This Sea</em>, Jacir doesn\'t treat Qalandiya like a dramatic showdown. She films it the way Palestinians actually experience it: as one more obstruction in a whole web of them. The checkpoint\'s power comes from how routine it becomes.</p>',seed:true},
   {id:'bethlehem',coords:[35.2035,31.7234],title:"Checkpoint 300 — Bethlehem",arabic:"حاجز ٣٠٠ (بيت لحم)",district:"Bethlehem",type:"Entry / Exit to Israel",filterType:"entry",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located on the border between Bethlehem and Jerusalem. One of the busiest crossings — thousands pass daily for work. Features a turnstile system and persistent long queues.",films:["Salt of This Sea — Jacir, 2008","When I Saw You — Jacir, 2012"],images:['assets/images/bethlehem1.jpeg','assets/images/bethlehem2.jpeg','assets/images/bethlehem3.jpg','assets/images/bethlehem4.jpeg','assets/images/bethlehem5.jpeg','assets/images/bethlehem6.jpeg','assets/images/bethlehem7.jpg'],analysis:'<p>In <em>Salt of This Sea</em>, Rachel Checkpoint is where the difference between Soraya\'s American passport and Emad\'s West Bank ID becomes spatially visible. The checkpoint makes hierarchy literal — two people in the same shot but not in the same system.</p><p>In <em>When I Saw You</em>, it works differently: less immediate obstacle, more mythic horizon — the thing between Tarek and a Palestine he\'s never seen but fully believes in.</p>',seed:true},
   {id:'huwwara',coords:[35.2726,32.1762],title:"Huwwara Checkpoint",arabic:"حاجز حوارة",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Intermittently staffed",filterStaff:"intermittent",detail:"At the southern entrance to Nablus. Staffed on no fixed schedule. After 7 October 2023, completely closed to Palestinian pedestrians and vehicles.",films:["The Present — Nablusi, 2020"],images:['assets/images/hucheck.jpg'],analysis:'<p>Huwwara is exposed — open landscape, open sky, a checkpoint that cuts right through it. In <em>The Present</em>, Nabulsi shows how checkpoints don\'t just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier\'s mood becomes the clock — what Peteet calls <em>carceral time</em>.</p>',seed:true},
-  {id:'container',coords:[35.2976,31.6927],title:"Container Checkpoint (Wadi a-Nar)",arabic:"حاجز الكونتينر (وادي النار)",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"East of Abu Dis, controlling travel between northern and southern West Bank. Since October 2023, strict inspections with limited outbound hours (closed 6–9am for exit).",films:["Archive footage — dates TBD"],images:['assets/images/container.jpg'],analysis:'<p>The Container rarely gets cinematic attention even though it\'s strategically crucial — controlling movement between Bethlehem and Hebron. Its absence from narrative film is itself telling: certain sites become iconic while others remain underdocumented. That gap is part of the story.</p>',seed:true},
-  // ── PLACEHOLDER CHECKPOINTS (yellow markers — analysis to be added) ──
+  {id:'container',coords:[35.2976,31.6927],title:"Container Checkpoint (Wadi a-Nar)",arabic:"حاجز الكونتينر (وادي النار)",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"East of Abu Dis, controlling travel between northern and southern West Bank. Since October 2023, strict inspections with limited outbound hours.",films:["Archive footage — dates TBD"],images:['assets/images/container.jpg'],analysis:'<p>The Container rarely gets cinematic attention even though it\'s strategically crucial — controlling movement between Bethlehem and Hebron. Its absence from narrative film is itself telling: certain sites become iconic while others remain underdocumented. That gap is part of the story.</p>',seed:true},
   {id:'beit_iba',coords:[35.1782,32.2185],title:"Beit Iba Checkpoint",arabic:"حاجز بيت إيبا",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Western entrance to Nablus. One of the primary checkpoints controlling access to the city from the west.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'awarta',coords:[35.3102,32.1538],title:"Awarta Checkpoint",arabic:"حاجز عوارة",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement on Route 60 south of Nablus near the village of Awarta.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'beit_el',coords:[35.2287,31.9467],title:"Beit El Checkpoint",arabic:"حاجز بيت إيل",district:"Ramallah and al-Bira",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located on the northern outskirts of Ramallah near the Beit El settlement.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'gilo',coords:[35.1844,31.7283],title:"Gilo Checkpoint",arabic:"حاجز غيلو",district:"Bethlehem",type:"Entry / Exit to Israel",filterType:"entry",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Southern entry/exit point between Bethlehem and Jerusalem, adjacent to the Gilo settlement.",films:[],images:[],analysis:'',seed:true,placeholder:true},
-  {id:'al_hamra',coords:[35.4556,32.0523],title:"Al-Hamra Checkpoint",arabic:"حاجز الحمرا",district:"Jericho",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located in the northern Jordan Valley on Route 90. Controls movement between the northern West Bank and the Jordan Valley.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'al_hamra',coords:[35.4556,32.0523],title:"Al-Hamra Checkpoint",arabic:"حاجز الحمرا",district:"Jericho",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located in the northern Jordan Valley on Route 90.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'tayasir',coords:[35.5243,32.2687],title:"Tayasir Checkpoint",arabic:"حاجز طياسير",district:"Tubas",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls access to the northern Jordan Valley. Palestinians require special permits to pass.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'jaba',coords:[35.2518,31.6958],title:"Jaba Checkpoint",arabic:"حاجز جبع",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located south of Jerusalem near the village of Jaba on Route 60.",films:[],images:[],analysis:'',seed:true,placeholder:true},
-  {id:'hebron_h2',coords:[35.1262,31.5252],title:"Hebron H2 Checkpoint",arabic:"حاجز الخليل (ح٢)",district:"Hebron",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement into the H2 zone of Hebron under Israeli military control. Palestinian movement is heavily restricted throughout the old city.",films:[],images:[],analysis:'',seed:true,placeholder:true},
-  {id:'abu_dis',coords:[35.2895,31.7622],title:"Abu Dis Checkpoint",arabic:"حاجز أبو ديس",district:"Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Separates Abu Dis from East Jerusalem. The Separation Barrier runs directly through this area, cutting the village off from the city.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'hebron_h2',coords:[35.1262,31.5252],title:"Hebron H2 Checkpoint",arabic:"حاجز الخليل (ح٢)",district:"Hebron",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement into the H2 zone of Hebron under Israeli military control.",films:[],images:[],analysis:'',seed:true,placeholder:true},
+  {id:'abu_dis',coords:[35.2895,31.7622],title:"Abu Dis Checkpoint",arabic:"حاجز أبو ديس",district:"Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Separates Abu Dis from East Jerusalem. The Separation Barrier runs directly through this area.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'ras_al_amud',coords:[35.2428,31.7728],title:"Ras al-Amud Checkpoint",arabic:"حاجز رأس العامود",district:"Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement between the Ras al-Amud neighbourhood and the rest of East Jerusalem.",films:[],images:[],analysis:'',seed:true,placeholder:true}
 ];
+
 const SEED_FILMS=[
   {id:'film_salt',title:"Salt of This Sea",director:"Annemarie Jacir",year:2008,country:"Palestine / Belgium",genre:"Narrative feature",notes:"A Palestinian-American woman returns to Palestine to reclaim her grandfather's home. Engages directly with checkpoints, bureaucracy, and spatial control.",checkpointIds:["qalandiya","bethlehem"],seed:true},
   {id:'film_present',title:"The Present",director:"Farouk Nabulsi",year:2020,country:"Palestine / UK",genre:"Short film",notes:"A man and his daughter navigate checkpoints in the West Bank while trying to buy a refrigerator.",checkpointIds:["qalandiya","huwwara"],seed:true},
@@ -684,10 +679,11 @@ const SEED_FILMS=[
 /* ══════════════════════════════
    STATE
 ══════════════════════════════ */
-let checkpoints=[], films=[], markerObjs=[], pendingMarkers=[], submissions=[];
+let checkpoints=[], films=[], markerObjs=[], submissions=[];
 let activeFilters={type:'all',staff:'all',film:'all',year:'all'};
 let activeCpId=null, activeFilmId=null;
-let pickingOnMap=false, tempPickMarker=null;
+/* FIX: pickingOnMap and sugPickingOnMap both declared at top level */
+let pickingOnMap=false, sugPickingOnMap=false, tempPickMarker=null;
 let currentMapStyle='street';
 let activePanelTab='checkpoints';
 
@@ -715,16 +711,72 @@ const map=new mapboxgl.Map({container:'map',style:STYLES.street,projection:'glob
 map.addControl(new mapboxgl.NavigationControl());
 map.on('style.load',()=>map.setFog({}));
 
-/* Map style toggle */
 window.setMapStyle=function(s){
-  if(s===currentMapStyle) return;
+  if(s===currentMapStyle)return;
   currentMapStyle=s;
   document.getElementById('styleStreet').classList.toggle('active',s==='street');
   document.getElementById('styleSatellite').classList.toggle('active',s==='satellite');
   map.setStyle(STYLES[s]);
-  // markers must be rebuilt after style change
-  map.once('style.load',()=>{map.setFog();rebuildMarkers();});
+  map.once('style.load',()=>{map.setFog({});rebuildMarkers();});
 };
+
+/* ══════════════════════════════
+   UNIFIED map.on('load') — FIX: was split into two separate handlers;
+   data might not be ready when openFromHash fired
+══════════════════════════════ */
+map.on('load', async () => {
+  await loadData();
+  buildList();
+  buildFilmList();
+  buildFilmFilterChips();
+  buildYearFilterChips();
+  rebuildMarkers();
+  applyFilters();
+  openFromHash();
+});
+
+/* Hash nav */
+function openFromHash(){
+  const hash=window.location.hash.replace('#','');if(!hash)return;
+  const cp=checkpoints.find(c=>c.id===hash);
+  if(cp){map.flyTo({center:cp.coords,zoom:16,essential:true});setTimeout(()=>openCheckpoint(cp.id),800);}
+}
+window.addEventListener('hashchange',openFromHash);
+
+/* ══════════════════════════════
+   SINGLE map.on('click') handler — FIX: was registering new listeners
+   inside radio change events, causing duplicates and missed calls
+══════════════════════════════ */
+map.on('click', e => {
+  if(pickingOnMap){
+    const{lng,lat}=e.lngLat;
+    document.getElementById('cpLat').value=lat.toFixed(6);
+    document.getElementById('cpLng').value=lng.toFixed(6);
+    if(tempPickMarker)tempPickMarker.remove();
+    const el=document.createElement('div');
+    el.style.cssText='width:13px;height:13px;background:var(--gold);border:2px solid rgba(255,255,255,0.5);border-radius:50%;box-shadow:0 0 12px rgba(230,169,58,0.7);';
+    tempPickMarker=new mapboxgl.Marker({element:el}).setLngLat([lng,lat]).addTo(map);
+    pickingOnMap=false;
+    document.getElementById('mapClickHint').classList.remove('visible');
+    map.getCanvas().style.cursor='';
+    openModal('addCheckpointModal');
+    return;
+  }
+  if(sugPickingOnMap){
+    const{lng,lat}=e.lngLat;
+    document.getElementById('sugCpLat').value=lat.toFixed(6);
+    document.getElementById('sugCpLng').value=lng.toFixed(6);
+    if(tempPickMarker)tempPickMarker.remove();
+    const el=document.createElement('div');
+    el.style.cssText='width:13px;height:13px;background:var(--gold);border:2px solid rgba(255,255,255,0.5);border-radius:50%;box-shadow:0 0 12px rgba(230,169,58,0.7);';
+    tempPickMarker=new mapboxgl.Marker({element:el}).setLngLat([lng,lat]).addTo(map);
+    sugPickingOnMap=false;
+    document.getElementById('mapClickHint').classList.remove('visible');
+    map.getCanvas().style.cursor='';
+    openModal('suggestModal');
+    return;
+  }
+});
 
 /* ══════════════════════════════
    PANEL
@@ -743,7 +795,6 @@ function openPanel(){
   document.body.classList.add('panel-open');
   closePanelBtn.classList.add('visible');
   panelTab.classList.add('hidden');
-  // Resize map AFTER panel transition finishes so flyTo uses correct viewport
   setTimeout(()=>map.resize(),450);
 }
 function closePanel(){
@@ -763,9 +814,8 @@ function showFilmDetailView(){document.getElementById('filmsPanelInner').classNa
 
 closePanelBtn.addEventListener('click',closePanel);
 backBtn.addEventListener('click',()=>{showListView();activeCpId=null;document.querySelectorAll('.cp-list-item').forEach(el=>el.classList.remove('active'));});
-document.getElementById('filmBackBtn').addEventListener('click',()=>{showFilmListView();activeFilmId=null;document.querySelectorAll('.film-list-item').forEach(el=>el.classList.remove('active'));});
+document.getElementById('filmBackBtn').addEventListener('click',()=>{showFilmListView();activeFilmId=null;document.querySelectorAll('.film-list-item').forEach(el=>el.classList.remove('active'));resetMarkerHighlight();});
 
-/* Panel main tabs: Checkpoints / Films */
 window.switchPanelTab=function(tab){
   activePanelTab=tab;
   document.getElementById('tabCheckpoints').classList.toggle('active',tab==='checkpoints');
@@ -802,7 +852,6 @@ function buildFilmFilterChips(){
   const pane=document.getElementById('filter-film');pane.innerHTML='';
   makeChip('All Films','film-chip',()=>{activeFilters.film='all';buildFilmFilterChips();applyFilters();},activeFilters.film==='all',pane);
   films.forEach(f=>{
-    // count how many checkpoints this film links to
     const count=(f.checkpointIds||[]).length;
     makeChip(`${f.title} (${f.year})`,'film-chip',()=>{activeFilters.film=f.id;buildFilmFilterChips();applyFilters();},activeFilters.film===f.id,pane,count);
   });
@@ -945,43 +994,34 @@ function openCheckpoint(id){
     ${adminActions}`;
   initCarousel(document.getElementById(`car-${id}`));
   showDetailView();detailScroll.scrollTop=0;
-  const panelWasOpen = panel.classList.contains('open');
+  const panelWasOpen=panel.classList.contains('open');
   openPanel();
-  // If panel just slid open, wait for its 420ms CSS transition before resizing + flying.
-  // If it was already open, fly immediately after resize. Either way offset by -200px
-  // (half panel width) so the checkpoint lands centre of the *visible* map, not the full window.
   setTimeout(()=>{
     map.resize();
-    map.flyTo({center:cp.coords, zoom:16, essential:true, duration:1100, offset:[-200, 0]});
-  }, panelWasOpen ? 0 : 440);
+    map.flyTo({center:cp.coords,zoom:16,essential:true,duration:1100,offset:[-200,0]});
+  },panelWasOpen?0:440);
 }
 
 /* ══════════════════════════════
-   OPEN FILM DETAIL (Browse by Film)
+   OPEN FILM DETAIL
 ══════════════════════════════ */
 function openFilmDetail(id){
   const f=films.find(x=>x.id===id);if(!f)return;
   activeFilmId=id;
   document.querySelectorAll('.film-list-item').forEach(el=>el.classList.remove('active'));
   const el=document.querySelector(`.film-list-item[data-film-id="${id}"]`);if(el)el.classList.add('active');
-
-  // Highlight only this film's checkpoints on map by dimming others
   highlightFilmOnMap(f.checkpointIds||[]);
-
   const cpLinks=(f.checkpointIds||[]).map(cpId=>{
-    const cp=checkpoints.find(c=>c.id===cpId);
-    if(!cp)return'';
+    const cp=checkpoints.find(c=>c.id===cpId);if(!cp)return'';
     return`<div style="padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;" onclick="openCheckpoint('${cpId}');switchPanelTab('checkpoints');">
       <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:rgba(232,245,240,0.82);">${cp.title}</span>
       <span style="font-family:'IBM Plex Mono',monospace;font-size:0.52rem;color:rgba(111,231,193,0.5);margin-left:0.5rem;">${cp.arabic||''}</span>
     </div>`;
   }).join('');
-
-  const adminActions=isAdmin?`<div class="cp-detail-admin-row" style="padding:0.55rem 1.2rem 0.85rem;">
+  const adminActions=isAdmin?`<div class="cp-detail-admin-row">
     <button class="cp-detail-edit-btn" onclick="editFilm('${id}')">Edit</button>
     <button class="cp-detail-delete-btn" onclick="deleteFilm('${id}')">Delete</button>
   </div>`:'';
-
   document.getElementById('filmDetailScroll').innerHTML=`
     <div class="film-detail-header">
       <span class="film-detail-eyebrow">${f.genre||'Film'} · ${f.year||''}</span>
@@ -991,40 +1031,28 @@ function openFilmDetail(id){
     ${f.notes?`<div class="cp-detail-row"><span class="cp-detail-row-label">Synopsis</span>${f.notes}</div>`:''}
     ${cpLinks?`<div class="cp-detail-row"><span class="cp-detail-row-label">Checkpoints Featured</span>${cpLinks}</div>`:'<div class="cp-detail-row" style="color:rgba(232,245,240,0.35);font-style:italic;font-size:0.9rem;">No checkpoints linked yet.</div>'}
     ${adminActions}`;
-
   showFilmDetailView();document.getElementById('filmDetailScroll').scrollTop=0;
   openPanel();
 }
 
 function highlightFilmOnMap(cpIds){
   markerObjs.forEach(({el,cp})=>{
-    const inner=el.querySelector('div');
-    if(!inner)return;
-    if(cpIds.length===0||cpIds.includes(cp.id)){
-      inner.style.opacity='1';inner.style.filter='drop-shadow(0 4px 10px rgba(0,0,0,0.6))';
-    }else{
-      inner.style.opacity='0.25';inner.style.filter='none';
-    }
+    const inner=el.querySelector('div');if(!inner)return;
+    if(cpIds.length===0||cpIds.includes(cp.id)){inner.style.opacity='1';inner.style.filter='drop-shadow(0 4px 10px rgba(0,0,0,0.6))';}
+    else{inner.style.opacity='0.25';inner.style.filter='none';}
   });
 }
 function resetMarkerHighlight(){highlightFilmOnMap([]);}
 
 /* ══════════════════════════════
-   MARKERS — fixed position, no transform on hover
+   MARKERS
 ══════════════════════════════ */
 function addMarker(cp){
   const el=document.createElement('div');
-  // GREEN = curated archive (seed, not placeholder)
-  // YELLOW = placeholder — more info coming (seed + placeholder)
-  // ORANGE = community-added or approved submission (not seed)
-  let fill, stroke;
-  if (!cp.seed) {
-    fill = '#f07830'; stroke = '#a04818'; // orange
-  } else if (cp.placeholder) {
-    fill = '#f0d020'; stroke = '#a09010'; // yellow
-  } else {
-    fill = '#4ec87a'; stroke = '#267a48'; // green
-  }
+  let fill,stroke;
+  if(!cp.seed){fill='#f07830';stroke='#a04818';}
+  else if(cp.placeholder){fill='#f0d020';stroke='#a09010';}
+  else{fill='#4ec87a';stroke='#267a48';}
   el.style.cssText='width:54px;height:54px;cursor:pointer;position:relative;';
   const inner=document.createElement('div');
   inner.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6));transition:filter 0.2s;pointer-events:none;';
@@ -1039,18 +1067,48 @@ function addMarker(cp){
     <ellipse cx="19" cy="36" rx="7" ry="1.5" fill="rgba(230,169,58,0.2)"/>
   </svg>`;
   el.appendChild(inner);
-  const glowColor = !cp.seed ? 'rgba(240,120,48,0.65)' : cp.placeholder ? 'rgba(240,208,32,0.65)' : 'rgba(78,200,122,0.65)';
+  const glowColor=!cp.seed?'rgba(240,120,48,0.65)':cp.placeholder?'rgba(240,208,32,0.65)':'rgba(78,200,122,0.65)';
   el.addEventListener('mouseenter',()=>{inner.style.filter=`drop-shadow(0 6px 16px ${glowColor}) brightness(1.18)`;});
   el.addEventListener('mouseleave',()=>{inner.style.filter='drop-shadow(0 4px 10px rgba(0,0,0,0.6))';});
   el.addEventListener('click',e=>{e.stopPropagation();openCheckpoint(cp.id);});
   const marker=new mapboxgl.Marker({element:el,anchor:'center'}).setLngLat(cp.coords).addTo(map);
   markerObjs.push({el,inner,marker,cp});
 }
-function rebuildMarkers(){markerObjs.forEach(m=>m.marker.remove());markerObjs=[];checkpoints.forEach(cp=>addMarker(cp));}
+
+/* FIX: addPendingMarker defined (was called but never existed) */
+function addPendingMarker(sub){
+  if(!sub.coords)return;
+  const el=document.createElement('div');
+  el.style.cssText='width:44px;height:44px;cursor:default;position:relative;';
+  const inner=document.createElement('div');
+  inner.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;animation:pendingPulse 2s ease-in-out infinite;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.5));pointer-events:none;';
+  inner.innerHTML=`<svg width="44" height="44" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="15" y="18" width="8" height="12" rx="2" fill="rgba(240,120,48,0.5)" stroke="rgba(240,208,32,0.7)" stroke-width="1.2" stroke-dasharray="3 2"/>
+    <rect x="13" y="13" width="12" height="6" rx="2" fill="rgba(240,120,48,0.5)" stroke="rgba(240,208,32,0.7)" stroke-width="1.2" stroke-dasharray="3 2"/>
+    <rect x="16" y="30" width="2" height="4" rx="1" fill="rgba(240,208,32,0.5)"/>
+    <rect x="20" y="30" width="2" height="4" rx="1" fill="rgba(240,208,32,0.5)"/>
+  </svg>`;
+  el.appendChild(inner);
+  new mapboxgl.Marker({element:el,anchor:'center'}).setLngLat(sub.coords).addTo(map);
+}
+
+function rebuildMarkers(){
+  markerObjs.forEach(m=>m.marker.remove());
+  markerObjs=[];
+  checkpoints.forEach(cp=>addMarker(cp));
+}
 
 /* ══════════════════════════════
    CRUD: CHECKPOINT
 ══════════════════════════════ */
+function openAddCheckpointModal(){
+  document.getElementById('cpEditId').value='';
+  document.getElementById('cpModalEyebrow').textContent='New Entry';
+  document.getElementById('cpModalTitle').textContent='Add Checkpoint';
+  resetCpForm();
+  openModal('addCheckpointModal');
+}
+
 window.deleteCheckpoint=async function(id){
   if(!confirm('Delete this checkpoint? This cannot be undone.'))return;
   checkpoints=checkpoints.filter(c=>c.id!==id);
@@ -1060,23 +1118,19 @@ window.deleteCheckpoint=async function(id){
 
 window.editCheckpoint=function(id){
   const cp=checkpoints.find(c=>c.id===id);if(!cp)return;
-  // Pre-fill the add form with existing data
   document.getElementById('cpEditId').value=id;
   document.getElementById('cpModalEyebrow').textContent='Edit Entry';
   document.getElementById('cpModalTitle').textContent='Edit Checkpoint';
   document.getElementById('cpName').value=cp.title||'';
   document.getElementById('cpArabic').value=cp.arabic||'';
   document.getElementById('cpDistrict').value=cp.district||'';
-  // Map type to select value
   const typeMap={'Internal checkpoint':'internal','Entry / Exit to Israel':'entry','Last checkpoint before Israel':'last'};
   document.getElementById('cpType').value=typeMap[cp.type]||'internal';
   const staffMap={'Permanently staffed':'permanent','Intermittently staffed':'intermittent','Seasonally staffed':'seasonal'};
   document.getElementById('cpStaffing').value=staffMap[cp.staffing]||'permanent';
   document.getElementById('cpDetail').value=cp.detail||'';
-  // Strip HTML tags from analysis for editing
   const tmp=document.createElement('div');tmp.innerHTML=cp.analysis||'';
   document.getElementById('cpAnalysis').value=tmp.textContent||'';
-  // Film rows
   const filmList=document.getElementById('cpFilmList');filmList.innerHTML='';
   const filmArr=cp.films&&cp.films.length?cp.films:[''];
   filmArr.forEach(fStr=>{
@@ -1089,13 +1143,6 @@ window.editCheckpoint=function(id){
   openModal('addCheckpointModal');
 };
 
-document.getElementById('addCheckpointBtn').addEventListener('click',()=>requireAdmin(()=>{
-  // Reset to add mode
-  document.getElementById('cpEditId').value='';
-  document.getElementById('cpModalEyebrow').textContent='New Entry';
-  document.getElementById('cpModalTitle').textContent='Add Checkpoint';
-  resetCpForm();openModal('addCheckpointModal');
-}));
 document.getElementById('addFilmRowBtn').addEventListener('click',()=>{
   const li=document.createElement('li');li.className='form-film-row';
   li.innerHTML=`<input class="form-input" placeholder="Film title — Director, Year"/><button class="form-film-remove" onclick="removeFilmRow(this)">✕</button>`;
@@ -1104,20 +1151,10 @@ document.getElementById('addFilmRowBtn').addEventListener('click',()=>{
 window.removeFilmRow=function(btn){const rows=document.querySelectorAll('.form-film-row');if(rows.length>1)btn.closest('.form-film-row').remove();};
 
 document.getElementById('pickOnMapBtn').addEventListener('click',()=>{
-  closeModal('addCheckpointModal');pickingOnMap=true;
+  closeModal('addCheckpointModal');
+  pickingOnMap=true;
   document.getElementById('mapClickHint').classList.add('visible');
   map.getCanvas().style.cursor='crosshair';
-});
-map.on('click',e=>{
-  if(pickingOnMap){
-    const{lng,lat}=e.lngLat;
-    document.getElementById('cpLat').value=lat.toFixed(6);document.getElementById('cpLng').value=lng.toFixed(6);
-    if(tempPickMarker)tempPickMarker.remove();
-    const el=document.createElement('div');el.style.cssText='width:13px;height:13px;background:var(--gold);border:2px solid rgba(255,255,255,0.5);border-radius:50%;box-shadow:0 0 12px rgba(230,169,58,0.7);';
-    tempPickMarker=new mapboxgl.Marker({element:el}).setLngLat([lng,lat]).addTo(map);
-    pickingOnMap=false;document.getElementById('mapClickHint').classList.remove('visible');
-    map.getCanvas().style.cursor='';openModal('addCheckpointModal');
-  }
 });
 
 document.getElementById('saveCheckpointBtn').addEventListener('click',async()=>{
@@ -1133,7 +1170,6 @@ document.getElementById('saveCheckpointBtn').addEventListener('click',async()=>{
   const editId=document.getElementById('cpEditId').value;
 
   if(editId){
-    // Update existing
     const idx=checkpoints.findIndex(c=>c.id===editId);
     if(idx>-1){
       checkpoints[idx]={...checkpoints[idx],title:name,arabic:document.getElementById('cpArabic').value.trim(),district:document.getElementById('cpDistrict').value.trim(),type:typeLabels[typeVal],filterType:typeVal==='internal'?'internal':'entry',staffing:staffLabels[staffVal],filterStaff:staffVal,detail:document.getElementById('cpDetail').value.trim(),analysis,films:filmInputs,coords:[lng,lat]};
@@ -1141,10 +1177,10 @@ document.getElementById('saveCheckpointBtn').addEventListener('click',async()=>{
     await saveData();rebuildMarkers();buildList();buildFilmList();buildFilmFilterChips();buildYearFilterChips();applyFilters();
     closeModal('addCheckpointModal');openCheckpoint(editId);
   }else{
-    // Create new
     const newCp={id:'cp_'+Date.now(),coords:[lng,lat],title:name,arabic:document.getElementById('cpArabic').value.trim(),district:document.getElementById('cpDistrict').value.trim(),type:typeLabels[typeVal],filterType:typeVal==='internal'?'internal':'entry',staffing:staffLabels[staffVal],filterStaff:staffVal,detail:document.getElementById('cpDetail').value.trim(),analysis,films:filmInputs,images:[],seed:false};
     checkpoints.push(newCp);await saveData();addMarker(newCp);buildList();buildFilmFilterChips();buildYearFilterChips();applyFilters();
-    closeModal('addCheckpointModal');resetCpForm();if(tempPickMarker){tempPickMarker.remove();tempPickMarker=null;}
+    closeModal('addCheckpointModal');resetCpForm();
+    if(tempPickMarker){tempPickMarker.remove();tempPickMarker=null;}
     openCheckpoint(newCp.id);
   }
 });
@@ -1158,12 +1194,14 @@ function resetCpForm(){
 /* ══════════════════════════════
    CRUD: FILM
 ══════════════════════════════ */
-document.getElementById('addFilmBtn').addEventListener('click',()=>requireAdmin(()=>{
+function openAddFilmModal(){
   document.getElementById('filmEditId').value='';
   document.getElementById('filmModalEyebrow').textContent='New Entry';
   document.getElementById('filmModalTitle').textContent='Add Film';
-  resetFilmForm();populateFilmCpCheckboxes([]);openModal('addFilmModal');
-}));
+  resetFilmForm();
+  populateFilmCpCheckboxes([]);
+  openModal('addFilmModal');
+}
 
 function populateFilmCpCheckboxes(checkedIds){
   const box=document.getElementById('filmCpCheckboxes');box.innerHTML='';
@@ -1201,24 +1239,26 @@ document.getElementById('saveFilmBtn').addEventListener('click',async()=>{
   if(!title){alert('Please enter a film title.');return;}if(!year){alert('Please enter the year.');return;}
   const checkedCps=[...document.querySelectorAll('#filmCpCheckboxes input:checked')].map(i=>i.value);
   const editId=document.getElementById('filmEditId').value;
-  const filmStr=`${title}${document.getElementById('filmDirector').value.trim()?' — '+document.getElementById('filmDirector').value.trim():''},${year}`;
+  const directorVal=document.getElementById('filmDirector').value.trim();
 
   if(editId){
     const idx=films.findIndex(f=>f.id===editId);
     if(idx>-1){
-      // Remove old film string from previously linked checkpoints
       const oldFilm=films[idx];
       checkpoints.forEach(cp=>{if(cp.films)cp.films=cp.films.filter(s=>!s.includes(oldFilm.title));});
-      films[idx]={...films[idx],title,director:document.getElementById('filmDirector').value.trim(),year:parseInt(year),country:document.getElementById('filmCountry').value.trim(),genre:document.getElementById('filmGenre').value.trim(),notes:document.getElementById('filmNotes').value.trim(),checkpointIds:checkedCps};
+      films[idx]={...films[idx],title,director:directorVal,year:parseInt(year),country:document.getElementById('filmCountry').value.trim(),genre:document.getElementById('filmGenre').value.trim(),notes:document.getElementById('filmNotes').value.trim(),checkpointIds:checkedCps};
     }
   }else{
-    films.push({id:'film_'+Date.now(),title,director:document.getElementById('filmDirector').value.trim(),year:parseInt(year),country:document.getElementById('filmCountry').value.trim(),genre:document.getElementById('filmGenre').value.trim(),notes:document.getElementById('filmNotes').value.trim(),checkpointIds:checkedCps,seed:false});
+    films.push({id:'film_'+Date.now(),title,director:directorVal,year:parseInt(year),country:document.getElementById('filmCountry').value.trim(),genre:document.getElementById('filmGenre').value.trim(),notes:document.getElementById('filmNotes').value.trim(),checkpointIds:checkedCps,seed:false});
   }
-  // Sync film string into linked checkpoints
-  checkedCps.forEach(cpId=>{const cp=checkpoints.find(c=>c.id===cpId);if(cp){if(!cp.films)cp.films=[];if(!cp.films.some(s=>s.includes(title)))cp.films.push(`${title} — ${document.getElementById('filmDirector').value.trim()}, ${year}`);}});
+  checkedCps.forEach(cpId=>{const cp=checkpoints.find(c=>c.id===cpId);if(cp){if(!cp.films)cp.films=[];if(!cp.films.some(s=>s.includes(title)))cp.films.push(`${title} — ${directorVal}, ${year}`);}});
   await saveData();buildList();buildFilmList();buildFilmFilterChips();buildYearFilterChips();applyFilters();closeModal('addFilmModal');resetFilmForm();
 });
-function resetFilmForm(){['filmTitle','filmDirector','filmYear','filmCountry','filmGenre','filmNotes'].forEach(id=>document.getElementById(id).value='');document.getElementById('filmEditId').value='';}
+
+function resetFilmForm(){
+  ['filmTitle','filmDirector','filmYear','filmCountry','filmGenre','filmNotes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('filmEditId').value='';
+}
 
 /* ══════════════════════════════
    MODAL HELPERS
@@ -1231,6 +1271,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     document.querySelectorAll('.create-backdrop.open').forEach(bd=>closeModal(bd.id));
     if(pickingOnMap){pickingOnMap=false;document.getElementById('mapClickHint').classList.remove('visible');map.getCanvas().style.cursor='';}
+    if(sugPickingOnMap){sugPickingOnMap=false;document.getElementById('mapClickHint').classList.remove('visible');map.getCanvas().style.cursor='';}
   }
 });
 
@@ -1255,36 +1296,30 @@ searchInput.addEventListener('input',()=>{const q=searchInput.value.trim();if(!q
 document.addEventListener('click',e=>{if(!e.target.closest('.search-panel'))resultsList.style.display='none';});
 
 /* ══════════════════════════════
-   HASH NAV — opens panel only if hash present
-══════════════════════════════ */
-function openFromHash(){
-  const hash=window.location.hash.replace('#','');if(!hash)return;
-  const cp=checkpoints.find(c=>c.id===hash);
-  if(cp){setTimeout(()=>{map.flyTo({center:cp.coords,zoom:16,essential:true});setTimeout(()=>openCheckpoint(cp.id),800);},300);}
-}
-// Only open from hash, never auto-open on bare page load
-map.on('load',openFromHash);
-window.addEventListener('hashchange',openFromHash);
-
-/* ══════════════════════════════
-   NAV DROPDOWNS + MOBILE
-══════════════════════════════ */
-(function(){var t=document.querySelector('.nav-dropdown-trigger'),d=document.querySelector('.nav-dropdown');if(!t||!d)return;t.addEventListener('click',function(e){e.stopPropagation();var o=d.classList.contains('open');d.classList.toggle('open',!o);t.setAttribute('aria-expanded',String(!o));});document.addEventListener('click',function(){d.classList.remove('open');t.setAttribute('aria-expanded','false');});document.addEventListener('keydown',function(e){if(e.key==='Escape'){d.classList.remove('open');t.setAttribute('aria-expanded','false');}});})();
-(function(){var btn=document.getElementById('navHamburger'),nav=document.getElementById('mobileNav'),close=document.getElementById('mobileNavClose');if(!btn||!nav)return;function openNav(){nav.classList.add('open');btn.classList.add('open');btn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}function closeNav(){nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');document.body.style.overflow='';}btn.addEventListener('click',openNav);if(close)close.addEventListener('click',closeNav);nav.addEventListener('click',function(e){if(e.target===nav)closeNav();});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNav();});})();
-
-/* ══════════════════════════════
    ADMIN AUTH
-   Password: misolily
 ══════════════════════════════ */
-let isAdmin=false,pendingAdminAction=null;
+let isAdmin=false, pendingAdminAction=null;
 
-async function hashPassword(pw){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');}
-
+async function hashPassword(pw){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function requireAdmin(action){
+  if(isAdmin){action();return;}
+  pendingAdminAction=action;
+  document.getElementById('adminPassword').value='';
+  document.getElementById('adminError').style.display='none';
+  openModal('adminLoginModal');
+  setTimeout(()=>document.getElementById('adminPassword').focus(),100);
+}
 function setAdminUI(){
   document.getElementById('addFilmBtn').style.display=isAdmin?'':'none';
   document.getElementById('addCheckpointBtn').style.display=isAdmin?'':'none';
   document.getElementById('tabSubmissions').style.display=isAdmin?'':'none';
-  const lb=document.getElementById('adminLockBtn');lb.textContent=isAdmin?'🔓':'🔒';lb.style.opacity=isAdmin?'0.85':'0.4';lb.title=isAdmin?'Admin — click to log out':'Admin login';
+  const lb=document.getElementById('adminLockBtn');
+  lb.textContent=isAdmin?'🔓':'🔒';
+  lb.style.opacity=isAdmin?'0.85':'0.4';
+  lb.title=isAdmin?'Admin — click to log out':'Admin login';
   if(isAdmin){buildSubmissionsList();updateSubmissionBadge();}
   else if(activePanelTab==='submissions')switchPanelTab('checkpoints');
   if(activeCpId)openCheckpoint(activeCpId);
@@ -1294,34 +1329,38 @@ window.toggleAdminLock=function(){
   if(isAdmin){isAdmin=false;setAdminUI();}
   else{pendingAdminAction=null;document.getElementById('adminPassword').value='';document.getElementById('adminError').style.display='none';openModal('adminLoginModal');setTimeout(()=>document.getElementById('adminPassword').focus(),100);}
 };
-function requireAdmin(action){if(isAdmin){action();return;}pendingAdminAction=action;document.getElementById('adminPassword').value='';document.getElementById('adminError').style.display='none';openModal('adminLoginModal');setTimeout(()=>document.getElementById('adminPassword').focus(),100);}
 document.getElementById('adminLoginBtn').addEventListener('click',async()=>{
-  const pw=document.getElementById('adminPassword').value;const hash=await hashPassword(pw);
-  if(hash===ADMIN_HASH){isAdmin=true;closeModal('adminLoginModal');setAdminUI();if(pendingAdminAction){pendingAdminAction();pendingAdminAction=null;}}
-  else{document.getElementById('adminError').style.display='block';document.getElementById('adminPassword').value='';document.getElementById('adminPassword').focus();}
+  const pw=document.getElementById('adminPassword').value;
+  const hash=await hashPassword(pw);
+  if(hash===ADMIN_HASH){
+    isAdmin=true;closeModal('adminLoginModal');setAdminUI();
+    if(pendingAdminAction){pendingAdminAction();pendingAdminAction=null;}
+  }else{
+    document.getElementById('adminError').style.display='block';
+    document.getElementById('adminPassword').value='';
+    document.getElementById('adminPassword').focus();
+  }
 });
 document.getElementById('adminPassword').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('adminLoginBtn').click();});
 
 /* ══════════════════════════════
-   SUBMISSIONS — public suggest + admin review
+   SUBMISSIONS
 ══════════════════════════════ */
 
-// Toggle checkpoint/film fields in suggest form
+/* FIX: suggest type radio toggle — listeners added once, not nested inside other listeners */
 document.querySelectorAll('input[name="suggestType"]').forEach(radio=>{
   radio.addEventListener('change',()=>{
     const isCheckpoint=document.getElementById('sugTypeCheckpoint').checked;
     document.getElementById('sugCheckpointFields').style.display=isCheckpoint?'':'none';
     document.getElementById('sugFilmFields').style.display=isCheckpoint?'none':'';
-    // Update label styles
     document.getElementById('sugTypeCheckpointLabel').style.borderColor=isCheckpoint?'rgba(230,169,58,0.5)':'rgba(111,231,193,0.14)';
     document.getElementById('sugTypeCheckpointLabel').style.color=isCheckpoint?'var(--gold)':'rgba(232,245,240,0.5)';
-    document.getElementById('sugTypeFilmLabel').style.borderColor=!isCheckpoint?'rgba(111,231,193,0.4)':'rgba(111,231,193,0.14)';
+    document.getElementById('sugTypeFilmLabel').style.borderColor=!isCheckpoint?'rgba(111,231,193,0.5)':'rgba(111,231,193,0.14)';
     document.getElementById('sugTypeFilmLabel').style.color=!isCheckpoint?'var(--teal)':'rgba(232,245,240,0.5)';
   });
 });
 
-// Pick on map for suggest form
-let sugPickingOnMap=false;
+/* FIX: sugPickOnMapBtn listener now wired up (was missing) */
 document.getElementById('sugPickOnMapBtn').addEventListener('click',()=>{
   closeModal('suggestModal');
   sugPickingOnMap=true;
@@ -1329,84 +1368,107 @@ document.getElementById('sugPickOnMapBtn').addEventListener('click',()=>{
   map.getCanvas().style.cursor='crosshair';
 });
 
-// Extend map click handler for suggest pick
-const _origMapClick=map._listeners&&map._listeners.click;
-map.on('click',e=>{
-  if(sugPickingOnMap){
-    const{lng,lat}=e.lngLat;
-    document.getElementById('sugCpLat').value=lat.toFixed(6);
-    document.getElementById('sugCpLng').value=lng.toFixed(6);
-    if(tempPickMarker)tempPickMarker.remove();
-    const el=document.createElement('div');el.style.cssText='width:13px;height:13px;background:var(--gold);border:2px solid rgba(255,255,255,0.5);border-radius:50%;box-shadow:0 0 12px rgba(230,169,58,0.7);';
-    tempPickMarker=new mapboxgl.Marker({element:el}).setLngLat([lng,lat]).addTo(map);
-    sugPickingOnMap=false;document.getElementById('mapClickHint').classList.remove('visible');
-    map.getCanvas().style.cursor='';openModal('suggestModal');
-  }
-});
+document.getElementById('saveSuggestionBtn').addEventListener('click',async()=>{
+  const type=document.getElementById('sugTypeCheckpoint').checked?'checkpoint':'film';
+  let sub={id:'sub_'+Date.now(),type,submittedAt:new Date().toISOString(),contact:document.getElementById('sugContact').value.trim()};
 
-// Submit suggestion
-document.getElementById('saveSuggestionBtn').addEventListener('click', async () => {
-  const type = document.getElementById('sugTypeCheckpoint').checked ? 'checkpoint' : 'film';
-  let sub = { id: 'sub_' + Date.now(), type, submittedAt: new Date().toISOString(), contact: document.getElementById('sugContact').value.trim() };
-
-  if (type === 'checkpoint') {
-    const name = document.getElementById('sugCpName').value.trim();
-    if (!name) { alert('Please enter a checkpoint name.'); return; }
-    const lat = parseFloat(document.getElementById('sugCpLat').value), lng = parseFloat(document.getElementById('sugCpLng').value);
-    if (isNaN(lat) || isNaN(lng)) { alert('Please enter coordinates or pick a location on the map.'); return; }
-    const typeMap = { internal: 'Internal checkpoint', entry: 'Entry / Exit to Israel', last: 'Last checkpoint before Israel' };
-    const tv = document.getElementById('sugCpType').value;
-    Object.assign(sub, {
-      title: name,
-      arabic: document.getElementById('sugCpArabic').value.trim(),
-      district: document.getElementById('sugCpDistrict').value.trim(),
-      type_label: typeMap[tv],
-      filterType: tv === 'internal' ? 'internal' : 'entry',
-      detail: document.getElementById('sugCpDetail').value.trim(),
-      coords: [lng, lat]
-    });
-  } else {
-    const title = document.getElementById('sugFilmTitle').value.trim();
-    const year = document.getElementById('sugFilmYear').value.trim();
-    if (!title) { alert('Please enter a film title.'); return; }
-    if (!year) { alert('Please enter the year.'); return; }
-    Object.assign(sub, {
-      title,
-      director: document.getElementById('sugFilmDirector').value.trim(),
-      year: parseInt(year),
-      country: document.getElementById('sugFilmCountry').value.trim(),
-      notes: document.getElementById('sugFilmNotes').value.trim()
-    });
+  if(type==='checkpoint'){
+    const name=document.getElementById('sugCpName').value.trim();
+    if(!name){alert('Please enter a checkpoint name.');return;}
+    const lat=parseFloat(document.getElementById('sugCpLat').value),lng=parseFloat(document.getElementById('sugCpLng').value);
+    if(isNaN(lat)||isNaN(lng)){alert('Please enter coordinates or pick a location on the map.');return;}
+    const typeMap={internal:'Internal checkpoint',entry:'Entry / Exit to Israel',last:'Last checkpoint before Israel'};
+    const tv=document.getElementById('sugCpType').value;
+    Object.assign(sub,{title:name,arabic:document.getElementById('sugCpArabic').value.trim(),district:document.getElementById('sugCpDistrict').value.trim(),type_label:typeMap[tv],filterType:tv==='internal'?'internal':'entry',detail:document.getElementById('sugCpDetail').value.trim(),coords:[lng,lat]});
+  }else{
+    const title=document.getElementById('sugFilmTitle').value.trim();
+    const year=document.getElementById('sugFilmYear').value.trim();
+    if(!title){alert('Please enter a film title.');return;}
+    if(!year){alert('Please enter the year.');return;}
+    Object.assign(sub,{title,director:document.getElementById('sugFilmDirector').value.trim(),year:parseInt(year),country:document.getElementById('sugFilmCountry').value.trim(),notes:document.getElementById('sugFilmNotes').value.trim()});
   }
 
   submissions.push(sub);
   await saveSubmissions();
-
-  // Show a pending marker on the map for checkpoint submissions
-  if (type === 'checkpoint' && sub.coords) {
-    addPendingMarker(sub);
-  }
-
+  if(type==='checkpoint'&&sub.coords)addPendingMarker(sub);
   closeModal('suggestModal');
   resetSuggestForm();
-
-  // Thank-you feedback (fix: show a message after submission)
-  setTimeout(() => {
-    alert('Thank you for your suggestion! It will be reviewed soon.');
-  }, 200);
+  if(tempPickMarker){tempPickMarker.remove();tempPickMarker=null;}
+  setTimeout(()=>alert('Thank you for your suggestion! It will be reviewed soon.'),200);
 });
-</script>
-<script>
-  // Initialize everything after the map is loaded
-  map.on('load', async () => {
-    await loadData();
-    buildList();
-    buildFilmList();
-    buildFilmFilterChips();
-    buildYearFilterChips();
-    rebuildMarkers();
-    applyFilters();
+
+/* FIX: resetSuggestForm defined (was called but never existed) */
+function resetSuggestForm(){
+  ['sugCpName','sugCpArabic','sugCpDistrict','sugCpDetail','sugCpLat','sugCpLng',
+   'sugFilmTitle','sugFilmDirector','sugFilmYear','sugFilmCountry','sugFilmNotes','sugContact']
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('sugTypeCheckpoint').checked=true;
+  document.getElementById('sugCheckpointFields').style.display='';
+  document.getElementById('sugFilmFields').style.display='none';
+}
+
+function buildSubmissionsList(){
+  const list=document.getElementById('submissionsList');
+  const empty=document.getElementById('submissionsEmpty');
+  list.innerHTML='';
+  const pending=submissions.filter(s=>!s.approved&&!s.rejected);
+  if(!pending.length){empty.style.display='block';return;}
+  empty.style.display='none';
+  pending.forEach(sub=>{
+    const li=document.createElement('li');
+    li.className='sub-item';
+    const dateStr=new Date(sub.submittedAt).toLocaleDateString();
+    li.innerHTML=`<div class="sub-item-type">${sub.type}</div>
+      <div class="sub-item-title">${sub.title||'Untitled'}</div>
+      <div class="sub-item-meta">${dateStr}${sub.contact?' · '+sub.contact:''}</div>
+      ${sub.detail||sub.notes?`<div class="sub-item-detail">${sub.detail||sub.notes}</div>`:''}
+      <div class="sub-item-actions">
+        <button class="sub-approve" onclick="approveSubmission('${sub.id}')">Approve</button>
+        <button class="sub-reject" onclick="rejectSubmission('${sub.id}')">Reject</button>
+      </div>`;
+    list.appendChild(li);
   });
+}
+
+function updateSubmissionBadge(){
+  const pending=submissions.filter(s=>!s.approved&&!s.rejected).length;
+  const badge=document.getElementById('submissionBadge');
+  if(pending>0){badge.textContent=pending;badge.style.display='';}
+  else badge.style.display='none';
+}
+
+window.approveSubmission=async function(id){
+  const sub=submissions.find(s=>s.id===id);if(!sub)return;
+  sub.approved=true;
+  if(sub.type==='checkpoint'&&sub.coords){
+    const newCp={id:'cp_'+Date.now(),coords:sub.coords,title:sub.title,arabic:sub.arabic||'',district:sub.district||'',type:sub.type_label||'Internal checkpoint',filterType:sub.filterType||'internal',staffing:'Permanently staffed',filterStaff:'permanent',detail:sub.detail||'',analysis:'',films:[],images:[],seed:false};
+    checkpoints.push(newCp);addMarker(newCp);buildList();buildFilmFilterChips();buildYearFilterChips();applyFilters();
+  }else if(sub.type==='film'){
+    films.push({id:'film_'+Date.now(),title:sub.title,director:sub.director||'',year:sub.year||0,country:sub.country||'',genre:'',notes:sub.notes||'',checkpointIds:[],seed:false});
+    buildFilmList();buildFilmFilterChips();buildYearFilterChips();
+  }
+  await saveData();await saveSubmissions();buildSubmissionsList();updateSubmissionBadge();
+};
+
+window.rejectSubmission=async function(id){
+  const sub=submissions.find(s=>s.id===id);if(!sub)return;
+  sub.rejected=true;
+  await saveSubmissions();buildSubmissionsList();updateSubmissionBadge();
+};
+
+/* ══════════════════════════════
+   NAV DROPDOWNS
+══════════════════════════════ */
+(function(){
+  var t=document.querySelector('.nav-dropdown-trigger'),d=document.querySelector('.nav-dropdown');
+  if(!t||!d)return;
+  t.addEventListener('click',function(e){e.stopPropagation();var o=d.classList.contains('open');d.classList.toggle('open',!o);t.setAttribute('aria-expanded',String(!o));});
+  document.addEventListener('click',function(){d.classList.remove('open');t.setAttribute('aria-expanded','false');});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){d.classList.remove('open');t.setAttribute('aria-expanded','false');}});
+})();
+
+/* Translate button */
+document.getElementById('translateBtn').addEventListener('click',()=>alert('Translation feature coming soon!'));
 </script>
 </body>
 </html>
