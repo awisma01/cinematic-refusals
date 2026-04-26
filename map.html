@@ -644,6 +644,16 @@
   </nav>
 </div>
 
+<!-- TRANSLATION BUTTON -->
+<button id="translateBtn" style="position: absolute; top: 1.5rem; right: 2.5rem; z-index: 1200; background: var(--teal); color: #0a2321; border: none; border-radius: 8px; padding: 0.5rem 1.2rem; font-family: 'Oswald', sans-serif; font-size: 0.92rem; font-weight: 500; letter-spacing: 0.08em; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.10); transition: background 0.2s;">
+  Translate
+</button>
+<script>
+  document.getElementById('translateBtn').onclick = function() {
+    alert('Translation feature coming soon!');
+  };
+</script>
+
 <script>
 /* ══════════════════════════════
    SEED DATA
@@ -1128,7 +1138,7 @@ document.getElementById('saveCheckpointBtn').addEventListener('click',async()=>{
     if(idx>-1){
       checkpoints[idx]={...checkpoints[idx],title:name,arabic:document.getElementById('cpArabic').value.trim(),district:document.getElementById('cpDistrict').value.trim(),type:typeLabels[typeVal],filterType:typeVal==='internal'?'internal':'entry',staffing:staffLabels[staffVal],filterStaff:staffVal,detail:document.getElementById('cpDetail').value.trim(),analysis,films:filmInputs,coords:[lng,lat]};
     }
-    await saveData();rebuildMarkers();buildList();buildFilmFilterChips();buildYearFilterChips();applyFilters();
+    await saveData();rebuildMarkers();buildList();buildFilmList();buildFilmFilterChips();buildYearFilterChips();applyFilters();
     closeModal('addCheckpointModal');openCheckpoint(editId);
   }else{
     // Create new
@@ -1264,7 +1274,7 @@ window.addEventListener('hashchange',openFromHash);
 
 /* ══════════════════════════════
    ADMIN AUTH
-   Password: ccc2025
+   Password: misolily
 ══════════════════════════════ */
 let isAdmin=false,pendingAdminAction=null;
 
@@ -1368,124 +1378,5 @@ document.getElementById('saveSuggestionBtn').addEventListener('click',async()=>{
 
   // Thank-you feedback
   const thanks=document.createElement('div');
-  thanks.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(10,35,33,0.96);border:1px solid rgba(111,231,193,0.35);border-radius:10px;padding:0.7rem 1.3rem;font-family:Oswald,sans-serif;font-size:0.75rem;letter-spacing:0.1em;color:var(--teal);z-index:900;box-shadow:0 6px 20px rgba(0,0,0,0.4);';
-  thanks.textContent='Thank you — your suggestion is under review.';
-  document.body.appendChild(thanks);
-  setTimeout(()=>thanks.remove(),3500);
-});
-
-function resetSuggestForm(){
-  ['sugCpName','sugCpArabic','sugCpDistrict','sugCpDetail','sugCpLat','sugCpLng','sugFilmTitle','sugFilmDirector','sugFilmYear','sugFilmCountry','sugFilmNotes','sugContact'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('sugTypeCheckpoint').checked=true;
-  document.getElementById('sugCheckpointFields').style.display='';
   document.getElementById('sugFilmFields').style.display='none';
 }
-
-// Pending marker (dashed outline, pulsing, crimson/gold)
-function addPendingMarker(sub){
-  const el=document.createElement('div');
-  el.style.cssText='width:50px;height:50px;cursor:default;position:relative;';
-  const inner=document.createElement('div');
-  inner.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;pointer-events:none;animation:pendingPulse 2s ease-in-out infinite;';
-  inner.innerHTML=`<svg width="50" height="50" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="15" y="18" width="8" height="12" rx="2" fill="rgba(185,78,58,0.5)" stroke="#e6a93a" stroke-width="1.2" stroke-dasharray="3 2"/>
-    <rect x="13" y="13" width="12" height="6" rx="2" fill="rgba(185,78,58,0.5)" stroke="#e6a93a" stroke-width="1.2" stroke-dasharray="3 2"/>
-    <rect x="16" y="30" width="2" height="4" rx="1" fill="rgba(230,169,58,0.6)"/>
-    <rect x="20" y="30" width="2" height="4" rx="1" fill="rgba(230,169,58,0.6)"/>
-    <ellipse cx="19" cy="36" rx="7" ry="1.5" fill="rgba(230,169,58,0.15)"/>
-  </svg>`;
-  el.appendChild(inner);
-  const marker=new mapboxgl.Marker({element:el,anchor:'center'}).setLngLat(sub.coords).addTo(map);
-  pendingMarkers.push({marker,sub});
-}
-
-function rebuildPendingMarkers(){
-  pendingMarkers.forEach(m=>m.marker.remove());pendingMarkers=[];
-  submissions.filter(s=>s.type==='checkpoint'&&s.coords).forEach(s=>addPendingMarker(s));
-}
-
-// Build the admin submissions list
-function buildSubmissionsList(){
-  const list=document.getElementById('submissionsList');
-  const empty=document.getElementById('submissionsEmpty');
-  list.innerHTML='';
-  if(!submissions.length){empty.style.display='block';return;}
-  empty.style.display='none';
-  submissions.forEach((sub,idx)=>{
-    const li=document.createElement('li');li.className='sub-item';
-    const date=new Date(sub.submittedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-    const meta=sub.type==='checkpoint'
-      ?`${sub.district||''}${sub.district&&sub.type_label?' · ':''}${sub.type_label||''}${sub.coords?' · '+sub.coords[1].toFixed(4)+'° N':''}`
-      :`${sub.director||''}${sub.year?' ('+sub.year+')':''}${sub.country?' · '+sub.country:''}`;
-    const contactLine=sub.contact?`<div class="sub-item-meta" style="margin-top:0.18rem;">From: ${sub.contact}</div>`:'';
-    const detailLine=sub.detail||sub.notes?`<div class="sub-item-detail">${sub.detail||sub.notes}</div>`:'';
-    li.innerHTML=`<div class="sub-item-type">${sub.type==='checkpoint'?'Checkpoint Suggestion':'Film Suggestion'} · ${date}</div>
-      <div class="sub-item-title">${sub.title}</div>
-      <div class="sub-item-meta">${meta}</div>
-      ${contactLine}
-      ${detailLine}
-      <div class="sub-item-actions">
-        <button class="sub-approve" onclick="approveSubmission(${idx})">Approve</button>
-        <button class="sub-reject" onclick="rejectSubmission(${idx})">Reject</button>
-      </div>`;
-    // Fly to pending checkpoint on click
-    if(sub.type==='checkpoint'&&sub.coords){
-      li.style.cursor='pointer';
-      li.querySelector('.sub-item-title').addEventListener('click',()=>{
-        map.flyTo({center:sub.coords,zoom:16,essential:true,duration:1100,offset:[-200,0]});
-      });
-    }
-    list.appendChild(li);
-  });
-}
-
-function updateSubmissionBadge(){
-  const badge=document.getElementById('submissionBadge');
-  const n=submissions.length;
-  badge.textContent=n;
-  badge.style.display=n>0?'inline':'none';
-}
-
-window.approveSubmission=async function(idx){
-  const sub=submissions[idx];
-  if(!sub)return;
-  if(sub.type==='checkpoint'){
-    const typeLabels={internal:'Internal checkpoint',entry:'Entry / Exit to Israel',last:'Last checkpoint before Israel'};
-    const newCp={id:'cp_'+Date.now(),coords:sub.coords,title:sub.title,arabic:sub.arabic||'',district:sub.district||'',type:sub.type_label||'Internal checkpoint',filterType:sub.filterType||'internal',staffing:'Permanently staffed',filterStaff:'permanent',detail:sub.detail||'',analysis:'',films:[],images:[],seed:false};
-    checkpoints.push(newCp);
-    addMarker(newCp);buildList();buildFilmFilterChips();buildYearFilterChips();applyFilters();
-  } else {
-    const newFilm={id:'film_'+Date.now(),title:sub.title,director:sub.director||'',year:sub.year||0,country:sub.country||'',genre:'',notes:sub.notes||'',checkpointIds:[],seed:false};
-    films.push(newFilm);
-    buildFilmList();buildFilmFilterChips();buildYearFilterChips();
-  }
-  // Remove pending marker if it existed
-  const pmIdx=pendingMarkers.findIndex(m=>m.sub.id===sub.id);
-  if(pmIdx>-1){pendingMarkers[pmIdx].marker.remove();pendingMarkers.splice(pmIdx,1);}
-  submissions.splice(idx,1);
-  await saveData();await saveSubmissions();
-  buildSubmissionsList();updateSubmissionBadge();
-};
-
-window.rejectSubmission=async function(idx){
-  const sub=submissions[idx];if(!sub)return;
-  if(!confirm('Reject and delete this submission?'))return;
-  const pmIdx=pendingMarkers.findIndex(m=>m.sub.id===sub.id);
-  if(pmIdx>-1){pendingMarkers[pmIdx].marker.remove();pendingMarkers.splice(pmIdx,1);}
-  submissions.splice(idx,1);
-  await saveSubmissions();
-  buildSubmissionsList();updateSubmissionBadge();
-};
-
-/* ══════════════════════════════
-   INIT
-══════════════════════════════ */
-(async function init(){
-  await loadData();
-  buildList();buildFilmList();rebuildMarkers();rebuildPendingMarkers();
-  buildFilmFilterChips();buildYearFilterChips();applyFilters();
-  updateSubmissionBadge();
-})();
-</script>
-</body>
-</html>
