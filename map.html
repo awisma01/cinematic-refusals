@@ -209,7 +209,7 @@
     .cp-detail-row:last-child{border-bottom:none;}
     .cp-detail-row-label{font-family:'Oswald',sans-serif;font-size:0.54rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.08rem;}
     .cp-film-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:300;padding:0.16rem 0.46rem;border-radius:20px;border:1px solid rgba(230,169,58,0.28);color:rgba(230,169,58,0.82);margin:0.14rem 0.14rem 0 0;white-space:nowrap;}
-    .cp-detail-films{padding:0.58rem 1.2rem 0.65rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .cp-detail-films{padding
     .cp-detail-analysis{padding:0.7rem 1.2rem 1rem;font-family:'Cormorant Garamond',serif;font-size:0.95rem;line-height:1.8;color:rgba(232,245,240,0.8);border-bottom:1px solid rgba(255,255,255,0.05);}
     .cp-detail-analysis .cp-detail-row-label{margin-bottom:0.42rem;}
     .cp-detail-analysis p{margin:0 0 0.7rem;}
@@ -633,7 +633,8 @@
     <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
   </div>
   <nav class="mobile-nav-links">
-    <a href="index.html">Home</a><a href="map.html" class="active">Map</a>
+    <a href="index.html">Home</a>
+    <a href="map.html" class="active">Map</a>
     <span class="mobile-nav-section-label">Archive</span>
     <a href="analysis.html" class="archive-item">Visual Analysis</a>
     <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
@@ -1265,7 +1266,6 @@ window.addEventListener('hashchange',openFromHash);
    ADMIN AUTH
    Password: ccc2025
 ══════════════════════════════ */
-const ADMIN_HASH='b085229bc8dccb0d6f15d18188fad3c13d567a7e27fdc07fa6b0f5794d862211';
 let isAdmin=false,pendingAdminAction=null;
 
 async function hashPassword(pw){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');}
