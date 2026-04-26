@@ -209,7 +209,7 @@
     .cp-detail-row:last-child{border-bottom:none;}
     .cp-detail-row-label{font-family:'Oswald',sans-serif;font-size:0.54rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.08rem;}
     .cp-film-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:300;padding:0.16rem 0.46rem;border-radius:20px;border:1px solid rgba(230,169,58,0.28);color:rgba(230,169,58,0.82);margin:0.14rem 0.14rem 0 0;white-space:nowrap;}
-    .cp-detail-films{padding
+    .cp-detail-films{padding:0.7rem 1.2rem;}
     .cp-detail-analysis{padding:0.7rem 1.2rem 1rem;font-family:'Cormorant Garamond',serif;font-size:0.95rem;line-height:1.8;color:rgba(232,245,240,0.8);border-bottom:1px solid rgba(255,255,255,0.05);}
     .cp-detail-analysis .cp-detail-row-label{margin-bottom:0.42rem;}
     .cp-detail-analysis p{margin:0 0 0.7rem;}
@@ -228,7 +228,7 @@
     .panel-close-btn:hover{background:var(--crimson);border-color:var(--crimson);color:#fff;}
 
     /* ════ MODALS ════ */
-    .create-backdrop{position:fixed;inset:0;background:rgba(5,20,18,0.86);display:none;z-index:3000;align-items:center;justify-content:center;padding:1.5rem;}
+    .create-backdrop{position:fixed;inset:0;background:rgba(5,20,18,0.86);display:none;z-index=3000;align-items:center;justify-content:center;padding:1.5rem;}
     .create-backdrop.open{display:flex;}
     .create-modal{max-width:520px;width:96%;background:#0d2420;border-radius:18px;color:#e8f5f0;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(230,169,58,0.2),0 28px 64px rgba(0,0,0,0.55);animation:modalIn 0.3s cubic-bezier(.34,1.56,.64,1);}
     @keyframes modalIn{from{opacity:0;transform:scale(0.88) translateY(28px)}to{opacity:1;transform:scale(1) translateY(0)}}
@@ -590,7 +590,7 @@
         <div class="form-group"><label class="form-label">Film Title</label><input class="form-input" id="sugFilmTitle" placeholder="e.g. The Present" /></div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">Director</label><input class="form-input" id="sugFilmDirector" placeholder="e.g. Farouk Nabulsi" /></div>
-          <div class="form-group"><label class="form-label">Year</label><input class="form-input" id="sugFilmYear" type="number" min="1900" max="2099" placeholder="e.g. 2020" /></div>
+          <div class="form-group"><label class="form-label">Year</label><input class="form-input" id="sugFilmYear" type="number" min="1900" max="2099 placeholder="e.g. 2020" /></div>
         </div>
         <div class="form-group"><label class="form-label">Country / Production</label><input class="form-input" id="sugFilmCountry" placeholder="e.g. Palestine / UK" /></div>
         <div class="form-group"><label class="form-label">Why is this relevant?</label><textarea class="form-textarea" id="sugFilmNotes" placeholder="How does this film engage with checkpoints, movement restrictions, or spatial control?"></textarea></div>
@@ -1345,38 +1345,68 @@ map.on('click',e=>{
 });
 
 // Submit suggestion
-document.getElementById('saveSuggestionBtn').addEventListener('click',async()=>{
-  const type=document.getElementById('sugTypeCheckpoint').checked?'checkpoint':'film';
-  let sub={id:'sub_'+Date.now(),type,submittedAt:new Date().toISOString(),contact:document.getElementById('sugContact').value.trim()};
+document.getElementById('saveSuggestionBtn').addEventListener('click', async () => {
+  const type = document.getElementById('sugTypeCheckpoint').checked ? 'checkpoint' : 'film';
+  let sub = { id: 'sub_' + Date.now(), type, submittedAt: new Date().toISOString(), contact: document.getElementById('sugContact').value.trim() };
 
-  if(type==='checkpoint'){
-    const name=document.getElementById('sugCpName').value.trim();
-    if(!name){alert('Please enter a checkpoint name.');return;}
-    const lat=parseFloat(document.getElementById('sugCpLat').value),lng=parseFloat(document.getElementById('sugCpLng').value);
-    if(isNaN(lat)||isNaN(lng)){alert('Please enter coordinates or pick a location on the map.');return;}
-    const typeMap={internal:'Internal checkpoint',entry:'Entry / Exit to Israel',last:'Last checkpoint before Israel'};
-    const tv=document.getElementById('sugCpType').value;
-    Object.assign(sub,{title:name,arabic:document.getElementById('sugCpArabic').value.trim(),district:document.getElementById('sugCpDistrict').value.trim(),type_label:typeMap[tv],filterType:tv==='internal'?'internal':'entry',detail:document.getElementById('sugCpDetail').value.trim(),coords:[lng,lat]});
+  if (type === 'checkpoint') {
+    const name = document.getElementById('sugCpName').value.trim();
+    if (!name) { alert('Please enter a checkpoint name.'); return; }
+    const lat = parseFloat(document.getElementById('sugCpLat').value), lng = parseFloat(document.getElementById('sugCpLng').value);
+    if (isNaN(lat) || isNaN(lng)) { alert('Please enter coordinates or pick a location on the map.'); return; }
+    const typeMap = { internal: 'Internal checkpoint', entry: 'Entry / Exit to Israel', last: 'Last checkpoint before Israel' };
+    const tv = document.getElementById('sugCpType').value;
+    Object.assign(sub, {
+      title: name,
+      arabic: document.getElementById('sugCpArabic').value.trim(),
+      district: document.getElementById('sugCpDistrict').value.trim(),
+      type_label: typeMap[tv],
+      filterType: tv === 'internal' ? 'internal' : 'entry',
+      detail: document.getElementById('sugCpDetail').value.trim(),
+      coords: [lng, lat]
+    });
   } else {
-    const title=document.getElementById('sugFilmTitle').value.trim();
-    const year=document.getElementById('sugFilmYear').value.trim();
-    if(!title){alert('Please enter a film title.');return;}
-    if(!year){alert('Please enter the year.');return;}
-    Object.assign(sub,{title,director:document.getElementById('sugFilmDirector').value.trim(),year:parseInt(year),country:document.getElementById('sugFilmCountry').value.trim(),notes:document.getElementById('sugFilmNotes').value.trim()});
+    const title = document.getElementById('sugFilmTitle').value.trim();
+    const year = document.getElementById('sugFilmYear').value.trim();
+    if (!title) { alert('Please enter a film title.'); return; }
+    if (!year) { alert('Please enter the year.'); return; }
+    Object.assign(sub, {
+      title,
+      director: document.getElementById('sugFilmDirector').value.trim(),
+      year: parseInt(year),
+      country: document.getElementById('sugFilmCountry').value.trim(),
+      notes: document.getElementById('sugFilmNotes').value.trim()
+    });
   }
 
   submissions.push(sub);
   await saveSubmissions();
 
   // Show a pending marker on the map for checkpoint submissions
-  if(type==='checkpoint'&&sub.coords){
+  if (type === 'checkpoint' && sub.coords) {
     addPendingMarker(sub);
   }
 
   closeModal('suggestModal');
   resetSuggestForm();
 
-  // Thank-you feedback
-  const thanks=document.createElement('div');
-  document.getElementById('sugFilmFields').style.display='none';
-}
+  // Thank-you feedback (fix: show a message after submission)
+  setTimeout(() => {
+    alert('Thank you for your suggestion! It will be reviewed soon.');
+  }, 200);
+});
+</script>
+<script>
+  // Initialize everything after the map is loaded
+  map.on('load', async () => {
+    await loadData();
+    buildList();
+    buildFilmList();
+    buildFilmFilterChips();
+    buildYearFilterChips();
+    rebuildMarkers();
+    applyFilters();
+  });
+</script>
+</body>
+</html>
