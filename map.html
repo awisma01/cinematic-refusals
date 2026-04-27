@@ -229,7 +229,7 @@
 
     /* ════ MODALS ════ */
     /* FIX: was z-index=3000 (= not :), corrected to z-index:3000 */
-    .create-backdrop{position:fixed;inset:0;background:rgba(5,20,18,0.86);display:none;z-index:3000;align-items:center;justify-content:center;padding:1.5rem;}
+    .create-backdrop{position:fixed;inset:0;background:rgba(5,20,18,0.86);display:none;z-index=3000;align-items:center;justify-content:center;padding:1.5rem;}
     .create-backdrop.open{display:flex;}
     .create-modal{max-width:520px;width:96%;background:#0d2420;border-radius:18px;color:#e8f5f0;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(230,169,58,0.2),0 28px 64px rgba(0,0,0,0.55);animation:modalIn 0.3s cubic-bezier(.34,1.56,.64,1);}
     @keyframes modalIn{from{opacity:0;transform:scale(0.88) translateY(28px)}to{opacity:1;transform:scale(1) translateY(0)}}
@@ -293,8 +293,24 @@
     @keyframes hintPulse{0%,100%{opacity:1}50%{opacity:0.65}}
     .map-click-hint.visible{display:block;}
 
-    /* Info module */
-    .map-info-module{position:fixed;top:calc(var(--nav-h) + 18px);left:50%;transform:translateX(-50%);z-index:120;max-width:540px;width:90vw;background:rgba(10,35,33,0.97);border:1.5px solid var(--teal);border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.22);padding:1.5rem 2.2rem 1.2rem 2.2rem;margin:0 auto;backdrop-filter:blur(2px);}
+    /* INFO MODULE */
+    .map-info-module{position:fixed;top:calc(var(--nav-h) + 18px);left:50%;transform:translateX(-50%);z-index:120;max-width:560px;width:calc(100vw - 32px);background:rgba(10,35,33,0.97);border:1.5px solid var(--teal);border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.22);padding:1.5rem 2rem 1.2rem 2rem;backdrop-filter:blur(2px);transition:opacity 0.3s,transform 0.3s;}
+    .map-info-module.hidden{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(-8px);}
+
+    /* TIMELINE SLIDER */
+    .timeline-wrap{padding:0.5rem 0 0.2rem;}
+    .timeline-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
+    .timeline-label{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;font-weight:300;color:rgba(232,245,240,0.35);letter-spacing:0.08em;}
+    .timeline-active-label{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:400;color:var(--gold);letter-spacing:0.06em;}
+    .timeline-slider-track{position:relative;height:4px;background:rgba(111,231,193,0.12);border-radius:4px;margin:0.3rem 0.6rem 1.1rem;}
+    .timeline-slider-fill{position:absolute;top:0;height:100%;background:linear-gradient(90deg,var(--gold),#f0c060);border-radius:4px;pointer-events:none;}
+    .timeline-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#0a2321;border:2px solid var(--gold);border-radius:50%;cursor:pointer;z-index:2;transition:border-color 0.18s,box-shadow 0.18s;}
+    .timeline-thumb:hover,.timeline-thumb:focus{border-color:#f0c060;box-shadow:0 0 0 3px rgba(230,169,58,0.28);outline:none;}
+    .timeline-thumb.dragging{border-color:#fff;box-shadow:0 0 0 4px rgba(230,169,58,0.35);}
+    .timeline-range-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;z-index:3;}
+    .timeline-marks{display:flex;justify-content:space-between;padding:0 0.6rem;}
+    .timeline-mark{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;color:rgba(232,245,240,0.2);letter-spacing:0.02em;cursor:pointer;transition:color 0.18s;}
+    .timeline-mark:hover{color:var(--gold);}
 
     @media(max-width:900px){
       :root{--panel-w:100vw;}
@@ -331,13 +347,13 @@
 
 <!-- INFO MODULE -->
 <div class="map-info-module" id="infoModule">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-    <h2 style="font-family:'Oswald',sans-serif;font-size:1.25rem;font-weight:600;letter-spacing:0.04em;color:var(--teal);margin:0 0 0.7rem 0;">About the Map</h2>
-    <button onclick="document.getElementById('infoModule').style.display='none'" style="background:none;border:none;color:rgba(232,245,240,0.4);cursor:pointer;font-size:1.1rem;padding:0;line-height:1;" title="Close">✕</button>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
+    <h2 style="font-family:'Oswald',sans-serif;font-size:1.18rem;font-weight:600;letter-spacing:0.04em;color:var(--teal);margin:0 0 0.7rem 0;flex:1;">About the Map</h2>
+    <button id="infoModuleClose" aria-label="Close info panel" style="background:rgba(255,255,255,0.07);border:1px solid rgba(111,231,193,0.22);color:rgba(232,245,240,0.55);cursor:pointer;font-size:0.85rem;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.18s,color 0.18s;line-height:1;padding:0;">✕</button>
   </div>
-  <p style="font-size:1.04rem;line-height:1.7;margin:0 0 0.7rem 0;">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
-  <p style="font-size:0.98rem;line-height:1.6;margin:0 0 0.7rem 0;"><strong>How to use:</strong> Click any marker to view details and analysis, or use the left panel to browse and filter. Switch between "Checkpoints" and "Films" in the panel to explore from different perspectives.</p>
-  <p style="font-size:0.98rem;line-height:1.6;margin:0;"><strong>Why this map matters:</strong> Space is not neutral. By linking geography with film, it shows how Palestinian women filmmakers document, resist, and reimagine the spatial realities of occupation.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.72;margin:0 0 0.65rem 0;color:rgba(232,245,240,0.82);">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0 0 0.55rem 0;color:rgba(232,245,240,0.7);"><strong style="font-weight:700;color:rgba(232,245,240,0.9);">How to use:</strong> Click any marker to view details and analysis, or open the Archive panel on the left to browse and filter. Switch between "Checkpoints" and "Films" tabs to explore different perspectives.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0;color:rgba(232,245,240,0.7);"><strong style="font-weight:700;color:rgba(232,245,240,0.9);">Why this map matters:</strong> Space is not neutral. By linking geography with film, it shows how Palestinian women filmmakers document, resist, and reimagine the spatial realities of occupation.</p>
 </div>
 
 <!-- PERSISTENT PANEL TAB -->
@@ -358,6 +374,7 @@
       <button id="adminLockBtn" title="Admin login" style="background:none;border:none;cursor:pointer;font-size:1rem;padding:0.2rem 0.35rem;opacity:0.4;transition:opacity 0.2s;" onclick="toggleAdminLock()">🔒</button>
       <button class="cp-add-btn film" id="addFilmBtn" style="display:none;" onclick="requireAdmin(openAddFilmModal)">+ Film</button>
       <button class="cp-add-btn checkpoint" id="addCheckpointBtn" style="display:none;" onclick="requireAdmin(openAddCheckpointModal)">+ Checkpoint</button>
+      <button id="panelHeaderCloseBtn" aria-label="Close archive panel" title="Close" onclick="closePanel()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(111,231,193,0.18);color:rgba(232,245,240,0.4);cursor:pointer;font-size:0.8rem;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.18s,color 0.18s,border-color 0.18s;line-height:1;padding:0;margin-left:0.1rem;">✕</button>
     </div>
   </div>
 
@@ -374,7 +391,7 @@
         <button class="cp-filter-tab active" data-tab="type">Type</button>
         <button class="cp-filter-tab" data-tab="staffing">Staffing</button>
         <button class="cp-filter-tab" data-tab="film">Film</button>
-        <button class="cp-filter-tab" data-tab="year">Year</button>
+        <button class="cp-filter-tab" data-tab="year">Timeline</button>
       </div>
       <div class="cp-filter-pane active" id="filter-type">
         <button class="cp-chip active" data-filter-type="all">All</button>
@@ -387,7 +404,24 @@
         <button class="cp-chip" data-filter-staff="intermittent">Intermittent</button>
       </div>
       <div class="cp-filter-pane" id="filter-film"></div>
-      <div class="cp-filter-pane" id="filter-year"></div>
+      <!-- TIMELINE SLIDER replaces old year chips -->
+      <div class="cp-filter-pane" id="filter-year">
+        <div class="timeline-wrap" style="width:100%;">
+          <div class="timeline-label-row">
+            <span class="timeline-label">Film year range</span>
+            <span class="timeline-active-label" id="timelineActiveLabel">All years</span>
+          </div>
+          <div class="timeline-slider-track" id="timelineTrack">
+            <div class="timeline-slider-fill" id="timelineFill"></div>
+            <div class="timeline-thumb" id="thumbMin" tabindex="0" role="slider" aria-label="Minimum year"></div>
+            <div class="timeline-thumb" id="thumbMax" tabindex="0" role="slider" aria-label="Maximum year"></div>
+          </div>
+          <div class="timeline-marks" id="timelineMarks"></div>
+          <div style="margin-top:0.65rem;display:flex;justify-content:flex-end;">
+            <button class="cp-chip active" id="timelineResetBtn" style="font-size:0.52rem;padding:0.16rem 0.45rem;">Reset</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="cp-panel-inner cp-panel-view-list" id="cpPanelInner">
       <div class="cp-list-wrap">
@@ -571,6 +605,9 @@
           <label style="flex:1;display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,245,240,0.5);background:rgba(255,255,255,0.04);border:1px solid rgba(111,231,193,0.14);border-radius:8px;padding:0.5rem 0.7rem;transition:all 0.18s;" id="sugTypeFilmLabel">
             <input type="radio" name="suggestType" value="film" id="sugTypeFilm" style="accent-color:var(--gold);"> Film
           </label>
+          <label style="flex:1;display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,245,240,0.5);background:rgba(255,255,255,0.04);border:1px solid rgba(111,231,193,0.14);border-radius:8px;padding:0.5rem 0.7rem;transition:all 0.18s;" id="sugTypeExperienceLabel">
+            <input type="radio" name="suggestType" value="experience" id="sugTypeExperience" style="accent-color:var(--gold);"> Lived Experience
+          </label>
         </div>
       </div>
       <div id="sugCheckpointFields">
@@ -606,6 +643,13 @@
         </div>
         <div class="form-group"><label class="form-label">Country / Production</label><input class="form-input" id="sugFilmCountry" placeholder="e.g. Palestine / UK" /></div>
         <div class="form-group"><label class="form-label">Why is this relevant?</label><textarea class="form-textarea" id="sugFilmNotes" placeholder="How does this film engage with checkpoints, movement restrictions, or spatial control?"></textarea></div>
+      </div>
+      <!-- NEW: Lived Experience Fields -->
+      <div id="sugExperienceFields" style="display:none;">
+        <div class="form-group"><label class="form-label">Title / Short Description</label><input class="form-input" id="sugExpTitle" placeholder="e.g. My morning at Qalandiya" /></div>
+        <div class="form-group"><label class="form-label">Your Story</label><textarea class="form-textarea" id="sugExpStory" placeholder="Share your experience with a checkpoint, movement, or surveillance."></textarea></div>
+        <div class="form-group"><label class="form-label">Where did this happen? <span style="opacity:.45;font-size:0.52rem;">(optional)</span></label><input class="form-input" id="sugExpWhere" placeholder="e.g. Qalandiya, Bethlehem, on the road, etc." /></div>
+        <div class="form-group"><label class="form-label">When did this happen? <span style="opacity:.45;font-size:0.52rem;">(optional)</span></label><input class="form-input" id="sugExpWhen" placeholder="e.g. March 2024, last week, etc." /></div>
       </div>
       <div class="form-group" style="margin-top:0.5rem;"><label class="form-label">Your Name / Contact <span style="opacity:.45;font-size:0.52rem;">(optional)</span></label><input class="form-input" id="sugContact" placeholder="How should we credit you? Email or name." /></div>
       <div class="form-actions">
@@ -680,7 +724,7 @@ const SEED_FILMS=[
    STATE
 ══════════════════════════════ */
 let checkpoints=[], films=[], markerObjs=[], submissions=[];
-let activeFilters={type:'all',staff:'all',film:'all',year:'all'};
+let activeFilters={type:'all',staff:'all',film:'all',yearMin:1900,yearMax:2030};
 let activeCpId=null, activeFilmId=null;
 /* FIX: pickingOnMap and sugPickingOnMap both declared at top level */
 let pickingOnMap=false, sugPickingOnMap=false, tempPickMarker=null;
@@ -688,18 +732,52 @@ let currentMapStyle='street';
 let activePanelTab='checkpoints';
 
 /* ══════════════════════════════
-   STORAGE
+   STORAGE — uses window.storage (artifact env) with localStorage fallback
 ══════════════════════════════ */
+const store={
+  async get(key,shared){
+    try{
+      if(window.storage){const r=await window.storage.get(key,shared||false);return r?JSON.parse(r.value):null;}
+    }catch(e){}
+    try{const v=localStorage.getItem('ccc_'+key);return v?JSON.parse(v):null;}catch(e){return null;}
+  },
+  async set(key,val,shared){
+    try{
+      if(window.storage){await window.storage.set(key,JSON.stringify(val),shared||false);return;}
+    }catch(e){}
+    try{localStorage.setItem('ccc_'+key,JSON.stringify(val));}catch(e){}
+  }
+};
+
 async function loadData(){
-  try{const r=await window.storage.get('ccc_checkpoints');checkpoints=r?JSON.parse(r.value):JSON.parse(JSON.stringify(SEED_CHECKPOINTS));}catch(e){checkpoints=JSON.parse(JSON.stringify(SEED_CHECKPOINTS));}
-  try{const r=await window.storage.get('ccc_films');films=r?JSON.parse(r.value):JSON.parse(JSON.stringify(SEED_FILMS));}catch(e){films=JSON.parse(JSON.stringify(SEED_FILMS));}
-  try{const r=await window.storage.get('ccc_submissions',true);submissions=r?JSON.parse(r.value):[];}catch(e){submissions=[];}
+  const cp=await store.get('ccc_checkpoints');
+  checkpoints=cp??JSON.parse(JSON.stringify(SEED_CHECKPOINTS));
+  const fl=await store.get('ccc_films');
+  films=fl??JSON.parse(JSON.stringify(SEED_FILMS));
+  const su=await store.get('ccc_submissions',true);
+  submissions=su??[];
 }
 async function saveData(){
-  try{await window.storage.set('ccc_checkpoints',JSON.stringify(checkpoints));await window.storage.set('ccc_films',JSON.stringify(films));}catch(e){}
+  await store.set('ccc_checkpoints',checkpoints);
+  await store.set('ccc_films',films);
 }
 async function saveSubmissions(){
-  try{await window.storage.set('ccc_submissions',JSON.stringify(submissions),true);}catch(e){}
+  await store.set('ccc_submissions',submissions,true);
+}
+
+/* ── TOAST ── */
+function showToast(msg,type='success'){
+  let wrap=document.getElementById('toastWrap');
+  if(!wrap){wrap=document.createElement('div');wrap.id='toastWrap';wrap.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;flex-direction:column;gap:0.5rem;align-items:center;pointer-events:none;';document.body.appendChild(wrap);}
+  const t=document.createElement('div');
+  const color=type==='error'?'var(--crimson)':type==='warning'?'var(--gold)':'var(--teal)';
+  t.style.cssText=`background:rgba(10,35,33,0.97);border:1px solid ${color};border-radius:10px;padding:0.6rem 1.3rem;font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.1em;color:${color};box-shadow:0 6px 24px rgba(0,0,0,0.4);animation:toastIn 0.3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;`;
+  t.textContent=msg;
+  const style=document.createElement('style');
+  style.textContent='@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes toastOut{to{opacity:0;transform:translateY(8px)}}';
+  document.head.appendChild(style);
+  wrap.appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut 0.3s ease forwards';setTimeout(()=>t.remove(),310);},3200);
 }
 
 /* ══════════════════════════════
@@ -729,10 +807,20 @@ map.on('load', async () => {
   buildList();
   buildFilmList();
   buildFilmFilterChips();
-  buildYearFilterChips();
+  initTimeline();
   rebuildMarkers();
   applyFilters();
   openFromHash();
+
+  // Info module close button
+  const infoClose=document.getElementById('infoModuleClose');
+  if(infoClose){
+    infoClose.addEventListener('click',()=>{
+      document.getElementById('infoModule').classList.add('hidden');
+    });
+    infoClose.addEventListener('mouseenter',()=>{infoClose.style.background='var(--crimson)';infoClose.style.color='#fff';infoClose.style.borderColor='var(--crimson)';});
+    infoClose.addEventListener('mouseleave',()=>{infoClose.style.background='rgba(255,255,255,0.07)';infoClose.style.color='rgba(232,245,240,0.55)';infoClose.style.borderColor='rgba(111,231,193,0.22)';});
+  }
 });
 
 /* Hash nav */
@@ -856,30 +944,188 @@ function buildFilmFilterChips(){
     makeChip(`${f.title} (${f.year})`,'film-chip',()=>{activeFilters.film=f.id;buildFilmFilterChips();applyFilters();},activeFilters.film===f.id,pane,count);
   });
 }
-function buildYearFilterChips(){
-  const pane=document.getElementById('filter-year');pane.innerHTML='';
-  const years=new Set();
-  films.forEach(f=>{if(f.year)years.add(parseInt(f.year));});
-  checkpoints.forEach(cp=>{(cp.films||[]).forEach(s=>{const m=s.match(/,\s*(\d{4})/);if(m)years.add(parseInt(m[1]));});});
-  const sorted=Array.from(years).sort();
-  makeChip('All Years','year-chip',()=>{activeFilters.year='all';buildYearFilterChips();applyFilters();},activeFilters.year==='all',pane);
-  sorted.forEach(yr=>makeChip(String(yr),'year-chip',()=>{activeFilters.year=yr;buildYearFilterChips();applyFilters();},activeFilters.year===yr,pane));
+
+/* ── TIMELINE SLIDER ── */
+let timelineMin=1900, timelineMax=2030, timelineValMin=1900, timelineValMax=2030;
+
+function initTimeline(){
+  const years=[];
+  films.forEach(f=>{if(f.year)years.push(parseInt(f.year));});
+  checkpoints.forEach(cp=>{(cp.films||[]).forEach(s=>{const m=s.match(/,\s*(\d{4})/);if(m)years.push(parseInt(m[1]));});});
+  if(!years.length)return;
+  timelineMin=Math.min(...years); timelineMax=Math.max(...years);
+  // pad one year either side
+  timelineMin=Math.max(timelineMin-1,1900); timelineMax=Math.min(timelineMax+1,2030);
+  timelineValMin=timelineMin; timelineValMax=timelineMax;
+  activeFilters.yearMin=timelineValMin; activeFilters.yearMax=timelineValMax;
+  renderTimelineMarks();
+  updateTimelineUI();
+  bindTimelineThumbs();
 }
+
+function renderTimelineMarks(){
+  const marks=document.getElementById('timelineMarks');if(!marks)return;
+  marks.innerHTML='';
+  const span=timelineMax-timelineMin;
+  // show ~5 evenly spaced marks
+  const step=Math.ceil(span/4);
+  const markYears=[];
+  for(let y=timelineMin;y<=timelineMax;y+=step)markYears.push(y);
+  if(markYears[markYears.length-1]!==timelineMax)markYears.push(timelineMax);
+  markYears.forEach(yr=>{
+    const span2=document.createElement('span');
+    span2.className='timeline-mark';
+    span2.textContent=yr;
+    span2.addEventListener('click',()=>{timelineValMin=yr;timelineValMax=yr;activeFilters.yearMin=yr;activeFilters.yearMax=yr;updateTimelineUI();applyFilters();});
+    marks.appendChild(span2);
+  });
+}
+
+function updateTimelineUI(){
+  const track=document.getElementById('timelineTrack');
+  const fill=document.getElementById('timelineFill');
+  const tMin=document.getElementById('thumbMin');
+  const tMax=document.getElementById('thumbMax');
+  const label=document.getElementById('timelineActiveLabel');
+  if(!track||!fill||!tMin||!tMax||!label)return;
+
+  const span=timelineMax-timelineMin||1;
+  const pMin=((timelineValMin-timelineMin)/span)*100;
+  const pMax=((timelineValMax-timelineMin)/span)*100;
+
+  tMin.style.left=pMin+'%';
+  tMax.style.left=pMax+'%';
+  fill.style.left=pMin+'%';
+  fill.style.width=(pMax-pMin)+'%';
+
+  tMin.setAttribute('aria-valuenow',timelineValMin);
+  tMax.setAttribute('aria-valuenow',timelineValMax);
+
+  if(timelineValMin===timelineMin&&timelineValMax===timelineMax){
+    label.textContent='All years';
+  } else if(timelineValMin===timelineValMax){
+    label.textContent=String(timelineValMin);
+  } else {
+    label.textContent=timelineValMin+' – '+timelineValMax;
+  }
+}
+
+function bindTimelineThumbs(){
+  const track=document.getElementById('timelineTrack');
+  const tMin=document.getElementById('thumbMin');
+  const tMax=document.getElementById('thumbMax');
+  if(!track||!tMin||!tMax)return;
+
+  function getYearFromPx(clientX){
+    const rect=track.getBoundingClientRect();
+    const pct=Math.max(0,Math.min(1,(clientX-rect.left)/rect.width));
+    const span=timelineMax-timelineMin;
+    return Math.round(timelineMin+pct*span);
+  }
+
+  function startDrag(thumb,e){
+    e.preventDefault();
+    thumb.classList.add('dragging');
+    function onMove(ev){
+      const clientX=ev.touches?ev.touches[0].clientX:ev.clientX;
+      const yr=getYearFromPx(clientX);
+      if(thumb===tMin){
+        timelineValMin=Math.min(yr,timelineValMax);
+      } else {
+        timelineValMax=Math.max(yr,timelineValMin);
+      }
+      activeFilters.yearMin=timelineValMin;
+      activeFilters.yearMax=timelineValMax;
+      updateTimelineUI();
+      applyFilters();
+    }
+    function onUp(){
+      thumb.classList.remove('dragging');
+      document.removeEventListener('mousemove',onMove);
+      document.removeEventListener('mouseup',onUp);
+      document.removeEventListener('touchmove',onMove);
+      document.removeEventListener('touchend',onUp);
+    }
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('mouseup',onUp);
+    document.addEventListener('touchmove',onMove,{passive:false});
+    document.addEventListener('touchend',onUp);
+  }
+
+  tMin.addEventListener('mousedown',e=>startDrag(tMin,e));
+  tMin.addEventListener('touchstart',e=>startDrag(tMin,e),{passive:false});
+  tMax.addEventListener('mousedown',e=>startDrag(tMax,e));
+  tMax.addEventListener('touchstart',e=>startDrag(tMax,e),{passive:false});
+
+  // Keyboard control
+  [tMin,tMax].forEach(thumb=>{
+    thumb.addEventListener('keydown',e=>{
+      const step=1;
+      const isMin=thumb===tMin;
+      if(e.key==='ArrowLeft'||e.key==='ArrowDown'){
+        if(isMin)timelineValMin=Math.max(timelineMin,timelineValMin-step);
+        else timelineValMax=Math.max(timelineValMin,timelineValMax-step);
+        e.preventDefault();
+      } else if(e.key==='ArrowRight'||e.key==='ArrowUp'){
+        if(isMin)timelineValMin=Math.min(timelineValMax,timelineValMin+step);
+        else timelineValMax=Math.min(timelineMax,timelineValMax+step);
+        e.preventDefault();
+      }
+      activeFilters.yearMin=timelineValMin;
+      activeFilters.yearMax=timelineValMax;
+      updateTimelineUI();applyFilters();
+    });
+  });
+
+  // Click on track itself to jump nearest thumb
+  track.addEventListener('click',e=>{
+    if(e.target===tMin||e.target===tMax)return;
+    const yr=getYearFromPx(e.clientX);
+    const distMin=Math.abs(yr-timelineValMin);
+    const distMax=Math.abs(yr-timelineValMax);
+    if(distMin<=distMax){timelineValMin=Math.min(yr,timelineValMax);}
+    else{timelineValMax=Math.max(yr,timelineValMin);}
+    activeFilters.yearMin=timelineValMin;
+    activeFilters.yearMax=timelineValMax;
+    updateTimelineUI();applyFilters();
+  });
+
+  document.getElementById('timelineResetBtn').addEventListener('click',()=>{
+    timelineValMin=timelineMin;timelineValMax=timelineMax;
+    activeFilters.yearMin=timelineValMin;activeFilters.yearMax=timelineValMax;
+    updateTimelineUI();applyFilters();
+  });
+}
+
 function makeChip(label,extraClass,onClick,isActive,parent,count){
   const btn=document.createElement('button');
   btn.className='cp-chip '+extraClass+(isActive?' active':'');
   btn.innerHTML=label+(count!=null?`<span class="cp-chip-count">${count}</span>`:'');
   btn.addEventListener('click',onClick);parent.appendChild(btn);
 }
+
 function applyFilters(){
   let filmCpIds=null;
   if(activeFilters.film!=='all'){const f=films.find(x=>x.id===activeFilters.film);filmCpIds=f?(f.checkpointIds||[]):[];}
+
+  // Timeline range filter: collect checkpoint IDs that have a film within the year range
+  const yMin=activeFilters.yearMin??timelineMin;
+  const yMax=activeFilters.yearMax??timelineMax;
+  const isFullRange=(yMin<=timelineMin&&yMax>=timelineMax);
   let yearCpIds=null;
-  if(activeFilters.year!=='all'){
-    const yr=String(activeFilters.year);yearCpIds=[];
-    checkpoints.forEach(cp=>{if((cp.films||[]).some(s=>s.includes(yr)))yearCpIds.push(cp.id);});
-    films.filter(f=>String(f.year)===yr).forEach(f=>(f.checkpointIds||[]).forEach(id=>{if(!yearCpIds.includes(id))yearCpIds.push(id);}));
+  if(!isFullRange){
+    yearCpIds=new Set();
+    // From film records
+    films.filter(f=>f.year>=yMin&&f.year<=yMax).forEach(f=>(f.checkpointIds||[]).forEach(id=>yearCpIds.add(id)));
+    // From checkpoint film strings
+    checkpoints.forEach(cp=>{
+      (cp.films||[]).forEach(s=>{
+        const m=s.match(/,\s*(\d{4})/);
+        if(m){const yr=parseInt(m[1]);if(yr>=yMin&&yr<=yMax)yearCpIds.add(cp.id);}
+      });
+    });
   }
+
   let anyVisible=false;
   document.querySelectorAll('.cp-list-item').forEach(item=>{
     const id=item.getAttribute('data-id'),ft=item.getAttribute('data-filter-type'),fs=item.getAttribute('data-filter-staff');
@@ -887,7 +1133,7 @@ function applyFilters(){
     if(activeFilters.type!=='all'&&ft!==activeFilters.type)show=false;
     if(activeFilters.staff!=='all'&&fs!==activeFilters.staff)show=false;
     if(filmCpIds!==null&&!filmCpIds.includes(id))show=false;
-    if(yearCpIds!==null&&!yearCpIds.includes(id))show=false;
+    if(yearCpIds!==null&&!yearCpIds.has(id))show=false;
     item.classList.toggle('hidden',!show);if(show)anyVisible=true;
   });
   emptyState.style.display=anyVisible?'none':'block';
@@ -1113,7 +1359,7 @@ window.deleteCheckpoint=async function(id){
   if(!confirm('Delete this checkpoint? This cannot be undone.'))return;
   checkpoints=checkpoints.filter(c=>c.id!==id);
   films=films.map(f=>({...f,checkpointIds:(f.checkpointIds||[]).filter(x=>x!==id)}));
-  await saveData();rebuildMarkers();buildList();buildFilmList();buildFilmFilterChips();buildYearFilterChips();applyFilters();showListView();activeCpId=null;
+  await saveData();rebuildMarkers();buildList();buildFilmList();buildFilmFilterChips();initTimeline();applyFilters();showListView();activeCpId=null;
 };
 
 window.editCheckpoint=function(id){
@@ -1158,9 +1404,9 @@ document.getElementById('pickOnMapBtn').addEventListener('click',()=>{
 });
 
 document.getElementById('saveCheckpointBtn').addEventListener('click',async()=>{
-  const name=document.getElementById('cpName').value.trim();if(!name){alert('Please enter a checkpoint name.');return;}
+  const name=document.getElementById('cpName').value.trim();if(!name){showToast('Please enter a checkpoint name.','error');return;}
   const lat=parseFloat(document.getElementById('cpLat').value),lng=parseFloat(document.getElementById('cpLng').value);
-  if(isNaN(lat)||isNaN(lng)){alert('Please enter coordinates or pick a map location.');return;}
+  if(isNaN(lat)||isNaN(lng)){showToast('Please enter coordinates or pick a location.','error');return;}
   const typeVal=document.getElementById('cpType').value,staffVal=document.getElementById('cpStaffing').value;
   const typeLabels={internal:'Internal checkpoint',entry:'Entry / Exit to Israel',last:'Last checkpoint before Israel'};
   const staffLabels={permanent:'Permanently staffed',intermittent:'Intermittently staffed',seasonal:'Seasonally staffed'};
@@ -1174,11 +1420,11 @@ document.getElementById('saveCheckpointBtn').addEventListener('click',async()=>{
     if(idx>-1){
       checkpoints[idx]={...checkpoints[idx],title:name,arabic:document.getElementById('cpArabic').value.trim(),district:document.getElementById('cpDistrict').value.trim(),type:typeLabels[typeVal],filterType:typeVal==='internal'?'internal':'entry',staffing:staffLabels[staffVal],filterStaff:staffVal,detail:document.getElementById('cpDetail').value.trim(),analysis,films:filmInputs,coords:[lng,lat]};
     }
-    await saveData();rebuildMarkers();buildList();buildFilmList();buildFilmFilterChips();buildYearFilterChips();applyFilters();
+    await saveData();rebuildMarkers();buildList();buildFilmList();buildFilmFilterChips();initTimeline();applyFilters();
     closeModal('addCheckpointModal');openCheckpoint(editId);
   }else{
     const newCp={id:'cp_'+Date.now(),coords:[lng,lat],title:name,arabic:document.getElementById('cpArabic').value.trim(),district:document.getElementById('cpDistrict').value.trim(),type:typeLabels[typeVal],filterType:typeVal==='internal'?'internal':'entry',staffing:staffLabels[staffVal],filterStaff:staffVal,detail:document.getElementById('cpDetail').value.trim(),analysis,films:filmInputs,images:[],seed:false};
-    checkpoints.push(newCp);await saveData();addMarker(newCp);buildList();buildFilmFilterChips();buildYearFilterChips();applyFilters();
+    checkpoints.push(newCp);await saveData();addMarker(newCp);buildList();buildFilmFilterChips();initTimeline();applyFilters();
     closeModal('addCheckpointModal');resetCpForm();
     if(tempPickMarker){tempPickMarker.remove();tempPickMarker=null;}
     openCheckpoint(newCp.id);
@@ -1231,12 +1477,12 @@ window.editFilm=function(id){
 window.deleteFilm=async function(id){
   if(!confirm('Delete this film? This cannot be undone.'))return;
   films=films.filter(f=>f.id!==id);
-  await saveData();buildFilmList();buildFilmFilterChips();buildYearFilterChips();applyFilters();showFilmListView();activeFilmId=null;resetMarkerHighlight();
+  await saveData();buildFilmList();buildFilmFilterChips();initTimeline();applyFilters();showFilmListView();activeFilmId=null;resetMarkerHighlight();
 };
 
 document.getElementById('saveFilmBtn').addEventListener('click',async()=>{
   const title=document.getElementById('filmTitle').value.trim(),year=document.getElementById('filmYear').value.trim();
-  if(!title){alert('Please enter a film title.');return;}if(!year){alert('Please enter the year.');return;}
+  if(!title){showToast('Please enter a film title.','error');return;}if(!year){showToast('Please enter the year.','error');return;}
   const checkedCps=[...document.querySelectorAll('#filmCpCheckboxes input:checked')].map(i=>i.value);
   const editId=document.getElementById('filmEditId').value;
   const directorVal=document.getElementById('filmDirector').value.trim();
@@ -1252,7 +1498,7 @@ document.getElementById('saveFilmBtn').addEventListener('click',async()=>{
     films.push({id:'film_'+Date.now(),title,director:directorVal,year:parseInt(year),country:document.getElementById('filmCountry').value.trim(),genre:document.getElementById('filmGenre').value.trim(),notes:document.getElementById('filmNotes').value.trim(),checkpointIds:checkedCps,seed:false});
   }
   checkedCps.forEach(cpId=>{const cp=checkpoints.find(c=>c.id===cpId);if(cp){if(!cp.films)cp.films=[];if(!cp.films.some(s=>s.includes(title)))cp.films.push(`${title} — ${directorVal}, ${year}`);}});
-  await saveData();buildList();buildFilmList();buildFilmFilterChips();buildYearFilterChips();applyFilters();closeModal('addFilmModal');resetFilmForm();
+  await saveData();buildList();buildFilmList();buildFilmFilterChips();initTimeline();applyFilters();closeModal('addFilmModal');resetFilmForm();
 });
 
 function resetFilmForm(){
@@ -1265,210 +1511,15 @@ function resetFilmForm(){
 ══════════════════════════════ */
 function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
 function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
-document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>closeModal(btn.getAttribute('data-close'))));
-document.querySelectorAll('.create-backdrop').forEach(bd=>bd.addEventListener('click',e=>{if(e.target===bd)closeModal(bd.id);}));
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    document.querySelectorAll('.create-backdrop.open').forEach(bd=>closeModal(bd.id));
-    if(pickingOnMap){pickingOnMap=false;document.getElementById('mapClickHint').classList.remove('visible');map.getCanvas().style.cursor='';}
-    if(sugPickingOnMap){sugPickingOnMap=false;document.getElementById('mapClickHint').classList.remove('visible');map.getCanvas().style.cursor='';}
-  }
-});
+window.openModal = openModal;
+window.closeModal = closeModal;
 
-/* ══════════════════════════════
-   SEARCH
-══════════════════════════════ */
-const searchInput=document.getElementById('searchInput'),searchBtn=document.getElementById('searchBtn'),resultsList=document.getElementById('searchResults');
-let searchMarker=null;
-function searchCPs(q){q=q.toLowerCase().trim();return checkpoints.filter(cp=>cp.title.toLowerCase().includes(q)||(cp.arabic||'').includes(q)||(cp.district||'').toLowerCase().includes(q));}
-function searchGlobal(q,cb){fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(q)}.json?access_token=${mapboxgl.accessToken}&language=en,ar&limit=4`).then(r=>r.json()).then(d=>cb(d.features||[])).catch(()=>cb([]));}
-function renderResults(cpRes,globalRes){
-  resultsList.innerHTML='';if(!cpRes.length&&!globalRes.length){resultsList.style.display='none';return;}
-  cpRes.forEach(cp=>{const li=document.createElement('li');li.className='cp-result';li.innerHTML=`<span class="result-dot"></span>${cp.title} <span style="opacity:0.4;margin-left:0.3rem;">${cp.arabic||''}</span>`;li.addEventListener('click',()=>{openCheckpoint(cp.id);resultsList.style.display='none';searchInput.value=cp.title;});resultsList.appendChild(li);});
-  if(cpRes.length&&globalRes.length){const d=document.createElement('li');d.className='divider';d.textContent='Other places';resultsList.appendChild(d);}
-  globalRes.forEach(r=>{const li=document.createElement('li');li.className='place-result';li.innerHTML=`<span class="result-dot"></span>${r.place_name}`;li.addEventListener('click',()=>{map.flyTo({center:r.geometry.coordinates,zoom:13,essential:true});if(searchMarker){searchMarker.remove();searchMarker=null;}const el=document.createElement('div');el.style.cssText='width:13px;height:13px;background:#6fe7c1;border:2px solid rgba(255,255,255,0.4);border-radius:50%;box-shadow:0 0 12px rgba(111,231,193,0.7);';searchMarker=new mapboxgl.Marker({element:el}).setLngLat(r.geometry.coordinates).addTo(map);resultsList.style.display='none';searchInput.value=r.place_name;});resultsList.appendChild(li);});
-  resultsList.style.display='block';
-}
-function doSearch(){const q=searchInput.value.trim();if(!q){resultsList.style.display='none';return;}searchGlobal(q,g=>renderResults(searchCPs(q),g));}
-searchBtn.addEventListener('click',doSearch);
-searchInput.addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
-searchInput.addEventListener('input',()=>{const q=searchInput.value.trim();if(!q){resultsList.style.display='none';return;}searchGlobal(q,g=>renderResults(searchCPs(q),g));});
-document.addEventListener('click',e=>{if(!e.target.closest('.search-panel'))resultsList.style.display='none';});
-
-/* ══════════════════════════════
-   ADMIN AUTH
-══════════════════════════════ */
-let isAdmin=false, pendingAdminAction=null;
-
-async function hashPassword(pw){
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-function requireAdmin(action){
-  if(isAdmin){action();return;}
-  pendingAdminAction=action;
-  document.getElementById('adminPassword').value='';
-  document.getElementById('adminError').style.display='none';
-  openModal('adminLoginModal');
-  setTimeout(()=>document.getElementById('adminPassword').focus(),100);
-}
-function setAdminUI(){
-  document.getElementById('addFilmBtn').style.display=isAdmin?'':'none';
-  document.getElementById('addCheckpointBtn').style.display=isAdmin?'':'none';
-  document.getElementById('tabSubmissions').style.display=isAdmin?'':'none';
-  const lb=document.getElementById('adminLockBtn');
-  lb.textContent=isAdmin?'🔓':'🔒';
-  lb.style.opacity=isAdmin?'0.85':'0.4';
-  lb.title=isAdmin?'Admin — click to log out':'Admin login';
-  if(isAdmin){buildSubmissionsList();updateSubmissionBadge();}
-  else if(activePanelTab==='submissions')switchPanelTab('checkpoints');
-  if(activeCpId)openCheckpoint(activeCpId);
-  if(activeFilmId)openFilmDetail(activeFilmId);
-}
-window.toggleAdminLock=function(){
-  if(isAdmin){isAdmin=false;setAdminUI();}
-  else{pendingAdminAction=null;document.getElementById('adminPassword').value='';document.getElementById('adminError').style.display='none';openModal('adminLoginModal');setTimeout(()=>document.getElementById('adminPassword').focus(),100);}
-};
-document.getElementById('adminLoginBtn').addEventListener('click',async()=>{
-  const pw=document.getElementById('adminPassword').value;
-  const hash=await hashPassword(pw);
-  if(hash===ADMIN_HASH){
-    isAdmin=true;closeModal('adminLoginModal');setAdminUI();
-    if(pendingAdminAction){pendingAdminAction();pendingAdminAction=null;}
-  }else{
-    document.getElementById('adminError').style.display='block';
-    document.getElementById('adminPassword').value='';
-    document.getElementById('adminPassword').focus();
-  }
-});
-document.getElementById('adminPassword').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('adminLoginBtn').click();});
-
-/* ══════════════════════════════
-   SUBMISSIONS
-══════════════════════════════ */
-
-/* FIX: suggest type radio toggle — listeners added once, not nested inside other listeners */
-document.querySelectorAll('input[name="suggestType"]').forEach(radio=>{
-  radio.addEventListener('change',()=>{
-    const isCheckpoint=document.getElementById('sugTypeCheckpoint').checked;
-    document.getElementById('sugCheckpointFields').style.display=isCheckpoint?'':'none';
-    document.getElementById('sugFilmFields').style.display=isCheckpoint?'none':'';
-    document.getElementById('sugTypeCheckpointLabel').style.borderColor=isCheckpoint?'rgba(230,169,58,0.5)':'rgba(111,231,193,0.14)';
-    document.getElementById('sugTypeCheckpointLabel').style.color=isCheckpoint?'var(--gold)':'rgba(232,245,240,0.5)';
-    document.getElementById('sugTypeFilmLabel').style.borderColor=!isCheckpoint?'rgba(111,231,193,0.5)':'rgba(111,231,193,0.14)';
-    document.getElementById('sugTypeFilmLabel').style.color=!isCheckpoint?'var(--teal)':'rgba(232,245,240,0.5)';
+// Enable all modal close buttons
+document.querySelectorAll('[data-close]').forEach(btn => {
+  btn.addEventListener('click', function() {
+    closeModal(this.getAttribute('data-close'));
   });
 });
-
-/* FIX: sugPickOnMapBtn listener now wired up (was missing) */
-document.getElementById('sugPickOnMapBtn').addEventListener('click',()=>{
-  closeModal('suggestModal');
-  sugPickingOnMap=true;
-  document.getElementById('mapClickHint').classList.add('visible');
-  map.getCanvas().style.cursor='crosshair';
-});
-
-document.getElementById('saveSuggestionBtn').addEventListener('click',async()=>{
-  const type=document.getElementById('sugTypeCheckpoint').checked?'checkpoint':'film';
-  let sub={id:'sub_'+Date.now(),type,submittedAt:new Date().toISOString(),contact:document.getElementById('sugContact').value.trim()};
-
-  if(type==='checkpoint'){
-    const name=document.getElementById('sugCpName').value.trim();
-    if(!name){alert('Please enter a checkpoint name.');return;}
-    const lat=parseFloat(document.getElementById('sugCpLat').value),lng=parseFloat(document.getElementById('sugCpLng').value);
-    if(isNaN(lat)||isNaN(lng)){alert('Please enter coordinates or pick a location on the map.');return;}
-    const typeMap={internal:'Internal checkpoint',entry:'Entry / Exit to Israel',last:'Last checkpoint before Israel'};
-    const tv=document.getElementById('sugCpType').value;
-    Object.assign(sub,{title:name,arabic:document.getElementById('sugCpArabic').value.trim(),district:document.getElementById('sugCpDistrict').value.trim(),type_label:typeMap[tv],filterType:tv==='internal'?'internal':'entry',detail:document.getElementById('sugCpDetail').value.trim(),coords:[lng,lat]});
-  }else{
-    const title=document.getElementById('sugFilmTitle').value.trim();
-    const year=document.getElementById('sugFilmYear').value.trim();
-    if(!title){alert('Please enter a film title.');return;}
-    if(!year){alert('Please enter the year.');return;}
-    Object.assign(sub,{title,director:document.getElementById('sugFilmDirector').value.trim(),year:parseInt(year),country:document.getElementById('sugFilmCountry').value.trim(),notes:document.getElementById('sugFilmNotes').value.trim()});
-  }
-
-  submissions.push(sub);
-  await saveSubmissions();
-  if(type==='checkpoint'&&sub.coords)addPendingMarker(sub);
-  closeModal('suggestModal');
-  resetSuggestForm();
-  if(tempPickMarker){tempPickMarker.remove();tempPickMarker=null;}
-  setTimeout(()=>alert('Thank you for your suggestion! It will be reviewed soon.'),200);
-});
-
-/* FIX: resetSuggestForm defined (was called but never existed) */
-function resetSuggestForm(){
-  ['sugCpName','sugCpArabic','sugCpDistrict','sugCpDetail','sugCpLat','sugCpLng',
-   'sugFilmTitle','sugFilmDirector','sugFilmYear','sugFilmCountry','sugFilmNotes','sugContact']
-    .forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('sugTypeCheckpoint').checked=true;
-  document.getElementById('sugCheckpointFields').style.display='';
-  document.getElementById('sugFilmFields').style.display='none';
-}
-
-function buildSubmissionsList(){
-  const list=document.getElementById('submissionsList');
-  const empty=document.getElementById('submissionsEmpty');
-  list.innerHTML='';
-  const pending=submissions.filter(s=>!s.approved&&!s.rejected);
-  if(!pending.length){empty.style.display='block';return;}
-  empty.style.display='none';
-  pending.forEach(sub=>{
-    const li=document.createElement('li');
-    li.className='sub-item';
-    const dateStr=new Date(sub.submittedAt).toLocaleDateString();
-    li.innerHTML=`<div class="sub-item-type">${sub.type}</div>
-      <div class="sub-item-title">${sub.title||'Untitled'}</div>
-      <div class="sub-item-meta">${dateStr}${sub.contact?' · '+sub.contact:''}</div>
-      ${sub.detail||sub.notes?`<div class="sub-item-detail">${sub.detail||sub.notes}</div>`:''}
-      <div class="sub-item-actions">
-        <button class="sub-approve" onclick="approveSubmission('${sub.id}')">Approve</button>
-        <button class="sub-reject" onclick="rejectSubmission('${sub.id}')">Reject</button>
-      </div>`;
-    list.appendChild(li);
-  });
-}
-
-function updateSubmissionBadge(){
-  const pending=submissions.filter(s=>!s.approved&&!s.rejected).length;
-  const badge=document.getElementById('submissionBadge');
-  if(pending>0){badge.textContent=pending;badge.style.display='';}
-  else badge.style.display='none';
-}
-
-window.approveSubmission=async function(id){
-  const sub=submissions.find(s=>s.id===id);if(!sub)return;
-  sub.approved=true;
-  if(sub.type==='checkpoint'&&sub.coords){
-    const newCp={id:'cp_'+Date.now(),coords:sub.coords,title:sub.title,arabic:sub.arabic||'',district:sub.district||'',type:sub.type_label||'Internal checkpoint',filterType:sub.filterType||'internal',staffing:'Permanently staffed',filterStaff:'permanent',detail:sub.detail||'',analysis:'',films:[],images:[],seed:false};
-    checkpoints.push(newCp);addMarker(newCp);buildList();buildFilmFilterChips();buildYearFilterChips();applyFilters();
-  }else if(sub.type==='film'){
-    films.push({id:'film_'+Date.now(),title:sub.title,director:sub.director||'',year:sub.year||0,country:sub.country||'',genre:'',notes:sub.notes||'',checkpointIds:[],seed:false});
-    buildFilmList();buildFilmFilterChips();buildYearFilterChips();
-  }
-  await saveData();await saveSubmissions();buildSubmissionsList();updateSubmissionBadge();
-};
-
-window.rejectSubmission=async function(id){
-  const sub=submissions.find(s=>s.id===id);if(!sub)return;
-  sub.rejected=true;
-  await saveSubmissions();buildSubmissionsList();updateSubmissionBadge();
-};
-
-/* ══════════════════════════════
-   NAV DROPDOWNS
-══════════════════════════════ */
-(function(){
-  var t=document.querySelector('.nav-dropdown-trigger'),d=document.querySelector('.nav-dropdown');
-  if(!t||!d)return;
-  t.addEventListener('click',function(e){e.stopPropagation();var o=d.classList.contains('open');d.classList.toggle('open',!o);t.setAttribute('aria-expanded',String(!o));});
-  document.addEventListener('click',function(){d.classList.remove('open');t.setAttribute('aria-expanded','false');});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){d.classList.remove('open');t.setAttribute('aria-expanded','false');}});
-})();
-
-/* Translate button */
-document.getElementById('translateBtn').addEventListener('click',()=>alert('Translation feature coming soon!'));
 </script>
 </body>
 </html>
