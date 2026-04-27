@@ -893,7 +893,45 @@ const SEED_FILMS = [
   {id:'film_200m',title:"200 Meters",director:"Ameen Nayfeh",year:2020,country:"Palestine / Jordan / Qatar / Italy / UK",genre:"Narrative feature",
    notes:"A Palestinian man and his family are separated by the Separation Wall. When his son is injured, he must cross 200 meters through a checkpoint labyrinth that becomes a 5-country journey.",
    notes_ar:"راجل فلسطيني عيلته منقسمة بسبب جدار الفصل. لما ابنه يتأذى، بيضطر يعبر ٢٠٠ متر عبر متاهة الحواجز اللي بتتحول لرحلة بتمر على ٥ دول.",
-   checkpointIds:["bethlehem","container"],seed:true}
+   checkpointIds:["bethlehem","container"],seed:true},
+
+  {
+    id: 'film_ghost_hunting',
+    title: "Ghost Hunting",
+    director: "Raed Andoni",
+    year: 2017,
+    country: "Palestine / France / Switzerland / Qatar",
+    genre: "Documentary",
+    notes: "Former Palestinian prisoners re-enact their experiences in Israeli detention, blurring the line between memory and performance.",
+    notes_ar: "أسرى فلسطينيين سابقين بيعيدوا تمثيل تجاربهم في السجون الإسرائيلية، وبيخلطوا بين الذاكرة والتمثيل.",
+    checkpointIds: [],
+    seed: true
+  },
+  {
+    id: 'film_3000_nights',
+    title: "3000 Nights",
+    director: "Mai Masri",
+    year: 2015,
+    country: "Palestine / France / Jordan / UAE / Lebanon / Qatar",
+    genre: "Narrative feature",
+    notes: "A young Palestinian schoolteacher gives birth to her son in an Israeli prison. The film explores motherhood, solidarity, and resistance behind bars.",
+    notes_ar: "معلمة فلسطينية شابة بتولد ابنها في سجن إسرائيلي. الفيلم بيحكي عن الأمومة والتضامن والمقاومة جوه السجن.",
+    checkpointIds: [],
+    seed: true
+  },
+  {
+    id: 'film_apples_of_the_gaza',
+    title: "Apples of the Golan",
+    director: "Keith Walsh, Jill Beardsworth",
+    year: 2012,
+    country: "Ireland",
+    genre: "Documentary",
+    notes: "A portrait of the Druze community in the occupied Golan Heights, exploring identity, land, and resistance.",
+    notes_ar: "صورة لمجتمع الدروز في الجولان المحتل، وبيستكشف الهوية والأرض والمقاومة.",
+    checkpointIds: [],
+    seed: true
+  },
+  // Add more films as needed, following the same structure
 ];
 
 /* ══════════════════════════════
@@ -1137,7 +1175,7 @@ function bindTimelineThumbs(){
     document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onUp);}
   tMin.addEventListener('mousedown',e=>startDrag(tMin,e));tMin.addEventListener('touchstart',e=>startDrag(tMin,e),{passive:false});
   tMax.addEventListener('mousedown',e=>startDrag(tMax,e));tMax.addEventListener('touchstart',e=>startDrag(tMax,e),{passive:false});
-  [tMin,tMax].forEach(thumb=>{thumb.addEventListener('keydown',e=>{const step=1,isMin=thumb===tMin;if(e.key==='ArrowLeft'||e.key==='ArrowDown'){if(isMin)timelineValMin=Math.max(timelineMin,timelineValMin-step);else timelineValMax=Math.max(timelineValMin,timelineValMax-step);e.preventDefault();}else if(e.key==='ArrowRight'||e.key==='ArrowUp'){if(isMin)timelineValMin=Math.min(timelineValMax,timelineValMin+step);else timelineValMax=Math.min(timelineMax,timelineValMax+step);e.preventDefault();}activeFilters.yearMin=timelineValMin;activeFilters.yearMax=timelineValMax;updateTimelineUI();applyFilters();});});
+  [tMin,tMax].forEach(thumb=>{thumb.addEventListener('keydown',e=>{const step=1,isMin=thumb===tMin;if(e.key==='ArrowLeft'||e.key==='ArrowDown'){if(isMin)timelineValMin=Math.max(timelineMin,timelineValMin-step);else timelineValMax=Math.max(yr,timelineValMax-step);e.preventDefault();}else if(e.key==='ArrowRight'||e.key==='ArrowUp'){if(isMin)timelineValMin=Math.min(timelineValMax,timelineValMin+step);else timelineValMax=Math.min(timelineMax,timelineValMax+step);e.preventDefault();}activeFilters.yearMin=timelineValMin;activeFilters.yearMax=timelineValMax;updateTimelineUI();applyFilters();});});
   track.addEventListener('click',e=>{if(e.target===tMin||e.target===tMax)return;const yr=getYr(e.clientX);if(Math.abs(yr-timelineValMin)<=Math.abs(yr-timelineValMax))timelineValMin=Math.min(yr,timelineValMax);else timelineValMax=Math.max(yr,timelineValMin);activeFilters.yearMin=timelineValMin;activeFilters.yearMax=timelineValMax;updateTimelineUI();applyFilters();});
   document.getElementById('timelineResetBtn').addEventListener('click',()=>{timelineValMin=timelineMin;timelineValMax=timelineMax;activeFilters.yearMin=timelineValMin;activeFilters.yearMax=timelineValMax;updateTimelineUI();applyFilters();});
 }
@@ -1199,44 +1237,6 @@ function updateCpFilterUI(){
 function addSummaryTag(parent,label,onRemove){
   const span=document.createElement('span');span.className='filter-summary-tag';
   span.innerHTML=`${label}<button aria-label="Remove filter">×</button>`;
-  span.querySelector('button').addEventListener('click',onRemove);
-  parent.appendChild(span);
-}
-
-window.clearCheckpointFilters=function(){
-  activeFilters.type='all';activeFilters.staff='all';activeFilters.film='all';
-  timelineValMin=timelineMin;timelineValMax=timelineMax;activeFilters.yearMin=timelineValMin;activeFilters.yearMax=timelineValMax;
-  document.querySelectorAll('[data-filter-type]').forEach(x=>x.classList.toggle('active',x.getAttribute('data-filter-type')==='all'));
-  document.querySelectorAll('[data-filter-staff]').forEach(x=>x.classList.toggle('active',x.getAttribute('data-filter-staff')==='all'));
-  buildFilmFilterChips();
-  updateTimelineUI();
-  applyFilters();
-};
-
-/* ══════════════════════════════
-   BUILD LISTS
-══════════════════════════════ */
-function buildList(){
-  cpListEl.innerHTML='';
-  checkpoints.forEach(cp=>{
-    const li=document.createElement('li');li.className='cp-list-item';li.setAttribute('data-id',cp.id);li.setAttribute('data-filter-type',cp.filterType||'internal');li.setAttribute('data-filter-staff',cp.filterStaff||'permanent');li.setAttribute('tabindex','0');
-    const miniFilms=(cp.films||[]).slice(0,2).map(f=>{const m=f.match(/,\s*(\d{4})/);const yr=m?m[1]:'';const title=f.split('—')[0].trim();return`<span class="cp-film-mini">${title}${yr?' '+yr:''}</span>`;}).join('');
-    li.innerHTML=`<div class="cp-list-arabic">${cp.arabic||''}</div><div class="cp-list-name">${cp.title}</div><div class="cp-list-meta"><span class="cp-list-tag ${cp.filterType==='entry'?'type-entry':''}">${cp.type||''}</span><span class="cp-list-tag ${cp.filterStaff==='permanent'?'staff-permanent':''}">${cp.staffing||''}</span></div>${miniFilms?`<div class="cp-list-films-mini">${miniFilms}</div>`:''}`;
-    li.addEventListener('click',()=>openCheckpoint(cp.id));li.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openCheckpoint(cp.id);});
-    cpListEl.appendChild(li);
-  });
-}
-/* ══════════════════════════════
-   FILM FILTERS
-══════════════════════════════ */
-function initFilmFilters(){
-  // Film-filter tab switcher
-  document.querySelectorAll('[data-film-tab]').forEach(tab=>{
-    tab.addEventListener('click',()=>{
-      document.querySelectorAll('[data-film-tab]').forEach(t=>t.classList.remove('active'));
-      tab.classList.add('active');
-      document.querySelectorAll('#filmsView .cp-filter-pane').forEach(p=>p.classList.remove('active'));
-      const paneId='film-filter-'+tab.getAttribute('data-film-tab');
       const pane=document.getElementById(paneId);if(pane)pane.classList.add('active');
     });
   });
