@@ -598,6 +598,12 @@ a:hover {
   .footer-main { padding: 1.2rem 1rem; }
 }
 
+@media (max-width: 700px) {
+  .entry-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── RTL (Arabic) ── */
 [dir="rtl"] .topnav { flex-direction: row-reverse; }
 [dir="rtl"] .topnav .brand { letter-spacing: 0; }
