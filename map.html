@@ -15,7 +15,7 @@
 
     /* NAV */
     .topnav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:linear-gradient(180deg,rgba(10,35,33,0.99) 0%,rgba(10,35,33,0.97) 100%);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;box-shadow:0 2px 20px rgba(0,0,0,0.5);z-index:1000;overflow:visible;}
-    .topnav .brand{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:var(--gold);letter-spacing:0.5px;text-decoration:none;}
+    .topnav .brand{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:var(--gold);letter-spacing:0.5px;text-decoration:none;flex-shrink:0;}
     .topnav .menu{display:flex;gap:0.4rem;align-items:center;overflow:visible;position:relative;}
     .topnav .menu a{color:#eaf7f2;font-size:0.88rem;font-weight:500;padding:0.5rem 0.9rem;border-radius:6px;transition:all 0.25s;font-family:'Oswald',sans-serif;text-decoration:none;letter-spacing:0.2px;}
     .topnav .menu a:hover,.topnav .menu a.active{background:rgba(230,169,58,0.18);color:var(--gold);}
@@ -33,6 +33,24 @@
     .nav-dropdown-item-desc{font-family:'IBM Plex Mono',monospace;font-size:0.67rem;font-weight:300;color:rgba(232,245,240,0.5);line-height:1.4;}
     .nav-dropdown-item:hover .nav-dropdown-item-title{color:var(--gold);}
     .nav-dropdown-item:hover .nav-dropdown-item-desc{color:rgba(232,245,240,0.7);}
+
+    /* HAMBURGER BUTTON */
+    .hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:rgba(255,255,255,0.05);border:1px solid rgba(111,231,193,0.2);border-radius:8px;cursor:pointer;padding:0;flex-shrink:0;}
+    .hamburger span{display:block;width:18px;height:2px;background:#eaf7f2;border-radius:2px;transition:all 0.28s cubic-bezier(0.4,0,0.2,1);}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+    /* MOBILE NAV DRAWER */
+    .mobile-nav-drawer{position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(8,24,22,0.99);border-bottom:1px solid rgba(111,231,193,0.12);z-index:999;display:flex;flex-direction:column;padding:0.5rem 0 1rem;transform:translateY(-110%);opacity:0;transition:transform 0.32s cubic-bezier(0.4,0,0.2,1),opacity 0.28s;pointer-events:none;box-shadow:0 12px 40px rgba(0,0,0,0.5);}
+    .mobile-nav-drawer.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+    .mobile-nav-drawer a{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:500;letter-spacing:0.12em;color:#eaf7f2;text-decoration:none;padding:0.85rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.18s,color 0.18s;display:block;}
+    .mobile-nav-drawer a:hover,.mobile-nav-drawer a.active{background:rgba(230,169,58,0.1);color:var(--gold);}
+    .mobile-nav-drawer .mobile-nav-section-label{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,245,240,0.28);padding:0.75rem 1.5rem 0.35rem;display:block;}
+    .mobile-nav-drawer .mobile-nav-sub{padding-left:2.2rem;font-size:0.88rem;color:rgba(232,245,240,0.65);}
+    .mobile-nav-drawer .mobile-nav-sub:hover{color:var(--gold);}
+    .mobile-nav-overlay{position:fixed;inset:0;top:var(--nav-h);background:rgba(0,0,0,0.45);z-index:998;display:none;backdrop-filter:blur(2px);}
+    .mobile-nav-overlay.open{display:block;}
 
     /* MAP */
     #map{position:fixed;top:var(--nav-h);bottom:0;left:0;right:0;z-index:1;transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
@@ -129,14 +147,11 @@
     .cp-chip.active{background:rgba(230,169,58,0.13);border-color:rgba(230,169,58,0.48);color:var(--gold);}
     .cp-chip.film-chip.active{background:rgba(111,231,193,0.09);border-color:rgba(111,231,193,0.42);color:var(--teal);}
     .cp-chip-count{opacity:0.5;font-size:0.52rem;margin-left:0.25rem;}
-    /* Active filter indicator dot on filter tab */
     .cp-filter-tab.has-filter::after{content:'';display:inline-block;width:5px;height:5px;background:var(--gold);border-radius:50%;margin-left:0.35rem;vertical-align:middle;flex-shrink:0;}
     .cp-filter-tab.has-filter{color:rgba(230,169,58,0.7);}
-    /* Clear all filters button */
     .filter-clear-btn{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:300;letter-spacing:0.06em;padding:0.22rem 0.55rem;border-radius:20px;border:1px solid rgba(185,78,58,0.3);color:rgba(185,78,58,0.65);background:transparent;cursor:pointer;transition:all 0.18s;white-space:nowrap;margin-left:auto;}
     .filter-clear-btn:hover{background:rgba(185,78,58,0.1);border-color:var(--crimson);color:var(--crimson);}
     .filter-clear-btn.hidden{display:none;}
-    /* Active filter summary bar */
     .filter-summary{display:none;align-items:center;gap:0.4rem;padding:0.35rem 0.8rem;background:rgba(230,169,58,0.07);border-bottom:1px solid rgba(230,169,58,0.15);flex-shrink:0;flex-wrap:wrap;}
     .filter-summary.visible{display:flex;}
     .filter-summary-label{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;font-weight:300;color:rgba(232,245,240,0.35);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;}
@@ -313,7 +328,51 @@
     .map-click-hint{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:rgba(10,35,33,0.95);border:1px solid rgba(230,169,58,0.38);border-radius:10px;padding:0.6rem 1.1rem;font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;color:var(--gold);z-index:500;display:none;box-shadow:0 6px 24px rgba(0,0,0,0.4);animation:hintPulse 1.5s ease-in-out infinite;}
     @keyframes hintPulse{0%,100%{opacity:1}50%{opacity:0.65}}
     .map-click-hint.visible{display:block;}
-    @media(max-width:900px){:root{--panel-w:100vw;}.topnav{padding:0 1rem;}.topnav .menu a{padding:0.4rem 0.55rem;font-size:0.76rem;}.nav-dropdown-trigger{padding:0.4rem 0.55rem;font-size:0.76rem;}body.panel-open #map{left:0;}body.panel-open .search-panel{left:50%;}.panel-close-btn{left:calc(100vw - 48px);}.form-row{grid-template-columns:1fr;}}
+
+    /* ══════════════════════════════
+       MOBILE RESPONSIVE
+    ══════════════════════════════ */
+    @media(max-width:768px){
+      :root{--panel-w:100vw;}
+
+      /* Nav: hide desktop menu, show hamburger */
+      .topnav{padding:0 1rem;}
+      .topnav .menu{display:none;}
+      #translateBtn{top:calc(var(--nav-h) + 8px);right:1rem;}
+      .hamburger{display:flex;}
+
+      /* Panel fills full screen on mobile */
+      body.panel-open #map{left:0;}
+      body.panel-open .search-panel{left:50%;}
+      body.panel-open .map-style-toggle{left:50%;}
+
+      /* Panel close button moves to top-right on mobile */
+      .panel-close-btn{left:auto;right:12px;}
+
+      /* Search bar narrower */
+      .search-panel{width:calc(100vw - 100px);left:50%;}
+
+      /* Hide legend on mobile to save space */
+      .map-legend{display:none;}
+
+      /* Info module full width */
+      .map-info-module{width:calc(100vw - 24px);padding:1rem 1.2rem;}
+      body.panel-open .map-info-module{left:50%;}
+
+      /* Forms: single column */
+      .form-row{grid-template-columns:1fr;}
+
+      /* Modals full screen on mobile */
+      .create-modal{width:100%;max-width:100%;border-radius:14px;}
+      .create-backdrop{padding:1rem 0.75rem;}
+    }
+
+    @media(max-width:480px){
+      .topnav .brand{font-size:1rem;}
+      .search-panel{width:calc(100vw - 80px);}
+      .search-inner input{font-size:0.75rem;}
+      .search-inner button{padding:0.38rem 0.65rem;font-size:0.65rem;}
+    }
   </style>
 </head>
 <body>
@@ -335,6 +394,28 @@
     </div>
     <a href="about.html" data-en="About" data-ar="عن المشروع">About</a>
   </div>
+
+  <!-- HAMBURGER (mobile only) -->
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+<!-- MOBILE NAV DRAWER -->
+<nav class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile navigation">
+  <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+  <a href="map.html" class="active" data-en="Map" data-ar="الخريطة">Map</a>
+  <span class="mobile-nav-section-label" data-en="Archive" data-ar="الأرشيف">Archive</span>
+  <a href="analysis.html" class="mobile-nav-sub" data-en="Visual Analysis" data-ar="التحليل البصري">Visual Analysis</a>
+  <a href="surveillance-space.html" class="mobile-nav-sub" data-en="Surveillance Space" data-ar="مساحة المراقبة">Surveillance Space</a>
+  <a href="not-mapped.html" class="mobile-nav-sub" data-en="What's Not Mapped" data-ar="شو ما رُسِم">What's Not Mapped</a>
+  <a href="glossary.html" class="mobile-nav-sub" data-en="Glossary" data-ar="قاموس المصطلحات">Glossary</a>
+  <a href="about.html" data-en="About" data-ar="عن المشروع">About</a>
 </nav>
 
 <!-- TRANSLATE BUTTON -->
@@ -442,7 +523,6 @@
 
   <!-- FILMS VIEW -->
   <div id="filmsView" style="flex:1;display:none;flex-direction:column;overflow:hidden;">
-    <!-- Film filter section -->
     <div class="cp-filter-section">
       <div style="display:flex;align-items:center;gap:0.35rem;margin-bottom:0.45rem;">
         <div class="cp-filter-tabs" id="filmFilterTabs" style="flex:1;margin-bottom:0;">
@@ -462,7 +542,6 @@
       <div class="cp-filter-pane" id="film-filter-checkpoint"></div>
       <div class="cp-filter-pane" id="film-filter-year"></div>
     </div>
-    <!-- Active film filter summary -->
     <div class="filter-summary" id="filmFilterSummary">
       <span class="filter-summary-label" data-en="Filtered:" data-ar="مفلتر:">Filtered:</span>
       <span id="filmFilterTags" style="display:flex;gap:0.35rem;flex-wrap:wrap;"></span>
@@ -641,8 +720,6 @@
           </label>
         </div>
       </div>
-
-      <!-- Checkpoint fields -->
       <div id="sugCheckpointFields">
         <div class="form-group"><label class="form-label" data-en="Checkpoint Name" data-ar="اسم الحاجز">Checkpoint Name</label><input class="form-input" id="sugCpName" placeholder="e.g. Qalandiya Checkpoint" /></div>
         <div class="form-group"><label class="form-label">Arabic Name <span style="opacity:.45;font-size:0.52rem;">(optional)</span></label><input class="form-input" id="sugCpArabic" placeholder="e.g. حاجز قلنديا" dir="auto" /></div>
@@ -666,8 +743,6 @@
           <button class="form-add-film-btn" id="sugPickOnMapBtn" style="margin-top:0.5rem;" data-en="📍 Pick on Map" data-ar="📍 اختار من الخريطة">📍 Pick on Map</button>
         </div>
       </div>
-
-      <!-- Film fields -->
       <div id="sugFilmFields" style="display:none;">
         <div class="form-group"><label class="form-label" data-en="Film Title" data-ar="عنوان الفيلم">Film Title</label><input class="form-input" id="sugFilmTitle" placeholder="e.g. The Present" /></div>
         <div class="form-row">
@@ -677,8 +752,6 @@
         <div class="form-group"><label class="form-label" data-en="Country / Production" data-ar="البلد والإنتاج">Country / Production</label><input class="form-input" id="sugFilmCountry" placeholder="e.g. Palestine / UK" /></div>
         <div class="form-group"><label class="form-label" data-en="Why is this relevant?" data-ar="ليش هاد الفيلم مهم؟">Why is this relevant?</label><textarea class="form-textarea" id="sugFilmNotes" placeholder="How does this film engage with checkpoints, movement restrictions, or spatial control?"></textarea></div>
       </div>
-
-      <!-- Lived Experience fields -->
       <div id="sugExperienceFields" style="display:none;">
         <div class="form-group"><label class="form-label" data-en="Title / Short Description" data-ar="عنوان أو وصف مختصر">Title / Short Description</label><input class="form-input" id="sugExpTitle" placeholder="e.g. My morning at Qalandiya" /></div>
         <div class="form-group"><label class="form-label" data-en="Your Story" data-ar="قصتك">Your Story</label><textarea class="form-textarea" id="sugExpStory" placeholder="Share your experience with a checkpoint, movement, or surveillance…" style="min-height:120px;"></textarea></div>
@@ -687,7 +760,6 @@
           <div class="form-group"><label class="form-label" data-en="When? (optional)" data-ar="امتى صار؟ (اختياري)">When? (optional)</label><input class="form-input" id="sugExpWhen" placeholder="e.g. March 2024" /></div>
         </div>
       </div>
-
       <div class="form-group" style="margin-top:0.5rem;"><label class="form-label" data-en="Your Name / Contact (optional)" data-ar="اسمك أو كيف نتواصل (اختياري)">Your Name / Contact (optional)</label><input class="form-input" id="sugContact" placeholder="How should we credit you? Email or name." /></div>
       <div class="form-actions">
         <button class="form-cancel" data-close="suggestModal" data-en="Cancel" data-ar="إلغاء">Cancel</button>
@@ -721,13 +793,51 @@
 
 <script>
 /* ══════════════════════════════
+   HAMBURGER MENU
+══════════════════════════════ */
+(function(){
+  const btn=document.getElementById('hamburgerBtn');
+  const drawer=document.getElementById('mobileNavDrawer');
+  const overlay=document.getElementById('mobileNavOverlay');
+  if(!btn||!drawer||!overlay)return;
+
+  function openMenu(){
+    btn.classList.add('open');
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+  }
+  function closeMenu(){
+    btn.classList.remove('open');
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+  }
+
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    btn.classList.contains('open')?closeMenu():openMenu();
+  });
+  overlay.addEventListener('click',closeMenu);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&drawer.classList.contains('open'))closeMenu();
+  });
+  // Close drawer when a link is tapped
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',closeMenu);
+  });
+  window._closeMobileMenu=closeMenu;
+})();
+
+/* ══════════════════════════════
    ADMIN PASSWORD HASH — misolily
 ══════════════════════════════ */
 const ADMIN_HASH='f1c40308ddf6d45bc4bf431ca636a99fee778794de78ab150ec2d5f0ca9365e1';
 
 /* ══════════════════════════════
    TRANSLATION SYSTEM
-   Palestinian dialect Arabic ↔ English
 ══════════════════════════════ */
 let currentLang = 'en';
 
@@ -738,18 +848,15 @@ function applyLang(lang) {
   document.getElementById('htmlRoot').dir  = isAr ? 'rtl' : 'ltr';
   document.getElementById('translateBtn').textContent = isAr ? 'EN / عربي' : 'عربي / EN';
 
-  // Translate all data-en / data-ar elements
   document.querySelectorAll('[data-en]').forEach(el => {
     const val = isAr ? el.getAttribute('data-ar') : el.getAttribute('data-en');
     if (val !== null) el.textContent = val;
   });
 
-  // Placeholder attributes on inputs
   document.querySelectorAll('[data-en-placeholder]').forEach(el => {
     el.placeholder = isAr ? el.getAttribute('data-ar-placeholder') : el.getAttribute('data-en-placeholder');
   });
 
-  // Timeline label "All years"
   const tlLabel = document.getElementById('timelineActiveLabel');
   if (tlLabel) {
     const allKey = isAr ? tlLabel.getAttribute('data-ar-all') : tlLabel.getAttribute('data-en-all');
@@ -758,16 +865,12 @@ function applyLang(lang) {
     }
   }
 
-  // Rebuild film chips so Arabic checkpoint names appear
   buildFilmCheckpointChips();
   buildFilmYearChips();
   buildFilmFilterChips();
 
-  // Panel always stays on the LEFT regardless of language direction
-  // Only flip text/reading direction on body content, not the panel position
   document.getElementById('cpPanel').style.left = '0';
   document.getElementById('cpPanel').style.right = 'auto';
-  // Apply RTL only to body text flow, NOT to fixed-position map UI elements
   document.querySelectorAll('.create-modal-body, .cp-detail-scroll, #filmDetailScroll, .cp-list, .film-list, .map-info-module p, .map-info-module h2').forEach(el => {
     el.dir = isAr ? 'rtl' : 'ltr';
   });
@@ -785,7 +888,6 @@ const SEED_CHECKPOINTS = [
   {id:'bethlehem',coords:[35.2035,31.7234],title:"Checkpoint 300 — Bethlehem",arabic:"حاجز ٣٠٠ (بيت لحم)",district:"Bethlehem",type:"Entry / Exit to Israel",filterType:"entry",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Located on the border between Bethlehem and Jerusalem. One of the busiest crossings — thousands pass daily for work. Features a turnstile system and persistent long queues.",films:["Salt of This Sea — Jacir, 2008","When I Saw You — Jacir, 2012"],images:['assets/images/bethlehem1.jpeg','assets/images/bethlehem2.jpeg','assets/images/bethlehem3.jpg','assets/images/bethlehem4.jpeg','assets/images/bethlehem5.jpeg','assets/images/bethlehem6.jpeg','assets/images/bethlehem7.jpg'],analysis:'<p>In <em>Salt of This Sea</em>, Rachel Checkpoint is where the difference between Soraya\'s American passport and Emad\'s West Bank ID becomes spatially visible. The checkpoint makes hierarchy literal — two people in the same shot but not in the same system.</p><p>In <em>When I Saw You</em>, it becomes more mythic horizon — the thing between Tarek and a Palestine he\'s never seen but fully believes in.</p>',seed:true},
   {id:'huwwara',coords:[35.2726,32.1762],title:"Huwwara Checkpoint",arabic:"حاجز حوارة",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Intermittently staffed",filterStaff:"intermittent",detail:"At the southern entrance to Nablus. Staffed on no fixed schedule. After 7 October 2023, completely closed to Palestinian pedestrians and vehicles.",films:["The Present — Nablusi, 2020"],images:['assets/images/hucheck.jpg'],analysis:'<p>Huwwara is exposed — open landscape, open sky, a checkpoint that cuts right through it. In <em>The Present</em>, Nabulsi shows how checkpoints don\'t just slow movement; they reorganize time. The waiting, the unpredictability, the way a soldier\'s mood becomes the clock — what Peteet calls <em>carceral time</em>.</p>',seed:true},
   {id:'container',coords:[35.2976,31.6927],title:"Container Checkpoint (Wadi a-Nar)",arabic:"حاجز الكونتينر (وادي النار)",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"East of Abu Dis, controlling travel between northern and southern West Bank. Since October 2023, strict inspections with limited outbound hours.",films:["Archive footage — dates TBD"],images:['assets/images/container.jpg'],analysis:'<p>The Container rarely gets cinematic attention even though it\'s strategically crucial. Its absence from narrative film is itself telling: certain sites become iconic while others remain underdocumented. That gap is part of the story.</p>',seed:true},
-  // ── PLACEHOLDER CHECKPOINTS (yellow) ──
   {id:'beit_iba',coords:[35.1782,32.2185],title:"Beit Iba Checkpoint",arabic:"حاجز بيت إيبا",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Western entrance to Nablus. Controls access to the city from the west.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'awarta',coords:[35.3102,32.1538],title:"Awarta Checkpoint",arabic:"حاجز عوارة",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement on Route 60 south of Nablus.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'beit_el',coords:[35.2287,31.9467],title:"Beit El Checkpoint",arabic:"حاجز بيت إيل",district:"Ramallah and al-Bira",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Northern outskirts of Ramallah near the Beit El settlement.",films:[],images:[],analysis:'',seed:true,placeholder:true},
@@ -793,122 +895,34 @@ const SEED_CHECKPOINTS = [
   {id:'al_hamra',coords:[35.4556,32.0523],title:"Al-Hamra Checkpoint",arabic:"حاجز الحمرا",district:"Jericho",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Northern Jordan Valley on Route 90. Controls movement between the northern West Bank and the Jordan Valley.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'tayasir',coords:[35.5243,32.2687],title:"Tayasir Checkpoint",arabic:"حاجز طياسير",district:"Tubas",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Northern Jordan Valley. Palestinians require special permits to pass.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'jaba',coords:[35.2518,31.6958],title:"Jaba Checkpoint",arabic:"حاجز جبع",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"South of Jerusalem near Jaba village on Route 60.",films:[],images:[],analysis:'',seed:true,placeholder:true},
-  
   {id:'hebron_h2',coords:[35.1262,31.5252],title:"Hebron H2 Checkpoint",arabic:"حاجز الخليل (ح٢)",district:"Hebron",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement into the H2 zone of Hebron under Israeli military control. Palestinian movement is heavily restricted throughout the old city.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'abu_dis',coords:[35.2895,31.7622],title:"Abu Dis Checkpoint",arabic:"حاجز أبو ديس",district:"Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Separates Abu Dis from East Jerusalem. The Separation Barrier cuts the village off from the city.",films:[],images:[],analysis:'',seed:true,placeholder:true},
   {id:'ras_al_amud',coords:[35.2428,31.7728],title:"Ras al-Amud Checkpoint",arabic:"حاجز رأس العامود",district:"Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement between Ras al-Amud neighbourhood and the rest of East Jerusalem.",films:[],images:[],analysis:'',seed:true,placeholder:true}
 ];
 
 const SEED_FILMS = [
-  {id:'film_salt',title:"Salt of This Sea",director:"Annemarie Jacir",year:2008,country:"Palestine / Belgium",genre:"Narrative feature",
-   notes:"A Palestinian-American woman returns to Palestine to reclaim her grandfather's home. Engages directly with checkpoints, bureaucracy, and spatial control.",
-   notes_ar:"بنت فلسطينية أمريكية بترجع على فلسطين عشان تسترجع بيت جدها. الفيلم بيتعامل مباشرة مع الحواجز والبيروقراطية والسيطرة على المكان.",
-   checkpointIds:["qalandiya","bethlehem"],seed:true},
-
-  {id:'film_present',title:"The Present",director:"Farouk Nabulsi",year:2020,country:"Palestine / UK",genre:"Short film",
-   notes:"A man and his daughter navigate checkpoints trying to buy a refrigerator. Won the BAFTA for Best Short Film.",
-   notes_ar:"راجل وبنته بدهم يشتروا ثلاجة بس الحواجز حايلة بينهم وبين أبسط إشي. فاز بجائزة BAFTA لأحسن فيلم قصير.",
-   checkpointIds:["qalandiya","huwwara"],seed:true},
-
-  {id:'film_wisaw',title:"When I Saw You",director:"Annemarie Jacir",year:2012,country:"Palestine / Jordan",genre:"Narrative feature",
-   notes:"Set in 1967, a boy and his mother live in a refugee camp in Jordan. Palestine becomes a mythic landscape mediated by memory and longing.",
-   notes_ar:"أحداثه سنة ١٩٦٧ — ولد وأمه عايشين في مخيم لاجئين بالأردن. فلسطين بتصير حلم بعيد بيوصلهم عبر الذاكرة والشوق.",
-   checkpointIds:["bethlehem"],seed:true},
-
-  {id:'film_paradise',title:"Paradise Now",director:"Hany Abu-Assad",year:2005,country:"Palestine / Netherlands / Germany / France",genre:"Narrative feature",
-   notes:"Two Palestinian men from Nablus are recruited for a suicide bombing in Tel Aviv. The film tracks their last 48 hours, moving through checkpoints and surveillance. Oscar-nominated.",
-   notes_ar:"شابين فلسطينيين من نابلس بتم تجنيدهم لعملية في تل أبيب. الفيلم بيرافقهم في آخر ٤٨ ساعة — عبر الحواجز والمراقبة. مرشح للأوسكار.",
-   checkpointIds:["huwwara"],seed:true},
-
-  {id:'film_omar',title:"Omar",director:"Hany Abu-Assad",year:2013,country:"Palestine",genre:"Narrative feature",
-   notes:"A Palestinian baker navigates occupation, betrayal, and love while scaling the Separation Wall. Cannes Jury Prize winner.",
-   notes_ar:"خباز فلسطيني بيتنقل بين الاحتلال والخيانة والحب وهو بيتسلق جدار الفصل كل يوم. فاز بجائزة لجنة التحكيم في كان.",
-   checkpointIds:["beit_el","qalandiya"],seed:true},
-
-  {id:'film_divine',title:"Divine Intervention",director:"Elia Suleiman",year:2002,country:"Palestine / France / Morocco / Germany",genre:"Narrative feature",
-   notes:"A deadpan comedy about a man's impossible love story across a checkpoint. A red balloon becomes an act of Palestinian resistance.",
-   notes_ar:"كوميديا ببرود تام عن قصة حب مستحيلة عبر حاجز. بالونة حمراء بتتحول لفعل مقاومة.",
-   checkpointIds:["qalandiya"],seed:true},
-
-  {id:'film_chronicle',title:"Chronicle of a Disappearance",director:"Elia Suleiman",year:1996,country:"Palestine / Italy / Germany / Greece",genre:"Narrative feature",
-   notes:"A semi-autobiographical debut: Suleiman observes his family and community in Nazareth and Jerusalem with detached, absurdist precision.",
-   notes_ar:"أول أفلامه وهي شبه سيرة ذاتية: سليمان بيراقب عيلته ومجتمعه في الناصرة والقدس بعين باردة وبدقة عبثية.",
-   checkpointIds:[],seed:true},
-
-  {id:'film_jenin',title:"Jenin Jenin",director:"Mohammad Bakri",year:2002,country:"Palestine",genre:"Documentary",
-   notes:"Filmed in the aftermath of the IDF's Operation Defensive Shield in the Jenin refugee camp. Testimonies from survivors amid ruins.",
-   notes_ar:"اتصوّر مباشرة بعد عملية الجيش الإسرائيلي على مخيم جنين. شهادات الناجين من بين الأنقاض.",
-   checkpointIds:["beit_iba"],seed:true},
-
-  {id:'film_5cameras',title:"5 Broken Cameras",director:"Emad Burnat and Guy Davidi",year:2011,country:"Palestine / Israel / France / Netherlands",genre:"Documentary",
-   notes:"Filmed over five years in Bil'in village as Israeli settlement construction divides the land. Shot on five cameras, each destroyed in sequence. Oscar-nominated.",
-   notes_ar:"اتصوّر على مدى خمس سنوات في قرية بلعين وبناء المستوطنات بيشقّ الأرض. خمس كاميرات انكسرت واحدة ورا التانية. مرشح للأوسكار.",
-   checkpointIds:["beit_el"],seed:true},
-
-  {id:'film_birthright',title:"Naila and the Uprising",director:"Julia Bacha",year:2017,country:"Palestine / USA",genre:"Documentary",
-   notes:"Profiles the role of Palestinian women — particularly Naila Ayesh — in organising the First Intifada.",
-   notes_ar:"بيرصد دور المرأة الفلسطينية — وبالأخص نائلة عايش — في تنظيم الانتفاضة الأولى.",
-   checkpointIds:[],seed:true},
-
-  {id:'film_wedding',title:"Wedding in Galilee",director:"Michel Khleifi",year:1987,country:"Palestine / Belgium / France",genre:"Narrative feature",
-   notes:"A Palestinian mukhtar gets permission from the Israeli military governor to hold a traditional wedding — on condition that Israeli officers attend. A foundational film of Palestinian cinema.",
-   notes_ar:"مختار فلسطيني بيستأذن الحاكم العسكري الإسرائيلي عشان يعمل عرس تقليدي — بشرط إن الضباط الإسرائيليين يحضروا. فيلم من أساس السينما الفلسطينية.",
-   checkpointIds:[],seed:true},
-
-  {id:'film_stranger',title:"A Stranger in My Home",director:"Kamal Aljafari",year:2023,country:"Palestine / Germany",genre:"Experimental / Essay film",
-   notes:"Aljafari re-edits found footage of Israeli films shot in Jaffa, inserting Palestinian presence into images from which it had been erased.",
-   notes_ar:"الجعفري بيعيد مونتاج مشاهد من أفلام إسرائيلية اتصوّرت في يافا، عشان يُرجّع الوجود الفلسطيني للصور اللي كانت محته.",
-   checkpointIds:[],seed:true},
-
-  {id:'film_route',title:"Route 181",director:"Michel Khleifi and Eyal Sivan",year:2003,country:"Palestine / Israel / France / Belgium",genre:"Documentary",
-   notes:"A four-hour road trip along the 1947 UN Partition line — one Israeli, one Palestinian filmmaker, encountering the landscape and its contradictions.",
-   notes_ar:"رحلة بالسيارة أربع ساعات على طول خط التقسيم تبع الأمم المتحدة ١٩٤٧ — مخرج إسرائيلي ومخرج فلسطيني بيواجهوا تناقضات المشهد.",
-   checkpointIds:["container","jaba"],seed:true},
-
-  {id:'film_1948',title:"1948",director:"Randa Chahal Sabbag",year:1998,country:"Lebanon / France",genre:"Documentary",
-   notes:"A chronicle of the Nakba and its survivors, weaving archive footage with contemporary testimony.",
-   notes_ar:"توثيق لأحداث النكبة وناجيها، بيمزج بين أرشيف الصور وشهادات من زماننا.",
-   checkpointIds:[],seed:true},
-
-  {id:'film_fertile',title:"Fertile Memory",director:"Michel Khleifi",year:1980,country:"Palestine / Belgium",genre:"Documentary",
-   notes:"Khleifi's debut: two Palestinian women — one in the West Bank, one in Nazareth — reflect on land, memory, and resistance. One of the first Palestinian feature documentaries.",
-   notes_ar:"أول أفلام خليفي: مرتين فلسطينيتين — وحدة بالضفة والتانية بالناصرة — بيتأملن الأرض والذاكرة والمقاومة. من أوائل الأفلام الوثائقية الفلسطينية الطويلة.",
-   checkpointIds:[],seed:true},
-
-  {id:'film_intervention',title:"The Time That Remains",director:"Elia Suleiman",year:2009,country:"Palestine / France / Italy / Belgium / UK",genre:"Narrative feature",
-   notes:"A semi-autobiographical account spanning 1948 to the present — four episodes tracing Suleiman's family in Nazareth under Israeli rule, told with characteristic deadpan absurdism.",
-   notes_ar:"سيرة شبه ذاتية بتمتد من ١٩٤٨ لهلق — أربع حلقات بترصد عيلة سليمان بالناصرة تحت الحكم الإسرائيلي، بأسلوبه العبثي اللي بيشبهه.",
-   checkpointIds:[],seed:true},
-
-  {id:'film_ford',title:"Ford Transit",director:"Hany Abu-Assad",year:2002,country:"Palestine",genre:"Documentary",
-   notes:"A documentary following a Palestinian taxi driver navigating the checkpoint system daily between Ramallah and Jerusalem. Raw, observational, and politically direct.",
-   notes_ar:"وثائقي بيرافق سواق تاكسي فلسطيني بيعبر الحواجز كل يوم بين رام الله والقدس. مباشر وسياسي وبدون تجميل.",
-   checkpointIds:["qalandiya","beit_el"],seed:true},
-
-  {id:'film_inch',title:"Inch'Allah",director:"Anaïs Barbeau-Lavalette",year:2012,country:"Canada / France",genre:"Narrative feature",
-   notes:"A Canadian doctor working in a West Bank refugee clinic crosses into Israel daily. The checkpoint becomes the hinge between two worlds she inhabits but cannot reconcile.",
-   notes_ar:"دكتورة كندية بتشتغل بعيادة بمخيم بالضفة وبتعبر على إسرائيل كل يوم. الحاجز بيصير المفصل بين عالمين بتعيشهم بس ما بتقدر توفق بينهم.",
-   checkpointIds:["bethlehem","qalandiya"],seed:true},
-
-  {id:'film_200m',title:"200 Meters",director:"Ameen Nayfeh",year:2020,country:"Palestine / Jordan / Qatar / Italy / UK",genre:"Narrative feature",
-   notes:"A Palestinian man and his family are separated by the Separation Wall. When his son is injured, he must cross 200 meters through a checkpoint labyrinth that becomes a 5-country journey.",
-   notes_ar:"راجل فلسطيني عيلته منقسمة بسبب جدار الفصل. لما ابنه يتأذى، بيضطر يعبر ٢٠٠ متر عبر متاهة الحواجز اللي بتتحول لرحلة بتمر على ٥ دول.",
-   checkpointIds:["bethlehem","container"],seed:true},
-
-  {id:'film_ghost_hunting',title:"Ghost Hunting",director:"Raed Andoni",year:2017,country:"Palestine / France / Switzerland / Qatar",genre:"Documentary",
-   notes:"Former Palestinian prisoners re-enact their experiences in Israeli detention, blurring the line between memory and performance.",
-   notes_ar:"أسرى فلسطينيين سابقين بيعيدوا تمثيل تجاربهم في السجون الإسرائيلية، وبيخلطوا بين الذاكرة والتمثيل.",
-   checkpointIds:[],seed:true},
-
-  {id:'film_3000_nights',title:"3000 Nights",director:"Mai Masri",year:2015,country:"Palestine / France / Jordan / UAE / Lebanon / Qatar",genre:"Narrative feature",
-   notes:"A young Palestinian schoolteacher gives birth to her son in an Israeli prison. The film explores motherhood, solidarity, and resistance behind bars.",
-   notes_ar:"معلمة فلسطينية شابة بتولد ابنها في سجن إسرائيلي. الفيلم بيحكي عن الأمومة والتضامن والمقاومة جوه السجن.",
-   checkpointIds:[],seed:true},
-
-  {id:'film_apples_of_the_golan',title:"Apples of the Golan",director:"Keith Walsh and Jill Beardsworth",year:2012,country:"Ireland",genre:"Documentary",
-   notes:"A portrait of the Druze community in the occupied Golan Heights, exploring identity, land, and resistance under prolonged occupation.",
-   notes_ar:"صورة لمجتمع الدروز في الجولان المحتل، بيستكشف الهوية والأرض والمقاومة تحت احتلال ممتد.",
-   checkpointIds:[],seed:true}
+  {id:'film_salt',title:"Salt of This Sea",director:"Annemarie Jacir",year:2008,country:"Palestine / Belgium",genre:"Narrative feature",notes:"A Palestinian-American woman returns to Palestine to reclaim her grandfather's home. Engages directly with checkpoints, bureaucracy, and spatial control.",notes_ar:"بنت فلسطينية أمريكية بترجع على فلسطين عشان تسترجع بيت جدها. الفيلم بيتعامل مباشرة مع الحواجز والبيروقراطية والسيطرة على المكان.",checkpointIds:["qalandiya","bethlehem"],seed:true},
+  {id:'film_present',title:"The Present",director:"Farouk Nabulsi",year:2020,country:"Palestine / UK",genre:"Short film",notes:"A man and his daughter navigate checkpoints trying to buy a refrigerator. Won the BAFTA for Best Short Film.",notes_ar:"راجل وبنته بدهم يشتروا ثلاجة بس الحواجز حايلة بينهم وبين أبسط إشي. فاز بجائزة BAFTA لأحسن فيلم قصير.",checkpointIds:["qalandiya","huwwara"],seed:true},
+  {id:'film_wisaw',title:"When I Saw You",director:"Annemarie Jacir",year:2012,country:"Palestine / Jordan",genre:"Narrative feature",notes:"Set in 1967, a boy and his mother live in a refugee camp in Jordan. Palestine becomes a mythic landscape mediated by memory and longing.",notes_ar:"أحداثه سنة ١٩٦٧ — ولد وأمه عايشين في مخيم لاجئين بالأردن. فلسطين بتصير حلم بعيد بيوصلهم عبر الذاكرة والشوق.",checkpointIds:["bethlehem"],seed:true},
+  {id:'film_paradise',title:"Paradise Now",director:"Hany Abu-Assad",year:2005,country:"Palestine / Netherlands / Germany / France",genre:"Narrative feature",notes:"Two Palestinian men from Nablus are recruited for a suicide bombing in Tel Aviv. The film tracks their last 48 hours, moving through checkpoints and surveillance. Oscar-nominated.",notes_ar:"شابين فلسطينيين من نابلس بتم تجنيدهم لعملية في تل أبيب. الفيلم بيرافقهم في آخر ٤٨ ساعة — عبر الحواجز والمراقبة. مرشح للأوسكار.",checkpointIds:["huwwara"],seed:true},
+  {id:'film_omar',title:"Omar",director:"Hany Abu-Assad",year:2013,country:"Palestine",genre:"Narrative feature",notes:"A Palestinian baker navigates occupation, betrayal, and love while scaling the Separation Wall. Cannes Jury Prize winner.",notes_ar:"خباز فلسطيني بيتنقل بين الاحتلال والخيانة والحب وهو بيتسلق جدار الفصل كل يوم. فاز بجائزة لجنة التحكيم في كان.",checkpointIds:["beit_el","qalandiya"],seed:true},
+  {id:'film_divine',title:"Divine Intervention",director:"Elia Suleiman",year:2002,country:"Palestine / France / Morocco / Germany",genre:"Narrative feature",notes:"A deadpan comedy about a man's impossible love story across a checkpoint. A red balloon becomes an act of Palestinian resistance.",notes_ar:"كوميديا ببرود تام عن قصة حب مستحيلة عبر حاجز. بالونة حمراء بتتحول لفعل مقاومة.",checkpointIds:["qalandiya"],seed:true},
+  {id:'film_chronicle',title:"Chronicle of a Disappearance",director:"Elia Suleiman",year:1996,country:"Palestine / Italy / Germany / Greece",genre:"Narrative feature",notes:"A semi-autobiographical debut: Suleiman observes his family and community in Nazareth and Jerusalem with detached, absurdist precision.",notes_ar:"أول أفلامه وهي شبه سيرة ذاتية: سليمان بيراقب عيلته ومجتمعه في الناصرة والقدس بعين باردة وبدقة عبثية.",checkpointIds:[],seed:true},
+  {id:'film_jenin',title:"Jenin Jenin",director:"Mohammad Bakri",year:2002,country:"Palestine",genre:"Documentary",notes:"Filmed in the aftermath of the IDF's Operation Defensive Shield in the Jenin refugee camp. Testimonies from survivors amid ruins.",notes_ar:"اتصوّر مباشرة بعد عملية الجيش الإسرائيلي على مخيم جنين. شهادات الناجين من بين الأنقاض.",checkpointIds:["beit_iba"],seed:true},
+  {id:'film_5cameras',title:"5 Broken Cameras",director:"Emad Burnat and Guy Davidi",year:2011,country:"Palestine / Israel / France / Netherlands",genre:"Documentary",notes:"Filmed over five years in Bil'in village as Israeli settlement construction divides the land. Shot on five cameras, each destroyed in sequence. Oscar-nominated.",notes_ar:"اتصوّر على مدى خمس سنوات في قرية بلعين وبناء المستوطنات بيشقّ الأرض. خمس كاميرات انكسرت واحدة ورا التانية. مرشح للأوسكار.",checkpointIds:["beit_el"],seed:true},
+  {id:'film_birthright',title:"Naila and the Uprising",director:"Julia Bacha",year:2017,country:"Palestine / USA",genre:"Documentary",notes:"Profiles the role of Palestinian women — particularly Naila Ayesh — in organising the First Intifada.",notes_ar:"بيرصد دور المرأة الفلسطينية — وبالأخص نائلة عايش — في تنظيم الانتفاضة الأولى.",checkpointIds:[],seed:true},
+  {id:'film_wedding',title:"Wedding in Galilee",director:"Michel Khleifi",year:1987,country:"Palestine / Belgium / France",genre:"Narrative feature",notes:"A Palestinian mukhtar gets permission from the Israeli military governor to hold a traditional wedding — on condition that Israeli officers attend. A foundational film of Palestinian cinema.",notes_ar:"مختار فلسطيني بيستأذن الحاكم العسكري الإسرائيلي عشان يعمل عرس تقليدي — بشرط إن الضباط الإسرائيليين يحضروا. فيلم من أساس السينما الفلسطينية.",checkpointIds:[],seed:true},
+  {id:'film_stranger',title:"A Stranger in My Home",director:"Kamal Aljafari",year:2023,country:"Palestine / Germany",genre:"Experimental / Essay film",notes:"Aljafari re-edits found footage of Israeli films shot in Jaffa, inserting Palestinian presence into images from which it had been erased.",notes_ar:"الجعفري بيعيد مونتاج مشاهد من أفلام إسرائيلية اتصوّرت في يافا، عشان يُرجّع الوجود الفلسطيني للصور اللي كانت محته.",checkpointIds:[],seed:true},
+  {id:'film_route',title:"Route 181",director:"Michel Khleifi and Eyal Sivan",year:2003,country:"Palestine / Israel / France / Belgium",genre:"Documentary",notes:"A four-hour road trip along the 1947 UN Partition line — one Israeli, one Palestinian filmmaker, encountering the landscape and its contradictions.",notes_ar:"رحلة بالسيارة أربع ساعات على طول خط التقسيم تبع الأمم المتحدة ١٩٤٧ — مخرج إسرائيلي ومخرج فلسطيني بيواجهوا تناقضات المشهد.",checkpointIds:["container","jaba"],seed:true},
+  {id:'film_1948',title:"1948",director:"Randa Chahal Sabbag",year:1998,country:"Lebanon / France",genre:"Documentary",notes:"A chronicle of the Nakba and its survivors, weaving archive footage with contemporary testimony.",notes_ar:"توثيق لأحداث النكبة وناجيها، بيمزج بين أرشيف الصور وشهادات من زماننا.",checkpointIds:[],seed:true},
+  {id:'film_fertile',title:"Fertile Memory",director:"Michel Khleifi",year:1980,country:"Palestine / Belgium",genre:"Documentary",notes:"Khleifi's debut: two Palestinian women — one in the West Bank, one in Nazareth — reflect on land, memory, and resistance. One of the first Palestinian feature documentaries.",notes_ar:"أول أفلام خليفي: مرتين فلسطينيتين — وحدة بالضفة والتانية بالناصرة — بيتأملن الأرض والذاكرة والمقاومة. من أوائل الأفلام الوثائقية الفلسطينية الطويلة.",checkpointIds:[],seed:true},
+  {id:'film_intervention',title:"The Time That Remains",director:"Elia Suleiman",year:2009,country:"Palestine / France / Italy / Belgium / UK",genre:"Narrative feature",notes:"A semi-autobiographical account spanning 1948 to the present — four episodes tracing Suleiman's family in Nazareth under Israeli rule, told with characteristic deadpan absurdism.",notes_ar:"سيرة شبه ذاتية بتمتد من ١٩٤٨ لهلق — أربع حلقات بترصد عيلة سليمان بالناصرة تحت الحكم الإسرائيلي، بأسلوبه العبثي اللي بيشبهه.",checkpointIds:[],seed:true},
+  {id:'film_ford',title:"Ford Transit",director:"Hany Abu-Assad",year:2002,country:"Palestine",genre:"Documentary",notes:"A documentary following a Palestinian taxi driver navigating the checkpoint system daily between Ramallah and Jerusalem. Raw, observational, and politically direct.",notes_ar:"وثائقي بيرافق سواق تاكسي فلسطيني بيعبر الحواجز كل يوم بين رام الله والقدس. مباشر وسياسي وبدون تجميل.",checkpointIds:["qalandiya","beit_el"],seed:true},
+  {id:'film_inch',title:"Inch'Allah",director:"Anaïs Barbeau-Lavalette",year:2012,country:"Canada / France",genre:"Narrative feature",notes:"A Canadian doctor working in a West Bank refugee clinic crosses into Israel daily. The checkpoint becomes the hinge between two worlds she inhabits but cannot reconcile.",notes_ar:"دكتورة كندية بتشتغل بعيادة بمخيم بالضفة وبتعبر على إسرائيل كل يوم. الحاجز بيصير المفصل بين عالمين بتعيشهم بس ما بتقدر توفق بينهم.",checkpointIds:["bethlehem","qalandiya"],seed:true},
+  {id:'film_200m',title:"200 Meters",director:"Ameen Nayfeh",year:2020,country:"Palestine / Jordan / Qatar / Italy / UK",genre:"Narrative feature",notes:"A Palestinian man and his family are separated by the Separation Wall. When his son is injured, he must cross 200 meters through a checkpoint labyrinth that becomes a 5-country journey.",notes_ar:"راجل فلسطيني عيلته منقسمة بسبب جدار الفصل. لما ابنه يتأذى، بيضطر يعبر ٢٠٠ متر عبر متاهة الحواجز اللي بتتحول لرحلة بتمر على ٥ دول.",checkpointIds:["bethlehem","container"],seed:true},
+  {id:'film_ghost_hunting',title:"Ghost Hunting",director:"Raed Andoni",year:2017,country:"Palestine / France / Switzerland / Qatar",genre:"Documentary",notes:"Former Palestinian prisoners re-enact their experiences in Israeli detention, blurring the line between memory and performance.",notes_ar:"أسرى فلسطينيين سابقين بيعيدوا تمثيل تجاربهم في السجون الإسرائيلية، وبيخلطوا بين الذاكرة والتمثيل.",checkpointIds:[],seed:true},
+  {id:'film_3000_nights',title:"3000 Nights",director:"Mai Masri",year:2015,country:"Palestine / France / Jordan / UAE / Lebanon / Qatar",genre:"Narrative feature",notes:"A young Palestinian schoolteacher gives birth to her son in an Israeli prison. The film explores motherhood, solidarity, and resistance behind bars.",notes_ar:"معلمة فلسطينية شابة بتولد ابنها في سجن إسرائيلي. الفيلم بيحكي عن الأمومة والتضامن والمقاومة جوه السجن.",checkpointIds:[],seed:true},
+  {id:'film_apples_of_the_golan',title:"Apples of the Golan",director:"Keith Walsh and Jill Beardsworth",year:2012,country:"Ireland",genre:"Documentary",notes:"A portrait of the Druze community in the occupied Golan Heights, exploring identity, land, and resistance under prolonged occupation.",notes_ar:"صورة لمجتمع الدروز في الجولان المحتل، بيستكشف الهوية والأرض والمقاومة تحت احتلال ممتد.",checkpointIds:[],seed:true}
 ];
 
 /* ══════════════════════════════
@@ -1001,7 +1015,6 @@ map.on('load', async () => {
   }
 });
 
-/* Hash nav */
 function openFromHash(){
   const hash=window.location.hash.replace('#','');if(!hash)return;
   const cp=checkpoints.find(c=>c.id===hash);
@@ -1187,17 +1200,14 @@ function updateCpFilterUI(){
   const hasYear=!(yMin<=timelineMin&&yMax>=timelineMax);
   const anyActive=hasType||hasStaff||hasFilm||hasYear;
 
-  // Dot indicators on tabs
   document.querySelector('[data-tab="type"]')?.classList.toggle('has-filter',hasType);
   document.querySelector('[data-tab="staffing"]')?.classList.toggle('has-filter',hasStaff);
   document.querySelector('[data-tab="film"]')?.classList.toggle('has-filter',hasFilm);
   document.querySelector('[data-tab="year"]')?.classList.toggle('has-filter',hasYear);
 
-  // Clear button
   const clearBtn=document.getElementById('cpClearFiltersBtn');
   if(clearBtn)clearBtn.classList.toggle('hidden',!anyActive);
 
-  // Summary bar
   const summary=document.getElementById('cpFilterSummary');
   const tagsEl=document.getElementById('cpFilterTags');
   if(!summary||!tagsEl)return;
@@ -1241,11 +1251,11 @@ function buildList(){
     cpListEl.appendChild(li);
   });
 }
+
 /* ══════════════════════════════
    FILM FILTERS
 ══════════════════════════════ */
 function initFilmFilters(){
-  // Film-filter tab switcher
   document.querySelectorAll('[data-film-tab]').forEach(tab=>{
     tab.addEventListener('click',()=>{
       document.querySelectorAll('[data-film-tab]').forEach(t=>t.classList.remove('active'));
@@ -1255,7 +1265,6 @@ function initFilmFilters(){
       const pane=document.getElementById(paneId);if(pane)pane.classList.add('active');
     });
   });
-  // Genre chips
   document.getElementById('film-filter-genre').addEventListener('click',e=>{
     const c=e.target.closest('[data-film-genre]');if(!c)return;
     document.querySelectorAll('[data-film-genre]').forEach(x=>x.classList.remove('active'));c.classList.add('active');
@@ -1304,16 +1313,13 @@ function updateFilmFilterUI(){
   const hasYear=activeFilmFilters.year!=='all';
   const anyActive=hasGenre||hasCp||hasYear;
 
-  // Dot indicators on film filter tabs
   document.querySelector('[data-film-tab="genre"]')?.classList.toggle('has-filter',hasGenre);
   document.querySelector('[data-film-tab="checkpoint"]')?.classList.toggle('has-filter',hasCp);
   document.querySelector('[data-film-tab="year"]')?.classList.toggle('has-filter',hasYear);
 
-  // Clear button
   const clearBtn=document.getElementById('filmClearFiltersBtn');
   if(clearBtn)clearBtn.classList.toggle('hidden',!anyActive);
 
-  // Summary bar
   const summary=document.getElementById('filmFilterSummary');
   const tagsEl=document.getElementById('filmFilterTags');
   if(!summary||!tagsEl)return;
@@ -1352,7 +1358,6 @@ function buildFilmList(){
     li.addEventListener('click',()=>openFilmDetail(f.id));li.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openFilmDetail(f.id);});
     el.appendChild(li);
   });
-  // Refresh checkpoint chips to reflect current checkpoint names/lang
   buildFilmCheckpointChips();
   buildFilmYearChips();
 }
@@ -1561,13 +1566,11 @@ function resetFilmForm(){['filmTitle','filmDirector','filmYear','filmCountry','f
 /* ══════════════════════════════
    SUGGEST MODAL
 ══════════════════════════════ */
-// Radio toggle: show/hide fields by type
 function updateSuggestFields(){
   const val=document.querySelector('input[name="suggestType"]:checked')?.value||'checkpoint';
   document.getElementById('sugCheckpointFields').style.display=val==='checkpoint'?'':'none';
   document.getElementById('sugFilmFields').style.display=val==='film'?'':'none';
   document.getElementById('sugExperienceFields').style.display=val==='experience'?'':'none';
-  // Update label styles
   ['Checkpoint','Film','Experience'].forEach(t=>{
     const lbl=document.getElementById('sugType'+t+'Label');
     if(!lbl)return;
@@ -1578,13 +1581,11 @@ function updateSuggestFields(){
 document.querySelectorAll('input[name="suggestType"]').forEach(r=>r.addEventListener('change',updateSuggestFields));
 updateSuggestFields();
 
-// Pick on map for suggest form
 document.getElementById('sugPickOnMapBtn').addEventListener('click',()=>{
   closeModal('suggestModal');sugPickingOnMap=true;
   document.getElementById('mapClickHint').classList.add('visible');map.getCanvas().style.cursor='crosshair';
 });
 
-// Submit suggestion
 document.getElementById('saveSuggestionBtn').addEventListener('click',async()=>{
   const type=document.querySelector('input[name="suggestType"]:checked')?.value||'checkpoint';
   let sub={id:'sub_'+Date.now(),type,submittedAt:new Date().toISOString(),contact:document.getElementById('sugContact').value.trim()};
@@ -1603,7 +1604,6 @@ document.getElementById('saveSuggestionBtn').addEventListener('click',async()=>{
     if(!year){showToast('Please enter the year.','error');return;}
     Object.assign(sub,{title,director:document.getElementById('sugFilmDirector').value.trim(),year:parseInt(year),country:document.getElementById('sugFilmCountry').value.trim(),notes:document.getElementById('sugFilmNotes').value.trim()});
   } else {
-    // experience
     const expTitle=document.getElementById('sugExpTitle').value.trim(),story=document.getElementById('sugExpStory').value.trim();
     if(!story){showToast(currentLang==='ar'?'لازم تحكي قصتك.':'Please share your story.','error');return;}
     Object.assign(sub,{title:expTitle||'Lived Experience',story,where:document.getElementById('sugExpWhere').value.trim(),when:document.getElementById('sugExpWhen').value.trim()});
@@ -1726,7 +1726,7 @@ searchInput.addEventListener('input',()=>{const q=searchInput.value.trim();if(!q
 document.addEventListener('click',e=>{if(!e.target.closest('.search-panel'))resultsList.style.display='none';});
 
 /* ══════════════════════════════
-   NAV DROPDOWN + MOBILE NAV
+   NAV DROPDOWN (desktop)
 ══════════════════════════════ */
 (function(){const t=document.querySelector('.nav-dropdown-trigger'),d=document.querySelector('.nav-dropdown');if(!t||!d)return;t.addEventListener('click',function(e){e.stopPropagation();const o=d.classList.contains('open');d.classList.toggle('open',!o);t.setAttribute('aria-expanded',String(!o));});document.addEventListener('click',function(){d.classList.remove('open');t.setAttribute('aria-expanded','false');});document.addEventListener('keydown',function(e){if(e.key==='Escape'){d.classList.remove('open');t.setAttribute('aria-expanded','false');}});})();
 </script>

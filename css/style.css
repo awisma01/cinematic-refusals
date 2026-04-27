@@ -592,6 +592,37 @@ a:hover {
   .footer-main { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
 }
 
+@media (max-width: 768px) {
+  .topnav {
+    padding: 0 1rem;
+  }
+  .topnav .menu {
+    display: none;
+  }
+  .nav-hamburger,
+  .hamburger {
+    display: flex !important;
+  }
+  .entry-grid,
+  .nav-grid,
+  .film-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+  .section-divider,
+  .project-community-module,
+  .project-hook,
+  .spotlight-section,
+  .entry-section {
+    padding-left: 0.7rem !important;
+    padding-right: 0.7rem !important;
+  }
+  .footer {
+    font-size: 0.9rem;
+    padding: 1.2rem 0 0.7rem 0;
+  }
+}
+
 @media (max-width: 600px) {
   body, html {
     font-size: 16px;
@@ -652,6 +683,21 @@ a:hover {
   .project-community-module {
     padding: 1.2rem 0.7rem 1rem 0.7rem !important;
     margin: 1.2rem auto 2rem auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .topnav .brand {
+    font-size: 1rem;
+  }
+  .hero-main-title {
+    font-size: 1.5rem;
+  }
+  .hero-section {
+    padding: 2.2rem 0.5rem 1.5rem;
+  }
+  .project-community-module {
+    padding: 1rem 0.5rem !important;
   }
 }
 
