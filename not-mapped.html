@@ -1,554 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>What's Not Mapped — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --gold: #e6a93a;
-      --teal: #6fe7c1;
-      --forest: #288366;
-      --dark-forest: #0a2321;
-      --crimson: #b94e3a;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      background: linear-gradient(160deg, #1b3c34 0%, #2a5c4c 30%, #357a5a 60%, #23634c 100%);
-      background-attachment: fixed;
-      color: #e8f5f0;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px
-      );
-      pointer-events: none; z-index: 0;
-    }
-
-    /* NAV */
-    .topnav {
-      background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
-      padding: 1.2rem 3rem;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-      position: sticky; top: 0; z-index: 1000;
-      overflow: visible;
-    }
-    .topnav .brand {
-      font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 600;
-      color: var(--gold); letter-spacing: 0.5px; text-decoration: none;
-    }
-    .topnav .menu { display: flex; gap: 0.5rem; overflow: visible; position: relative; }
-    .topnav .menu a {
-      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
-      padding: 0.55rem 1rem; border-radius: 6px;
-      transition: all 0.3s ease; font-family: 'Oswald', sans-serif;
-      letter-spacing: 0.3px; text-decoration: none;
-    }
-    .topnav .menu a:hover, .topnav .menu a.active {
-      background: rgba(230,169,58,0.2); color: var(--gold);
-    }
-
-    /* HERO */
-    .page-hero {
-      position: relative; padding: 5rem 2rem 3.5rem;
-      text-align: center; z-index: 1;
-    }
-    .page-hero::after {
-      content: ""; position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(40,131,102,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(40,131,102,0.06) 1px, transparent 1px);
-      background-size: 60px 60px;
-      animation: gridDrift 30s linear infinite; z-index: -1;
-    }
-    @keyframes gridDrift {
-      from { background-position: 0 0; }
-      to { background-position: 60px 60px; }
-    }
-    .page-eyebrow {
-      font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem;
-      letter-spacing: 0.35em; text-transform: uppercase;
-      color: var(--teal); opacity: 0.7; margin: 0 0 1.2rem;
-    }
-    .page-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 700; color: #e8f5f0;
-      margin: 0 0 0.5rem; line-height: 1.1;
-    }
-    .page-title em { color: var(--gold); font-style: italic; }
-    .gold-rule {
-      width: 60px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 1.5rem auto;
-    }
-    .page-lead {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; font-style: italic;
-      color: rgba(232,245,240,0.70); max-width: 640px; margin: 0 auto;
-    }
-
-    /* MAIN */
-    .nm-outer {
-      max-width: 1000px; margin: 0 auto 6rem;
-      padding: 0 2rem; position: relative; z-index: auto;
-      display: flex; flex-direction: column; gap: 2rem;
-    }
-
-    /* OPENING QUOTE */
-    .opening-quote {
-      background: rgba(0,0,0,0.25);
-      border-left: 3px solid var(--gold);
-      border-radius: 0 14px 14px 0;
-      padding: 2.2rem 2.8rem;
-    }
-    .opening-quote blockquote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
-      font-style: italic; line-height: 1.85;
-      color: rgba(232,245,240,0.88); margin: 0 0 1rem;
-    }
-    .opening-quote cite {
-      font-family: 'Oswald', sans-serif; font-size: 0.88rem;
-      font-weight: 500; letter-spacing: 0.12em;
-      color: var(--gold); font-style: normal;
-    }
-
-    /* PROSE CARD */
-    .prose-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(111,231,193,0.12);
-      border-radius: 16px; padding: 2.8rem 3rem;
-    }
-    .prose-card.gold-left { border-left: 3px solid var(--gold); }
-    .prose-card.teal-left { border-left: 3px solid var(--teal); }
-
-    .prose-eyebrow {
-      font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
-      font-weight: 300; letter-spacing: 0.35em; text-transform: uppercase;
-      color: var(--teal); opacity: 0.7; margin: 0 0 1rem; display: block;
-    }
-    .prose-heading {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 700; color: #e8f5f0;
-      margin: 0 0 1.8rem; line-height: 1.2;
-    }
-    .prose-heading em { color: var(--gold); font-style: italic; }
-    .prose-card p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem; line-height: 2;
-      color: rgba(232,245,240,0.85); margin: 0 0 1.3rem;
-    }
-    .prose-card p:last-of-type { margin-bottom: 0; }
-
-    /* OMISSION GRID — formal strategies */
-    .omission-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem; margin-top: 1.8rem;
-    }
-    .omission-item {
-      background: rgba(0,0,0,0.2);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 12px; padding: 1.5rem;
-      transition: all 0.25s ease;
-    }
-    .omission-item:hover {
-      background: rgba(230,169,58,0.07);
-      border-color: rgba(230,169,58,0.25);
-      transform: translateY(-3px);
-    }
-    .omission-film {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem; font-weight: 700;
-      color: var(--gold); margin: 0 0 0.3rem;
-    }
-    .omission-director {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem; color: rgba(255,255,255,0.55);
-      margin: 0 0 0.8rem; letter-spacing: 0.05em;
-    }
-    .omission-strategy {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem; font-weight: 300;
-      color: var(--teal); opacity: 0.8;
-      text-transform: uppercase; letter-spacing: 0.12em;
-      margin: 0 0 0.5rem; display: block;
-    }
-    .omission-desc {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.98rem; line-height: 1.65;
-      color: rgba(232,245,240,0.75); margin: 0;
-    }
-
-    /* GAPS IN THE ARCHIVE */
-    .gap-list {
-      list-style: none; padding: 0; margin: 1.5rem 0 0;
-      display: flex; flex-direction: column; gap: 0.75rem;
-    }
-    .gap-list li {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem; line-height: 1.7;
-      color: rgba(232,245,240,0.82);
-      padding: 1rem 1rem 1rem 2.8rem;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 10px; position: relative;
-    }
-    .gap-list li::before {
-      content: attr(data-marker);
-      position: absolute; left: 0.9rem; top: 1rem;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem; color: var(--crimson); opacity: 0.8;
-    }
-
-    /* CLOSING SECTION */
-    .closing-card {
-      background: rgba(0,0,0,0.22);
-      border: 1px solid rgba(230,169,58,0.2);
-      border-top: 3px solid var(--gold);
-      border-radius: 0 0 16px 16px;
-      padding: 2.5rem 3rem;
-    }
-    .closing-card p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; line-height: 2;
-      color: rgba(232,245,240,0.85); margin: 0 0 1.3rem;
-    }
-    .closing-card p:last-of-type { margin-bottom: 0; }
-
-    /* FOOTER */
-    .footer {
-      background: rgba(10,35,33,0.98); color: var(--teal);
-      text-align: center; padding: 2rem;
-      font-family: 'Oswald', sans-serif; font-size: 0.88rem;
-      letter-spacing: 0.1em; position: relative; z-index: auto;
-    }
-
-    #scrollTopBtn {
-      display: none; position: fixed;
-      bottom: 32px; right: 32px; z-index: 99;
-      background: var(--forest); color: #fff;
-      border: none; border-radius: 50%;
-      width: 48px; height: 48px; font-size: 1.5rem;
-      cursor: pointer; transition: background 0.2s, transform 0.2s;
-    }
-    #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
-
-    @media (max-width: 900px) {
-      .topnav { padding: 1rem 1.5rem; }
-      .topnav .menu a { padding: 0.5rem 0.7rem; font-size: 0.82rem; }
-      .prose-card { padding: 2rem 1.5rem; }
-      .closing-card { padding: 2rem 1.5rem; }
-    }
-    @media (max-width: 600px) {
-      .page-hero { padding: 3.5rem 1rem 2.5rem; }
-      .omission-grid { grid-template-columns: 1fr; }
-    }
-
-    /* NAV DROPDOWN */
-    .nav-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .nav-dropdown-trigger {
-      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
-      padding: 0.55rem 1rem; border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
-      text-decoration: none; background: none; border: none;
-      display: flex; align-items: center; gap: 0.35rem;
-      cursor: pointer; white-space: nowrap;
-    }
-    .nav-dropdown-trigger:hover,
-    .nav-dropdown-trigger.active {
-      background: rgba(230,169,58,0.2); color: var(--gold);
-    }
-    .nav-dropdown-arrow {
-      font-size: 0.65rem; opacity: 0.7;
-      transition: transform 0.25s ease;
-      display: inline-block;
-    }
-    .nav-dropdown.open .nav-dropdown-arrow,
-    .nav-dropdown:hover .nav-dropdown-arrow {
-      transform: rotate(180deg);
-    }
-    .nav-dropdown-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      min-width: 260px;
-      background: rgba(8,28,26,0.98);
-      border: 1px solid rgba(230,169,58,0.25);
-      border-radius: 12px;
-      padding: 0.5rem;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.22s ease, transform 0.22s ease;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.55);
-      z-index: 9999;
-    }
-    .nav-dropdown.open .nav-dropdown-menu,
-    .nav-dropdown:hover .nav-dropdown-menu {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    .nav-dropdown-item {
-      display: flex; flex-direction: column; gap: 0.22rem;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.18s ease;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .nav-dropdown-item:last-child { border-bottom: none; }
-    .nav-dropdown-item:hover, .nav-dropdown-item.active {
-      background: rgba(230,169,58,0.1);
-    }
-    .nav-dropdown-item-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.88rem; font-weight: 500;
-      letter-spacing: 0.05em; color: #e8f5f0;
-    }
-    .nav-dropdown-item.active .nav-dropdown-item-title { color: var(--gold); }
-    .nav-dropdown-item-desc {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.67rem; font-weight: 300;
-      color: rgba(232,245,240,0.50); line-height: 1.4;
-    }
-    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
-    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
-
-  </style>
   <link rel="stylesheet" href="css/mobile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#e6a93a;--teal:#6fe7c1;--forest:#288366;--dark-forest:#0a2321;--crimson:#b94e3a;--nav-h:70px; }
+    html { scroll-behavior: smooth; }
+    body { margin:0;background:linear-gradient(160deg,#1b3c34 0%,#2a5c4c 30%,#357a5a 60%,#23634c 100%);background-attachment:fixed;color:#e8f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden; }
+    html[lang="ar"] body { font-family:'Amiri','Cormorant Garamond',Georgia,serif; }
+    body::before { content:"";position:fixed;top:0;left:0;width:100%;height:100%;background-image:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,180,0.012) 3px,rgba(0,255,180,0.012) 4px);pointer-events:none;z-index:0; }
+    .topnav { background:linear-gradient(180deg,rgba(10,35,33,0.98) 0%,rgba(10,35,33,0.95) 100%);padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,0.3);position:sticky;top:0;z-index:1000;overflow:visible;direction:ltr!important; }
+    .topnav .brand { font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;color:var(--gold);letter-spacing:0.5px;text-decoration:none; }
+    .topnav .menu { display:flex;gap:0.5rem;overflow:visible;position:relative; }
+    .topnav .menu a { color:#eaf7f2;font-size:0.9rem;font-weight:500;padding:0.55rem 1rem;border-radius:6px;transition:all 0.3s;font-family:'Oswald',sans-serif;letter-spacing:0.3px;text-decoration:none; }
+    .topnav .menu a:hover,.topnav .menu a.active { background:rgba(230,169,58,0.2);color:var(--gold); }
+    .nav-dropdown { position:relative;display:inline-block; }
+    .nav-dropdown-trigger { color:#eaf7f2;font-size:0.9rem;font-weight:500;padding:0.55rem 1rem;border-radius:6px;transition:all 0.3s;font-family:'Oswald',sans-serif;letter-spacing:0.3px;background:none;border:none;display:flex;align-items:center;gap:0.35rem;cursor:pointer;white-space:nowrap; }
+    .nav-dropdown-trigger:hover,.nav-dropdown-trigger.active { background:rgba(230,169,58,0.2);color:var(--gold); }
+    .nav-dropdown-arrow { font-size:0.65rem;opacity:0.7;transition:transform 0.25s;display:inline-block; }
+    .nav-dropdown.open .nav-dropdown-arrow,.nav-dropdown:hover .nav-dropdown-arrow { transform:rotate(180deg); }
+    .nav-dropdown-menu { position:absolute;top:calc(100% + 8px);right:0;min-width:260px;background:rgba(8,28,26,0.98);border:1px solid rgba(230,169,58,0.25);border-radius:12px;padding:0.5rem;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 0.22s,transform 0.22s;box-shadow:0 16px 48px rgba(0,0,0,0.55);z-index:9999; }
+    .nav-dropdown.open .nav-dropdown-menu,.nav-dropdown:hover .nav-dropdown-menu { opacity:1;pointer-events:auto;transform:translateY(0); }
+    .nav-dropdown-item { display:flex;flex-direction:column;gap:0.22rem;padding:0.8rem 1rem;border-radius:8px;text-decoration:none;transition:background 0.18s;border-bottom:1px solid rgba(255,255,255,0.05); }
+    .nav-dropdown-item:last-child { border-bottom:none; }
+    .nav-dropdown-item:hover { background:rgba(230,169,58,0.1); }
+    .nav-dropdown-item-title { font-family:'Oswald',sans-serif;font-size:0.88rem;font-weight:500;letter-spacing:0.05em;color:#e8f5f0; }
+    .nav-dropdown-item-desc { font-family:'IBM Plex Mono',monospace;font-size:0.67rem;font-weight:300;color:rgba(232,245,240,0.5);line-height:1.4; }
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color:var(--gold); }
+    .nav-dropdown-item:hover .nav-dropdown-item-desc { color:rgba(232,245,240,0.7); }
+    /* LANG TOGGLE */
+    #langToggle { position:fixed;top:calc(var(--nav-h) + 10px);right:2.5rem;z-index:1200;background:rgba(10,35,33,0.95);border:1px solid rgba(111,231,193,0.35);border-radius:8px;overflow:hidden;display:flex;flex-direction:row;box-shadow:0 2px 12px rgba(0,0,0,0.3);direction:ltr; }
+    #langToggle button { font-size:0.78rem;font-weight:600;padding:0.42rem 0.8rem;border:none;cursor:pointer;transition:all 0.2s; }
+    #btnEN { font-family:'Oswald',sans-serif;letter-spacing:0.08em;background:var(--gold);color:#0a2321; }
+    #btnAR { font-family:'Amiri',serif;font-size:0.95rem;background:transparent;color:rgba(232,245,240,0.45); }
+    /* HERO */
+    .page-hero { position:relative;padding:5rem 2rem 3.5rem;text-align:center;z-index:1; }
+    .page-hero::after { content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(40,131,102,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(40,131,102,0.06) 1px,transparent 1px);background-size:60px 60px;animation:gridDrift 30s linear infinite;z-index:-1; }
+    @keyframes gridDrift { from{background-position:0 0}to{background-position:60px 60px} }
+    .page-eyebrow { font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);opacity:0.7;margin:0 0 1.2rem; }
+    .page-title { font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;color:#e8f5f0;margin:0 0 0.5rem;line-height:1.1; }
+    html[lang="ar"] .page-title { font-family:'Amiri',serif; }
+    .page-title em { color:var(--gold);font-style:italic; }
+    .gold-rule { width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.5rem auto; }
+    .page-lead { font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:rgba(232,245,240,0.70);max-width:640px;margin:0 auto; }
+    html[lang="ar"] .page-lead { font-family:'Amiri',serif;font-size:1.25rem; }
+    /* MAIN */
+    .nm-outer { max-width:1000px;margin:0 auto 6rem;padding:0 2rem;position:relative;z-index:auto;display:flex;flex-direction:column;gap:2rem; }
+    .opening-quote { background:rgba(0,0,0,0.25);border-left:3px solid var(--gold);border-radius:0 14px 14px 0;padding:2.2rem 2.8rem; }
+    html[dir="rtl"] .opening-quote { border-left:none;border-right:3px solid var(--gold);border-radius:14px 0 0 14px; }
+    .opening-quote blockquote { font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,2.5vw,1.7rem);font-style:italic;line-height:1.85;color:rgba(232,245,240,0.88);margin:0 0 1rem; }
+    html[lang="ar"] .opening-quote blockquote { font-family:'Amiri',serif; }
+    .opening-quote cite { font-family:'Oswald',sans-serif;font-size:0.88rem;font-weight:500;letter-spacing:0.12em;color:var(--gold);font-style:normal; }
+    .prose-card { background:rgba(255,255,255,0.03);border:1px solid rgba(111,231,193,0.12);border-radius:16px;padding:2.8rem 3rem; }
+    .prose-card.gold-left { border-left:3px solid var(--gold); }
+    html[dir="rtl"] .prose-card.gold-left { border-left:1px solid rgba(111,231,193,0.12);border-right:3px solid var(--gold); }
+    .prose-card.teal-left { border-left:3px solid var(--teal); }
+    html[dir="rtl"] .prose-card.teal-left { border-left:1px solid rgba(111,231,193,0.12);border-right:3px solid var(--teal); }
+    .prose-eyebrow { font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);opacity:0.7;margin:0 0 1rem;display:block; }
+    .prose-heading { font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:#e8f5f0;margin:0 0 1.8rem;line-height:1.2; }
+    html[lang="ar"] .prose-heading { font-family:'Amiri',serif; }
+    .prose-heading em { color:var(--gold);font-style:italic; }
+    .prose-card p { font-family:'Cormorant Garamond',serif;font-size:1.15rem;line-height:2;color:rgba(232,245,240,0.85);margin:0 0 1.3rem; }
+    html[lang="ar"] .prose-card p { font-family:'Amiri',serif;font-size:1.2rem; }
+    .prose-card p:last-of-type { margin-bottom:0; }
+    .omission-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:1.8rem; }
+    .omission-item { background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1.5rem;transition:all 0.25s; }
+    .omission-item:hover { background:rgba(230,169,58,0.07);border-color:rgba(230,169,58,0.25);transform:translateY(-3px); }
+    .omission-film { font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:var(--gold);margin:0 0 0.3rem; }
+    html[lang="ar"] .omission-film { font-family:'Amiri',serif; }
+    .omission-director { font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:rgba(255,255,255,0.55);margin:0 0 0.8rem;letter-spacing:0.05em; }
+    .omission-strategy { font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:300;color:var(--teal);opacity:0.8;text-transform:uppercase;letter-spacing:0.12em;margin:0 0 0.5rem;display:block; }
+    html[lang="ar"] .omission-strategy { text-transform:none;letter-spacing:0;font-family:'Amiri',serif; }
+    .omission-desc { font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;color:rgba(232,245,240,0.75);margin:0; }
+    html[lang="ar"] .omission-desc { font-family:'Amiri',serif;font-size:1.05rem; }
+    .gap-list { list-style:none;padding:0;margin:1.5rem 0 0;display:flex;flex-direction:column;gap:0.75rem; }
+    .gap-list li { font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.7;color:rgba(232,245,240,0.82);padding:1rem 1rem 1rem 2.8rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;position:relative; }
+    html[dir="rtl"] .gap-list li { padding:1rem 2.8rem 1rem 1rem; }
+    html[lang="ar"] .gap-list li { font-family:'Amiri',serif;font-size:1.1rem; }
+    .gap-list li::before { content:attr(data-marker);position:absolute;left:0.9rem;top:1rem;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--crimson);opacity:0.8; }
+    html[dir="rtl"] .gap-list li::before { left:auto;right:0.9rem; }
+    .closing-card { background:rgba(0,0,0,0.22);border:1px solid rgba(230,169,58,0.2);border-top:3px solid var(--gold);border-radius:0 0 16px 16px;padding:2.5rem 3rem; }
+    .closing-card p { font-family:'Cormorant Garamond',serif;font-size:1.2rem;line-height:2;color:rgba(232,245,240,0.85);margin:0 0 1.3rem; }
+    html[lang="ar"] .closing-card p { font-family:'Amiri',serif;font-size:1.25rem; }
+    .closing-card p:last-of-type { margin-bottom:0; }
+    .footer { background:rgba(10,35,33,0.98);color:var(--teal);text-align:center;padding:2rem;font-family:'Oswald',sans-serif;font-size:0.88rem;letter-spacing:0.1em; }
+    #scrollTopBtn { display:none;position:fixed;bottom:32px;right:32px;z-index:99;background:var(--forest);color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.5rem;cursor:pointer;transition:background 0.2s,transform 0.2s; }
+    #scrollTopBtn:hover { background:var(--gold);transform:translateY(-4px); }
+    @media(max-width:900px) { .topnav{padding:1rem 1.5rem;} .topnav .menu a{padding:0.5rem 0.7rem;font-size:0.82rem;} .prose-card{padding:2rem 1.5rem;} .closing-card{padding:2rem 1.5rem;} }
+    @media(max-width:600px) { .page-hero{padding:3.5rem 1rem 2.5rem;} .omission-grid{grid-template-columns:1fr;} }
+  </style>
 </head>
 <body>
   <nav class="topnav" aria-label="Main navigation">
-    <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
+    <a href="index.html" class="brand" data-t="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
-      <a href="index.html">Home</a>
-      <a href="map.html">Map</a>
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" data-t="nav-archive">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
-          <a href="analysis.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Visual Analysis</span>
-            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
-          </a>
-          <a href="surveillance-space.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Surveillance Space</span>
-            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
-          </a>
-          <a href="not-mapped.html" class="active nav-dropdown-item">
-            <span class="nav-dropdown-item-title">What's Not Mapped</span>
-            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
-          </a>
-
-          <a href="glossary.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Glossary</span>
-            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
-          </a>
+          <a href="analysis.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-analysis">Visual Analysis</span><span class="nav-dropdown-item-desc" data-t="nav-analysis-desc">Film-by-film formal and spatial readings</span></a>
+          <a href="surveillance-space.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-surveillance">Surveillance Space</span><span class="nav-dropdown-item-desc" data-t="nav-surveillance-desc">Five typologies of occupation beyond the checkpoint</span></a>
+          <a href="not-mapped.html" class="active nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-notmapped">What's Not Mapped</span><span class="nav-dropdown-item-desc" data-t="nav-notmapped-desc">Omission, gaps, and the politics of refusal</span></a>
+          <a href="glossary.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-glossary">Glossary</span><span class="nav-dropdown-item-desc" data-t="nav-glossary-desc">Key terms and theoretical concepts</span></a>
         </div>
       </div>
-      <a href="about.html">About</a>
+      <a href="about.html" data-t="nav-about">About</a>
     </div>
-    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
+
+  <div id="langToggle" dir="ltr">
+    <button id="btnEN" onclick="applyLang('en')">EN</button>
+    <button id="btnAR" onclick="applyLang('ar')">ع</button>
+  </div>
 
   <main>
     <section class="page-hero">
-      <p class="page-eyebrow">05 / 05</p>
-      <h1 class="page-title">What's <em>Not Mapped</em></h1>
+      <p class="page-eyebrow" data-t="eyebrow">05 / 05</p>
+      <h1 class="page-title" data-t="page-title">What's <em>Not Mapped</em></h1>
       <div class="gold-rule"></div>
-      <p class="page-lead">The politics of omission, the gaps in the archive, and the formal strategies of withholding that run through Palestinian women's cinema.</p>
+      <p class="page-lead" data-t="page-lead">The politics of omission, the gaps in the archive, and the formal strategies of withholding that run through Palestinian women's cinema.</p>
     </section>
 
     <div class="nm-outer">
-
-      <!-- OPENING QUOTE -->
       <div class="opening-quote">
-        <blockquote>"Occupation is total: it enters the film not as a subject but as a condition of the image."</blockquote>
+        <blockquote data-t="opening-quote">"Occupation is total: it enters the film not as a subject but as a condition of the image."</blockquote>
         <cite>— Elia Suleiman</cite>
       </div>
 
-      <!-- SECTION 1: THE POLITICS OF OMISSION -->
       <div class="prose-card gold-left">
-        <span class="prose-eyebrow">The Argument</span>
-        <h2 class="prose-heading">The <em>Politics of Omission</em></h2>
-        <p>The title of this section names what may be the archive's most important methodological commitment. The politics of omission runs through every film analyzed here. Jacir uses ellipsis precisely: the bank robbery in <em>Salt of This Sea</em> cuts away before it completes. Masri blurs the doctor's face in <em>3000 Nights</em>. Nabulsi keeps the camera on Yusef's face rather than the soldier's gun in <em>The Present</em>. Shibli's narrator in <em>Minor Detail</em> obsessively recovers an archive that chose not to record.</p>
-        <p>These formal choices are not simply aesthetic. They constitute an epistemological claim: that not everything needs to be made visible to matter, that the right to opacity is a political right, and that the demand for total visibility is itself a form of colonial violence. Édouard Glissant's concept of opacity — the ethical claim that not all lives need to be fully transparent to be worthy of respect — runs through the archive as both its subject and its formal principle.</p>
-        <p>The counter-surveillance filmmaker does not photograph occupation. She photographs life under it, which is different. This archive is an attempt to trace that difference — across checkpoints, across decades, across the work of filmmakers who have insisted, film by film, that Palestinian life exceeds the frame occupation tries to put around it.</p>
+        <span class="prose-eyebrow" data-t="s1-eyebrow">The Argument</span>
+        <h2 class="prose-heading" data-t="s1-heading">The <em>Politics of Omission</em></h2>
+        <p data-t="s1-p1">The title of this section names what may be the archive's most important methodological commitment. The politics of omission runs through every film analyzed here. Jacir uses ellipsis precisely: the bank robbery in <em>Salt of This Sea</em> cuts away before it completes. Masri blurs the doctor's face in <em>3000 Nights</em>. Nabulsi keeps the camera on Yusef's face rather than the soldier's gun in <em>The Present</em>. Shibli's narrator in <em>Minor Detail</em> obsessively recovers an archive that chose not to record.</p>
+        <p data-t="s1-p2">These formal choices are not simply aesthetic. They constitute an epistemological claim: that not everything needs to be made visible to matter, that the right to opacity is a political right, and that the demand for total visibility is itself a form of colonial violence. Édouard Glissant's concept of opacity — the ethical claim that not all lives need to be fully transparent to be worthy of respect — runs through the archive as both its subject and its formal principle.</p>
+        <p data-t="s1-p3">The counter-surveillance filmmaker does not photograph occupation. She photographs life under it, which is different. This archive is an attempt to trace that difference — across checkpoints, across decades, across the work of filmmakers who have insisted, film by film, that Palestinian life exceeds the frame occupation tries to put around it.</p>
       </div>
 
-      <!-- SECTION 2: FORMAL STRATEGIES -->
       <div class="prose-card teal-left">
-        <span class="prose-eyebrow">Formal Strategies</span>
-        <h2 class="prose-heading">How Filmmakers <em>Withhold</em></h2>
-        <p>Each film in the archive develops its own approach to what it refuses to show. The strategies below are not evasions — they are arguments made through formal choice, using the language of cinema to refuse the logic of surveillance.</p>
-
+        <span class="prose-eyebrow" data-t="s2-eyebrow">Formal Strategies</span>
+        <h2 class="prose-heading" data-t="s2-heading">How Filmmakers <em>Withhold</em></h2>
+        <p data-t="s2-intro">Each film in the archive develops its own approach to what it refuses to show. The strategies below are not evasions — they are arguments made through formal choice, using the language of cinema to refuse the logic of surveillance.</p>
         <div class="omission-grid">
-          <div class="omission-item">
-            <p class="omission-film">Salt of This Sea</p>
-            <p class="omission-director">Jacir, 2008</p>
-            <span class="omission-strategy">Ellipsis</span>
-            <p class="omission-desc">The bank robbery cuts away before completion. Jacir withholds the moment of violation to protect her subjects from becoming spectacle.</p>
-          </div>
-          <div class="omission-item">
-            <p class="omission-film">3000 Nights</p>
-            <p class="omission-director">Masri, 2015</p>
-            <span class="omission-strategy">Anonymization</span>
-            <p class="omission-desc">The doctor's face is blurred, reducing the medical encounter to anonymous hands. Medicine becomes an extension of the carceral system rather than a human act.</p>
-          </div>
-          <div class="omission-item">
-            <p class="omission-film">The Present</p>
-            <p class="omission-director">Nabulsi, 2020</p>
-            <span class="omission-strategy">Averted angle</span>
-            <p class="omission-desc">The camera stays on Yusef's face, not the soldier's gun. The violence is formal: heard and felt but refused the image it would want.</p>
-          </div>
-          <div class="omission-item">
-            <p class="omission-film">When I Saw You</p>
-            <p class="omission-director">Jacir, 2012</p>
-            <span class="omission-strategy">Unresolved ending</span>
-            <p class="omission-desc">We do not see whether Tarek crosses. The camera stays with uncertainty, refusing the narrative closure that would turn longing into a contained story.</p>
-          </div>
-          <div class="omission-item">
-            <p class="omission-film">Minor Detail</p>
-            <p class="omission-director">Shibli, 2017</p>
-            <span class="omission-strategy">Counter-archival labor</span>
-            <p class="omission-desc">The narrator recovers what the official archive treated as a minor detail. The novel's act of witnessing is inseparable from what the original record refused to preserve.</p>
-          </div>
-          <div class="omission-item">
-            <p class="omission-film">Divine Intervention</p>
-            <p class="omission-director">Suleiman, 2002</p>
-            <span class="omission-strategy">Static refusal</span>
-            <p class="omission-desc">Static takes, no dialogue. The surveillance camera's own logic — fixed, patient, recording — is turned first into irony, then into poetry.</p>
-          </div>
+          <div class="omission-item"><p class="omission-film">Salt of This Sea</p><p class="omission-director">Jacir, 2008</p><span class="omission-strategy" data-t="strat1">Ellipsis</span><p class="omission-desc" data-t="strat1-desc">The bank robbery cuts away before completion. Jacir withholds the moment of violation to protect her subjects from becoming spectacle.</p></div>
+          <div class="omission-item"><p class="omission-film">3000 Nights</p><p class="omission-director">Masri, 2015</p><span class="omission-strategy" data-t="strat2">Anonymization</span><p class="omission-desc" data-t="strat2-desc">The doctor's face is blurred, reducing the medical encounter to anonymous hands. Medicine becomes an extension of the carceral system rather than a human act.</p></div>
+          <div class="omission-item"><p class="omission-film">The Present</p><p class="omission-director">Nabulsi, 2020</p><span class="omission-strategy" data-t="strat3">Averted angle</span><p class="omission-desc" data-t="strat3-desc">The camera stays on Yusef's face, not the soldier's gun. The violence is formal: heard and felt but refused the image it would want.</p></div>
+          <div class="omission-item"><p class="omission-film">When I Saw You</p><p class="omission-director">Jacir, 2012</p><span class="omission-strategy" data-t="strat4">Unresolved ending</span><p class="omission-desc" data-t="strat4-desc">We do not see whether Tarek crosses. The camera stays with uncertainty, refusing the narrative closure that would turn longing into a contained story.</p></div>
+          <div class="omission-item"><p class="omission-film">Minor Detail</p><p class="omission-director">Shibli, 2017</p><span class="omission-strategy" data-t="strat5">Counter-archival labor</span><p class="omission-desc" data-t="strat5-desc">The narrator recovers what the official archive treated as a minor detail. The novel's act of witnessing is inseparable from what the original record refused to preserve.</p></div>
+          <div class="omission-item"><p class="omission-film">Divine Intervention</p><p class="omission-director">Suleiman, 2002</p><span class="omission-strategy" data-t="strat6">Static refusal</span><p class="omission-desc" data-t="strat6-desc">Static takes, no dialogue. The surveillance camera's own logic — fixed, patient, recording — is turned first into irony, then into poetry.</p></div>
         </div>
       </div>
 
-      <!-- SECTION 3: GAPS IN THE ARCHIVE -->
       <div class="prose-card gold-left">
-        <span class="prose-eyebrow">Gaps in This Archive</span>
-        <h2 class="prose-heading">What <em>This Archive</em> Does Not Show</h2>
-        <p>Every archive has limits. Part of being transparent about this project's methodology is naming what it cannot yet document, what it has chosen not to include, and what remains outside the frame of its current scope.</p>
-
+        <span class="prose-eyebrow" data-t="s3-eyebrow">Gaps in This Archive</span>
+        <h2 class="prose-heading" data-t="s3-heading">What <em>This Archive</em> Does Not Show</h2>
+        <p data-t="s3-intro">Every archive has limits. Part of being transparent about this project's methodology is naming what it cannot yet document, what it has chosen not to include, and what remains outside the frame of its current scope.</p>
         <ul class="gap-list">
-          <li data-marker="○">Five films in the archive — <em>Wajib</em>, <em>May in the Summer</em>, <em>The Teacher</em>, <em>All That's Left of You</em>, and <em>Pomegranates and Myrrh</em> — do not yet have completed close readings. Their inclusion as placeholders names the archive's incompleteness rather than concealing it.</li>
-          <li data-marker="○">The archive focuses on Palestinian women filmmakers, which means male directors whose work engages checkpoints — Elia Suleiman, Michel Khleifi, Hani Abu-Assad — appear only in supporting references rather than as primary subjects. That boundary is a methodological choice, not a claim that their work is less significant.</li>
-          <li data-marker="○">The Container checkpoint appears in the geographic archive without film cross-references beyond archive footage with dates TBD. Its inclusion marks a site of control that has not yet received the cinematic attention Qalandiya and Rachel have — which is itself analytically significant.</li>
-          <li data-marker="○">Documentary and social media documentation — including Bisan Owda's real-time witnessing — is referenced in the theoretical framework but not yet integrated as a formal archive category. The distinction between narrative film, documentary, and social media raises methodological questions the current archive does not fully resolve.</li>
-          <li data-marker="○">The bilingual Arabic/English translation currently covers the Surveillance Space page. The rest of the site remains English-only, which contradicts the project's commitment to refusing a single language of legibility.</li>
+          <li data-marker="○" data-t="gap1">Five films in the archive — <em>Wajib</em>, <em>May in the Summer</em>, <em>The Teacher</em>, <em>All That's Left of You</em>, and <em>Pomegranates and Myrrh</em> — do not yet have completed close readings. Their inclusion as placeholders names the archive's incompleteness rather than concealing it.</li>
+          <li data-marker="○" data-t="gap2">The archive focuses on Palestinian women filmmakers, which means male directors whose work engages checkpoints — Elia Suleiman, Michel Khleifi, Hani Abu-Assad — appear only in supporting references rather than as primary subjects. That boundary is a methodological choice, not a claim that their work is less significant.</li>
+          <li data-marker="○" data-t="gap3">The Container checkpoint appears in the geographic archive without film cross-references beyond archive footage with dates TBD. Its inclusion marks a site of control that has not yet received the cinematic attention Qalandiya and Rachel have.</li>
+          <li data-marker="○" data-t="gap4">Documentary and social media documentation — including Bisan Owda's real-time witnessing — is referenced in the theoretical framework but not yet integrated as a formal archive category.</li>
+          <li data-marker="○" data-t="gap5">The bilingual Arabic/English translation currently covers the Surveillance Space page. The rest of the site remains English-only, which contradicts the project's commitment to refusing a single language of legibility.</li>
         </ul>
       </div>
 
-      <!-- SECTION 4: CLOSING -->
       <div class="closing-card">
-        <p>The counter-surveillance filmmaker does not photograph occupation. She photographs life under it. And this archive does not map everything about Palestinian cinema or Palestinian space. It maps how Palestinian women filmmakers have insisted, across twenty-five years and across the specific geography of checkpoint sites, that Palestinian life exceeds the frame occupation tries to put around it.</p>
-        <p>What is not mapped here — the films not yet analyzed, the checkpoints not yet documented, the languages not yet supported — is not absence. It is the ongoing work of an archive that understands its own incompleteness as part of its argument. The project continues.</p>
+        <p data-t="closing1">The counter-surveillance filmmaker does not photograph occupation. She photographs life under it. And this archive does not map everything about Palestinian cinema or Palestinian space. It maps how Palestinian women filmmakers have insisted, across twenty-five years and across the specific geography of checkpoint sites, that Palestinian life exceeds the frame occupation tries to put around it.</p>
+        <p data-t="closing2">What is not mapped here — the films not yet analyzed, the checkpoints not yet documented, the languages not yet supported — is not absence. It is the ongoing work of an archive that understands its own incompleteness as part of its argument. The project continues.</p>
       </div>
-
     </div>
   </main>
 
-  <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
+  <footer class="footer">
     © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
-    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
-    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
-    
+    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-privacy">Privacy Policy</a>
+    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-terms">Terms of Use</a>
   </footer>
-  <button id="scrollTopBtn" aria-label="Scroll to top"><span aria-hidden="true">↑</span></button>
+  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
-  <script>
-    window.addEventListener('scroll', () => {
-      document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
-    document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-  
-    // Archive dropdown — click toggle for mobile, hover handles desktop
-    (function() {
-      var trigger = document.querySelector('.nav-dropdown-trigger');
-      var dropdown = document.querySelector('.nav-dropdown');
-      if (!trigger || !dropdown) return;
-      trigger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var isOpen = dropdown.classList.contains('open');
-        dropdown.classList.toggle('open', !isOpen);
-        trigger.setAttribute('aria-expanded', String(!isOpen));
-      });
-      document.addEventListener('click', function() {
-        dropdown.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          dropdown.classList.remove('open');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      });
-    })();
-  </script>
-
-  <!-- MOBILE NAV OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
     <div class="mobile-nav-header">
-      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
+      <a href="index.html" class="mobile-nav-brand" data-t="brand">Cinematic Counter‑Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
     </div>
     <nav class="mobile-nav-links">
-      <a href="index.html" class="">Home</a>
-      <a href="map.html" class="">Map</a>
-      <span class="mobile-nav-section-label">Archive</span>
-      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
-      <a href="analysis.html" class="archive-item">Visual Analysis</a>
-      <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
-      <a href="not-mapped.html" class="archive-item active">What's Not Mapped</a>
-      <a href="glossary.html" class="archive-item">Glossary</a>
-      <a href="about.html" class="">About</a>
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
+      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
+      <a href="checkpoints.html" class="archive-item" data-t="nav-checkpoints">Checkpoints</a>
+      <a href="analysis.html" class="archive-item" data-t="nav-analysis">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item active" data-t="nav-notmapped">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
+      <a href="about.html" data-t="nav-about">About</a>
     </nav>
   </div>
 
-  <!-- MOBILE NAV JS -->
   <script>
-    (function() {
-      var btn    = document.getElementById('navHamburger');
-      var nav    = document.getElementById('mobileNav');
-      var close  = document.getElementById('mobileNavClose');
-      if (!btn || !nav) return;
-      function openNav() {
-        nav.classList.add('open');
-        btn.classList.add('open');
-        btn.setAttribute('aria-expanded','true');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeNav() {
-        nav.classList.remove('open');
-        btn.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-        document.body.style.overflow = '';
-      }
-      btn.addEventListener('click', openNav);
-      if (close) close.addEventListener('click', closeNav);
-      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
-      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
-    })();
+  window.PAGE_T = {
+    en: {
+      'brand': 'Cinematic Counter&#8209;Cartographies',
+      'eyebrow': '05 / 05',
+      'page-title': "What's <em>Not Mapped</em>",
+      'page-lead': "The politics of omission, the gaps in the archive, and the formal strategies of withholding that run through Palestinian women's cinema.",
+      'opening-quote': '"Occupation is total: it enters the film not as a subject but as a condition of the image."',
+      's1-eyebrow': 'The Argument', 's1-heading': 'The <em>Politics of Omission</em>',
+      's1-p1': "The politics of omission runs through every film analyzed here. Jacir uses ellipsis precisely: the bank robbery in <em>Salt of This Sea</em> cuts away before it completes. Masri blurs the doctor's face in <em>3000 Nights</em>. Nabulsi keeps the camera on Yusef's face rather than the soldier's gun in <em>The Present</em>. Shibli's narrator in <em>Minor Detail</em> obsessively recovers an archive that chose not to record.",
+      's1-p2': "These formal choices are not simply aesthetic. They constitute an epistemological claim: that not everything needs to be made visible to matter, that the right to opacity is a political right, and that the demand for total visibility is itself a form of colonial violence.",
+      's1-p3': "The counter-surveillance filmmaker does not photograph occupation. She photographs life under it, which is different.",
+      's2-eyebrow': 'Formal Strategies', 's2-heading': 'How Filmmakers <em>Withhold</em>',
+      's2-intro': "Each film in the archive develops its own approach to what it refuses to show. The strategies below are not evasions — they are arguments made through formal choice.",
+      'strat1': 'Ellipsis', 'strat1-desc': 'The bank robbery cuts away before completion. Jacir withholds the moment of violation to protect her subjects from becoming spectacle.',
+      'strat2': 'Anonymization', 'strat2-desc': "The doctor's face is blurred, reducing the medical encounter to anonymous hands. Medicine becomes an extension of the carceral system.",
+      'strat3': 'Averted angle', 'strat3-desc': "The camera stays on Yusef's face, not the soldier's gun. The violence is formal: heard and felt but refused the image it would want.",
+      'strat4': 'Unresolved ending', 'strat4-desc': "We do not see whether Tarek crosses. The camera stays with uncertainty, refusing the narrative closure that would turn longing into a contained story.",
+      'strat5': 'Counter-archival labor', 'strat5-desc': "The narrator recovers what the official archive treated as a minor detail. The novel's act of witnessing is inseparable from what the original record refused to preserve.",
+      'strat6': 'Static refusal', 'strat6-desc': "Static takes, no dialogue. The surveillance camera's own logic — fixed, patient, recording — is turned first into irony, then into poetry.",
+      's3-eyebrow': 'Gaps in This Archive', 's3-heading': 'What <em>This Archive</em> Does Not Show',
+      's3-intro': "Every archive has limits. Part of being transparent about this project's methodology is naming what it cannot yet document.",
+      'gap1': "Five films in the archive — <em>Wajib</em>, <em>May in the Summer</em>, <em>The Teacher</em>, <em>All That's Left of You</em>, and <em>Pomegranates and Myrrh</em> — do not yet have completed close readings. Their inclusion as placeholders names the archive's incompleteness rather than concealing it.",
+      'gap2': "The archive focuses on Palestinian women filmmakers, which means male directors whose work engages checkpoints appear only in supporting references. That boundary is a methodological choice, not a claim that their work is less significant.",
+      'gap3': "The Container checkpoint appears in the geographic archive without film cross-references beyond archive footage with dates TBD.",
+      'gap4': "Documentary and social media documentation — including Bisan Owda's real-time witnessing — is referenced in the theoretical framework but not yet integrated as a formal archive category.",
+      'gap5': "The bilingual Arabic/English translation currently covers the Surveillance Space page. The rest of the site remains English-only, which contradicts the project's commitment to refusing a single language of legibility.",
+      'closing1': "The counter-surveillance filmmaker does not photograph occupation. She photographs life under it. And this archive maps how Palestinian women filmmakers have insisted, across twenty-five years, that Palestinian life exceeds the frame occupation tries to put around it.",
+      'closing2': "What is not mapped here is not absence. It is the ongoing work of an archive that understands its own incompleteness as part of its argument. The project continues."
+    },
+    ar: {
+      'brand': 'الخرائط السينمائية المضادة',
+      'eyebrow': '٠٥ / ٠٥',
+      'page-title': 'ما <em>لم يُرسَم</em>',
+      'page-lead': 'سياسة الإغفال، والثغرات في الأرشيف، والاستراتيجيات الشكلية للحجب في سينما المرأة الفلسطينية.',
+      'opening-quote': '"الاحتلال كلي: يدخل الفيلم ليس كموضوع بل كشرط للصورة."',
+      's1-eyebrow': 'الحجة', 's1-heading': '<em>سياسة الإغفال</em>',
+      's1-p1': 'سياسة الإغفال تسري في كل فيلم في هذا الأرشيف. جاسر تستخدم الحذف بدقة: مشهد السطو على البنك في <em>ملح هذا البحر</em> يُقطَع قبل اكتماله. مصري تُعتِم وجه الطبيب في <em>٣٠٠٠ ليلة</em>. نابلسي تُبقي الكاميرا على وجه يوسف لا على بندقية الجندي في <em>الهدية</em>.',
+      's1-p2': 'هذه الاختيارات الشكلية ليست جمالية فحسب. إنها تشكّل ادعاءً معرفياً: ليس كل شيء يحتاج أن يُرى ليكون مهماً، والحق في الغموض هو حق سياسي، والمطالبة بالشفافية الكاملة هي بحد ذاتها شكل من العنف الاستعماري.',
+      's1-p3': 'مخرجة المراقبة المضادة لا تصوّر الاحتلال. إنها تصوّر الحياة تحته، وهذا مختلف.',
+      's2-eyebrow': 'الاستراتيجيات الشكلية', 's2-heading': 'كيف <em>يحجب</em> المخرجون',
+      's2-intro': 'يطور كل فيلم في الأرشيف أسلوبه الخاص تجاه ما يرفض إظهاره. الاستراتيجيات أدناه ليست مراوغة — إنها حجج عبر الاختيار الشكلي.',
+      'strat1': 'الحذف', 'strat1-desc': 'مشهد السطو يُقطَع قبل اكتماله. جاسر تحجب لحظة الانتهاك لحماية شخصياتها من أن تصبح مشهداً.',
+      'strat2': 'إخفاء الهوية', 'strat2-desc': 'وجه الطبيب مُعتَم، ما يختزل اللقاء الطبي في أيدٍ مجهولة. الطب يصبح امتداداً للنظام السجني.',
+      'strat3': 'الزاوية المنحرفة', 'strat3-desc': 'الكاميرا تبقى على وجه يوسف لا على بندقية الجندي. العنف شكلي: يُسمَع ويُحَس لكنه مُحرَم من الصورة التي يريدها.',
+      'strat4': 'نهاية معلّقة', 'strat4-desc': 'لا نرى هل عبر طارق أم لا. الكاميرا تبقى مع الغموض، رافضةً الإغلاق السردي.',
+      'strat5': 'العمل المضاد للأرشيف', 'strat5-desc': 'الراوي يستعيد ما عامله الأرشيف الرسمي كتفصيل ثانوي. فعل الشهادة لا ينفصل عما رفض السجل الأصلي الحفاظ عليه.',
+      'strat6': 'الرفض الساكن', 'strat6-desc': 'لقطات ساكنة، لا حوار. منطق كاميرا المراقبة — ثابتة، صابرة، مسجّلة — يتحول أولاً إلى سخرية ثم إلى شعر.',
+      's3-eyebrow': 'الثغرات في هذا الأرشيف', 's3-heading': 'ما <em>لا يُظهِره</em> هذا الأرشيف',
+      's3-intro': 'كل أرشيف له حدود. الشفافية حول منهجية هذا المشروع تعني تسمية ما لا يستطيع توثيقه بعد.',
+      'gap1': 'خمسة أفلام في الأرشيف — <em>واجب</em> و<em>مي في الصيف</em> و<em>المعلم</em> و<em>كل ما تبقى منك</em> و<em>الرمان والمر</em> — لم تُكتَب لها بعد قراءات دقيقة. إدراجها كعناصر مؤقتة يسمّي عدم اكتمال الأرشيف بدلاً من إخفائه.',
+      'gap2': 'يركز الأرشيف على المخرجات الفلسطينيات، ما يعني أن المخرجين الذكور الذين تتناول أعمالهم الحواجز — سليمان وخليفي وأبو أسد — يظهرون في إشارات داعمة فحسب. هذا اختيار منهجي، ليس حكماً على أهمية أعمالهم.',
+      'gap3': 'حاجز الكونتينر يظهر في الأرشيف الجغرافي دون إحالات سينمائية سوى لقطات أرشيفية بتواريخ غير محددة.',
+      'gap4': 'توثيق الأفلام الوثائقية ووسائل التواصل الاجتماعي — بما فيها توثيق بيسان عودة في الوقت الفعلي — مُشار إليه في الإطار النظري لكنه غير مدمج بعد كفئة أرشيفية رسمية.',
+      'gap5': 'الترجمة العربية الإنجليزية الثنائية تغطي حتى الآن صفحة فضاء المراقبة فقط. بقية الموقع لا يزال باللغة الإنجليزية فقط، وهو ما يتعارض مع التزام المشروع برفض لغة واحدة للمقروئية.',
+      'closing1': 'مخرجة المراقبة المضادة لا تصوّر الاحتلال. إنها تصوّر الحياة تحته. وهذا الأرشيف يرسم كيف أصرّت المخرجات الفلسطينيات، عبر خمسة وعشرين عاماً، على أن الحياة الفلسطينية تتخطى الإطار الذي يحاول الاحتلال وضعها فيه.',
+      'closing2': 'ما لم يُرسَم هنا ليس غياباً. إنه العمل المستمر لأرشيف يفهم عدم اكتماله كجزء من حجته. المشروع مستمر.'
+    }
+  };
   </script>
+  <script src="js/shared.js"></script>
 </body>
 </html>

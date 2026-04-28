@@ -1,839 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mobile.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='32' cy='38' rx='18' ry='24' fill='%237a8450' stroke='%234e5a2e' stroke-width='3'/%3E%3Cellipse cx='38' cy='28' rx='4' ry='10' fill='%23b3bc7c' fill-opacity='0.7'/%3E%3Cpath d='M32 14 Q34 8 44 8' stroke='%234e5a2e' stroke-width='3' fill='none'/%3E%3C/svg%3E">
   <style>
     :root {
-      --gold: #e6a93a;
-      --teal: #6fe7c1;
-      --forest: #288366;
-      --dark-forest: #0a2321;
-      --crimson: #b94e3a;
+      --gold: #e6a93a; --teal: #6fe7c1; --forest: #288366;
+      --dark-forest: #0a2321; --crimson: #b94e3a; --nav-h: 70px;
     }
-
     html { scroll-behavior: smooth; }
-
-    body, html {
-      min-height: 100vh;
-      margin: 0;
-      overflow-x: hidden;
-    }
-
+    body, html { min-height: 100vh; margin: 0; overflow-x: hidden; }
     body {
       background: linear-gradient(160deg, #1b3c34 0%, #2a5c4c 30%, #357a5a 60%, #23634c 100%);
       background-attachment: fixed;
       color: #e8f5f0;
       font-family: 'Cormorant Garamond', Georgia, serif;
-      line-height: 1.6;
-      min-height: 100vh;
-      margin: 0;
-      overflow-x: hidden;
+      line-height: 1.6; min-height: 100vh;
     }
-
+    html[lang="ar"] body { font-family: 'Amiri', 'Cormorant Garamond', Georgia, serif; }
     body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image: repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px
-      );
-      pointer-events: none;
-      z-index: 0;
+      content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px);
+      pointer-events: none; z-index: 0;
     }
-
     /* NAV */
     .topnav {
       background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
-      padding: 1.2rem 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      overflow: visible;
+      padding: 1.2rem 3rem; display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 1000;
+      overflow: visible; height: var(--nav-h); direction: ltr !important;
     }
-    .topnav .brand {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--gold);
-      letter-spacing: 0.5px;
-    }
+    .topnav .brand { font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--gold); letter-spacing: 0.5px; }
     .topnav .menu { display: flex; gap: 0.5rem; overflow: visible; position: relative; }
-    .topnav .menu a {
-      color: #eaf7f2;
-      font-size: 0.9rem;
-      font-weight: 500;
-      padding: 0.55rem 1rem;
-      border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'Oswald', sans-serif;
-      letter-spacing: 0.3px;
-      text-decoration: none;
-    }
-    .topnav .menu a:hover, .topnav .menu a.active {
-      background: rgba(230,169,58,0.2);
-      color: var(--gold);
-    }
-
+    .topnav .menu a { color: #eaf7f2; font-size: 0.9rem; font-weight: 500; padding: 0.55rem 1rem; border-radius: 6px; transition: all 0.3s; font-family: 'Oswald', sans-serif; letter-spacing: 0.3px; text-decoration: none; }
+    .topnav .menu a:hover, .topnav .menu a.active { background: rgba(230,169,58,0.2); color: var(--gold); }
+    .nav-dropdown { position: relative; display: inline-block; }
+    .nav-dropdown-trigger { color: #eaf7f2; font-size: 0.9rem; font-weight: 500; padding: 0.55rem 1rem; border-radius: 6px; transition: all 0.3s; font-family: 'Oswald', sans-serif; letter-spacing: 0.3px; background: none; border: none; display: flex; align-items: center; gap: 0.35rem; cursor: pointer; white-space: nowrap; }
+    .nav-dropdown-trigger:hover, .nav-dropdown-trigger.active { background: rgba(230,169,58,0.2); color: var(--gold); }
+    .nav-dropdown-arrow { font-size: 0.65rem; opacity: 0.7; transition: transform 0.25s; display: inline-block; }
+    .nav-dropdown.open .nav-dropdown-arrow, .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(180deg); }
+    .nav-dropdown-menu { position: absolute; top: calc(100% + 8px); right: 0; min-width: 260px; background: rgba(8,28,26,0.98); border: 1px solid rgba(230,169,58,0.25); border-radius: 12px; padding: 0.5rem; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 0.22s, transform 0.22s; box-shadow: 0 16px 48px rgba(0,0,0,0.55); z-index: 9999; }
+    .nav-dropdown.open .nav-dropdown-menu, .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .nav-dropdown-item { display: flex; flex-direction: column; gap: 0.22rem; padding: 0.8rem 1rem; border-radius: 8px; text-decoration: none; transition: background 0.18s; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .nav-dropdown-item:last-child { border-bottom: none; }
+    .nav-dropdown-item:hover { background: rgba(230,169,58,0.1); }
+    .nav-dropdown-item-title { font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.05em; color: #e8f5f0; }
+    .nav-dropdown-item-desc { font-family: 'IBM Plex Mono', monospace; font-size: 0.67rem; font-weight: 300; color: rgba(232,245,240,0.5); line-height: 1.4; }
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
+    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.7); }
     /* HERO */
-    .hero-section {
-      position: relative;
-      padding: 7rem 2rem 5rem;
-      text-align: center;
-      z-index: auto;
-      overflow: hidden;
-    }
-    .hero-section::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(40,131,102,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(40,131,102,0.07) 1px, transparent 1px);
-      background-size: 60px 60px;
-      animation: gridDrift 30s linear infinite;
-      z-index: -1;
-    }
-    @keyframes gridDrift {
-      from { background-position: 0 0; }
-      to { background-position: 60px 60px; }
-    }
-    .hero-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--teal);
-      opacity: 0.7;
-      margin: 0 0 1.5rem;
-    }
-    .hero-main-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 7vw, 6rem);
-      font-weight: 700;
-      color: #e8f5f0;
-      margin: 0 0 0.5rem;
-      line-height: 1.1;
-      letter-spacing: -1px;
-    }
+    .hero-section { position: relative; padding: 7rem 2rem 5rem; text-align: center; z-index: auto; overflow: hidden; }
+    .hero-section::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(40,131,102,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(40,131,102,0.07) 1px, transparent 1px); background-size: 60px 60px; animation: gridDrift 30s linear infinite; z-index: -1; }
+    @keyframes gridDrift { from { background-position: 0 0; } to { background-position: 60px 60px; } }
+    .hero-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--teal); opacity: 0.7; margin: 0 0 1.5rem; }
+    .hero-main-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 7vw, 6rem); font-weight: 700; color: #e8f5f0; margin: 0 0 0.5rem; line-height: 1.1; letter-spacing: -1px; }
+    html[lang="ar"] .hero-main-title { font-family: 'Amiri', serif; }
     .hero-main-title em { color: var(--gold); font-style: italic; }
-    .gold-rule {
-      width: 80px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 2rem auto;
-    }
-    .hero-subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-      font-style: italic;
-      color: rgba(232,245,240,0.6);
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
+    .gold-rule { width: 80px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 2rem auto; }
+    .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem, 2.5vw, 1.7rem); font-style: italic; color: rgba(232,245,240,0.6); max-width: 680px; margin: 0 auto; }
+    html[lang="ar"] .hero-subtitle { font-family: 'Amiri', serif; }
     /* QUOTE CAROUSEL */
-    .quote-carousel {
-      max-width: 1100px;
-      margin: 0 auto 5rem;
-      padding: 3rem 3rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(111,231,193,0.12);
-      border-radius: 20px;
-      position: relative;
-      z-index: auto;
-    }
-    .carousel-content {
-      display: flex;
-      align-items: center;
-      gap: 3rem;
-    }
-    .carousel-image {
-      flex: 0 0 360px;
-      height: 250px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-    }
-    .carousel-image img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-      filter: brightness(0.85) saturate(0.9);
-    }
+    .quote-carousel { max-width: 1100px; margin: 0 auto 5rem; padding: 3rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(111,231,193,0.12); border-radius: 20px; position: relative; z-index: auto; }
+    .carousel-content { display: flex; align-items: center; gap: 3rem; }
+    .carousel-image { flex: 0 0 360px; height: 250px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+    .carousel-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; filter: brightness(0.85) saturate(0.9); }
     .carousel-image:hover img { transform: scale(1.06); }
-    .carousel-nav {
-      position: absolute;
-      top: 50%; transform: translateY(-50%);
-      background: rgba(10,35,33,0.9);
-      border: 1px solid rgba(111,231,193,0.3);
-      color: var(--teal);
-      font-size: 1.8rem;
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 10;
-    }
+    .carousel-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(10,35,33,0.9); border: 1px solid rgba(111,231,193,0.3); color: var(--teal); font-size: 1.8rem; width: 46px; height: 46px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 10; }
     .carousel-nav:hover { background: var(--gold); color: #0a1a18; border-color: var(--gold); transform: translateY(-50%) scale(1.1); }
     .carousel-nav.prev { left: -23px; }
     .carousel-nav.next { right: -23px; }
     .carousel-quotes { position: relative; min-height: 240px; flex: 1; }
     .quote-slide { opacity: 0; position: absolute; top: 0; left: 0; right: 0; pointer-events: none; transition: opacity 0.6s; z-index: 1; }
     .quote-slide.active { opacity: 1; position: relative; pointer-events: auto; z-index: 2; }
-    .quote-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      line-height: 1.85;
-      color: rgba(232,245,240,0.88);
-      font-style: italic;
-      margin-bottom: 1.5rem;
-    }
-    .quote-author {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      color: var(--gold);
-      text-align: right;
-      text-transform: uppercase;
-    }
+    .quote-text { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; line-height: 1.85; color: rgba(232,245,240,0.88); font-style: italic; margin-bottom: 1.5rem; }
+    html[lang="ar"] .quote-text { font-family: 'Amiri', serif; }
+    .quote-author { font-family: 'Oswald', sans-serif; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.15em; color: var(--gold); text-align: right; text-transform: uppercase; }
+    html[dir="rtl"] .quote-author { text-align: left; }
     .quote-author::before { content: '— '; }
-
-    /* DIVIDER */
-    .section-divider { max-width: 1100px; margin: 0 auto 4rem; padding: 0 2rem; z-index: auto; position: relative; }
+    /* SECTIONS */
+    .section-divider { max-width: 1100px; margin: 0 auto 4rem; padding: 0 2rem; }
     .section-divider hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); }
-
-    /* ABOUT SECTION */
-    .project-intro {
-      max-width: 900px;
-      margin: 0 auto 5rem;
-      padding: 0 2rem;
-      position: relative;
-      z-index: auto;
-    }
-    .intro-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(111,231,193,0.12);
-      border-left: 3px solid var(--gold);
-      border-radius: 12px;
-      padding: 3rem;
-    }
-    .intro-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--teal);
-      opacity: 0.6;
-      margin: 0 0 1.2rem;
-    }
-    .intro-card h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 700;
-      color: #e8f5f0;
-      margin: 0 0 2rem;
-    }
-    .intro-card p {
-      font-size: 1.15rem;
-      line-height: 1.95;
-      color: rgba(232,245,240,0.82);
-      margin: 0 0 1.2rem;
-    }
-    .intro-card p:last-of-type { margin-bottom: 0; }
-
-    /* QUESTION LIST */
-    .question-list { list-style: none; padding: 0; margin: 2.5rem 0 0; }
-    .question-list li {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--teal);
-      padding: 1rem 1rem 1rem 3rem;
-      margin-bottom: 0.75rem;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(111,231,193,0.1);
-      border-radius: 10px;
-      position: relative;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .question-list li:hover {
-      background: rgba(230,169,58,0.08);
-      border-color: rgba(230,169,58,0.3);
-      transform: translateX(6px);
-    }
-    .question-list li::before {
-      content: '+';
-      position: absolute;
-      left: 1rem; top: 50%;
-      transform: translateY(-50%);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 1rem;
-      color: var(--gold);
-    }
-
+    .project-intro { max-width: 900px; margin: 0 auto 5rem; padding: 0 2rem; }
+    .intro-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(111,231,193,0.12); border-left: 3px solid var(--gold); border-radius: 12px; padding: 3rem; }
+    html[dir="rtl"] .intro-card { border-left: 1px solid rgba(111,231,193,0.12); border-right: 3px solid var(--gold); }
+    .intro-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--teal); opacity: 0.6; margin: 0 0 1.2rem; }
+    .intro-card h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: #e8f5f0; margin: 0 0 2rem; }
+    html[lang="ar"] .intro-card h2 { font-family: 'Amiri', serif; }
+    .intro-card p { font-size: 1.15rem; line-height: 1.95; color: rgba(232,245,240,0.82); margin: 0 0 1.2rem; }
+    html[lang="ar"] .intro-card p { font-family: 'Amiri', serif; font-size: 1.2rem; line-height: 2; }
     /* NAV GRID */
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      max-width: 1100px;
-      margin: 0 auto 5rem;
-      padding: 0 2rem;
-      position: relative;
-      z-index: auto;
-    }
-    .nav-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(111,231,193,0.1);
-      border-radius: 14px;
-      padding: 2.5rem 2rem;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-      position: relative;
-      overflow: hidden;
-    }
-    .nav-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(230,169,58,0.06), transparent);
-      transition: left 0.6s ease;
-    }
+    .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem; }
+    .nav-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(111,231,193,0.1); border-radius: 14px; padding: 2.5rem 2rem; text-decoration: none; color: inherit; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; }
+    .nav-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(230,169,58,0.06), transparent); transition: left 0.6s; }
     .nav-card:hover::before { left: 100%; }
-    .nav-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(230,169,58,0.4);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-      background: rgba(255,255,255,0.05);
-    }
-
-    /* FIX 1 — Nav card number: opacity 0.20 → 0.45 (was 1.38:1 hard fail) */
-    .nav-card-num {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.45);
-      margin: 0 0 1rem;
-    }
-
-    .nav-card h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.7rem;
-      color: #e8f5f0;
-      margin: 0 0 0.8rem;
-      font-weight: 700;
-    }
-
-    /* FIX 2 — Nav card description: opacity 0.55 → 0.70 (was 4.07:1, now passes AA) */
-    .nav-card p {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: rgba(232,245,240,0.70);
-      margin: 0 0 1.5rem;
-    }
-
-    .card-link {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--teal);
-      transition: all 0.3s ease;
-    }
+    .nav-card:hover { transform: translateY(-8px); border-color: rgba(230,169,58,0.4); box-shadow: 0 15px 40px rgba(0,0,0,0.3); background: rgba(255,255,255,0.05); }
+    .nav-card-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.45); margin: 0 0 1rem; }
+    .nav-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: #e8f5f0; margin: 0 0 0.8rem; font-weight: 700; }
+    html[lang="ar"] .nav-card h2 { font-family: 'Amiri', serif; }
+    .nav-card p { font-size: 1rem; line-height: 1.7; color: rgba(232,245,240,0.70); margin: 0 0 1.5rem; }
+    html[lang="ar"] .nav-card p { font-family: 'Amiri', serif; font-size: 1.05rem; }
+    .card-link { font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); transition: all 0.3s; }
     .nav-card:hover .card-link { color: var(--gold); }
     .card-link::after { content: ' →'; }
-
-    /* MODAL */
-    .modal-overlay {
-      position: fixed;
-      z-index: 9999;
-      left: 0; top: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      align-items: center; justify-content: center;
-    }
-    .modal-content {
-      background: #0f2d28;
-      border: 1px solid rgba(111,231,193,0.2);
-      border-left: 3px solid var(--gold);
-      border-radius: 14px;
-      padding: 2.5rem;
-      max-width: 500px;
-      width: 90vw;
-      position: relative;
-      animation: popIn 0.25s cubic-bezier(.5,1.8,.7,1.2);
-    }
-    @keyframes popIn {
-      from { transform: scale(0.92); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .modal-close {
-      position: absolute; top: 1rem; right: 1rem;
-      background: none; border: none;
-      font-size: 1.5rem; color: var(--teal);
-      cursor: pointer; transition: color 0.2s;
-    }
-    .modal-close:hover { color: var(--gold); }
-    #modal-question {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      color: var(--teal);
-      margin: 0 0 1.2rem;
-    }
-    #modal-answer {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      line-height: 1.85;
-      color: rgba(232,245,240,0.82);
-    }
-
-    /* FOOTER */
-    .footer {
-      background: linear-gradient(180deg, rgba(10,35,33,0.95) 0%, rgba(10,35,33,0.98) 100%);
-      color: var(--teal);
-      text-align: center;
-      padding: 2.5rem 2rem;
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      position: relative;
-      z-index: auto;
-    }
-
-    #scrollTopBtn {
-      display: none; position: fixed;
-      bottom: 32px; right: 32px; z-index: 99;
-      background: var(--forest); color: #fff;
-      border: none; border-radius: 50%;
-      width: 48px; height: 48px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-    }
-    #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
-
-    /* HOOK */
-    .project-hook {
-      max-width: 900px; margin: 0 auto 5rem; padding: 0 2rem;
-      position: relative; z-index: auto;
-    }
-    .hook-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(111,231,193,0.12);
-      border-left: 3px solid var(--gold);
-      border-radius: 12px; padding: 2.5rem 3rem;
-    }
-    .hook-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--teal);
-      opacity: 0.7; margin: 0 0 1.2rem; display: block;
-    }
-    .hook-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; line-height: 2;
-      color: rgba(232,245,240,0.85); margin: 0 0 1.5rem;
-    }
-    .hook-link {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.8rem; font-weight: 500;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); text-decoration: none;
-      transition: opacity 0.2s;
-    }
-    .hook-link:hover { opacity: 0.75; }
-
+    html[dir="rtl"] .card-link::after { content: ' ←'; }
     /* SPOTLIGHT */
-    .spotlight-section {
-      max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem;
-      position: relative; z-index: auto;
-    }
-    .spotlight-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--teal);
-      opacity: 0.7; margin: 0 0 1.5rem; display: block;
-    }
-    .spotlight-card {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(111,231,193,0.12);
-      border-radius: 16px; overflow: hidden;
-    }
-    .spotlight-image {
-      position: relative; min-height: 380px;
-    }
-    .spotlight-image img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      filter: brightness(0.75) saturate(0.85);
-      transition: filter 0.4s ease;
-      display: block;
-    }
+    .spotlight-section { max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem; }
+    .spotlight-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--teal); opacity: 0.7; margin: 0 0 1.5rem; display: block; }
+    .spotlight-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(111,231,193,0.12); border-radius: 16px; overflow: hidden; }
+    .spotlight-image { position: relative; min-height: 380px; }
+    .spotlight-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.75) saturate(0.85); transition: filter 0.4s; display: block; }
     .spotlight-card:hover .spotlight-image img { filter: brightness(0.85) saturate(1); }
-    .spotlight-overlay {
-      position: absolute; bottom: 1.2rem; left: 1.2rem;
-    }
-    .spotlight-year {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem; letter-spacing: 0.2em;
-      color: rgba(232,245,240,0.7);
-      background: rgba(10,35,33,0.8);
-      padding: 0.3rem 0.7rem; border-radius: 4px;
-    }
-    .spotlight-content {
-      padding: 2.5rem 2.8rem;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .spotlight-director {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--gold);
-      opacity: 0.85; margin: 0 0 0.5rem;
-    }
-    .spotlight-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.4rem; font-weight: 700;
-      color: #e8f5f0; margin: 0 0 1.2rem; line-height: 1.1;
-    }
-    .spotlight-body {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem; line-height: 1.9;
-      color: rgba(232,245,240,0.80); margin: 0 0 1.5rem;
-    }
-    .spotlight-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem; font-style: italic;
-      color: rgba(232,245,240,0.65);
-      border-left: 2px solid var(--gold);
-      padding-left: 1rem; margin: 0 0 1.8rem;
-      line-height: 1.7;
-    }
-    .spotlight-quote cite {
-      font-style: normal; font-size: 0.88rem;
-      color: var(--gold); display: block; margin-top: 0.4rem;
-    }
-    .spotlight-btn {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.78rem; font-weight: 500;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--teal); text-decoration: none;
-      padding: 0.65rem 1.2rem; border-radius: 6px;
-      border: 1px solid rgba(111,231,193,0.3);
-      align-self: flex-start; transition: all 0.25s ease;
-    }
-    .spotlight-btn:hover {
-      background: rgba(230,169,58,0.1);
-      border-color: var(--gold); color: var(--gold);
-    }
-
-    /* ENTRY SECTION */
-    .entry-section {
-      max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem;
-      position: relative; z-index: auto;
-    }
-    .entry-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--teal);
-      opacity: 0.7; margin: 0 0 1.5rem; display: block;
-    }
-    .entry-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;
-    }
-    .entry-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(111,231,193,0.1);
-      border-radius: 14px; padding: 2rem 1.8rem;
-      text-decoration: none; color: inherit;
-      display: flex; flex-direction: column;
-      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-    }
-    .entry-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(230,169,58,0.35);
-      background: rgba(255,255,255,0.05);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
-    }
-    .entry-icon {
-      font-size: 1.4rem; color: var(--gold);
-      opacity: 0.7; margin-bottom: 1rem; display: block;
-    }
-    .entry-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem; font-weight: 700;
-      color: #e8f5f0; margin: 0 0 0.75rem;
-    }
-    .entry-card p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem; line-height: 1.8;
-      color: rgba(232,245,240,0.70);
-      margin: 0 0 1.5rem; flex: 1;
-    }
-    .entry-link {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.75rem; font-weight: 500;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--teal); margin-top: auto;
-      transition: color 0.2s;
-    }
+    .spotlight-overlay { position: absolute; bottom: 1.2rem; left: 1.2rem; }
+    .spotlight-year { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.2em; color: rgba(232,245,240,0.7); background: rgba(10,35,33,0.8); padding: 0.3rem 0.7rem; border-radius: 4px; }
+    .spotlight-content { padding: 2.5rem 2.8rem; display: flex; flex-direction: column; justify-content: center; }
+    .spotlight-director { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.85; margin: 0 0 0.5rem; }
+    .spotlight-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 700; color: #e8f5f0; margin: 0 0 1.2rem; line-height: 1.1; }
+    html[lang="ar"] .spotlight-title { font-family: 'Amiri', serif; }
+    .spotlight-body { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.9; color: rgba(232,245,240,0.80); margin: 0 0 1.5rem; }
+    html[lang="ar"] .spotlight-body { font-family: 'Amiri', serif; font-size: 1.15rem; }
+    .spotlight-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: rgba(232,245,240,0.65); border-left: 2px solid var(--gold); padding-left: 1rem; margin: 0 0 1.8rem; line-height: 1.7; }
+    html[dir="rtl"] .spotlight-quote { border-left: none; border-right: 2px solid var(--gold); padding-left: 0; padding-right: 1rem; }
+    html[lang="ar"] .spotlight-quote { font-family: 'Amiri', serif; }
+    .spotlight-quote cite { font-style: normal; font-size: 0.88rem; color: var(--gold); display: block; margin-top: 0.4rem; }
+    .spotlight-btn { font-family: 'Oswald', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); text-decoration: none; padding: 0.65rem 1.2rem; border-radius: 6px; border: 1px solid rgba(111,231,193,0.3); align-self: flex-start; transition: all 0.25s; }
+    .spotlight-btn:hover { background: rgba(230,169,58,0.1); border-color: var(--gold); color: var(--gold); }
+    /* ENTRY */
+    .entry-section { max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem; }
+    .entry-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--teal); opacity: 0.7; margin: 0 0 1.5rem; display: block; }
+    .entry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .entry-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(111,231,193,0.1); border-radius: 14px; padding: 2rem 1.8rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .entry-card:hover { transform: translateY(-6px); border-color: rgba(230,169,58,0.35); background: rgba(255,255,255,0.05); box-shadow: 0 12px 36px rgba(0,0,0,0.3); }
+    .entry-icon { font-size: 1.4rem; color: var(--gold); opacity: 0.7; margin-bottom: 1rem; display: block; }
+    .entry-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: #e8f5f0; margin: 0 0 0.75rem; }
+    html[lang="ar"] .entry-card h3 { font-family: 'Amiri', serif; }
+    .entry-card p { font-family: 'Cormorant Garamond', serif; font-size: 1rem; line-height: 1.8; color: rgba(232,245,240,0.70); margin: 0 0 1.5rem; flex: 1; }
+    html[lang="ar"] .entry-card p { font-family: 'Amiri', serif; font-size: 1.05rem; }
+    .entry-link { font-family: 'Oswald', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-top: auto; transition: color 0.2s; }
     .entry-card:hover .entry-link { color: var(--gold); }
-
-        @media (max-width: 900px) {
-      .carousel-content { flex-direction: column; }
-      .carousel-image { flex: 0 0 auto; width: 100%; height: 220px; }
-      .carousel-nav.prev { left: 8px; }
-      .carousel-nav.next { right: 8px; }
-      .topnav { padding: 1rem 1.5rem; }
-      .topnav .menu a { padding: 0.5rem 0.7rem; font-size: 0.82rem; }
-      .intro-card { padding: 2rem 1.5rem; }
-    }
-    @media (max-width: 768px) {
-  .topnav {
-    padding: 0 1rem;
-  }
-  .topnav .menu {
-    display: none;
-  }
-  .nav-hamburger,
-  .hamburger {
-    display: flex !important;
-  }
-  .entry-grid,
-  .nav-grid,
-  .film-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.2rem !important;
-  }
-  .section-divider,
-  .project-community-module,
-  .project-hook,
-  .spotlight-section,
-  .entry-section {
-    padding-left: 0.7rem !important;
-    padding-right: 0.7rem !important;
-  }
-  .footer {
-    font-size: 0.9rem;
-    padding: 1.2rem 0 0.7rem 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .topnav .brand {
-    font-size: 1rem;
-  }
-  .hero-main-title {
-    font-size: 1.5rem;
-  }
-  .hero-section {
-    padding: 2.2rem 0.5rem 1.5rem;
-  }
-  .project-community-module {
-    padding: 1rem 0.5rem !important;
-  }
-}
-    /* NAV DROPDOWN */
-    .nav-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .nav-dropdown-trigger {
-      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
-      padding: 0.55rem 1rem; border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
-      text-decoration: none; background: none; border: none;
-      display: flex; align-items: center; gap: 0.35rem;
-      cursor: pointer; white-space: nowrap;
-    }
-    .nav-dropdown-trigger:hover,
-    .nav-dropdown-trigger.active {
-      background: rgba(230,169,58,0.2); color: var(--gold);
-    }
-    .nav-dropdown-arrow {
-      font-size: 0.65rem; opacity: 0.7;
-      transition: transform 0.25s ease;
-      display: inline-block;
-    }
-    .nav-dropdown.open .nav-dropdown-arrow,
-    .nav-dropdown:hover .nav-dropdown-arrow {
-      transform: rotate(180deg);
-    }
-    .nav-dropdown-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      min-width: 260px;
-      background: rgba(8,28,26,0.98);
-      border: 1px solid rgba(230,169,58,0.25);
-      border-radius: 12px;
-      padding: 0.5rem;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.22s ease, transform 0.22s ease;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.55);
-      z-index: 9999;
-    }
-    .nav-dropdown.open .nav-dropdown-menu,
-    .nav-dropdown:hover .nav-dropdown-menu {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    .nav-dropdown-item {
-      display: flex; flex-direction: column; gap: 0.22rem;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.18s ease;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .nav-dropdown-item:last-child { border-bottom: none; }
-    .nav-dropdown-item:hover, .nav-dropdown-item.active {
-      background: rgba(230,169,58,0.1);
-    }
-    .nav-dropdown-item-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.88rem; font-weight: 500;
-      letter-spacing: 0.05em; color: #e8f5f0;
-    }
-    .nav-dropdown-item.active .nav-dropdown-item-title { color: var(--gold); }
-    .nav-dropdown-item-desc {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.67rem; font-weight: 300;
-      color: rgba(232,245,240,0.50); line-height: 1.4;
-    }
-    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
-    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
-
-    /* OLIVE SVG DEFINITION (hidden, for reuse) */
-    #olive-svg-def {
-      display:none;
-    }
-    #olive-icon {
-      viewBox: 0 0 64 64;
-    }
-    #olive-icon ellipse {
-      fill: #7a8450;
-      stroke: #4e5a2e;
-      stroke-width: 3;
-    }
-    #olive-icon ellipse:nth-child(2) {
-      fill: #b3bc7c;
-      fill-opacity: 0.7;
-    }
-    #olive-icon path {
-      stroke: #4e5a2e;
-      stroke-width: 3;
-      fill: none;
-    }
-
-    /* DYNAMIC OLIVES (decorative, animated) */
-    #olive-decor {
-      pointer-events: none;
-      position: fixed;
-      left: 0; top: 0; width: 100vw; height: 100vh;
-      z-index: 0;
-    }
-    .olive-float {
-      position: absolute;
-      opacity: 0.18;
-      filter: blur(0.5px) drop-shadow(0 2px 8px #4e5a2e33);
-      animation: oliveFloat 18s linear infinite;
-      will-change: transform;
-    }
+    /* HOOK */
+    .project-hook { max-width: 900px; margin: 0 auto 5rem; padding: 0 2rem; }
+    .hook-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(111,231,193,0.12); border-left: 3px solid var(--gold); border-radius: 12px; padding: 2.5rem 3rem; }
+    html[dir="rtl"] .hook-card { border-left: 1px solid rgba(111,231,193,0.12); border-right: 3px solid var(--gold); }
+    .hook-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--teal); opacity: 0.7; margin: 0 0 1.2rem; display: block; }
+    .hook-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; line-height: 2; color: rgba(232,245,240,0.85); margin: 0 0 1.5rem; }
+    html[lang="ar"] .hook-text { font-family: 'Amiri', serif; font-size: 1.25rem; }
+    .hook-link { font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: opacity 0.2s; }
+    .hook-link:hover { opacity: 0.75; }
+    /* FOOTER */
+    .footer { background: linear-gradient(180deg, rgba(10,35,33,0.95) 0%, rgba(10,35,33,0.98) 100%); color: var(--teal); text-align: center; padding: 2.5rem 2rem; font-family: 'Oswald', sans-serif; font-size: 0.9rem; letter-spacing: 0.1em; }
+    #scrollTopBtn { display: none; position: fixed; bottom: 32px; right: 32px; z-index: 99; background: var(--forest); color: #fff; border: none; border-radius: 50%; width: 48px; height: 48px; font-size: 1.5rem; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
+    /* COMMUNITY MODULE */
+    .project-community-module { max-width: 700px; margin: 2.5rem auto 3.5rem; padding: 2.2rem; background: rgba(10,35,33,0.97); border: 2px solid var(--teal); border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); backdrop-filter: blur(2px); position: relative; z-index: 10; }
+    /* OLIVES */
+    #olive-decor { pointer-events: none; position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 0; }
+    .olive-float { position: absolute; opacity: 0.18; filter: blur(0.5px) drop-shadow(0 2px 8px #4e5a2e33); animation: oliveFloat 18s linear infinite; }
     .olive-float-1 { left: 7vw; top: 18vh; animation-delay: 0s; }
     .olive-float-2 { right: 10vw; top: 32vh; animation-delay: 4s; }
     .olive-float-4 { right: 4vw; bottom: 18vh; animation-delay: 12s; }
-
-    @keyframes oliveFloat {
-      0%   { transform: translateY(0) rotate(0deg) scale(1);}
-      50%  { transform: translateY(-30px) rotate(10deg) scale(1.08);}
-      100% { transform: translateY(0) rotate(0deg) scale(1);}
+    @keyframes oliveFloat { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); } 50% { transform: translateY(-30px) rotate(10deg) scale(1.08); } }
+    /* LANG TOGGLE */
+    #langToggle { position: fixed; top: calc(var(--nav-h) + 10px); right: 2.5rem; z-index: 1200; background: rgba(10,35,33,0.95); border: 1px solid rgba(111,231,193,0.35); border-radius: 8px; overflow: hidden; display: flex; flex-direction: row; box-shadow: 0 2px 12px rgba(0,0,0,0.3); direction: ltr; }
+    #langToggle button { font-size: 0.78rem; font-weight: 600; padding: 0.42rem 0.8rem; border: none; cursor: pointer; transition: all 0.2s; }
+    #btnEN { font-family: 'Oswald', sans-serif; letter-spacing: 0.08em; background: var(--gold); color: #0a2321; }
+    #btnAR { font-family: 'Amiri', serif; font-size: 0.95rem; background: transparent; color: rgba(232,245,240,0.45); }
+    #btnEN.inactive { background: transparent; color: rgba(232,245,240,0.45); }
+    #btnAR.active   { background: var(--gold); color: #0a2321; }
+    @media (max-width: 900px) {
+      .carousel-content { flex-direction: column; }
+      .carousel-image { flex: 0 0 auto; width: 100%; height: 220px; }
+      .carousel-nav.prev { left: 8px; } .carousel-nav.next { right: 8px; }
+      .topnav { padding: 1rem 1.5rem; }
+      .entry-grid { grid-template-columns: repeat(2, 1fr); }
+      .spotlight-card { grid-template-columns: 1fr; }
+      .spotlight-image { min-height: 260px; }
     }
-
   </style>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='32' cy='38' rx='18' ry='24' fill='%237a8450' stroke='%234e5a2e' stroke-width='3'/%3E%3Cellipse cx='38' cy='28' rx='4' ry='10' fill='%23b3bc7c' fill-opacity='0.7'/%3E%3Cpath d='M32 14 Q34 8 44 8' stroke='%234e5a2e' stroke-width='3' fill='none'/%3E%3C/svg%3E">
 </head>
 <body>
   <nav class="topnav" aria-label="Main navigation">
-    <div class="brand">Cinematic Counter‑Cartographies</div>
+    <div class="brand" data-t="brand">Cinematic Counter‑Cartographies</div>
     <div class="menu">
-      <a href="index.html" class="active">Home</a>
-      <a href="map.html">Map</a>
+      <a href="index.html" class="active" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" data-t="nav-archive">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
-          <a href="analysis.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Visual Analysis</span>
-            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
-          </a>
-          <a href="surveillance-space.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Surveillance Space</span>
-            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
-          </a>
-          <a href="not-mapped.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">What's Not Mapped</span>
-            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
-          </a>
-          <a href="glossary.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Glossary</span>
-            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
-          </a>
+          <a href="analysis.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-analysis">Visual Analysis</span><span class="nav-dropdown-item-desc" data-t="nav-analysis-desc">Film-by-film formal and spatial readings</span></a>
+          <a href="surveillance-space.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-surveillance">Surveillance Space</span><span class="nav-dropdown-item-desc" data-t="nav-surveillance-desc">Five typologies of occupation beyond the checkpoint</span></a>
+          <a href="not-mapped.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-notmapped">What's Not Mapped</span><span class="nav-dropdown-item-desc" data-t="nav-notmapped-desc">Omission, gaps, and the politics of refusal</span></a>
+          <a href="glossary.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-glossary">Glossary</span><span class="nav-dropdown-item-desc" data-t="nav-glossary-desc">Key terms and theoretical concepts</span></a>
         </div>
       </div>
-      <a href="about.html">About</a>
+      <a href="about.html" data-t="nav-about">About</a>
     </div>
-    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 
-  <main>
-    
-    <!-- Add this module just below the <main> opening tag, before the HERO section in index.html -->
-
-<div class="project-community-module" style="max-width:700px;margin:2.5rem auto 3.5rem auto;padding:2.2rem 2.2rem 1.7rem 2.2rem;background:rgba(10,35,33,0.97);border:2px solid var(--teal);border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.18);backdrop-filter:blur(2px);position:relative;z-index:10;animation:fadeIn 1.2s;">
-  <h2 style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:0.04em;color:var(--teal);margin:0 0 1.1rem 0;">
-    About This Project / عن المشروع
-    <span style="font-size:1.3rem;vertical-align:middle;margin-left:0.5rem;">🌿</span>
-  </h2>
-  <p style="font-size:1.08rem;line-height:1.8;margin:0 0 1.1rem 0;">
-    <strong>Cinematic Counter-Cartographies</strong> is not just an academic archive. This is a living, growing project for anyone who cares about Palestinian stories, memory, and resistance. I am proud to be part of a scholarly community, but honestly, this work is for my people first. That is why you will find much of the site in Arabic too, so it is not just for researchers, but for everyone who lives these realities or wants to understand them.
-  </p>
-  <p style="font-size:1.02rem;line-height:1.7;margin:0 0 1.1rem 0;">
-    If you are Palestinian, Arab, or just curious, this space is for you. Your voice matters here. That is why you can add your own stories, films, or checkpoint experiences directly to the archive through the map page. If you have thoughts, questions, or want to share something, reach out any time. This archive is alive because of the community around it.
-  </p>
-  <hr style="border:none;border-top:1px solid var(--teal);margin:1.2rem 0;">
-  <div dir="rtl" lang="ar" style="font-size:1.02rem;line-height:2.1;color:#e8f5f0;">
-    <strong>عن المشروع:</strong><br>
-    "خرائط سينمائية مضادة" مش بس شغل أكاديمي، هو كمان شغل إلنا، لكل فلسطيني وفلسطينية ولكل حدا بحب أو بهمه يعرف قصصنا أو يحس فينا. عن جد، الموقع معمول لأهلي وناسي أول إشي، مش بس للباحثين. عشان هيك، رح تلاقوا كتير شغلات هون بالعربي، عشان الكل يقدر يفهم ويحس.<br><br>
-    صوتكم كتير مهم. عشان هيك بتقدروا تضيفوا أفلام أو قصص أو حتى مواقف صارت معكم عند الحواجز، دغري من صفحة الخريطة. إذا عندكم أي ملاحظة أو فكرة أو حابين تحكوا عن تجربتكم، ابعتولي بأي وقت. هالموقع عايش فيكم وبوجودكم.
+  <!-- LANGUAGE TOGGLE -->
+  <div id="langToggle" dir="ltr">
+    <button id="btnEN" onclick="applyLang('en')">EN</button>
+    <button id="btnAR" onclick="applyLang('ar')">ع</button>
   </div>
-</div>
+
+  <main>
+    <!-- COMMUNITY MODULE -->
+    <div class="project-community-module">
+      <h2 style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:0.04em;color:var(--teal);margin:0 0 1.1rem;" data-t="community-title">About This Project / عن المشروع <span style="font-size:1.3rem;vertical-align:middle;margin-left:0.5rem;">🌿</span></h2>
+      <p style="font-size:1.08rem;line-height:1.8;margin:0 0 1.1rem;" data-t="community-p1"><strong>Cinematic Counter-Cartographies</strong> is not just an academic archive. This is a living, growing project for anyone who cares about Palestinian stories, memory, and resistance. I am proud to be part of a scholarly community, but this work is for my people first — that is why you will find much of the site in Arabic too.</p>
+      <p style="font-size:1.02rem;line-height:1.7;margin:0 0 1.1rem;" data-t="community-p2">If you are Palestinian, Arab, or just curious, this space is for you. Your voice matters here — you can add your own stories, films, or checkpoint experiences directly to the archive through the map page.</p>
+      <hr style="border:none;border-top:1px solid var(--teal);margin:1.2rem 0;">
+      <div dir="rtl" lang="ar" style="font-size:1.02rem;line-height:2.1;color:#e8f5f0;font-family:'Amiri',serif;" data-t="community-ar"><strong>عن المشروع:</strong><br>"خرائط سينمائية مضادة" مش بس شغل أكاديمي، هو كمان شغل إلنا، لكل فلسطيني وفلسطينية ولكل حدا بحب أو بهمه يعرف قصصنا. صوتكم كتير مهم. بتقدروا تضيفوا أفلام أو قصص أو حتى مواقف صارت معكم عند الحواجز، دغري من صفحة الخريطة.</div>
+    </div>
 
     <!-- HERO -->
     <section class="hero-section">
-      <p class="hero-eyebrow">Research Project</p>
-      <h1 class="hero-main-title">Cinematic <em>Counter‑</em>Cartographies</h1>
+      <p class="hero-eyebrow" data-t="hero-eyebrow">Research Project</p>
+      <h1 class="hero-main-title" data-t="hero-title">Cinematic <em data-t="hero-title-em">Counter‑</em>Cartographies</h1>
       <div class="gold-rule"></div>
-      <p class="hero-subtitle">Exploring formal refusal in Palestinian cinema — how filmmakers resist, reimagine, and refuse the surveillance gaze.</p>
+      <p class="hero-subtitle" data-t="hero-subtitle">Exploring formal refusal in Palestinian cinema — how filmmakers resist, reimagine, and refuse the surveillance gaze.</p>
     </section>
 
     <!-- QUOTE CAROUSEL -->
@@ -841,43 +231,41 @@
       <button class="carousel-nav prev" id="quote-prev" aria-label="Previous quote"><span aria-hidden="true">‹</span></button>
       <button class="carousel-nav next" id="quote-next" aria-label="Next quote"><span aria-hidden="true">›</span></button>
       <div class="carousel-content">
-        <div class="carousel-image">
-          <img id="quote-image" src="assets/images/checkp1.jpg" alt="Quote illustration">
-        </div>
+        <div class="carousel-image"><img id="quote-image" src="assets/images/checkp1.jpg" alt="Quote illustration"></div>
         <div class="carousel-quotes">
-          <div class="quote-slide active" data-img="assets/images/central1.jpeg">
+          <div class="quote-slide active" data-img="assets/images/central1.jpeg" data-ar="تعسف ما يحدث داخل نقطة التفتيش من حيث سيطرة الجنود على وقت الفلسطينيين يمكن مقارنته بأشكال الحبس الانفرادي.">
             <p class="quote-text">The arbitrariness of what happens inside a checkpoint in terms of soldiers' control of Palestinians' time is further comparable to forms of solitary confinement.</p>
             <p class="quote-author">Helga Tawil-Souri</p>
           </div>
-          <div class="quote-slide" data-img="assets/images/central2.jpeg">
+          <div class="quote-slide" data-img="assets/images/central2.jpeg" data-ar="الرغبة في التعبير بشكل فني تأتي ببساطة من رغبة في صياغة صورة للسينما. ليس خطئي أنه حين أذهب إلى رام الله توجد نقطة تفتيش وبالتالي تدخل في فيلمي.">
             <p class="quote-text">The desire to express in an art form comes simply from a desire to compose an image for cinema. It is not my fault that when I go to Ramallah there is a checkpoint and therefore it enters my film.</p>
             <p class="quote-author">Elia Suleiman</p>
           </div>
-          <div class="quote-slide" data-img="assets/images/central2.jpeg">
+          <div class="quote-slide" data-img="assets/images/central2.jpeg" data-ar="السفر عبر نقطة تفتيش تجربة مقيّدة وخانقة.">
             <p class="quote-text">Traveling through a checkpoint is a confining and asphyxiating experience.</p>
             <p class="quote-author">Helga Tawil-Souri</p>
           </div>
-          <div class="quote-slide" data-img="assets/images/central3.jpeg">
+          <div class="quote-slide" data-img="assets/images/central3.jpeg" data-ar="يتدرب الناس على الاستماع لـ'نقرة' الأبواب الدوارة وقبول أن مصيرهم ووقتهم ليس تحت سيطرتهم.">
             <p class="quote-text">People are trained to listen for the 'click' of the turnstiles and to accept that their fate and time is not under their control.</p>
             <p class="quote-author">Helga Tawil-Souri</p>
           </div>
-          <div class="quote-slide" data-img="assets/images/central4.jpeg">
+          <div class="quote-slide" data-img="assets/images/central4.jpeg" data-ar="كثير من الناس في إسرائيل لا يدركون حقاً معنى أن يكونوا أمة محتلة. كيف يؤثر هذا علينا وعلى الفلسطينيين؟">
             <p class="quote-text">Many of the people in Israel don't really perceive the true meaning of being an occupying nation. How does it affect us and how does it affect the Palestinians?</p>
             <p class="quote-author">Yoav Shamir</p>
           </div>
-          <div class="quote-slide" data-img="assets/images/jabel1.jpeg">
+          <div class="quote-slide" data-img="assets/images/jabel1.jpeg" data-ar="الاحتلال كلي: يدخل الفيلم ليس كموضوع بل كشرط للصورة.">
             <p class="quote-text">Occupation is total: it enters the film not as a subject but as a condition of the image.</p>
             <p class="quote-author">Elia Suleiman</p>
           </div>
-          <div class="quote-slide" data-img="assets/images/jabel2.jpeg">
+          <div class="quote-slide" data-img="assets/images/jabel2.jpeg" data-ar="نقطة التفتيش مكان يتعلق فيه الزمن، والكاميرا تلتقط هذا التعليق.">
             <p class="quote-text">The checkpoint is a space where time is suspended, and the camera captures this suspension.</p>
             <p class="quote-author">Mai Masri</p>
           </div>
-          <div class="quote-slide" data-img="assets/images/checkp1.jpg">
+          <div class="quote-slide" data-img="assets/images/checkp1.jpg" data-ar="السينما رفض قبول العالم كما هو معطى.">
             <p class="quote-text">Cinema is a refusal to accept the world as it is given.</p>
             <p class="quote-author">Annemarie Jacir</p>
           </div>
-          <div class="quote-slide" data-img="assets/images/checkp1.jpg">
+          <div class="quote-slide" data-img="assets/images/checkp1.jpg" data-ar="أحياناً ما لا يُظهَر يكون بنفس قوة ما يُظهَر.">
             <p class="quote-text">Sometimes what is not shown is as powerful as what is.</p>
             <p class="quote-author">Farah Nablusi</p>
           </div>
@@ -890,35 +278,28 @@
     <!-- HOOK -->
     <section class="project-hook">
       <div class="hook-card">
-        <p class="hook-eyebrow">The Argument</p>
-        <p class="hook-text">Palestinian women filmmakers do not simply document occupation — they devise formal strategies that refuse it. This archive maps how Mai Masri, Annemarie Jacir, and Farah Nabulsi transform checkpoints, carceral spaces, and surveillance infrastructures into sites of cinematic resistance across twenty-five years of Palestinian film.</p>
-        <a href="about.html" class="hook-link">Read the full research statement →</a>
+        <p class="hook-eyebrow" data-t="hook-eyebrow">The Argument</p>
+        <p class="hook-text" data-t="hook-text">Palestinian women filmmakers do not simply document occupation — they devise formal strategies that refuse it. This archive maps how Mai Masri, Annemarie Jacir, and Farah Nabulsi transform checkpoints, carceral spaces, and surveillance infrastructures into sites of cinematic resistance across twenty-five years of Palestinian film.</p>
+        <a href="about.html" class="hook-link" data-t="hook-link">Read the full research statement →</a>
       </div>
     </section>
 
     <div class="section-divider"><hr></div>
 
-    <!-- FEATURED FILM SPOTLIGHT -->
+    <!-- SPOTLIGHT -->
     <section class="spotlight-section">
-      <p class="spotlight-eyebrow">Featured Film</p>
+      <p class="spotlight-eyebrow" data-t="spotlight-eyebrow">Featured Film</p>
       <div class="spotlight-card">
         <div class="spotlight-image">
           <img src="assets/images/3000nights.jpg" alt="3000 Nights, Mai Masri, 2015" onerror="this.src='https://picsum.photos/seed/3000nights/900/600'">
-          <div class="spotlight-overlay">
-            <span class="spotlight-year">2015</span>
-          </div>
+          <div class="spotlight-overlay"><span class="spotlight-year">2015</span></div>
         </div>
         <div class="spotlight-content">
           <p class="spotlight-director">Mai Masri</p>
-          <h2 class="spotlight-title">3000 Nights</h2>
-          <p class="spotlight-body">
-            Imprisoned on false charges, a young Palestinian schoolteacher gives birth to her son in an Israeli prison. As she navigates the carceral system, her story becomes one of resistance, solidarity, and survival under occupation. Masri’s film explores the carceral continuum—how the logic of the prison extends into the body, motherhood, and everyday life.
-          </p>
-          <blockquote class="spotlight-quote">
-            "The carceral is not a discrete institution but a continuous atmosphere that reorganizes all of life."
-            <cite>— Ruth Wilson Gilmore</cite>
-          </blockquote>
-          <a href="analysis.html#3000nights" class="spotlight-btn">View Film Analysis →</a>
+          <h2 class="spotlight-title" data-t="spotlight-title">3000 Nights</h2>
+          <p class="spotlight-body" data-t="spotlight-body">Imprisoned on false charges, a young Palestinian schoolteacher gives birth to her son in an Israeli prison. As she navigates the carceral system, her story becomes one of resistance, solidarity, and survival under occupation.</p>
+          <blockquote class="spotlight-quote" data-t="spotlight-quote">"The carceral is not a discrete institution but a continuous atmosphere that reorganizes all of life."<cite>— Ruth Wilson Gilmore</cite></blockquote>
+          <a href="analysis.html#3000nights" class="spotlight-btn" data-t="spotlight-btn">View Film Analysis →</a>
         </div>
       </div>
     </section>
@@ -927,169 +308,235 @@
 
     <!-- ENTRY POINTS -->
     <section class="entry-section">
-      <p class="entry-eyebrow">Where to Begin</p>
+      <p class="entry-eyebrow" data-t="entry-eyebrow">Where to Begin</p>
       <div class="entry-grid">
         <a href="checkpoints.html" class="entry-card">
           <span class="entry-icon">⬡</span>
-          <h3>Start with a Checkpoint</h3>
-          <p>Four case studies — Qalandiya, Huwwara, Rachel, Container — each one a site of resistance and refusal in the cinematic archive.</p>
-          <span class="entry-link">Enter Checkpoints →</span>
+          <h3 data-t="entry1-title">Start with a Checkpoint</h3>
+          <p data-t="entry1-body">Four case studies — Qalandiya, Huwwara, Rachel, Container — each one a site of resistance and refusal in the cinematic archive.</p>
+          <span class="entry-link" data-t="entry1-link">Enter Checkpoints →</span>
         </a>
         <a href="analysis.html" class="entry-card">
           <span class="entry-icon">◈</span>
-          <h3>Start with a Film</h3>
-          <p>Nine films analyzed for how camera angles, editing, and sound design refuse the surveillance gaze they are forced to document.</p>
-          <span class="entry-link">Open Film Archive →</span>
+          <h3 data-t="entry2-title">Start with a Film</h3>
+          <p data-t="entry2-body">Nine films analyzed for how camera angles, editing, and sound design refuse the surveillance gaze they are forced to document.</p>
+          <span class="entry-link" data-t="entry2-link">Open Film Archive →</span>
         </a>
         <a href="surveillance-space.html" class="entry-card">
           <span class="entry-icon">◎</span>
-          <h3>Start with a Framework</h3>
-          <p>Five typologies of surveillance space — architectural, digital, temporal, intimate, cinematic — that structure occupation beyond the checkpoint.</p>
-          <span class="entry-link">Enter Framework →</span>
+          <h3 data-t="entry3-title">Start with a Framework</h3>
+          <p data-t="entry3-body">Five typologies of surveillance space — architectural, digital, temporal, intimate, cinematic — that structure occupation beyond the checkpoint.</p>
+          <span class="entry-link" data-t="entry3-link">Enter Framework →</span>
         </a>
       </div>
     </section>
   </main>
 
-  <!-- OLIVE SVG DEFINITION (hidden, for reuse) -->
-  <svg id="olive-svg-def" style="display:none;" xmlns="http://www.w3.org/2000/svg">
-    <symbol id="olive-icon" viewBox="0 0 64 64">
-      <!-- Main olive -->
-      <ellipse cx="32" cy="38" rx="18" ry="24" fill="#7a8450" stroke="#4e5a2e" stroke-width="3"/>
-      <ellipse cx="38" cy="28" rx="4" ry="10" fill="#b3bc7c" fill-opacity="0.7"/>
-      <path d="M32 14 Q34 8 44 8" stroke="#4e5a2e" stroke-width="3" fill="none"/>
-      <!-- Short branch -->
-      <path d="M32 14 Q28 6 18 10" stroke="#4e5a2e" stroke-width="2.2" fill="none"/>
-      <!-- Leaf -->
-      <ellipse cx="14" cy="8" rx="7" ry="3" fill="#8fa96b" stroke="#4e5a2e" stroke-width="1.2" transform="rotate(-18 14 8)"/>
-      <!-- Second olive (smaller, on branch) -->
-      <ellipse cx="20" cy="12" rx="5" ry="7" fill="#7a8450" stroke="#4e5a2e" stroke-width="1.5" transform="rotate(-12 20 12)"/>
-      <ellipse cx="22" cy="10" rx="1.2" ry="2.5" fill="#b3bc7c" fill-opacity="0.7" transform="rotate(-12 22 10)"/>
-    </symbol>
-  </svg>
-
-  <!-- DYNAMIC OLIVES (decorative, animated) -->
+  <!-- OLIVES -->
+  <svg id="olive-svg-def" style="display:none;" xmlns="http://www.w3.org/2000/svg"><symbol id="olive-icon" viewBox="0 0 64 64"><ellipse cx="32" cy="38" rx="18" ry="24" fill="#7a8450" stroke="#4e5a2e" stroke-width="3"/><ellipse cx="38" cy="28" rx="4" ry="10" fill="#b3bc7c" fill-opacity="0.7"/><path d="M32 14 Q34 8 44 8" stroke="#4e5a2e" stroke-width="3" fill="none"/><path d="M32 14 Q28 6 18 10" stroke="#4e5a2e" stroke-width="2.2" fill="none"/><ellipse cx="14" cy="8" rx="7" ry="3" fill="#8fa96b" stroke="#4e5a2e" stroke-width="1.2" transform="rotate(-18 14 8)"/><ellipse cx="20" cy="12" rx="5" ry="7" fill="#7a8450" stroke="#4e5a2e" stroke-width="1.5" transform="rotate(-12 20 12)"/></symbol></svg>
   <div id="olive-decor">
     <svg class="olive-float olive-float-1" width="48" height="48"><use href="#olive-icon"/></svg>
     <svg class="olive-float olive-float-2" width="36" height="36"><use href="#olive-icon"/></svg>
     <svg class="olive-float olive-float-4" width="32" height="32"><use href="#olive-icon"/></svg>
   </div>
 
-  <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
+  <footer class="footer">
     © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
-    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
-    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
-    
+    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-privacy">Privacy Policy</a>
+    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-terms">Terms of Use</a>
   </footer>
-  <button id="scrollTopBtn" aria-label="Scroll to top"><span aria-hidden="true">↑</span></button>
-
-  <script>
-    window.addEventListener('scroll', () => {
-      document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
-    document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Carousel
-    document.addEventListener('DOMContentLoaded', function () {
-      const slides = document.querySelectorAll('.quote-slide');
-      const quoteImg = document.getElementById('quote-image');
-      let current = 0, timer = null;
-
-      function getDuration(idx) {
-        const text = slides[idx].querySelector('.quote-text').innerText;
-        return Math.max(5000, text.length * 50);
-      }
-
-      function showSlide(idx) {
-        slides.forEach((s, i) => s.classList.toggle('active', i === idx));
-        current = idx;
-        const src = slides[idx].getAttribute('data-img');
-        if (src) quoteImg.src = src;
-        clearInterval(timer);
-        timer = setInterval(() => showSlide((current + 1) % slides.length), getDuration(idx));
-      }
-
-      document.getElementById('quote-next').addEventListener('click', () => showSlide((current + 1) % slides.length));
-      document.getElementById('quote-prev').addEventListener('click', () => showSlide((current - 1 + slides.length) % slides.length));
-
-      const carousel = document.querySelector('.quote-carousel');
-      carousel.addEventListener('mouseenter', () => clearInterval(timer));
-      carousel.addEventListener('mouseleave', () => {
-        timer = setInterval(() => showSlide((current + 1) % slides.length), getDuration(current));
-      });
-
-      showSlide(0);
-    });
-
-
-  
-    // Archive dropdown — click toggle for mobile, hover handles desktop
-    (function() {
-      var trigger = document.querySelector('.nav-dropdown-trigger');
-      var dropdown = document.querySelector('.nav-dropdown');
-      if (!trigger || !dropdown) return;
-      trigger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var isOpen = dropdown.classList.contains('open');
-        dropdown.classList.toggle('open', !isOpen);
-        trigger.setAttribute('aria-expanded', String(!isOpen));
-      });
-      document.addEventListener('click', function() {
-        dropdown.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          dropdown.classList.remove('open');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      });
-    })();
-  </script>
+  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
   <!-- MOBILE NAV OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
     <div class="mobile-nav-header">
-      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
+      <a href="index.html" class="mobile-nav-brand" data-t="brand">Cinematic Counter‑Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
     </div>
     <nav class="mobile-nav-links">
-      <a href="index.html">Home</a>
-      <a href="map.html">Map</a>
-      <span class="mobile-nav-section-label">Archive</span>
-      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
-      <a href="analysis.html" class="archive-item">Visual Analysis</a>
-      <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
-      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
-      <a href="glossary.html" class="archive-item">Glossary</a>
-      <a href="about.html">About</a>
+      <a href="index.html" class="active" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
+      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
+      <a href="checkpoints.html" class="archive-item" data-t="nav-checkpoints">Checkpoints</a>
+      <a href="analysis.html" class="archive-item" data-t="nav-analysis">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item" data-t="nav-notmapped">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
+      <a href="about.html" data-t="nav-about">About</a>
     </nav>
   </div>
 
-  <!-- MOBILE NAV JS -->
   <script>
-    (function() {
-      var btn    = document.getElementById('navHamburger');
-      var nav    = document.getElementById('mobileNav');
-      var close  = document.getElementById('mobileNavClose');
-      if (!btn || !nav) return;
-      function openNav() {
-        nav.classList.add('open');
-        btn.classList.add('open');
-        btn.setAttribute('aria-expanded','true');
-        document.body.style.overflow = 'hidden';
+  /* ── TRANSLATIONS ──────────────────────────────────────────── */
+  const T = {
+    en: {
+      'brand': 'Cinematic Counter&#8209;Cartographies',
+      'nav-home': 'Home', 'nav-map': 'Map', 'nav-archive': 'Archive',
+      'nav-checkpoints': 'Checkpoints', 'nav-analysis': 'Visual Analysis',
+      'nav-surveillance': 'Surveillance Space', 'nav-notmapped': "What's Not Mapped",
+      'nav-glossary': 'Glossary', 'nav-about': 'About',
+      'nav-analysis-desc': 'Film-by-film formal and spatial readings',
+      'nav-surveillance-desc': 'Five typologies of occupation beyond the checkpoint',
+      'nav-notmapped-desc': 'Omission, gaps, and the politics of refusal',
+      'nav-glossary-desc': 'Key terms and theoretical concepts',
+      'community-title': 'About This Project / عن المشروع 🌿',
+      'community-p1': '<strong>Cinematic Counter-Cartographies</strong> is not just an academic archive. This is a living, growing project for anyone who cares about Palestinian stories, memory, and resistance. I am proud to be part of a scholarly community, but this work is for my people first — that is why you will find much of the site in Arabic too.',
+      'community-p2': 'If you are Palestinian, Arab, or just curious, this space is for you. Your voice matters here — you can add your own stories, films, or checkpoint experiences directly to the archive through the map page.',
+      'community-ar': '<strong>عن المشروع:</strong><br>"خرائط سينمائية مضادة" مش بس شغل أكاديمي، هو كمان شغل إلنا، لكل فلسطيني وفلسطينية ولكل حدا بحب أو بهمه يعرف قصصنا. صوتكم كتير مهم. بتقدروا تضيفوا أفلام أو قصص أو حتى مواقف صارت معكم عند الحواجز، دغري من صفحة الخريطة.',
+      'hero-eyebrow': 'Research Project',
+      'hero-title': 'Cinematic <em>Counter‑</em>Cartographies',
+      'hero-subtitle': 'Exploring formal refusal in Palestinian cinema — how filmmakers resist, reimagine, and refuse the surveillance gaze.',
+      'hook-eyebrow': 'The Argument',
+      'hook-text': 'Palestinian women filmmakers do not simply document occupation — they devise formal strategies that refuse it. This archive maps how Mai Masri, Annemarie Jacir, and Farah Nabulsi transform checkpoints, carceral spaces, and surveillance infrastructures into sites of cinematic resistance across twenty-five years of Palestinian film.',
+      'hook-link': 'Read the full research statement →',
+      'spotlight-eyebrow': 'Featured Film',
+      'spotlight-title': '3000 Nights',
+      'spotlight-body': 'Imprisoned on false charges, a young Palestinian schoolteacher gives birth to her son in an Israeli prison. As she navigates the carceral system, her story becomes one of resistance, solidarity, and survival under occupation.',
+      'spotlight-quote': '"The carceral is not a discrete institution but a continuous atmosphere that reorganizes all of life."<cite>— Ruth Wilson Gilmore</cite>',
+      'spotlight-btn': 'View Film Analysis →',
+      'entry-eyebrow': 'Where to Begin',
+      'entry1-title': 'Start with a Checkpoint',
+      'entry1-body': 'Four case studies — Qalandiya, Huwwara, Rachel, Container — each one a site of resistance and refusal in the cinematic archive.',
+      'entry1-link': 'Enter Checkpoints →',
+      'entry2-title': 'Start with a Film',
+      'entry2-body': 'Nine films analyzed for how camera angles, editing, and sound design refuse the surveillance gaze they are forced to document.',
+      'entry2-link': 'Open Film Archive →',
+      'entry3-title': 'Start with a Framework',
+      'entry3-body': 'Five typologies of surveillance space — architectural, digital, temporal, intimate, cinematic — that structure occupation beyond the checkpoint.',
+      'entry3-link': 'Enter Framework →',
+      'footer-privacy': 'Privacy Policy', 'footer-terms': 'Terms of Use'
+    },
+    ar: {
+      'brand': 'الخرائط السينمائية المضادة',
+      'nav-home': 'الرئيسية', 'nav-map': 'الخريطة', 'nav-archive': 'الأرشيف',
+      'nav-checkpoints': 'الحواجز', 'nav-analysis': 'التحليل البصري',
+      'nav-surveillance': 'فضاء المراقبة', 'nav-notmapped': 'ما لم يُرسَم',
+      'nav-glossary': 'قاموس المصطلحات', 'nav-about': 'عن المشروع',
+      'nav-analysis-desc': 'قراءات شكلية ومكانية لكل فيلم',
+      'nav-surveillance-desc': 'خمسة أنواع من الاحتلال ما وراء الحاجز',
+      'nav-notmapped-desc': 'الحذف والثغرات وسياسة الرفض',
+      'nav-glossary-desc': 'المصطلحات الأساسية والمفاهيم النظرية',
+      'community-title': 'عن المشروع / About This Project 🌿',
+      'community-p1': '<strong>الخرائط السينمائية المضادة</strong> مش بس شغل أكاديمي — هو شغل إلنا، لكل فلسطيني وفلسطينية ولكل حدا بهمه يعرف قصصنا وذاكرتنا ومقاومتنا. هاد المشروع لأهلي وناسي أول إشي، مش بس للباحثين.',
+      'community-p2': 'إذا كنت فلسطيني أو عربي أو مجرد فضولي، هاد المكان إلك. صوتك مهم هون — بتقدر تضيف قصصك أو أفلام أو تجاربك عند الحواجز مباشرة من صفحة الخريطة.',
+      'community-ar': '<strong>About this project:</strong><br>This is a living archive for Palestinian stories, memory, and resistance — open to everyone who wants to understand or contribute.',
+      'hero-eyebrow': 'مشروع بحثي',
+      'hero-title': 'الخرائط السينمائية <em>المضادة</em>',
+      'hero-subtitle': 'استكشاف الرفض الشكلي في السينما الفلسطينية — كيف يقاوم المخرجون نظرة المراقبة ويتخيلون من جديد.',
+      'hook-eyebrow': 'الحجة',
+      'hook-text': 'المخرجات الفلسطينيات لا يوثّقن الاحتلال فحسب — بل يبتكرن استراتيجيات شكلية ترفضه. هذا الأرشيف يرسم كيف تحوّل مي مصري وأنيماري جاسر وفرح نابلسي الحواجز والسجون وبنى المراقبة إلى مواقع مقاومة سينمائية عبر خمسة وعشرين عاماً من السينما الفلسطينية.',
+      'hook-link': 'اقرأ البيان البحثي الكامل →',
+      'spotlight-eyebrow': 'الفيلم المميز',
+      'spotlight-title': '٣٠٠٠ ليلة',
+      'spotlight-body': 'مُسجَنة بتهم كاذبة، تضع مدرسة فلسطينية شابة مولودها في سجن إسرائيلي. قصتها تصبح قصة مقاومة وتضامن وبقاء تحت الاحتلال.',
+      'spotlight-quote': '"السجن ليس مؤسسة معزولة بل مناخ مستمر يعيد تنظيم الحياة كلها."<cite>— روث ويلسون غيلمور</cite>',
+      'spotlight-btn': 'عرض تحليل الفيلم →',
+      'entry-eyebrow': 'من أين تبدأ',
+      'entry1-title': 'ابدأ بحاجز',
+      'entry1-body': 'أربع دراسات حالة — قلنديا وحوارة وراحيل والكونتينر — كل منها موقع مقاومة ورفض في الأرشيف السينمائي.',
+      'entry1-link': 'ادخل الحواجز →',
+      'entry2-title': 'ابدأ بفيلم',
+      'entry2-body': 'تسعة أفلام محللة من حيث كيف ترفض زوايا الكاميرا والتحرير وتصميم الصوت نظرة المراقبة التي تضطر لتوثيقها.',
+      'entry2-link': 'افتح أرشيف الأفلام →',
+      'entry3-title': 'ابدأ بالإطار النظري',
+      'entry3-body': 'خمسة أنواع من فضاء المراقبة — معمارية ورقمية وزمنية وحميمة وسينمائية — تهيكل الاحتلال ما وراء الحاجز.',
+      'entry3-link': 'ادخل الإطار النظري →',
+      'footer-privacy': 'سياسة الخصوصية', 'footer-terms': 'شروط الاستخدام'
+    }
+  };
+
+  function applyLang(lang) {
+    const isAr = lang === 'ar';
+    document.getElementById('htmlRoot').lang = lang;
+    document.getElementById('htmlRoot').dir  = isAr ? 'rtl' : 'ltr';
+    // Translate all data-t elements
+    document.querySelectorAll('[data-t]').forEach(el => {
+      const key = el.getAttribute('data-t');
+      if (T[lang] && T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+    });
+    // Carousel quotes
+    document.querySelectorAll('.quote-slide').forEach(slide => {
+      const arText = slide.getAttribute('data-ar');
+      const qEl = slide.querySelector('.quote-text');
+      if (isAr && arText && qEl) qEl.textContent = arText;
+      else if (!isAr && qEl) {
+        // restore original — stored in data-en if set
+        const enText = slide.getAttribute('data-en');
+        if (enText) qEl.textContent = enText;
       }
-      function closeNav() {
-        nav.classList.remove('open');
-        btn.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-        document.body.style.overflow = '';
-      }
-      btn.addEventListener('click', openNav);
-      if (close) close.addEventListener('click', closeNav);
-      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
-      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
-    })();
+    });
+    // Community module: flip which block is prominent
+    const arBlock = document.querySelector('[data-t="community-ar"]');
+    if (arBlock) arBlock.parentElement && (arBlock.parentElement.dir = isAr ? 'ltr' : 'rtl');
+    // Toggle button styling
+    document.getElementById('btnEN').classList.toggle('inactive', isAr);
+    document.getElementById('btnAR').classList.toggle('active', isAr);
+    localStorage.setItem('ccc-lang', lang);
+  }
+  window.applyLang = applyLang;
+
+  // Store original English quote text
+  document.querySelectorAll('.quote-slide').forEach(slide => {
+    const qEl = slide.querySelector('.quote-text');
+    if (qEl) slide.setAttribute('data-en', qEl.textContent);
+  });
+
+  // Restore saved lang
+  const savedLang = localStorage.getItem('ccc-lang') || 'en';
+  applyLang(savedLang);
+
+  /* ── SCROLL TOP ─────────────────────────────────────────────── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
+  });
+  document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  /* ── CAROUSEL ───────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', function () {
+    const slides = document.querySelectorAll('.quote-slide');
+    const quoteImg = document.getElementById('quote-image');
+    let current = 0, timer = null;
+    function getDuration(idx) { return Math.max(5000, slides[idx].querySelector('.quote-text').innerText.length * 50); }
+    function showSlide(idx) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+      current = idx;
+      const src = slides[idx].getAttribute('data-img');
+      if (src) quoteImg.src = src;
+      clearInterval(timer);
+      timer = setInterval(() => showSlide((current + 1) % slides.length), getDuration(idx));
+    }
+    document.getElementById('quote-next').addEventListener('click', () => showSlide((current + 1) % slides.length));
+    document.getElementById('quote-prev').addEventListener('click', () => showSlide((current - 1 + slides.length) % slides.length));
+    const carousel = document.querySelector('.quote-carousel');
+    carousel.addEventListener('mouseenter', () => clearInterval(timer));
+    carousel.addEventListener('mouseleave', () => { timer = setInterval(() => showSlide((current + 1) % slides.length), getDuration(current)); });
+    showSlide(0);
+  });
+
+  /* ── NAV DROPDOWN ───────────────────────────────────────────── */
+  (function() {
+    const trigger = document.querySelector('.nav-dropdown-trigger');
+    const dropdown = document.querySelector('.nav-dropdown');
+    if (!trigger || !dropdown) return;
+    trigger.addEventListener('click', e => { e.stopPropagation(); const o = dropdown.classList.contains('open'); dropdown.classList.toggle('open', !o); trigger.setAttribute('aria-expanded', String(!o)); });
+    document.addEventListener('click', () => { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded', 'false'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded', 'false'); } });
+  })();
+
+  /* ── MOBILE NAV ─────────────────────────────────────────────── */
+  (function() {
+    const btn = document.getElementById('navHamburger');
+    const nav = document.getElementById('mobileNav');
+    const close = document.getElementById('mobileNavClose');
+    if (!btn || !nav) return;
+    function openNav()  { nav.classList.add('open'); btn.classList.add('open'); btn.setAttribute('aria-expanded','true'); document.body.style.overflow = 'hidden'; }
+    function closeNav() { nav.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
+    btn.addEventListener('click', openNav);
+    if (close) close.addEventListener('click', closeNav);
+    nav.addEventListener('click', e => { if (e.target === nav) closeNav(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+  })();
   </script>
 </body>
 </html>

@@ -1,36 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="Explore how Palestinian women filmmakers map, resist, and reimagine the architectures and infrastructures of surveillance and occupation." />
   <title>Surveillance Space — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-  <script>
-    window.applyLang = function(lang) {
-      var t = window._T && window._T[lang];
-      if (!t) return;
-      document.documentElement.lang = lang;
-      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      document.querySelectorAll('[data-t]').forEach(function(el) {
-        var key = el.getAttribute('data-t');
-        if (t[key] !== undefined) el.innerHTML = t[key];
-      });
-      var btnEN = document.getElementById('btnEN');
-      var btnAR = document.getElementById('btnAR');
-      if (btnEN && btnAR) {
-        if (lang === 'en') {
-          btnEN.style.cssText = 'font-family:Oswald,sans-serif;font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:6px;background:#e6a93a;border:none;color:#0a2321;cursor:pointer;width:100%;';
-          btnAR.style.cssText = 'font-family:Amiri,serif;font-size:1rem;font-weight:600;padding:6px 14px;border-radius:6px;background:transparent;border:none;color:rgba(232,245,240,0.4);cursor:pointer;width:100%;';
-        } else {
-          btnAR.style.cssText = 'font-family:Amiri,serif;font-size:1rem;font-weight:600;padding:6px 14px;border-radius:6px;background:#e6a93a;border:none;color:#0a2321;cursor:pointer;width:100%;';
-          btnEN.style.cssText = 'font-family:Oswald,sans-serif;font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:6px;background:transparent;border:none;color:rgba(232,245,240,0.4);cursor:pointer;width:100%;';
-        }
-      }
-    };
-  </script>
 
   <style>
     :root {
@@ -678,7 +655,6 @@
     .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
 
   </style>
-  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
   <nav class="topnav" aria-label="Main navigation">
@@ -693,7 +669,7 @@
             <span class="nav-dropdown-item-title">Visual Analysis</span>
             <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
           </a>
-          <a href="surveillance-space.html" class="active" class="nav-dropdown-item">
+          <a href="surveillance-space.html" class="active nav-dropdown-item">
             <span class="nav-dropdown-item-title">Surveillance Space</span>
             <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
           </a>
@@ -714,9 +690,9 @@
     </button>
   </nav>
 
-  <div style="position:fixed;bottom:88px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:4px;background:rgba(10,35,33,0.97);border:1px solid rgba(111,231,193,0.28);border-radius:10px;padding:5px;box-shadow:0 8px 28px rgba(0,0,0,0.6);direction:ltr;">
-    <button id="btnEN" onclick="window.applyLang('en')" style="font-family:Oswald,sans-serif;font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:6px;background:#e6a93a;border:none;color:#0a2321;cursor:pointer;">EN</button>
-    <button id="btnAR" onclick="window.applyLang('ar')" style="font-family:Amiri,serif;font-size:1rem;font-weight:600;padding:6px 14px;border-radius:6px;background:transparent;border:none;color:rgba(232,245,240,0.42);cursor:pointer;">ع</button>
+  <div id="langToggle" dir="ltr" style="position:fixed;top:calc(var(--nav-h,70px) + 10px);right:2.5rem;z-index:1200;background:rgba(10,35,33,0.95);border:1px solid rgba(111,231,193,0.35);border-radius:8px;overflow:hidden;display:flex;flex-direction:row;box-shadow:0 2px 12px rgba(0,0,0,0.3);">
+    <button id="btnEN" onclick="applyLang('en')" style="font-family:Oswald,sans-serif;font-size:0.78rem;font-weight:600;padding:0.42rem 0.8rem;border:none;cursor:pointer;background:#e6a93a;color:#0a2321;letter-spacing:0.08em;">EN</button>
+    <button id="btnAR" onclick="applyLang('ar')" style="font-family:Amiri,serif;font-size:0.95rem;font-weight:600;padding:0.42rem 0.8rem;border:none;cursor:pointer;background:transparent;color:rgba(232,245,240,0.45);">ع</button>
   </div>
 
   <main>
@@ -1283,128 +1259,11 @@
 
   <button id="scrollTopBtn" aria-label="Scroll to top" style="display:none;position:fixed;bottom:32px;right:32px;z-index:99;background:#288366;color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.5rem;cursor:pointer;">↑</button>
 
+  <!-- Bridge existing _T system to shared.js PAGE_T -->
   <script>
-    // Translations
-    window._T = {
-      en: {
-        't-eyebrow':   'Research Framework',
-        't-title':     'The <em>Space</em> of Surveillance',
-        't-subtitle':  'Beyond the checkpoint: mapping the architectures, databases, durations, and intimacies through which Palestinian life is rendered legible, trackable, and controllable.',
-        't-intro-1':   'Checkpoints are the most visible expression of colonial control, but they are only one node in a much wider infrastructure of surveillance. This section maps five <em>typologies</em> of surveillance space that appear across Palestinian cinema from 2000 to 2025.',
-        't-intro-2':   'Each typology names a distinct register in which Palestinian life is rendered legible to power: the stone and steel of <strong>architectural</strong> enclosure; the algorithmic logic of <strong>digital</strong> biometrics; the weaponized stillness of <strong>temporal</strong> waiting; the occupation of <strong>intimate and domestic</strong> space; and the camera\'s own complicity, or refusal, as a <strong>cinematic</strong> surveillance apparatus.',
-        't-intro-3':   'Palestinian women filmmakers do not simply represent these spaces. They devise formal strategies, angles, ellipses, duration, offscreen sound, that refuse to reproduce the surveillance gaze even as they document it.',
-        'nav-arch':'I. Architectural','nav-dig':'II. Digital','nav-temp':'III. Temporal','nav-int':'IV. Intimate / Domestic','nav-cin':'V. Cinematic',
-        'arch-tag':'Typology I','arch-title':'Architectural Space','arch-lead':'Cells, cameras, corridors, cages, waiting rooms: the built environment as instrument of control.',
-        'dig-tag':'Typology II','dig-title':'Digital Space','dig-lead':'Databases, permits, biometric IDs, population registries — surveillance before and beyond physical encounter.',
-        'temp-tag':'Typology III','temp-title':'Temporal Space','temp-lead':'Waiting, delay, uncertainty, anticipatory punishment — time as a weapon and a site of resistance.',
-        'int-tag':'Typology IV','int-title':'Intimate & Domestic Space','int-lead':'Homes, hospitals, family life — the occupation of private space, and cinema\'s claim on the right to intimacy.',
-        'cin-tag':'Typology V','cin-title':'Cinematic Space','cin-lead':'How the camera reproduces surveillance logic — and the formal strategies through which it refuses to.',
-        'key-concepts':'Key Concepts',
-        'matrix-heading':'Surveillance Space: Comparative Matrix',
-        'matrix-lead':'How each typology operates, and the cinematic strategies that engage it.',
-        'th-type':'Typology','th-sites':'Sites / Mechanisms','th-mode':'Mode of Control','th-strategy':'Cinematic Counter-Strategy',
-        'mx-arch':'Architectural','mx-dig':'Digital','mx-temp':'Temporal','mx-int':'Intimate / Domestic','mx-cin':'Cinematic'
-      },
-      ar: {
-        't-eyebrow':'إطار البحث',
-        't-title':'فضاء المراقبة',
-        't-subtitle':'ما وراء نقطة التفتيش: رسم خرائط للهندسات وقواعد البيانات والفترات الزمنية والحميميات التي من خلالها يتم تمييز الحياة الفلسطينية وتتبعها والتحكم فيها.',
-        't-intro-1':'نقاط التفتيش هي التعبير الأكثر وضوحًا عن السيطرة الاستعمارية لكنها ليست سوى عقدة واحدة في بنية أوسع بكثير من البنية التحتية للمراقبة.',
-        't-intro-2':'يسمي كل نمط سجلًا مميزًا يتم من خلاله تمييز الحياة الفلسطينية للسلطة.',
-        't-intro-3':'لا تقوم المخرجات الفلسطينيات بتصوير هذه الفضاءات ببساطة. إنهن يبتكرن استراتيجيات شكلية ترفض إعادة إنتاج نظرة المراقبة.',
-        'nav-arch':'I. المعمارية','nav-dig':'II. الرقمية','nav-temp':'III. الزمنية','nav-int':'IV. الحميمة / المنزلية','nav-cin':'V. سينمائية',
-        'arch-tag':'النمط الأول','arch-title':'فضاء المعمارية','arch-lead':'الخلايا، الكاميرات، الممرات، الأقفاص، غرف الانتظار: البيئة المبنية كأداة للتحكم.',
-        'dig-tag':'النمط الثاني','dig-title':'فضاء الرقمية','dig-lead':'قواعد البيانات، التصاريح، الهوية البيومترية، سجلات السكان.',
-        'temp-tag':'النمط الثالث','temp-title':'فضاء الزمن','temp-lead':'الانتظار، التأخير، عدم اليقين، العقوبة الاستباقية.',
-        'int-tag':'النمط الرابع','int-title':'فضاء الحميمة والخصوصية','int-lead':'المنازل، المستشفيات، الحياة الأسرية.',
-        'cin-tag':'النمط الخامس','cin-title':'فضاء السينما','cin-lead':'كيف تعيد الكاميرا إنتاج منطق المراقبة.',
-        'key-concepts':'المفاهيم الرئيسية',
-        'matrix-heading':'فضاء المراقبة: مصفوفة مقارنة',
-        'matrix-lead':'كيف يعمل كل نمط، والاستراتيجيات السينمائية التي تتعامل معه.',
-        'th-type':'النمط','th-sites':'المواقع / الآليات','th-mode':'أسلوب التحكم','th-strategy':'الاستراتيجية السينمائية المضادة',
-        'mx-arch':'المعمارية','mx-dig':'الرقمية','mx-temp':'الزمنية','mx-int':'الحميمة / المنزلية','mx-cin':'السينمائية'
-      }
-    };
-
-    // Apply preferred language on load
-    (function() {
-      var lang = localStorage.getItem('preferredLang') || 'en';
-      document.documentElement.lang = lang;
-      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      window.applyLang(lang);
-    })();
-
-    // Save language preference on toggle
-    document.getElementById('btnEN').addEventListener('click', function() {
-      localStorage.setItem('preferredLang', 'en');
-    });
-    document.getElementById('btnAR').addEventListener('click', function() {
-      localStorage.setItem('preferredLang', 'ar');
-    });
-
-    // What's Not Mapped accordion
-    (function() {
-      var trigger = document.getElementById('wnmTrigger');
-      var panel   = document.getElementById('wnmPanel');
-      if (!trigger || !panel) return;
-
-      trigger.addEventListener('click', function() {
-        var isOpen = panel.classList.contains('open');
-        if (isOpen) {
-          panel.classList.remove('open');
-          trigger.setAttribute('aria-expanded', 'false');
-        } else {
-          panel.classList.add('open');
-          trigger.setAttribute('aria-expanded', 'true');
-          // Smooth scroll to trigger after brief delay so panel height animates in
-          setTimeout(function() {
-            trigger.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 80);
-        }
-      });
-
-      // Close on Escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && panel.classList.contains('open')) {
-          panel.classList.remove('open');
-          trigger.setAttribute('aria-expanded', 'false');
-          trigger.focus();
-        }
-      });
-    })();
-
-    // Scroll to top button
-    var scrollTopBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', function() {
-      scrollTopBtn.style.display = (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) ? 'block' : 'none';
-    });
-    scrollTopBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  
-    // Archive dropdown — click toggle for mobile, hover handles desktop
-    (function() {
-      var trigger = document.querySelector('.nav-dropdown-trigger');
-      var dropdown = document.querySelector('.nav-dropdown');
-      if (!trigger || !dropdown) return;
-      trigger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var isOpen = dropdown.classList.contains('open');
-        dropdown.classList.toggle('open', !isOpen);
-        trigger.setAttribute('aria-expanded', String(!isOpen));
-      });
-      document.addEventListener('click', function() {
-        dropdown.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          dropdown.classList.remove('open');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      });
-    })();
+    window.PAGE_T = window._T;
   </script>
+  <script src="js/shared.js"></script>
 
   <!-- MOBILE NAV OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">

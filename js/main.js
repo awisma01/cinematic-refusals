@@ -45,3 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initMap();
     loadFilmArchive();
 });
+
+// Shared JavaScript functionality
+// This script can contain functions and code that are shared across different parts of the project
+
+// Example shared function
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+}
