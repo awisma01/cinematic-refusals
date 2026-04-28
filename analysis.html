@@ -1,846 +1,323 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Visual Analysis — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --gold: #e6a93a;
-      --teal: #6fe7c1;
-      --forest: #288366;
-      --dark-forest: #0a2321;
-      --crimson: #b94e3a;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      background: linear-gradient(160deg, #1b3c34 0%, #2a5c4c 30%, #357a5a 60%, #23634c 100%);
-      background-attachment: fixed;
-      color: #e8f5f0;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image: repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px
-      );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* NAV */
-    .topnav {
-      background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
-      padding: 1.2rem 3rem;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-      position: sticky; top: 0; z-index: 1000;
-      overflow: visible;
-    }
-    .topnav .brand {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.3rem; font-weight: 600;
-      color: var(--gold); letter-spacing: 0.5px;
-    }
-    .topnav .menu { display: flex; gap: 0.5rem; overflow: visible; position: relative; }
-    .topnav .menu a {
-      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
-      padding: 0.55rem 1rem; border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
-      text-decoration: none;
-    }
-    .topnav .menu a:hover, .topnav .menu a.active {
-      background: rgba(230,169,58,0.2); color: var(--gold);
-    }
-
-    /* HERO */
-    .page-hero {
-      position: relative;
-      padding: 5rem 2rem 3.5rem;
-      text-align: center;
-      z-index: 1;
-    }
-    .page-hero::after {
-      content: "";
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(40,131,102,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(40,131,102,0.06) 1px, transparent 1px);
-      background-size: 60px 60px;
-      animation: gridDrift 30s linear infinite;
-      z-index: -1;
-    }
-    @keyframes gridDrift {
-      from { background-position: 0 0; }
-      to { background-position: 60px 60px; }
-    }
-    .page-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--teal);
-      opacity: 0.7; margin: 0 0 1.2rem;
-    }
-    .page-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 700; color: #e8f5f0;
-      margin: 0 0 0.5rem; line-height: 1.1;
-      letter-spacing: -0.5px;
-    }
-    .page-title em { color: var(--gold); font-style: italic; }
-    .gold-rule {
-      width: 60px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 1.5rem auto;
-    }
-
-    .page-lead {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; font-style: italic;
-      color: rgba(232,245,240,0.70);
-      max-width: 600px; margin: 0 auto;
-    }
-
-    /* FILTER BAR */
-    .filter-bar {
-      display: flex; flex-wrap: wrap; gap: 0.75rem;
-      justify-content: center;
-      max-width: 900px; margin: 0 auto 3rem;
-      padding: 0 2rem;
-      position: relative; z-index: 1;
-    }
-    .filter-pill {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.78rem; font-weight: 500;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      padding: 0.5rem 1.2rem; border-radius: 30px;
-      border: 1px solid rgba(111,231,193,0.25);
-      color: rgba(232,245,240,0.55);
-      background: transparent;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .filter-pill:hover, .filter-pill.active {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(230,169,58,0.08);
-    }
-
-    /* FILM GRID */
-    .film-grid-outer {
-      max-width: 1200px;
-      margin: 0 auto 5rem;
-      padding: 0 2rem;
-      position: relative; z-index: auto;
-    }
-    .film-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    @media (max-width: 1000px) {
-      .film-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .film-grid { grid-template-columns: 1fr; }
-    }
-
-    /* FILM CARD */
-    .film-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(111,231,193,0.1);
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-      cursor: default;
-    }
-    .film-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(230,169,58,0.35);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
-      background: rgba(255,255,255,0.05);
-    }
-    .film-card-img {
-      width: 100%; height: 200px;
-      object-fit: contain;
-      object-position: center;
-      background: rgba(0,0,0,0.3);
-      display: block;
-    }
-    .film-card-body {
-      padding: 1.5rem;
-      display: flex; flex-direction: column; flex: 1;
-    }
-
-    .film-card-badge {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem; letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #f0b84a;
-      margin: 0 0 0.75rem;
-    }
-
-    .film-card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem; font-weight: 700;
-      color: #e8f5f0; margin: 0 0 0.4rem;
-    }
-
-    .film-card-meta {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem; font-weight: 300;
-      color: rgba(232,245,240,0.70);
-      margin: 0 0 1rem;
-    }
-
-    .film-card-coverage {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem; font-style: italic;
-      color: rgba(232,245,240,0.72);
-      margin: 0 0 1.5rem;
-    }
-
-    .film-card-btn {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.78rem; font-weight: 500;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 0.65rem 1.2rem;
-      border-radius: 6px;
-      border: 1px solid rgba(111,231,193,0.25);
-      background: transparent; color: var(--teal);
-      cursor: pointer;
-      transition: all 0.25s ease;
-      margin-top: auto;
-      align-self: flex-start;
-    }
-    .film-card-btn:hover {
-      background: rgba(230,169,58,0.12);
-      border-color: var(--gold); color: var(--gold);
-    }
-
-    /* CAROUSEL */
-    .carousel-responsive { max-width: 700px; margin: 0 auto 1.2rem; }
-    .carousel-responsive .carousel-track { width: 100%; }
-    .carousel-responsive .carousel-item {
-      width: 100%; max-height: 400px; min-height: 220px;
-      object-fit: contain; background: #000;
-      display: none; border-radius: 10px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-    }
-    .carousel-responsive .carousel-item.active { display: block; }
-    .carousel-responsive .carousel-controls { text-align: center; margin-top: 0.5rem; }
-    .carousel-responsive .carousel-dot {
-      font-size: 1.2rem; cursor: pointer;
-      margin: 0 0.18em; transition: color 0.2s;
-    }
-    @media (max-width: 800px) {
-      .modal { max-width: 98vw !important; }
-      .carousel-responsive { max-width: 98vw; }
-      .carousel-responsive .carousel-item { max-height: 240px; }
-    }
-
-    /* MODAL */
-    .modal-backdrop {
-      position: fixed; inset: 0;
-      background: rgba(5,20,18,0.85);
-      display: none; z-index: 2000;
-      align-items: center; justify-content: center;
-      padding: 1.5rem;
-    }
-    .modal-backdrop.open { display: flex; }
-    .modal {
-      max-width: 600px; width: 95%;
-      background: #0d2420;
-      border-radius: 20px;
-      color: #e8f5f0;
-      max-height: 85vh;
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      box-shadow:
-        0 0 0 1px rgba(230,169,58,0.25),
-        0 30px 70px rgba(0,0,0,0.55),
-        0 8px 20px rgba(0,0,0,0.3);
-      animation: modalPopIn 0.35s cubic-bezier(.34,1.56,.64,1);
-    }
-    @keyframes modalPopIn {
-      from { opacity: 0; transform: scale(0.88) translateY(32px); }
-      to   { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .modal-header {
-      padding: 1.6rem 1.8rem 1.3rem;
-      display: flex; justify-content: space-between; align-items: flex-start;
-      flex-shrink: 0;
-      background: linear-gradient(120deg, #0a2321 0%, #1a4a38 60%, #0f3328 100%);
-      position: relative; overflow: hidden;
-    }
-    .modal-header::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(111,231,193,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(111,231,193,0.07) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-    .modal-header::after {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--gold), #f0c060, var(--gold));
-    }
-    .modal-header-text { position: relative; z-index: 1; flex: 1; }
-    .modal-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem; font-weight: 300;
-      letter-spacing: 0.35em; text-transform: uppercase;
-      color: var(--teal); opacity: 0.7;
-      margin: 0 0 0.5rem; display: block;
-    }
-    .modal h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.55rem; color: #ffffff;
-      margin: 0; font-weight: 700; line-height: 1.25;
-    }
-    .modal .close {
-      position: relative; z-index: 1;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.6);
-      font-size: 1rem; cursor: pointer;
-      transition: all 0.22s ease;
-      flex-shrink: 0; margin-left: 1.2rem; margin-top: 0.2rem;
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .modal .close:hover {
-      background: var(--gold); border-color: var(--gold);
-      color: #0a2321; transform: rotate(90deg);
-    }
-    .modal-body {
-      padding: 0; overflow-y: auto; flex: 1;
-      scrollbar-width: thin; scrollbar-color: rgba(111,231,193,0.25) transparent;
-    }
-    .modal-body::-webkit-scrollbar { width: 4px; }
-    .modal-body::-webkit-scrollbar-track { background: transparent; }
-    .modal-body::-webkit-scrollbar-thumb { background: rgba(111,231,193,0.25); border-radius: 2px; }
-    .modal-body p {
-      margin: 0; padding: 1.1rem 1.8rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; line-height: 2;
-      color: rgba(232,245,240,0.9);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .modal-body p:last-child { border-bottom: none; }
-    .modal-body strong {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.68rem; font-weight: 600;
-      letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--teal); display: block; margin-bottom: 0.2rem;
-    }
-    .modal-body ul {
-      margin: 0; padding: 0.8rem 1.8rem 0.8rem 3rem;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      background: rgba(255,255,255,0.03);
-    }
-    .modal-body li {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem; color: rgba(232,245,240,0.88);
-      margin-bottom: 0.4rem; line-height: 1.7;
-    }
-    .modal-body li::marker { color: var(--gold); }
-    .modal-body hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 0; }
-    .modal-body .coming-soon {
-      display: flex; align-items: center; gap: 0.8rem;
-      margin: 1.5rem 1.8rem;
-      padding: 1.1rem 1.4rem;
-      background: rgba(230,169,58,0.08);
-      border: 1px solid rgba(230,169,58,0.3);
-      border-radius: 8px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.82rem; font-weight: 400;
-      letter-spacing: 0.08em; color: rgba(230,169,58,0.85);
-    }
-
-    /* FOOTER */
-    .footer {
-      background: rgba(10,35,33,0.98);
-      color: var(--teal); text-align: center;
-      padding: 2rem; font-family: 'Oswald', sans-serif;
-      font-size: 0.88rem; letter-spacing: 0.1em;
-      position: relative; z-index: auto;
-    }
-
-    #scrollTopBtn {
-      display: none; position: fixed;
-      bottom: 32px; right: 32px; z-index: 99;
-      background: var(--forest); color: #fff;
-      border: none; border-radius: 50%;
-      width: 48px; height: 48px; font-size: 1.5rem;
-      cursor: pointer; transition: background 0.2s, transform 0.2s;
-    }
-    #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
-
-    /* GLOSSARY TOOLTIPS */
-    .gloss-term {
-      border-bottom: 1px dotted rgba(230,169,58,0.6);
-      color: inherit; cursor: help; position: relative;
-      text-decoration: none; transition: border-color 0.2s;
-    }
-    .gloss-term:hover { border-bottom-color: var(--gold); }
-    .gloss-tooltip {
-      position: absolute; bottom: calc(100% + 10px);
-      left: 50%; transform: translateX(-50%);
-      width: 280px; background: #0a1e1b;
-      border: 1px solid rgba(230,169,58,0.3);
-      border-radius: 10px; padding: 1rem 1.1rem;
-      z-index: 9000; opacity: 0; pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      transform: translateX(-50%) translateY(4px);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.55);
-    }
-    .gloss-term:hover .gloss-tooltip,
-    .gloss-term:focus .gloss-tooltip {
-      opacity: 1; pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
-    }
-    .gloss-tooltip::after {
-      content: ''; position: absolute;
-      top: 100%; left: 50%; transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-top-color: rgba(230,169,58,0.3);
-    }
-    .gloss-tooltip-term {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem; font-weight: 700;
-      color: var(--gold); display: block;
-      margin-bottom: 0.4rem; line-height: 1.2;
-    }
-    .gloss-tooltip-def {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.9rem; line-height: 1.7;
-      color: rgba(232,245,240,0.82);
-      display: block; margin-bottom: 0.6rem;
-    }
-    .gloss-tooltip-link {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.65rem; font-weight: 500;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--teal); text-decoration: none; transition: color 0.15s;
-    }
-    .gloss-tooltip-link:hover { color: var(--gold); }
-    @media (max-width: 600px) {
-      .gloss-tooltip { width: 220px; left: 0; transform: none; }
-      .gloss-tooltip::after { left: 20px; }
-      .gloss-term:hover .gloss-tooltip { transform: none; }
-    }
-
-    @media (max-width: 900px) {
-      .topnav { padding: 1rem 1.5rem; }
-      .topnav .menu a { padding: 0.5rem 0.7rem; font-size: 0.82rem; }
-      .film-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-    }
-    @media (max-width: 600px) {
-      .film-grid { grid-template-columns: 1fr; }
-      .page-hero { padding: 3.5rem 1rem 2.5rem; }
-    }
-
-    /* NAV DROPDOWN */
-    .nav-dropdown { position: relative; display: inline-block; }
-    .nav-dropdown-trigger {
-      color: #eaf7f2; font-size: 0.9rem; font-weight: 500;
-      padding: 0.55rem 1rem; border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'Oswald', sans-serif; letter-spacing: 0.3px;
-      text-decoration: none; background: none; border: none;
-      display: flex; align-items: center; gap: 0.35rem;
-      cursor: pointer; white-space: nowrap;
-    }
-    .nav-dropdown-trigger:hover, .nav-dropdown-trigger.active {
-      background: rgba(230,169,58,0.2); color: var(--gold);
-    }
-    .nav-dropdown-arrow {
-      font-size: 0.65rem; opacity: 0.7;
-      transition: transform 0.25s ease; display: inline-block;
-    }
-    .nav-dropdown.open .nav-dropdown-arrow,
-    .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(180deg); }
-    .nav-dropdown-menu {
-      position: absolute; top: calc(100% + 8px); right: 0;
-      min-width: 260px; background: rgba(8,28,26,0.98);
-      border: 1px solid rgba(230,169,58,0.25); border-radius: 12px;
-      padding: 0.5rem; opacity: 0; pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.22s ease, transform 0.22s ease;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.55); z-index: 9999;
-    }
-    .nav-dropdown.open .nav-dropdown-menu,
-    .nav-dropdown:hover .nav-dropdown-menu {
-      opacity: 1; pointer-events: auto; transform: translateY(0);
-    }
-    .nav-dropdown-item {
-      display: flex; flex-direction: column; gap: 0.22rem;
-      padding: 0.8rem 1rem; border-radius: 8px;
-      text-decoration: none; transition: background 0.18s ease;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .nav-dropdown-item:last-child { border-bottom: none; }
-    .nav-dropdown-item:hover, .nav-dropdown-item.active { background: rgba(230,169,58,0.1); }
-    .nav-dropdown-item-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.88rem; font-weight: 500;
-      letter-spacing: 0.05em; color: #e8f5f0;
-    }
-    .nav-dropdown-item.active .nav-dropdown-item-title { color: var(--gold); }
-    .nav-dropdown-item-desc {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.67rem; font-weight: 300;
-      color: rgba(232,245,240,0.50); line-height: 1.4;
-    }
-    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
-    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
-  </style>
   <link rel="stylesheet" href="css/mobile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#e6a93a;--teal:#6fe7c1;--forest:#288366;--dark-forest:#0a2321;--crimson:#b94e3a;--nav-h:70px; }
+    html { scroll-behavior:smooth; }
+    body { margin:0;background:linear-gradient(160deg,#1b3c34 0%,#2a5c4c 30%,#357a5a 60%,#23634c 100%);background-attachment:fixed;color:#e8f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden; }
+    html[lang="ar"] body { font-family:'Amiri','Cormorant Garamond',Georgia,serif; }
+    body::before { content:"";position:fixed;top:0;left:0;width:100%;height:100%;background-image:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,180,0.012) 3px,rgba(0,255,180,0.012) 4px);pointer-events:none;z-index:0; }
+    .topnav { background:linear-gradient(180deg,rgba(10,35,33,0.98) 0%,rgba(10,35,33,0.95) 100%);padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,0.3);position:sticky;top:0;z-index:1000;overflow:visible;direction:ltr!important; }
+    .topnav .brand { font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;color:var(--gold);letter-spacing:0.5px; }
+    .topnav .menu { display:flex;gap:0.5rem;overflow:visible;position:relative; }
+    .topnav .menu a { color:#eaf7f2;font-size:0.9rem;font-weight:500;padding:0.55rem 1rem;border-radius:6px;transition:all 0.3s;font-family:'Oswald',sans-serif;letter-spacing:0.3px;text-decoration:none; }
+    .topnav .menu a:hover,.topnav .menu a.active { background:rgba(230,169,58,0.2);color:var(--gold); }
+    .nav-dropdown { position:relative;display:inline-block; }
+    .nav-dropdown-trigger { color:#eaf7f2;font-size:0.9rem;font-weight:500;padding:0.55rem 1rem;border-radius:6px;transition:all 0.3s;font-family:'Oswald',sans-serif;letter-spacing:0.3px;background:none;border:none;display:flex;align-items:center;gap:0.35rem;cursor:pointer;white-space:nowrap; }
+    .nav-dropdown-trigger:hover,.nav-dropdown-trigger.active { background:rgba(230,169,58,0.2);color:var(--gold); }
+    .nav-dropdown-arrow { font-size:0.65rem;opacity:0.7;transition:transform 0.25s;display:inline-block; }
+    .nav-dropdown.open .nav-dropdown-arrow,.nav-dropdown:hover .nav-dropdown-arrow { transform:rotate(180deg); }
+    .nav-dropdown-menu { position:absolute;top:calc(100% + 8px);right:0;min-width:260px;background:rgba(8,28,26,0.98);border:1px solid rgba(230,169,58,0.25);border-radius:12px;padding:0.5rem;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 0.22s,transform 0.22s;box-shadow:0 16px 48px rgba(0,0,0,0.55);z-index:9999; }
+    .nav-dropdown.open .nav-dropdown-menu,.nav-dropdown:hover .nav-dropdown-menu { opacity:1;pointer-events:auto;transform:translateY(0); }
+    .nav-dropdown-item { display:flex;flex-direction:column;gap:0.22rem;padding:0.8rem 1rem;border-radius:8px;text-decoration:none;transition:background 0.18s;border-bottom:1px solid rgba(255,255,255,0.05); }
+    .nav-dropdown-item:last-child { border-bottom:none; }
+    .nav-dropdown-item:hover,.nav-dropdown-item.active { background:rgba(230,169,58,0.1); }
+    .nav-dropdown-item-title { font-family:'Oswald',sans-serif;font-size:0.88rem;font-weight:500;letter-spacing:0.05em;color:#e8f5f0; }
+    .nav-dropdown-item.active .nav-dropdown-item-title { color:var(--gold); }
+    .nav-dropdown-item-desc { font-family:'IBM Plex Mono',monospace;font-size:0.67rem;font-weight:300;color:rgba(232,245,240,0.5);line-height:1.4; }
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color:var(--gold); }
+    .nav-dropdown-item:hover .nav-dropdown-item-desc { color:rgba(232,245,240,0.7); }
+    /* LANG TOGGLE */
+    /* HERO */
+    .page-hero { position:relative;padding:5rem 2rem 3.5rem;text-align:center;z-index:1; }
+    .page-hero::after { content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(40,131,102,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(40,131,102,0.06) 1px,transparent 1px);background-size:60px 60px;animation:gridDrift 30s linear infinite;z-index:-1; }
+    @keyframes gridDrift { from{background-position:0 0}to{background-position:60px 60px} }
+    .page-eyebrow { font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);opacity:0.7;margin:0 0 1.2rem; }
+    .page-title { font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;color:#e8f5f0;margin:0 0 0.5rem;line-height:1.1;letter-spacing:-0.5px; }
+    html[lang="ar"] .page-title { font-family:'Amiri',serif; }
+    .page-title em { color:var(--gold);font-style:italic; }
+    .gold-rule { width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.5rem auto; }
+    .page-lead { font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:rgba(232,245,240,0.70);max-width:600px;margin:0 auto; }
+    html[lang="ar"] .page-lead { font-family:'Amiri',serif;font-size:1.25rem; }
+    /* FILTER BAR */
+    .filter-bar { display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;max-width:900px;margin:0 auto 3rem;padding:0 2rem;position:relative;z-index:1; }
+    .filter-pill { font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.5rem 1.2rem;border-radius:30px;border:1px solid rgba(111,231,193,0.25);color:rgba(232,245,240,0.55);background:transparent;cursor:pointer;transition:all 0.25s; }
+    html[lang="ar"] .filter-pill { font-family:'Amiri',serif;letter-spacing:0;text-transform:none;font-size:1rem; }
+    .filter-pill:hover,.filter-pill.active { border-color:var(--gold);color:var(--gold);background:rgba(230,169,58,0.08); }
+    /* FILM GRID */
+    .film-grid-outer { max-width:1200px;margin:0 auto 5rem;padding:0 2rem;position:relative;z-index:auto; }
+    .film-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem; }
+    @media(max-width:1000px) { .film-grid{grid-template-columns:repeat(2,1fr);} }
+    .film-card { background:rgba(255,255,255,0.03);border:1px solid rgba(111,231,193,0.1);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:all 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .film-card:hover { transform:translateY(-6px);border-color:rgba(230,169,58,0.35);box-shadow:0 12px 40px rgba(0,0,0,0.35);background:rgba(255,255,255,0.05); }
+    .film-card-img { width:100%;height:200px;object-fit:contain;object-position:center;background:rgba(0,0,0,0.3);display:block; }
+    .film-card-body { padding:1.5rem;display:flex;flex-direction:column;flex:1; }
+    .film-card-badge { font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#f0b84a;margin:0 0 0.75rem; }
+    .film-card-title { font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#e8f5f0;margin:0 0 0.4rem; }
+    html[lang="ar"] .film-card-title { font-family:'Amiri',serif; }
+    .film-card-meta { font-family:'IBM Plex Mono',monospace;font-size:0.75rem;font-weight:300;color:rgba(232,245,240,0.70);margin:0 0 1rem; }
+    .film-card-coverage { font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:rgba(232,245,240,0.72);margin:0 0 1.5rem; }
+    html[lang="ar"] .film-card-coverage { font-family:'Amiri',serif; }
+    .film-card-btn { font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;padding:0.65rem 1.2rem;border-radius:6px;border:1px solid rgba(111,231,193,0.25);background:transparent;color:var(--teal);cursor:pointer;transition:all 0.25s;margin-top:auto;align-self:flex-start; }
+    html[lang="ar"] .film-card-btn { font-family:'Amiri',serif;letter-spacing:0;text-transform:none;font-size:1rem; }
+    .film-card-btn:hover { background:rgba(230,169,58,0.12);border-color:var(--gold);color:var(--gold); }
+    /* CAROUSEL */
+    .carousel-responsive { max-width:700px;margin:0 auto 1.2rem; }
+    .carousel-responsive .carousel-item { width:100%;max-height:400px;min-height:220px;object-fit:contain;background:#000;display:none;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,0.25); }
+    .carousel-responsive .carousel-item.active { display:block; }
+    .carousel-responsive .carousel-controls { text-align:center;margin-top:0.5rem; }
+    .carousel-responsive .carousel-dot { font-size:1.2rem;cursor:pointer;margin:0 0.18em;transition:color 0.2s; }
+    /* MODAL */
+    .modal-backdrop { position:fixed;inset:0;background:rgba(5,20,18,0.85);display:none;z-index:2000;align-items:center;justify-content:center;padding:1.5rem; }
+    .modal-backdrop.open { display:flex; }
+    .modal { max-width:600px;width:95%;background:#0d2420;border-radius:20px;color:#e8f5f0;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(230,169,58,0.25),0 30px 70px rgba(0,0,0,0.55);animation:modalPopIn 0.35s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes modalPopIn { from{opacity:0;transform:scale(0.88) translateY(32px)}to{opacity:1;transform:scale(1) translateY(0)} }
+    .modal-header { padding:1.6rem 1.8rem 1.3rem;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;background:linear-gradient(120deg,#0a2321 0%,#1a4a38 60%,#0f3328 100%);position:relative;overflow:hidden; }
+    .modal-header::before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(111,231,193,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(111,231,193,0.07) 1px,transparent 1px);background-size:28px 28px;pointer-events:none; }
+    .modal-header::after { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),#f0c060,var(--gold)); }
+    .modal-header-text { position:relative;z-index:1;flex:1; }
+    .modal-eyebrow { font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);opacity:0.7;margin:0 0 0.5rem;display:block; }
+    .modal h3 { font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:#fff;margin:0;font-weight:700;line-height:1.25; }
+    html[lang="ar"] .modal h3 { font-family:'Amiri',serif; }
+    .modal .close { position:relative;z-index:1;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:1rem;cursor:pointer;transition:all 0.22s;flex-shrink:0;margin-left:1.2rem;margin-top:0.2rem;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center; }
+    .modal .close:hover { background:var(--gold);border-color:var(--gold);color:#0a2321;transform:rotate(90deg); }
+    .modal-body { padding:0;overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.25) transparent; }
+    .modal-body p { margin:0;padding:1.1rem 1.8rem;font-family:'Cormorant Garamond',serif;font-size:1.2rem;line-height:2;color:rgba(232,245,240,0.9);border-bottom:1px solid rgba(255,255,255,0.07); }
+    html[lang="ar"] .modal-body p { font-family:'Amiri',serif;font-size:1.25rem; }
+    .modal-body p:last-child { border-bottom:none; }
+    .modal-body strong { font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.2rem; }
+    html[lang="ar"] .modal-body strong { font-family:'Amiri',serif;letter-spacing:0;text-transform:none;font-size:0.95rem; }
+    .modal-body ul { margin:0;padding:0.8rem 1.8rem 0.8rem 3rem;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03); }
+    html[dir="rtl"] .modal-body ul { padding:0.8rem 3rem 0.8rem 1.8rem; }
+    .modal-body li { font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(232,245,240,0.88);margin-bottom:0.4rem;line-height:1.7; }
+    html[lang="ar"] .modal-body li { font-family:'Amiri',serif;font-size:1.15rem; }
+    .modal-body li::marker { color:var(--gold); }
+    .modal-body .coming-soon { display:flex;align-items:center;gap:0.8rem;margin:1.5rem 1.8rem;padding:1.1rem 1.4rem;background:rgba(230,169,58,0.08);border:1px solid rgba(230,169,58,0.3);border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;font-weight:400;letter-spacing:0.08em;color:rgba(230,169,58,0.85); }
+    /* FOOTER */
+    .footer { background:rgba(10,35,33,0.98);color:var(--teal);text-align:center;padding:2rem;font-family:'Oswald',sans-serif;font-size:0.88rem;letter-spacing:0.1em; }
+    #scrollTopBtn { display:none;position:fixed;bottom:32px;right:32px;z-index:99;background:var(--forest);color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.5rem;cursor:pointer;transition:background 0.2s,transform 0.2s; }
+    #scrollTopBtn:hover { background:var(--gold);transform:translateY(-4px); }
+    @media(max-width:600px) { .film-grid{grid-template-columns:1fr;} .page-hero{padding:3.5rem 1rem 2.5rem;} .modal{border-radius:12px;} .modal-backdrop{padding:0.75rem;} }
+  </style>
 </head>
 <body>
   <nav class="topnav" aria-label="Main navigation">
-    <a href="index.html" class="brand">Cinematic Counter&#8209;Cartographies</a>
+    <a href="index.html" class="brand" data-t="brand">Cinematic Counter&#8209;Cartographies</a>
     <div class="menu">
-      <a href="index.html">Home</a>
-      <a href="map.html">Map</a>
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" data-t="nav-archive">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
-          <a href="analysis.html" class="nav-dropdown-item active">
-            <span class="nav-dropdown-item-title">Visual Analysis</span>
-            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
-          </a>
-          <a href="surveillance-space.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Surveillance Space</span>
-            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
-          </a>
-          <a href="not-mapped.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">What's Not Mapped</span>
-            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
-          </a>
-          <a href="glossary.html" class="nav-dropdown-item">
-            <span class="nav-dropdown-item-title">Glossary</span>
-            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
-          </a>
+          <a href="analysis.html" class="nav-dropdown-item active"><span class="nav-dropdown-item-title" data-t="nav-analysis">Visual Analysis</span><span class="nav-dropdown-item-desc" data-t="nav-analysis-desc">Film-by-film formal and spatial readings</span></a>
+          <a href="surveillance-space.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-surveillance">Surveillance Space</span><span class="nav-dropdown-item-desc" data-t="nav-surveillance-desc">Five typologies of occupation beyond the checkpoint</span></a>
+          <a href="not-mapped.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-notmapped">What's Not Mapped</span><span class="nav-dropdown-item-desc" data-t="nav-notmapped-desc">Omission, gaps, and the politics of refusal</span></a>
+          <a href="glossary.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-glossary">Glossary</span><span class="nav-dropdown-item-desc" data-t="nav-glossary-desc">Key terms and theoretical concepts</span></a>
         </div>
       </div>
-      <a href="about.html">About</a>
+      <a href="about.html" data-t="nav-about">About</a>
     </div>
-    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
-
   <main>
-    <button id="translateBtn" style="position: absolute; top: 1.5rem; right: 2.5rem; z-index: 1200; background: var(--teal); color: #0a2321; border: none; border-radius: 8px; padding: 0.5rem 1.2rem; font-family: 'Oswald', sans-serif; font-size: 0.92rem; font-weight: 500; letter-spacing: 0.08em; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.10); transition: background 0.2s;">
-      Translate
-    </button>
-
     <section class="page-hero">
-      <p class="page-eyebrow">Film Archive</p>
-      <h1 class="page-title">Visual <em>Analysis</em></h1>
+      <p class="page-eyebrow" data-t="eyebrow">Film Archive</p>
+      <h1 class="page-title" data-t="page-title">Visual <em>Analysis</em></h1>
       <div class="gold-rule"></div>
-      <p class="page-lead">Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.</p>
+      <p class="page-lead" data-t="page-lead">Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.</p>
     </section>
 
-    <nav aria-label="Breadcrumb" role="navigation" style="max-width:960px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;">
+    <nav aria-label="Breadcrumb" style="max-width:960px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;">
       <ol style="list-style:none;display:flex;gap:0.5em;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:rgba(232,245,240,0.4);padding:0;margin:0;align-items:center;">
-        <li><a href="index.html" style="color:var(--teal);text-decoration:none;transition:color 0.2s;">Home</a></li>
+        <li><a href="index.html" style="color:var(--teal);text-decoration:none;" data-t="nav-home">Home</a></li>
         <li style="margin:0 0.3em;opacity:0.4;">/</li>
-        <li aria-current="page" style="color:rgba(232,245,240,0.75);">Visual Analysis</li>
+        <li aria-current="page" style="color:rgba(232,245,240,0.75);" data-t="nav-analysis">Visual Analysis</li>
       </ol>
     </nav>
 
-    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.25);margin:0 0 0.5rem;position:relative;z-index:1;">Single click to filter &middot; Double click any pill to reset</p>
-    <nav class="filter-bar" aria-label="Filter films by director">
-      <button class="filter-pill active">All Films</button>
+    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.25);margin:0 0 0.5rem;position:relative;z-index:1;" data-t="filter-hint">Single click to filter · Double click any pill to reset</p>
+    <nav class="filter-bar" aria-label="Filter films">
+      <button class="filter-pill active" data-t="filter-all">All Films</button>
       <button class="filter-pill">Annemarie Jacir</button>
       <button class="filter-pill">Mai Masri</button>
       <button class="filter-pill">Farah Nablusi</button>
-      <button class="filter-pill">Other Directors</button>
+      <button class="filter-pill" data-t="filter-other">Other Directors</button>
     </nav>
 
     <div class="film-grid-outer">
       <div class="film-grid">
 
-        <!-- ═══ Salt of This Sea ═══ -->
+        <!-- Salt of This Sea -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/salt.jpg">
-                <source src="assets/videos/saltvideo.mp4" type="video/mp4">
-              </video>
-              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;">
-                <source src="assets/videos/saltvideo2.mp4" type="video/mp4">
-              </video>
-              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;">
-                <source src="assets/videos/saltvideo3.mp4" type="video/mp4">
-              </video>
+              <video class="carousel-item active film-card-img" controls poster="assets/images/salt.jpg"><source src="assets/videos/saltvideo.mp4" type="video/mp4"></video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;"><source src="assets/videos/saltvideo2.mp4" type="video/mp4"></video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;"><source src="assets/videos/saltvideo3.mp4" type="video/mp4"></video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
-                <span class="carousel-dot" style="color:#888;">&#9679;</span>
-                <span class="carousel-dot" style="color:#888;">&#9679;</span>
-              </span>
+              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span></span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
           </div>
           <div class="film-card-body">
             <p class="film-card-badge">Annemarie Jacir</p>
-            <h3 class="film-card-title">Salt of This Sea</h3>
+            <h3 class="film-card-title" data-t="film1-title">Salt of This Sea</h3>
             <p class="film-card-meta">2008</p>
-            <p class="film-card-coverage">Coverage: 2 of 4 checkpoints</p>
-            <button class="film-card-btn"
-              data-popup-title="Salt of This Sea — Analysis"
-              data-popup="<div class='carousel-responsive carousel'><div class='carousel-track'><video class='carousel-item active' controls poster='assets/images/salt.jpg'><source src='assets/videos/saltvideo.mp4' type='video/mp4'>Your browser does not support the video tag.</video><video class='carousel-item' controls poster='assets/images/salt.jpg'><source src='assets/videos/saltvideo2.mp4' type='video/mp4'>Your browser does not support the video tag.</video><video class='carousel-item' controls poster='assets/images/salt.jpg'><source src='assets/videos/saltvideo3.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div><div class='carousel-controls'><button type='button' class='carousel-prev' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;' aria-label='Previous'>&#8592;</button><span class='carousel-indicators'><span class='carousel-dot' style='color:#e6a93a;'>&#9679;</span><span class='carousel-dot' style='color:#888;'>&#9679;</span><span class='carousel-dot' style='color:#888;'>&#9679;</span></span><button type='button' class='carousel-next' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;' aria-label='Next'>&#8594;</button></div></div><p><strong>Salt of This Sea / Annemarie Jacir / 2008</strong></p><p><em>Checkpoint Coverage: 2 of 4</em></p><p>Annemarie Jacir's <em>Salt of This Sea</em> broadens the checkpoint film frame by extending into the entire West Bank landscape rather than isolating a single barrier. The film revolves around Soraya, a Palestinian-American visitor, and Emad, whose movement is restricted by his West Bank ID — making the mobility hierarchy Julie Peteet theorizes immediately visible.</p><p>Jacir's counter-cartography argument emerges in her road sequences. She films the West Bank as both beautiful and militarized without resolving that tension. The camera moves across hills, olive groves, and settlement roads in a way that refuses the military map's flattening of Palestinian geography into security zones. The mobility asymmetry between Soraya's American passport and Emad's West Bank ID becomes the film's central spatial argument — they occupy the same frame but move through fundamentally different versions of the same space.</p><p><em>Checkpoints featured: Qalandiya, Rachel/Bethlehem</em><br><em>Related analysis: The Present, When I Saw You</em></p>">Details</button>
+            <p class="film-card-coverage" data-t="film1-cov">Coverage: 2 of 4 checkpoints</p>
+            <button class="film-card-btn" data-popup-title-en="Salt of This Sea — Analysis" data-popup-title-ar="ملح هذا البحر — تحليل" data-popup-en="<p><strong>Salt of This Sea / Annemarie Jacir / 2008</strong></p><p><em>Checkpoint Coverage: 2 of 4</em></p><p>Annemarie Jacir's <em>Salt of This Sea</em> broadens the checkpoint film frame by extending into the entire West Bank landscape. The film revolves around Soraya, a Palestinian-American, and Emad, whose movement is restricted by his West Bank ID — making the mobility hierarchy immediately visible.</p><p>Jacir films the West Bank as both beautiful and militarized without resolving that tension. The camera moves across hills, olive groves, and settlement roads in a way that refuses the military map's flattening of Palestinian geography. The mobility asymmetry between Soraya's American passport and Emad's West Bank ID becomes the film's central spatial argument.</p><p><em>Checkpoints: Qalandiya, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>ملح هذا البحر / أنيماري جاسر / ٢٠٠٨</strong></p><p><em>تغطية الحواجز: ٢ من ٤</em></p><p>فيلم جاسر يوسّع إطار أفلام الحواجز إلى المشهد الكامل للضفة الغربية. يدور حول سوريا، فلسطينية أمريكية، وعماد الذي تقيّده بطاقته الهوية من الحركة — ما يُظهِر التسلسل الهرمي للتنقل بشكل مباشر.</p><p>تصوّر جاسر الضفة الغربية جميلةً ومُعسكَرةً في آنٍ واحد دون حل هذا التوتر. التناقض في حرية التنقل بين جواز سفر سوريا الأمريكي وهوية عماد يصبح الحجة المكانية المحورية للفيلم.</p>" data-t="details-btn">Details</button>
           </div>
         </div>
 
-        <!-- ═══ The Present ═══ -->
+        <!-- The Present -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/present.jpg">
-                <source src="assets/videos/presentclip.mp4" type="video/mp4">
-              </video>
+              <video class="carousel-item active film-card-img" controls poster="assets/images/present.jpg"><source src="assets/videos/presentclip.mp4" type="video/mp4"></video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
-              </span>
+              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
           </div>
           <div class="film-card-body">
             <p class="film-card-badge">Farah Nablusi</p>
-            <h3 class="film-card-title">The Present</h3>
+            <h3 class="film-card-title" data-t="film2-title">The Present</h3>
             <p class="film-card-meta">2020</p>
-            <p class="film-card-coverage">Coverage: 3 of 4 checkpoints</p>
-            <button class="film-card-btn"
-              data-popup-title="The Present — Analysis"
-              data-popup="<p><strong>The Present / Farah Nabulsi / 2020</strong></p><p><em>Checkpoint Coverage: 3 of 4</em></p><p>Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day and a single errand: a father and daughter attempting to cross Checkpoint 300 to buy an anniversary gift. The film opens before the crossing begins, with Yusef sleeping on cardboard to secure his place in line — an image that captures carceral time before a word of dialogue has been spoken.</p><p>Nabulsi's visual composition draws on the politics of verticality. Overhead shots render the crowd of waiting men as a managed mass, echoing aerial surveillance logic. Low-angle shots then follow boys scaling the bars to cut the line — small acts of spatial refusal that the camera treats with quiet attention.</p><p>Yusef and Yasmine's persistence — returning to the line, waiting again, refusing to turn back — enacts sumud not as dramatic gesture but as repetition.</p><p><em>Checkpoints featured: Qalandiya, Huwwara, Rachel/Bethlehem</em><br><em>Related analysis: Salt of This Sea, 3000 Nights</em></p>">Details</button>
+            <p class="film-card-coverage" data-t="film2-cov">Coverage: 3 of 4 checkpoints</p>
+            <button class="film-card-btn" data-popup-title-en="The Present — Analysis" data-popup-title-ar="الهدية — تحليل" data-popup-en="<p><strong>The Present / Farah Nabulsi / 2020</strong></p><p><em>Checkpoint Coverage: 3 of 4</em></p><p>Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day: a father and daughter attempting to cross Checkpoint 300 to buy an anniversary gift. The film opens with Yusef sleeping on cardboard to secure his place in line — an image that captures carceral time before a word of dialogue has been spoken.</p><p>Nabulsi's visual composition draws on the politics of verticality. Overhead shots render the crowd of waiting men as a managed mass. Low-angle shots follow boys scaling the bars to cut the line — small acts of spatial refusal the camera treats with quiet attention.</p><p><em>Checkpoints: Qalandiya, Huwwara, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>الهدية / فرح نابلسي / ٢٠٢٠</strong></p><p><em>تغطية الحواجز: ٣ من ٤</em></p><p>يضغط فيلم نابلسي المنطق المكاني للاحتلال في يوم واحد: أب وابنته يحاولان عبور حاجز ٣٠٠ لشراء هدية ذكرى زواج. يفتح الفيلم على يوسف نائماً على كرتون ليحجز مكانه في الطابور — صورة تلتقط الزمن السجني قبل أي حوار.</p><p>تقطات من الأعلى تصوّر حشد الرجال المنتظرين كحشد مُدار. زوايا منخفضة ترصد صبيةً يتسلقون الأسوار لتخطي الطابور — أفعال مقاومة مكانية صغيرة ترصدها الكاميرا باهتمام صامت.</p>" data-t="details-btn">Details</button>
           </div>
         </div>
 
-        <!-- ═══ When I Saw You ═══ -->
+        <!-- When I Saw You -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/when.jpeg">
-                <source src="assets/videos/whenclip.mp4" type="video/mp4">
-              </video>
+              <video class="carousel-item active film-card-img" controls poster="assets/images/when.jpeg"><source src="assets/videos/whenclip.mp4" type="video/mp4"></video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
-              </span>
+              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
           </div>
           <div class="film-card-body">
             <p class="film-card-badge">Annemarie Jacir</p>
-            <h3 class="film-card-title">When I Saw You</h3>
+            <h3 class="film-card-title" data-t="film3-title">When I Saw You</h3>
             <p class="film-card-meta">2012</p>
-            <p class="film-card-coverage">Coverage: 1 of 4 checkpoints</p>
-            <button class="film-card-btn"
-              data-popup-title="When I Saw You — Analysis"
-              data-popup="<p><strong>When I Saw You / Annemarie Jacir / 2012</strong></p><p><em>Checkpoint Coverage: 1 of 4</em></p><p><em>When I Saw You</em> is the archive's most spatially displaced film, set in a Jordanian refugee camp in 1967 and treating Palestine as something across a border — imagined, longed for, calculated toward. Jacir refuses to frame the camp as temporary or liminal. It is a lived world with its own social fabric, routines, and forms of knowledge. That refusal is itself a counter-cartographic move.</p><p>The checkpoint in this film functions differently than in Nabulsi or Jacir's own <em>Salt of This Sea</em>. It appears not as daily obstacle but as horizon and limit — the thing that stands between Tarek and the Palestine he has never seen but completely believes in.</p><p>Jacir ends the film without resolution. We do not see whether Tarek crosses. The camera stays with uncertainty. That unresolved ending enacts the film's argument about sumud: endurance is not the same as arrival.</p><p><em>Checkpoints featured: Jordanian border crossing, Rachel/Bethlehem context</em><br><em>Related analysis: Salt of This Sea, Against the Loveless World</em></p>">Details</button>
+            <p class="film-card-coverage" data-t="film3-cov">Coverage: 1 of 4 checkpoints</p>
+            <button class="film-card-btn" data-popup-title-en="When I Saw You — Analysis" data-popup-title-ar="لما شفتك — تحليل" data-popup-en="<p><strong>When I Saw You / Annemarie Jacir / 2012</strong></p><p><em>Checkpoint Coverage: 1 of 4</em></p><p><em>When I Saw You</em> is set in a Jordanian refugee camp in 1967 and treats Palestine as something across a border — imagined, longed for. Jacir refuses to frame the camp as temporary. It is a lived world with its own social fabric and forms of knowledge.</p><p>Jacir ends without resolution. We do not see whether Tarek crosses. The camera stays with uncertainty. That unresolved ending enacts the film's argument about sumud: endurance is not the same as arrival.</p>" data-popup-ar="<p><strong>لما شفتك / أنيماري جاسر / ٢٠١٢</strong></p><p><em>تغطية الحواجز: ١ من ٤</em></p><p>الفيلم مُضمَّن في مخيم لاجئين أردني عام ١٩٦٧، ويعامل فلسطين كشيء عبر الحدود — مُتخيَّل ومشتاق إليه. جاسر ترفض تصوير المخيم كمؤقت. إنه عالم مُعاش بنسيجه الاجتماعي الخاص.</p><p>تنتهي جاسر دون حل. لا نرى هل عبر طارق أم لا. الكاميرا تبقى مع الغموض — النهاية المعلّقة تُجسّد حجة الفيلم حول الصمود: التحمّل ليس الوصول.</p>" data-t="details-btn">Details</button>
           </div>
         </div>
 
-        <!-- ═══ 3000 Nights ═══ -->
+        <!-- 3000 Nights -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
             <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/3000_Nights.jpg">
-                <source src="assets/videos/3000nightsclip.mp4" type="video/mp4">
-              </video>
-              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights2.jpg" style="display:none;">
-                <source src="assets/videos/3000nightsclip2.mp4" type="video/mp4">
-              </video>
-              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights3.jpg" style="display:none;">
-                <source src="assets/videos/3000nightsclip3.mp4" type="video/mp4">
-              </video>
+              <video class="carousel-item active film-card-img" controls poster="assets/images/3000_Nights.jpg"><source src="assets/videos/3000nightsclip.mp4" type="video/mp4"></video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights2.jpg" style="display:none;"><source src="assets/videos/3000nightsclip2.mp4" type="video/mp4"></video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights3.jpg" style="display:none;"><source src="assets/videos/3000nightsclip3.mp4" type="video/mp4"></video>
             </div>
             <div class="carousel-controls">
               <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
-                <span class="carousel-dot" style="color:#888;">&#9679;</span>
-                <span class="carousel-dot" style="color:#888;">&#9679;</span>
-              </span>
+              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span></span>
               <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
             </div>
           </div>
           <div class="film-card-body">
             <p class="film-card-badge">Mai Masri</p>
-            <h3 class="film-card-title">3000 Nights</h3>
+            <h3 class="film-card-title" data-t="film4-title">3000 Nights</h3>
             <p class="film-card-meta">2015</p>
-            <p class="film-card-coverage">Coverage: Prison, checkpoints</p>
-            <button class="film-card-btn"
-              data-popup-title="3000 Nights — Analysis"
-              data-popup="<div class='carousel-responsive carousel'><div class='carousel-track'><video class='carousel-item active' controls poster='assets/images/3000_Nights.jpg'><source src='assets/videos/3000nightsclip.mp4' type='video/mp4'>Your browser does not support the video tag.</video><video class='carousel-item' controls poster='assets/images/3000_Nights2.jpg'><source src='assets/videos/3000nightsclip2.mp4' type='video/mp4'>Your browser does not support the video tag.</video><video class='carousel-item' controls poster='assets/images/3000_Nights3.jpg'><source src='assets/videos/3000nightsclip3.mp4' type='video/mp4'>Your browser does not support the video tag.</video></div><div class='carousel-controls'><button type='button' class='carousel-prev' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;' aria-label='Previous'>&#8592;</button><span class='carousel-indicators'><span class='carousel-dot' style='color:#e6a93a;'>&#9679;</span><span class='carousel-dot' style='color:#888;'>&#9679;</span><span class='carousel-dot' style='color:#888;'>&#9679;</span></span><button type='button' class='carousel-next' style='background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;' aria-label='Next'>&#8594;</button></div></div><p><strong>3000 Nights / Mai Masri / 2015</strong></p><p><em>Checkpoint Coverage: Prison, checkpoints</em></p><p>Mai Masri's <em>3000 Nights</em> is set entirely within an Israeli prison, and through Layla's experience shows how imprisonment lands differently on Palestinian women. Her confinement is not only about being locked in a cell but about how the prison targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p><p>The film's most formally concentrated moment is Layla's birth scene. Masri refuses wide shots or any authoritative perspective, locking the camera inside Layla's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands and legs, her face in pain. The absence of music is a deliberate formal refusal to aestheticize the moment.</p><p>Layla's refusal to stop asking to hold her baby is the film's clearest image of sumud: not dramatic, not cinematic, but persistent and embodied, refusing to accept the state's full claim on her body.</p><p><em>Checkpoints featured: Prison environment; checkpoint references</em><br><em>Related analysis: Minor Detail, Bisan Owda documentation</em></p>">Details</button>
+            <p class="film-card-coverage" data-t="film4-cov">Coverage: Prison, checkpoints</p>
+            <button class="film-card-btn" data-popup-title-en="3000 Nights — Analysis" data-popup-title-ar="٣٠٠٠ ليلة — تحليل" data-popup-en="<p><strong>3000 Nights / Mai Masri / 2015</strong></p><p>Set entirely within an Israeli prison, the film shows how imprisonment lands differently on Palestinian women. Her confinement targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p><p>Masri refuses wide shots in the birth scene, locking the camera inside Layla's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands. The absence of music is a deliberate formal refusal to aestheticize the moment.</p><p>Layla's refusal to stop asking to hold her baby is the film's clearest image of sumud: persistent and embodied, refusing the state's full claim on her body.</p>" data-popup-ar="<p><strong>٣٠٠٠ ليلة / مي مصري / ٢٠١٥</strong></p><p>مُضمَّن كاملاً داخل سجن إسرائيلي، يُظهِر الفيلم كيف يقع السجن بشكل مختلف على المرأة الفلسطينية. حبسها يستهدف حملها وجسدها ورغباتها الأمومية كأدوات ضغط نفسي.</p><p>ترفض مصري اللقطات الواسعة في مشهد الولادة، تحبس الكاميرا داخل تجربة ليلى الجسدية: تنفسها، أصوات الأغلال، لقطات مقربة ليدين مكبّلتين. غياب الموسيقى رفض شكلي متعمّد لتجميل اللحظة.</p>" data-t="details-btn">Details</button>
           </div>
         </div>
 
-        <!-- ═══ The Teacher ═══ -->
+        <!-- The Teacher -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
-            <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/teacher.jpeg">
-                <source src="assets/videos/teacherclip.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="carousel-controls">
-              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
-              </span>
-              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
-            </div>
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/teacher.jpeg"><source src="assets/videos/teacherclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
           </div>
           <div class="film-card-body">
             <p class="film-card-badge">Farah Nablusi</p>
-            <h3 class="film-card-title">The Teacher</h3>
+            <h3 class="film-card-title" data-t="film5-title">The Teacher</h3>
             <p class="film-card-meta">2023</p>
-            <p class="film-card-coverage">Coverage: Will add soon</p>
-            <button class="film-card-btn"
-              data-popup-title="The Teacher — Analysis"
-              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="The Teacher — Analysis" data-popup-title-ar="المعلم — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
-        <!-- ═══ Wajib ═══ -->
+        <!-- Wajib -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
-            <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/wajib.jpg">
-                <source src="assets/videos/wajibclip.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="carousel-controls">
-              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
-              </span>
-              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
-            </div>
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/wajib.jpg"><source src="assets/videos/wajibclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
           </div>
           <div class="film-card-body">
             <p class="film-card-badge">Annemarie Jacir</p>
-            <h3 class="film-card-title">Wajib</h3>
+            <h3 class="film-card-title" data-t="film6-title">Wajib</h3>
             <p class="film-card-meta">2017</p>
-            <p class="film-card-coverage">Coverage: Will add soon</p>
-            <button class="film-card-btn"
-              data-popup-title="Wajib — Analysis"
-              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="Wajib — Analysis" data-popup-title-ar="واجب — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
-        <!-- ═══ May in the Summer ═══ -->
+        <!-- May in the Summer -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
-            <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/may.jpg">
-                <source src="assets/videos/mayclip.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="carousel-controls">
-              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
-              </span>
-              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
-            </div>
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/may.jpg"><source src="assets/videos/mayclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
           </div>
           <div class="film-card-body">
             <p class="film-card-badge">Annemarie Jacir</p>
-            <h3 class="film-card-title">May in the Summer</h3>
+            <h3 class="film-card-title" data-t="film7-title">May in the Summer</h3>
             <p class="film-card-meta">2013</p>
-            <p class="film-card-coverage">Coverage: Will add soon</p>
-            <button class="film-card-btn"
-              data-popup-title="May in the Summer — Analysis"
-              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="May in the Summer — Analysis" data-popup-title-ar="مي في الصيف — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
-        <!-- ═══ All That's Left of You ═══ -->
+        <!-- All That's Left of You -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
-            <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/left.jpeg">
-                <source src="assets/videos/leftclip.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="carousel-controls">
-              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
-              </span>
-              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
-            </div>
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/left.jpeg"><source src="assets/videos/leftclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
           </div>
           <div class="film-card-body">
             <p class="film-card-badge">Cherien Dabis</p>
-            <h3 class="film-card-title">All That's Left of You</h3>
+            <h3 class="film-card-title" data-t="film8-title">All That's Left of You</h3>
             <p class="film-card-meta">2025</p>
-            <p class="film-card-coverage">Coverage: Will add soon</p>
-            <button class="film-card-btn"
-              data-popup-title="All That's Left of You — Analysis"
-              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="All That's Left of You — Analysis" data-popup-title-ar="كل ما تبقى منك — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
-        <!-- ═══ Pomegranates and Myrrh ═══ -->
+        <!-- Pomegranates and Myrrh -->
         <div class="film-card">
           <div class="carousel-responsive carousel">
-            <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/pom.jpg">
-                <source src="assets/videos/pomclip.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="carousel-controls">
-              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators">
-                <span class="carousel-dot" style="color:#e6a93a;">&#9679;</span>
-              </span>
-              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
-            </div>
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/pom.jpg"><source src="assets/videos/pomclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
           </div>
           <div class="film-card-body">
             <p class="film-card-badge">Najwa Najjar</p>
-            <h3 class="film-card-title">Pomegranates and Myrrh</h3>
+            <h3 class="film-card-title" data-t="film9-title">Pomegranates and Myrrh</h3>
             <p class="film-card-meta">2008</p>
-            <p class="film-card-coverage">Coverage: Will add soon</p>
-            <button class="film-card-btn"
-              data-popup-title="Pomegranates and Myrrh — Analysis"
-              data-popup="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>">View Analysis</button>
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="Pomegranates and Myrrh — Analysis" data-popup-title-ar="الرمان والمر — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
-      </div><!-- /.film-grid -->
-    </div><!-- /.film-grid-outer -->
+      </div>
+    </div>
   </main>
 
   <!-- MODAL -->
@@ -848,199 +325,163 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-header">
         <div class="modal-header-text">
-          <span class="modal-eyebrow">Film Analysis</span>
+          <span class="modal-eyebrow" data-t="modal-eyebrow">Film Analysis</span>
           <h3 id="modalTitle"></h3>
         </div>
-        <button class="close" aria-label="Close modal"><span aria-hidden="true">&times;</span></button>
+        <button class="close" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
-  <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
-    &copy; 2025&ndash;2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
-    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
-    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
+  <footer class="footer">
+    © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
+    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-privacy">Privacy Policy</a>
+    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-terms">Terms of Use</a>
   </footer>
-  <button id="scrollTopBtn" aria-label="Scroll to top"><span aria-hidden="true">&#8593;</span></button>
+  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
-  <script>
-    window.addEventListener('scroll', () => {
-      document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
-    document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Modal
-    (function () {
-      const backdrop = document.getElementById('filmModal');
-      const titleEl  = document.getElementById('modalTitle');
-      const bodyEl   = document.getElementById('modalBody');
-      const closeBtn = backdrop.querySelector('.close');
-
-      function openModal(title, html) {
-        titleEl.textContent = title;
-        bodyEl.innerHTML = html;
-        backdrop.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeModal() {
-        backdrop.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-      closeBtn.addEventListener('click', closeModal);
-      backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-      document.addEventListener('click', e => {
-        const btn = e.target.closest('[data-popup]');
-        if (!btn) return;
-        openModal(btn.getAttribute('data-popup-title') || 'Analysis', btn.getAttribute('data-popup') || '');
-      });
-    })();
-
-    // Filter pills
-    const directorMap = {
-      'Annemarie Jacir': 'Annemarie Jacir',
-      'Mai Masri': 'Mai Masri',
-      'Farah Nablusi': 'Farah Nablusi',
-      'Other Directors': 'other'
-    };
-    const knownDirectors = ['Annemarie Jacir', 'Mai Masri', 'Farah Nablusi'];
-
-    function filterCards(director) {
-      document.querySelectorAll('.film-card').forEach(card => {
-        const badge = card.querySelector('.film-card-badge').textContent.trim();
-        if (director === 'all') {
-          card.style.display = '';
-        } else if (director === 'other') {
-          card.style.display = !knownDirectors.includes(badge) ? '' : 'none';
-        } else {
-          card.style.display = badge === director ? '' : 'none';
-        }
-      });
-    }
-
-    function resetToAll() {
-      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-      document.querySelector('.filter-pill').classList.add('active');
-      filterCards('all');
-    }
-
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-      let clickTimer = null;
-      pill.addEventListener('click', function () {
-        if (clickTimer) {
-          clearTimeout(clickTimer);
-          clickTimer = null;
-          resetToAll();
-          return;
-        }
-        clickTimer = setTimeout(() => {
-          clickTimer = null;
-          document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-          this.classList.add('active');
-          const label = this.textContent.trim();
-          filterCards(label === 'All Films' ? 'all' : (directorMap[label] || label));
-        }, 220);
-      });
-    });
-
-    // Archive dropdown
-    (function() {
-      var trigger  = document.querySelector('.nav-dropdown-trigger');
-      var dropdown = document.querySelector('.nav-dropdown');
-      if (!trigger || !dropdown) return;
-      trigger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var isOpen = dropdown.classList.contains('open');
-        dropdown.classList.toggle('open', !isOpen);
-        trigger.setAttribute('aria-expanded', String(!isOpen));
-      });
-      document.addEventListener('click', function() {
-        dropdown.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          dropdown.classList.remove('open');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      });
-    })();
-
-    // Shared carousel initialiser — works for both cards and modal
-    function initCarousel(carousel) {
-      var items = carousel.querySelectorAll('.carousel-item');
-      var dots  = carousel.querySelectorAll('.carousel-dot');
-      var prev  = carousel.querySelector('.carousel-prev');
-      var next  = carousel.querySelector('.carousel-next');
-      var idx   = 0;
-      if (!items.length) return;
-
-      function show(i) {
-        items.forEach((el, j) => {
-          el.style.display = j === i ? 'block' : 'none';
-          if (el.tagName === 'VIDEO' && j !== i) { el.pause(); el.currentTime = 0; }
-        });
-        dots.forEach((d, j) => { d.style.color = j === i ? '#e6a93a' : '#888'; });
-        idx = i;
-      }
-      if (prev) prev.onclick = function(ev) { ev.stopPropagation(); show((idx + items.length - 1) % items.length); };
-      if (next) next.onclick = function(ev) { ev.stopPropagation(); show((idx + 1) % items.length); };
-      dots.forEach((d, i) => { d.onclick = function(ev) { ev.stopPropagation(); show(i); }; });
-      show(0);
-    }
-
-    // Init all card-level carousels on page load
-    document.querySelectorAll('.film-card .carousel').forEach(initCarousel);
-
-    // Init carousel inside modal after it opens
-    document.addEventListener('click', function() {
-      setTimeout(function() {
-        var modalBody = document.getElementById('modalBody');
-        if (!modalBody) return;
-        var carousel = modalBody.querySelector('.carousel');
-        if (carousel) initCarousel(carousel);
-      }, 100);
-    });
-
-    // Translation button (placeholder functionality)
-    document.getElementById('translateBtn').onclick = function() {
-      alert('Translation feature coming soon!');
-    };
-  </script>
-
-  <!-- MOBILE NAV OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
     <div class="mobile-nav-header">
-      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
+      <a href="index.html" class="mobile-nav-brand" data-t="brand">Cinematic Counter‑Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
     </div>
     <nav class="mobile-nav-links">
-      <a href="index.html">Home</a>
-      <a href="map.html">Map</a>
-      <span class="mobile-nav-section-label">Archive</span>
-      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
-      <a href="analysis.html" class="archive-item active">Visual Analysis</a>
-      <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
-      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
-      <a href="glossary.html" class="archive-item">Glossary</a>
-      <a href="about.html">About</a>
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
+      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
+      <a href="checkpoints.html" class="archive-item" data-t="nav-checkpoints">Checkpoints</a>
+      <a href="analysis.html" class="archive-item active" data-t="nav-analysis">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item" data-t="nav-notmapped">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
+      <a href="about.html" data-t="nav-about">About</a>
     </nav>
   </div>
 
   <script>
-    (function() {
-      var btn   = document.getElementById('navHamburger');
-      var nav   = document.getElementById('mobileNav');
-      var close = document.getElementById('mobileNavClose');
-      if (!btn || !nav) return;
-      function openNav()  { nav.classList.add('open'); btn.classList.add('open'); btn.setAttribute('aria-expanded','true'); document.body.style.overflow = 'hidden'; }
-      function closeNav() { nav.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
-      btn.addEventListener('click', openNav);
-      if (close) close.addEventListener('click', closeNav);
-      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
-      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
-    })();
+  window.PAGE_T = {
+    en: {
+      'brand': 'Cinematic Counter&#8209;Cartographies',
+      'eyebrow': 'Film Archive', 'page-title': 'Visual <em>Analysis</em>',
+      'page-lead': 'Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.',
+      'filter-hint': 'Single click to filter · Double click any pill to reset',
+      'filter-all': 'All Films', 'filter-other': 'Other Directors',
+      'details-btn': 'Details',
+      'film1-title': 'Salt of This Sea', 'film1-cov': 'Coverage: 2 of 4 checkpoints',
+      'film2-title': 'The Present',      'film2-cov': 'Coverage: 3 of 4 checkpoints',
+      'film3-title': 'When I Saw You',   'film3-cov': 'Coverage: 1 of 4 checkpoints',
+      'film4-title': '3000 Nights',      'film4-cov': 'Coverage: Prison, checkpoints',
+      'film5-title': 'The Teacher',      'film6-title': 'Wajib',
+      'film7-title': 'May in the Summer','film8-title': "All That's Left of You",
+      'film9-title': 'Pomegranates and Myrrh',
+      'coming-soon-cov': 'Coverage: Coming soon',
+      'modal-eyebrow': 'Film Analysis'
+    },
+    ar: {
+      'brand': 'الخرائط السينمائية المضادة',
+      'eyebrow': 'أرشيف الأفلام', 'page-title': 'التحليل <em>البصري</em>',
+      'page-lead': 'قراءات بصرية ومكانية للأفلام الرئيسية، مُعيَّنة عبر الحواجز ومواقع الرفض السينمائي.',
+      'filter-hint': 'نقرة للتصفية · نقرتان على أي زر للإعادة',
+      'filter-all': 'كل الأفلام', 'filter-other': 'مخرجون آخرون',
+      'details-btn': 'تفاصيل',
+      'film1-title': 'ملح هذا البحر',   'film1-cov': 'التغطية: ٢ من ٤ حواجز',
+      'film2-title': 'الهدية',           'film2-cov': 'التغطية: ٣ من ٤ حواجز',
+      'film3-title': 'لما شفتك',         'film3-cov': 'التغطية: ١ من ٤ حواجز',
+      'film4-title': '٣٠٠٠ ليلة',        'film4-cov': 'التغطية: السجن والحواجز',
+      'film5-title': 'المعلم',           'film6-title': 'واجب',
+      'film7-title': 'مي في الصيف',      'film8-title': 'كل ما تبقى منك',
+      'film9-title': 'الرمان والمر',
+      'coming-soon-cov': 'التغطية: قادمة قريباً',
+      'modal-eyebrow': 'تحليل الفيلم'
+    }
+  };
+
+  /* ── CAROUSEL ───────────────────────────────────────────────── */
+  function initCarousel(carousel) {
+    var items = carousel.querySelectorAll('.carousel-item');
+    var dots  = carousel.querySelectorAll('.carousel-dot');
+    var prev  = carousel.querySelector('.carousel-prev');
+    var next  = carousel.querySelector('.carousel-next');
+    var idx   = 0;
+    if (!items.length) return;
+    function show(i) {
+      items.forEach((el,j) => { el.style.display = j===i?'block':'none'; if(el.tagName==='VIDEO'&&j!==i){el.pause();el.currentTime=0;} });
+      dots.forEach((d,j) => { d.style.color = j===i?'#e6a93a':'#888'; });
+      idx = i;
+    }
+    if (prev) prev.onclick = e => { e.stopPropagation(); show((idx+items.length-1)%items.length); };
+    if (next) next.onclick = e => { e.stopPropagation(); show((idx+1)%items.length); };
+    dots.forEach((d,i) => { d.onclick = e => { e.stopPropagation(); show(i); }; });
+    show(0);
+  }
+  document.querySelectorAll('.film-card .carousel').forEach(initCarousel);
+
+  /* ── MODAL ──────────────────────────────────────────────────── */
+  (function() {
+    const backdrop = document.getElementById('filmModal');
+    const titleEl  = document.getElementById('modalTitle');
+    const bodyEl   = document.getElementById('modalBody');
+    const closeBtn = backdrop.querySelector('.close');
+    let currentLang = 'en';
+
+    document.addEventListener('langchange', e => { currentLang = e.detail.lang; });
+
+    function openModal(titleEn, titleAr, htmlEn, htmlAr) {
+      const isAr = currentLang === 'ar';
+      titleEl.textContent = isAr ? (titleAr || titleEn) : titleEn;
+      bodyEl.innerHTML = isAr ? (htmlAr || htmlEn) : htmlEn;
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Init carousel inside modal if any
+      setTimeout(() => { const c = bodyEl.querySelector('.carousel'); if (c) initCarousel(c); }, 100);
+    }
+    function closeModal() { backdrop.classList.remove('open'); document.body.style.overflow = ''; }
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('[data-popup-en]');
+      if (!btn) return;
+      openModal(
+        btn.getAttribute('data-popup-title-en') || 'Analysis',
+        btn.getAttribute('data-popup-title-ar') || '',
+        btn.getAttribute('data-popup-en') || '',
+        btn.getAttribute('data-popup-ar') || ''
+      );
+    });
+  })();
+
+  /* ── FILTER PILLS ───────────────────────────────────────────── */
+  const knownDirectors = ['Annemarie Jacir','Mai Masri','Farah Nablusi'];
+  function filterCards(director) {
+    document.querySelectorAll('.film-card').forEach(card => {
+      const badge = card.querySelector('.film-card-badge').textContent.trim();
+      if (director === 'all') card.style.display = '';
+      else if (director === 'other') card.style.display = !knownDirectors.includes(badge) ? '' : 'none';
+      else card.style.display = badge === director ? '' : 'none';
+    });
+  }
+  function resetToAll() {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    document.querySelector('.filter-pill').classList.add('active');
+    filterCards('all');
+  }
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    let clickTimer = null;
+    pill.addEventListener('click', function() {
+      if (clickTimer) { clearTimeout(clickTimer); clickTimer = null; resetToAll(); return; }
+      clickTimer = setTimeout(() => {
+        clickTimer = null;
+        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        const label = this.textContent.trim();
+        const dirMap = { 'All Films': 'all', 'كل الأفلام': 'all', 'Other Directors': 'other', 'مخرجون آخرون': 'other' };
+        filterCards(dirMap[label] ?? label);
+      }, 220);
+    });
+  });
   </script>
+  <script src="js/shared.js"></script>
 </body>
 </html>
