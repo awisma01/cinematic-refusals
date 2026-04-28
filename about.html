@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --gold: #e6a93a;
@@ -240,6 +240,12 @@
     }
     #scrollTopBtn:hover { background: var(--gold); transform: translateY(-4px); }
 
+
+    @media (max-width: 600px) {
+      .researcher-grid { grid-template-columns: 1fr !important; }
+      .researcher-grid > div:first-child { display: flex; justify-content: center; }
+    }
+
     @media (max-width: 900px) {
       .topnav { padding: 1rem 1.5rem; }
       .topnav .menu a { padding: 0.5rem 0.7rem; font-size: 0.82rem; }
@@ -328,6 +334,39 @@
     .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
 
 
+
+
+    /* NAV LANGUAGE TOGGLE */
+    .nav-lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(111,231,193,0.2);
+      border-radius: 8px;
+      padding: 3px;
+      margin-left: 0.5rem;
+      flex-shrink: 0;
+    }
+    .nav-lang-btn {
+      font-size: 0.78rem; font-weight: 600;
+      padding: 4px 10px; border-radius: 5px;
+      border: none; cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1;
+    }
+    .nav-lang-btn.en-btn { font-family: 'Oswald', sans-serif; letter-spacing: 0.05em; }
+    .nav-lang-btn.ar-btn { font-family: 'Amiri', serif; font-size: 1rem; }
+    .nav-lang-btn.active-lang { background: var(--gold); color: #0a2321; }
+    .nav-lang-btn.inactive-lang { background: transparent; color: rgba(232,245,240,0.45); }
+    .nav-lang-btn:hover:not(.active-lang) { color: rgba(232,245,240,0.8); }
+
+    html[lang="ar"] body { font-family: 'Amiri', 'Cormorant Garamond', Georgia, serif; }
+    html[lang="ar"] .about-card p,
+    html[lang="ar"] .card-title,
+    html[lang="ar"] .rq-list li,
+    html[lang="ar"] .detail-value { font-family: 'Amiri', serif; font-size: 1.15rem; line-height: 2.1; }
+
     /* TERM CARDS (glossary preview on about page) */
     .glossary-outer { display: flex; flex-direction: column; gap: 0.75rem; }
     .term-card {
@@ -365,10 +404,14 @@
     <a href="index.html" class="brand">Cinematic Counter‑Cartographies</a>
     <div class="menu">
       <a href="index.html">Home</a>
-      <a href="Interactive-Map.html">Map</a>
+      <a href="map.html">Map</a>
       <div class="nav-dropdown">
         <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
+          <a href="checkpoints.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Checkpoints</span>
+            <span class="nav-dropdown-item-desc">Four case studies in cinematic resistance</span>
+          </a>
           <a href="analysis.html" class="nav-dropdown-item">
             <span class="nav-dropdown-item-title">Visual Analysis</span>
             <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
@@ -385,9 +428,14 @@
             <span class="nav-dropdown-item-title">Glossary</span>
             <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
           </a>
+
         </div>
       </div>
       <a href="about.html" class="active">About</a>
+    </div>
+    <div class="nav-lang-toggle" aria-label="Language toggle" dir="ltr">
+      <button class="nav-lang-btn en-btn active-lang" id="btnEN" onclick="applyLang('en')" aria-label="Switch to English">EN</button>
+      <button class="nav-lang-btn ar-btn inactive-lang" id="btnAR" onclick="applyLang('ar')" aria-label="Switch to Arabic">ع</button>
     </div>
     <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -396,50 +444,49 @@
 
   <main>
     <section class="page-hero">
-      <p class="page-eyebrow">CHI Fellowship 2025–2026</p>
-      <h1 class="page-title">About the <em>Project</em></h1>
+      <p class="page-eyebrow" data-t="page-eyebrow">CHI Fellowship 2025–2026</p>
+      <h1 class="page-title" data-t="page-title">About the <em>Project</em></h1>
       <div class="gold-rule"></div>
-      <p class="page-lead">A digital humanities research project mapping cinematic resistance in Palestinian women's filmmaking.</p>
+      <p class="page-lead" data-t="page-lead">A digital humanities research project mapping cinematic resistance in Palestinian women's filmmaking.</p>
     </section>
 
     <div class="about-outer">
 
       <!-- PROJECT SUMMARY -->
       <div class="about-card gold-left">
-        <span class="card-eyebrow">Project Summary</span>
-        <h2 class="card-title">Cinematic <em>Counter-Cartographies</em></h2>
-        <p>This project maps how Palestinian women filmmakers, principally Mai Masri, Annemarie Jacir, and Farah Nablusi, create counter-cartographies through their cinematic treatment of Israeli checkpoints and surveillance infrastructure. Drawing on films released between 2000 and 2025, it argues that film and literature function as complementary counter-cartographic methods: while film captures the materiality of carceral space through architecture, movement, framing, and sound design, literature maps what surveillance cannot document—the interior consciousness, embodied memory, and emotional labor that sustain Palestinian life under occupation.</p>
-        <p>Central to the project is the concept of <em>sumud</em>, Palestinian steadfastness and creative persistence, as both a lived philosophy and an analytical framework. The digital archive tracks how sumud operates not as passive endurance but as active spatial, temporal, and cinematic refusal.</p>
-        <p>Methodologically, this is a digital humanities project that combines close formal analysis of film and literary texts with counter-cartographic spatial theory. Each checkpoint functions as a case study: a site that can be mapped geographically, traced across the film archive, and analyzed for how different directors film the same space differently over time. The digital format allows those three registers—geography, archive, and analysis—to exist in conversation rather than in sequence.</p>
+        <span class="card-eyebrow" data-t="summary-eyebrow">Project Summary</span>
+        <h2 class="card-title" data-t="summary-title">Cinematic <em>Counter-Cartographies</em></h2>
+        <p>This project maps how Palestinian women filmmakers — principally Mai Masri, Annemarie Jacir, and Farah Nabulsi — create counter-cartographies through their cinematic treatment of Israeli checkpoints and surveillance infrastructure. Drawing on films released between 2000 and 2025, it argues that film and literature function as complementary counter-cartographic methods: while film captures the materiality of carceral space through architecture, movement, framing, and sound design, literature maps what surveillance cannot document — the interior consciousness, embodied memory, and emotional labor that sustain Palestinian life under occupation.</p>
+        <p>Central to the project is the concept of <em>sumud</em> — Palestinian steadfastness and creative persistence — as both a lived philosophy and an analytical framework. The digital archive tracks how sumud operates not as passive endurance but as active spatial, temporal, and cinematic refusal.</p>
+        <p>Methodologically, this is a digital humanities project that combines close formal analysis of film and literary texts with counter-cartographic spatial theory. Each checkpoint functions as a case study: a site that can be mapped geographically, traced across the film archive, and analyzed for how different directors film the same space differently over time. The digital format allows those three registers — geography, archive, and analysis — to exist in conversation rather than in sequence.</p>
       </div>
+
 
       <!-- THEORETICAL FRAMEWORK -->
       <div class="about-card gold-left">
-        <span class="card-eyebrow">Theoretical Framework</span>
-        <h2 class="card-title">Scholarly <em>Foundations</em></h2>
+        <span class="card-eyebrow" data-t="theory-eyebrow">Theoretical Framework</span>
+        <h2 class="card-title" data-t="theory-title">Scholarly <em>Foundations</em></h2>
 
         <p style="font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);margin:0 0 0.6rem;">Counter-Cartography and the Production of Space</p>
-        <p>Henri Lefebvre's challenge to move beyond static definitions of space, to see it as a contested product of social relations and power, is foundational here. Palestinian artists are not only contesting space but creating new imaginaries and alternative forms of spatial knowledge that surveillance infrastructures cannot capture. De Certeau's complementary formulation that "what the map cuts up, the story cuts across" positions Palestinian film and literature as acts of spatial refusal: by refusing the spatial logics imposed by occupation, these artists narrate space differently, and the act of re-narration becomes a form of political resistance. Eyal Weizman's concept of the "politics of verticality" in <em>Hollow Land</em> extends this framework materially, theorizing how Israeli control operates three-dimensionally through checkpoint infrastructure, settlement patterns, and aerial surveillance.</p>
+        <p>Henri Lefebvre's challenge to move beyond static definitions of space — to see it as a contested product of social relations and power — is foundational here. Palestinian artists are not only contesting space but creating new imaginaries and alternative forms of spatial knowledge that surveillance infrastructures cannot capture. De Certeau's complementary formulation that "what the map cuts up, the story cuts across" positions Palestinian film and literature as acts of spatial refusal: by refusing the spatial logics imposed by occupation, these artists narrate space differently, and the act of re-narration becomes a form of political resistance. Eyal Weizman's concept of the "politics of verticality" in <em>Hollow Land</em> extends this framework materially, theorizing how Israeli control operates three-dimensionally through checkpoint infrastructure, settlement patterns, and aerial surveillance.</p>
 
         <p style="font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);margin:1.2rem 0 0.6rem;">Surveillance, Race, and the Gendered Gaze</p>
-        <p>Simone Browne's <em>Dark Matters</em> provides the critical lens for understanding how surveillance is always racialized and always gendered, operating differently on different bodies and creating blind spots precisely through those differences. Palestinians do not experience surveillance uniformly; their racialization under occupation produces different levels of scrutiny and forms of vulnerability, and these asymmetries are precisely what Palestinian women filmmakers make visible. Julie Peteet's <em>Space and Mobility in Palestine</em> centers the everyday Palestinian body, showing how the permit system, road closures, and checkpoints are designed to control Palestinian mobility, and through that control, Palestinian life. Peteet's concept of "carceral time," time weaponized through delay, is particularly important for understanding how Palestinian cinema uses duration as a formal argument.</p>
+        <p>Simone Browne's <em>Dark Matters</em> provides the critical lens for understanding how surveillance is always racialized and always gendered — operating differently on different bodies and creating blind spots precisely through those differences. Palestinians do not experience surveillance uniformly: their racialization under occupation produces different levels of scrutiny and forms of vulnerability, and these asymmetries are precisely what Palestinian women filmmakers make visible. Julie Peteet's <em>Space and Mobility in Palestine</em> centers the everyday Palestinian body, showing how the permit system, road closures, and checkpoints are designed to control Palestinian mobility — and through that control, Palestinian life. Peteet's concept of "carceral time" — time weaponized through delay — is particularly important for understanding how Palestinian cinema uses duration as a formal argument.</p>
 
         <p style="font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);margin:1.2rem 0 0.6rem;">Sumud: Steadfastness as Analytical Framework</p>
-        <p>Lena Meari's theorization of sumud is central to this project. For Meari, sumud is not passive endurance but active political confrontation, a "political being/becoming and continuous engagement with the flows and constraints of the colonial situation." Jane Busse advances this through her concept of "sumud as a spatial quotidian practice," showing how Palestinians generate alternative spatial knowledge simply by living and creating within occupied space. Saleem Haddad's three-part understanding of sumud, as record-keeping and revitalization, as bearing witness and collective memory, and as a radical and daring act of imagination, organizes the project's analytical framework. Palestinian women filmmakers do all three things simultaneously: they preserve, they witness, and they imagine.</p>
+        <p>Lena Meari's theorization of sumud is central to this project. For Meari, sumud is not passive endurance but active political confrontation — a "political being/becoming and continuous engagement with the flows and constraints of the colonial situation." Jane Busse advances this through her concept of "sumud as a spatial quotidian practice," showing how Palestinians generate alternative spatial knowledge simply by living and creating within occupied space. Saleem Haddad's three-part understanding of sumud — as record-keeping and revitalization, as bearing witness and collective memory, and as a radical and daring act of imagination — organizes the project's analytical framework. Palestinian women filmmakers do all three things simultaneously: they preserve, they witness, and they imagine.</p>
 
         <p style="font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);margin:1.2rem 0 0.6rem;">Feminist Witnessing</p>
-        <p>
-  Maria Lugones' concept of <strong>faithful witnessing</strong> and Yomaira Figueroa-Vásquez's extension of this idea provide the theoretical foundation for understanding how cultural production can stand with oppressed people against powerful institutions, recognize resistance even when it goes against dominant common sense, and refuse the narrow worldview that siding with oppression demands. In this project, <strong>feminist witnessing</strong> refers to the specific practices I observe in Palestinian women filmmakers: the ways they document, interpret, and refuse surveillance and occupation through their creative work. While faithful witnessing is a theoretical framework articulated by Lugones and Figueroa-Vásquez, feminist witnessing describes the strategies and commitments I see enacted in these films. Nadera Shalhoub-Kevorkian's concept of "infiltrated intimacies" further shifts the focus from visible militarized spaces into the deeply private zones of Palestinian women's lives, showing how occupation shapes daily routines, relationships, safety, and reproductive decisions. Because women inhabit these intimate spaces, they can witness from the inside, capturing forms of knowledge that neither counter-cartography nor the checkpoint camera can hold.
-</p>
+        <p>Maria Lugones' concept of faithful witnessing frames this project's feminist methodology. To witness faithfully is an active political commitment: standing with oppressed people against powerful institutions, recognizing resistance even when it goes against the grain of dominant common sense, and refusing the narrow worldview that siding with oppression demands. Yomaira Figueroa-Vásquez extends Lugones' thinking by showing how cultural production not only represents faithful witnessing but performs it — literature and film becoming sites where artists build counter-archival records that dominant systems are not structured to recognize. Nadera Shalhoub-Kevorkian's concept of "infiltrated intimacies" shifts the focus from visible militarized spaces into the deeply private zones of Palestinian women's lives, showing how occupation shapes daily routines, relationships, safety, and reproductive decisions. Because women inhabit these intimate spaces, they can witness from the inside — capturing forms of knowledge that neither counter-cartography nor the checkpoint camera can hold.</p>
       </div>
 
       <!-- RESEARCH QUESTIONS -->
       <div class="about-card teal-left">
-        <span class="card-eyebrow">Guiding Questions</span>
-        <h2 class="card-title">What This Research Asks</h2>
+        <span class="card-eyebrow" data-t="rq-eyebrow">Guiding Questions</span>
+        <h2 class="card-title" data-t="rq-title">What This Research Asks</h2>
         <ul class="rq-list">
           <li data-num="01">How do camera angles refuse the surveillance gaze?</li>
-          <li data-num="02">What do ellipses and offscreen space keep from view, and why does that matter politically?</li>
+          <li data-num="02">What do ellipses and offscreen space keep from view — and why does that matter politically?</li>
           <li data-num="03">How does editing create a counternarrative to security footage?</li>
           <li data-num="04">What is the politics of what these filmmakers choose <em>not</em> to show?</li>
           <li data-num="05">How does feminist witnessing of carceral space prompt the imagination of Palestinian futures?</li>
@@ -448,8 +495,8 @@
 
       <!-- FELLOWSHIP + TIMELINE -->
       <div class="about-card gold-left">
-        <span class="card-eyebrow">CHI Fellowship — Michigan State University</span>
-        <h2 class="card-title">Fellowship <em>Details</em></h2>
+        <span class="card-eyebrow" data-t="fellow-eyebrow">CHI Fellowship — Michigan State University</span>
+        <h2 class="card-title" data-t="fellow-title">Fellowship <em>Details</em></h2>
         <div class="two-col">
           <div class="detail-block">
             <h3>Project Info</h3>
@@ -500,25 +547,71 @@
         </div>
       </div>
 
-      <!-- ABOUT THE AUTHOR -->
-      <div class="about-card teal-left" id="about-author" style="display: flex; align-items: flex-start; gap: 2.2rem; flex-wrap: wrap;">
-        <img src="assets/images/ayaat.jpg" alt="Ayaat Ismail portrait" style="width:140px;min-width:100px;max-width:180px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);object-fit:cover;flex-shrink:0;">
-        <div>
-          <span class="card-eyebrow">About Me</span>
-          <h2 class="card-title"><em>Ayaat Ismail</em></h2>
-          <p>
-My name is Ayaat Ismail, and I am a third-year PhD candidate in English with a Women and Gender Studies specialization, Global Studies, Film Studies, and Digital Humanities Certificate, and a writer focused on Palestinian cinema and literature, feminist theory, and counter-cartographic practices. My work explores how film and literature can serve as acts of resistance, mapping, and witnessing under conditions of occupation and surveillance. I am committed to interdisciplinary research that bridges spatial theory, film analysis, and lived experience, with a particular emphasis on the creative strategies of Palestinian women filmmakers.
-          </p>
-          <p>
-            I am currently a CHI Fellow at Michigan State University, where I am developing this project as part of my ongoing research into the intersections of space, gender, and visual culture in Palestine.
-          </p>
+      <!-- ABOUT THE RESEARCHER -->
+      <div class="about-card gold-left" id="about-researcher">
+        <span class="card-eyebrow" data-t="researcher-eyebrow">The Researcher</span>
+        <h2 class="card-title">Ayaat <em>Ismail</em></h2>
+        <div class="researcher-grid" style="display:grid;grid-template-columns:180px 1fr;gap:2rem;align-items:start;">
+          <div style="display:flex;justify-content:center;">
+            <div style="width:180px;height:180px;border-radius:50%;overflow:hidden;border:3px solid var(--gold);background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+              <img src="assets/images/ayaat.jpg" alt="Ayaat Ismail" onerror="this.style.display='none';this.parentElement.querySelector('.img-placeholder').style.display='flex';" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+              <div class="img-placeholder" style="display:none;flex-direction:column;align-items:center;gap:0.5rem;opacity:0.4;">
+                <span style="font-size:3rem;">◎</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;color:var(--teal);text-align:center;">Photo<br>coming soon</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p data-t="researcher-bio">I am a PhD student and CHI Fellow at Michigan State University, working at the intersection of digital humanities, Palestinian film studies, and feminist surveillance theory. <em>Cinematic Counter-Cartographies</em> is my first major digital project — an attempt to do scholarship in a form that matches the argument: that space, story, and resistance cannot be separated.</p>
+            <p data-t="researcher-bio2">My research centers Palestinian women filmmakers and the formal strategies through which cinema refuses, rather than simply documents, occupation. I am particularly interested in what feminist witnessing makes legible that conventional archives cannot hold.</p>
+            <div style="margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:0.75rem;">
+              <a href="mailto:" style="font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);text-decoration:none;padding:0.5rem 1rem;border:1px solid rgba(111,231,193,0.3);border-radius:6px;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(111,231,193,0.3)';this.style.color='var(--teal)'">Contact →</a>
+              <a href="https://yourwebsite.com" target="_blank" rel="noopener" style="font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,245,240,0.5);text-decoration:none;padding:0.5rem 1rem;border:1px solid rgba(255,255,255,0.1);border-radius:6px;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(230,169,58,0.3)';this.style.color='rgba(232,245,240,0.8)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(232,245,240,0.5)'">Personal Website →</a>
+            </div>
+          </div>
         </div>
       </div>
-
     </div>
-    <!-- end .about-outer -->
+  </main>
 
-  <!-- MOBILE NAV OVERLAY -->
+  <footer class="footer" id="footer" style="margin-top:3rem;padding:2.2rem 0 1.2rem 0;text-align:center;font-size:1rem;color:rgba(232,245,240,0.65);font-family:'IBM Plex Mono',monospace;">
+    © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
+    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Privacy Policy</a>
+    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;">Terms of Use</a>
+    
+  </footer>
+  <button id="scrollTopBtn" aria-label="Scroll to top"><span aria-hidden="true">↑</span></button>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTopBtn').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+    // Archive dropdown — click toggle for mobile, hover handles desktop
+    (function() {
+      var trigger = document.querySelector('.nav-dropdown-trigger');
+      var dropdown = document.querySelector('.nav-dropdown');
+      if (!trigger || !dropdown) return;
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = dropdown.classList.contains('open');
+        dropdown.classList.toggle('open', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+      });
+      document.addEventListener('click', function() {
+        dropdown.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          dropdown.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  </script>
+<!-- MOBILE NAV OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
     <div class="mobile-nav-header">
       <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
@@ -528,6 +621,7 @@ My name is Ayaat Ismail, and I am a third-year PhD candidate in English with a W
       <a href="index.html" class="">Home</a>
       <a href="map.html" class="">Map</a>
       <span class="mobile-nav-section-label">Archive</span>
+      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
       <a href="analysis.html" class="archive-item">Visual Analysis</a>
       <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
       <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
@@ -560,6 +654,75 @@ My name is Ayaat Ismail, and I am a third-year PhD candidate in English with a W
       nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
       document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
     })();
+  </script>
+
+  <script>
+  /* ── TRANSLATIONS (about page) ─────────────────────────────── */
+  const T_ABOUT = {
+    en: {
+      'page-eyebrow':     'CHI Fellowship 2025–2026',
+      'page-title':       'About the <em>Project</em>',
+      'page-lead':        'A digital humanities research project mapping cinematic resistance in Palestinian women’s filmmaking.',
+      'summary-eyebrow':  'Project Summary',
+      'summary-title':    'Cinematic <em>Counter-Cartographies</em>',
+      'theory-eyebrow':   'Theoretical Framework',
+      'theory-title':     'Scholarly <em>Foundations</em>',
+      'rq-eyebrow':       'Guiding Questions',
+      'rq-title':         'What This Research Asks',
+      'fellow-eyebrow':   'CHI Fellowship — Michigan State University',
+      'fellow-title':     'Fellowship <em>Details</em>',
+      'researcher-eyebrow': 'The Researcher',
+      'researcher-title': 'Ayaat <em>Ismail</em>',
+      'researcher-bio':   'I am a PhD student and CHI Fellow at Michigan State University, working at the intersection of digital humanities, Palestinian film studies, and feminist surveillance theory. <em>Cinematic Counter-Cartographies</em> is my first major digital project — an attempt to do scholarship in a form that matches the argument: that space, story, and resistance cannot be separated.',
+      'researcher-bio2':  'My research centers Palestinian women filmmakers and the formal strategies through which cinema refuses, rather than simply documents, occupation. I am particularly interested in what feminist witnessing makes legible that conventional archives cannot hold.',
+    },
+    ar: {
+      'page-eyebrow':     'زمالة CHI 2025–2026',
+      'page-title':       'عن <em>المشروع</em>',
+      'page-lead':        'مشروع إنسانيات رقمية بيرسم مقاومة السينما الفلسطينية عند المخرجات الفلسطينيات.',
+      'summary-eyebrow':  'ملخص المشروع',
+      'summary-title':    '<em>الخرائط السينمائية المضادة</em>',
+      'theory-eyebrow':   'الإطار النظري',
+      'theory-title':     'الأسس <em>العلمية</em>',
+      'rq-eyebrow':       'أسئلة البحث',
+      'rq-title':         'شو بيسأل هاد البحث',
+      'fellow-eyebrow':   'زمالة CHI — جامعة ميشيغان ستيت',
+      'fellow-title':     'تفاصيل <em>الزمالة</em>',
+      'researcher-eyebrow': 'الباحثة',
+      'researcher-title': 'آيات <em>إسماعيل</em>',
+      'researcher-bio':   'أنا طالبة دكتوراه وزميلة CHI في جامعة ميشيغان ستيت، وبشتغل على تقاطع الإنسانيات الرقمية ودراسات السينما الفلسطينية ونظرية المراقبة النسوية. <em>الخرائط السينمائية المضادة</em> هو أول مشروع رقمي كبير إلي — محاولة أعمل بحث بشكل يتوافق مع الحجة: إنه المكان والقصة والمقاومة ما بينفصلوا عن بعض.',
+      'researcher-bio2':  'بحثي بتمحور حول المخرجات الفلسطينيات والاستراتيجيات الشكلية اللي من خلالها السينما بترفض الاحتلال بدل ما بس توثقه. أنا مهتمة خاصةً بشو بيخلي الشهادة النسوية مقروءة لما الأرشيفات التقليدية ما بتقدر تحمله.',
+    }
+  };
+
+  function applyLang(lang) {
+    const root = document.getElementById('htmlRoot');
+    if (!root) return;
+    root.lang = lang;
+    root.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+
+    // Apply translations
+    document.querySelectorAll('[data-t]').forEach(el => {
+      const key = el.getAttribute('data-t');
+      const val = T_ABOUT[lang] && T_ABOUT[lang][key];
+      if (val !== undefined) el.innerHTML = val;
+    });
+
+    // Update nav button active state using CSS classes
+    const btnEN = document.getElementById('btnEN');
+    const btnAR = document.getElementById('btnAR');
+    if (btnEN && btnAR) {
+      btnEN.classList.toggle('active-lang',   lang === 'en');
+      btnEN.classList.toggle('inactive-lang', lang !== 'en');
+      btnAR.classList.toggle('active-lang',   lang === 'ar');
+      btnAR.classList.toggle('inactive-lang', lang !== 'ar');
+    }
+
+    localStorage.setItem('ccc-lang', lang);
+  }
+
+  // Restore saved language
+  applyLang(localStorage.getItem('ccc-lang') || 'en');
   </script>
 </body>
 </html>
