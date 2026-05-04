@@ -1,0 +1,38 @@
+```
+
+Because of this, **nothing will load**:  
+- There is no `<head>`, `<body>`, or any HTML structure.
+- There is no `<div id="map">` for the map to render into.
+- There are no scripts or CSS included.
+
+---
+
+## **How to Fix**
+
+You need to add the basic HTML structure and the required elements for your map.  
+Here’s a minimal working example for your project:
+
+````html
+<vscode_codeblock_uri>file:///Users/ayaatismail/Documents/GitHub/cinematic-refusals/map.html</vscode_codeblock_uri><!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Map — Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <nav class="topnav" aria-label="Main navigation"></nav>
+  <main>
+    <div id="map" style="width:100%;height:70vh;"></div>
+  </main>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    window.PAGE_T = window._T;
+  </script>
+  <script src="js/shared.js"></script>
+</body>
+</html>
