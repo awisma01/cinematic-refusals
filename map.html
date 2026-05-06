@@ -262,6 +262,10 @@
     .panel-close-btn{position:fixed;top:calc(var(--nav-h)+14px);left:calc(var(--panel-w)+12px);z-index:210;background:rgba(10,35,33,0.92);border:1px solid rgba(111,231,193,0.22);color:rgba(232,245,240,0.55);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all 0.18s;opacity:0;pointer-events:none;box-shadow:0 2px 12px rgba(0,0,0,0.4);}
     .panel-close-btn.visible{opacity:1;pointer-events:auto;}
     .panel-close-btn:hover{background:var(--crimson);border-color:var(--crimson);color:#fff;}
+    @media(max-width:768px){
+      #mobilePanelCloseBtn{display:flex!important;}
+      .panel-close-btn:not(#mobilePanelCloseBtn){display:none!important;}
+    }
 
     /* Submissions */
     .sub-item{padding:0.85rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06);}
@@ -335,7 +339,7 @@
       :root{--panel-w:100vw;}
       .topnav{padding:0 1rem;}
       .topnav .menu{display:none;}
-      #translateBtn{top:calc(var(--nav-h) + 8px);right:1rem;}
+      #translateBtn{top:calc(var(--nav-h) + 8px);left:8px;}
       .hamburger{display:flex;}
       body.panel-open #map{left:0;}
       body.panel-open .search-panel{left:50%;}
@@ -397,7 +401,7 @@
 </nav>
 
 <!-- TRANSLATE BUTTON -->
-<button id="translateBtn" style="position:fixed;top:calc(var(--nav-h) + 12px);right:2.5rem;z-index:1200;background:rgba(10,35,33,0.92);color:var(--teal);border:1px solid rgba(111,231,193,0.3);border-radius:8px;padding:0.45rem 1rem;font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.1em;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:background 0.2s,border-color 0.2s;">عربي / EN</button>
+<button id="translateBtn" style="position:fixed;top:calc(var(--nav-h) + 12px);left:12px;z-index:1200;background:rgba(10,35,33,0.92);color:var(--teal);border:1px solid rgba(111,231,193,0.3);border-radius:8px;padding:0.45rem 1rem;font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.1em;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:background 0.2s,border-color 0.2s;">عربي / EN</button>
 
 <!-- INFO MODULE -->
 <div class="map-info-module hidden" id="infoModule">
@@ -406,7 +410,7 @@
     <button id="infoModuleClose" aria-label="Close" style="background:rgba(255,255,255,0.07);border:1px solid rgba(111,231,193,0.22);color:rgba(232,245,240,0.55);cursor:pointer;font-size:0.85rem;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.18s;padding:0;">✕</button>
   </div>
   <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.72;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);" data-en="This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films." data-ar="هاي الخريطة التفاعلية بتوريك شبكة الحواجز الإسرائيلية وكيف اتمثّلت بالسينما الفلسطينية. كل علامة على الخريطة بترمز لحاجز حقيقي — مع تفاصيل عن موقعه وحالته وكيف طلع بالأفلام.">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
-  <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0 0 0.55rem;color:rgba(232,245,240,0.7);" data-en="Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the module to the left of the map." data-ar="اضغط على أي علامة عشان تشوف التفاصيل والتحليل. استخدم لوحة الأرشيف لتتصفح وتفلتر كل الحواجز والأفلام. يمكنك أيضاً البحث بالاسم أو الموقع باستخدام شريط البحث فوق الخريطة.">Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the module to the left of the map.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0 0 0.55rem;color:rgba(232,245,240,0.7);" data-en="Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the search bar above the map." data-ar="اضغط على أي علامة عشان تشوف التفاصيل والتحليل. استخدم لوحة الأرشيف لتتصفح وتفلتر كل الحواجز والأفلام. يمكنك أيضاً البحث بالاسم أو الموقع باستخدام شريط البحث فوق الخريطة.">Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the search bar above the map.</p>
   <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0;color:rgba(232,245,240,0.7);" data-en="Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation." data-ar="المكان مش محايد. بربط الجغرافيا بالسينما، هاد المشروع يبيّن كيف الفلسطينيين بيوثّقوا ويقاوموا ويعيدوا تخيّل واقعهم تحت الاحتلال.">Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation.</p>
 </div>
 
@@ -456,6 +460,7 @@
 
 <!-- PANEL CLOSE BUTTON -->
 <button class="panel-close-btn" id="panelCloseBtn">✕</button>
+<button id="mobilePanelCloseBtn" style="position:fixed;top:calc(var(--nav-h) + 14px);right:12px;z-index:210;background:rgba(10,35,33,0.92);border:1px solid rgba(111,231,193,0.22);color:rgba(232,245,240,0.55);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:none;align-items:center;justify-content:center;transition:all 0.18s;box-shadow:0 2px 12px rgba(0,0,0,0.4);">✕</button>
 
 <!-- LEFT PANEL -->
 <div class="cp-panel" id="cpPanel">
@@ -1015,6 +1020,7 @@ document.querySelectorAll('.map-style-btn').forEach(btn => {
 ══════════════════════════════ */
 const panel = document.getElementById('cpPanel');
 const panelCloseBtn = document.getElementById('panelCloseBtn');
+const mobilePanelCloseBtn = document.getElementById('mobilePanelCloseBtn');
 const panelTab = document.getElementById('panelTab');
 const panelTabInner = document.getElementById('panelTabInner');
 const cpListEl = document.getElementById('cpList');
@@ -1023,6 +1029,7 @@ const emptyState = document.getElementById('cpEmptyState');
 
 panelTabInner.addEventListener('click', openPanel);
 panelCloseBtn.addEventListener('click', closePanel);
+mobilePanelCloseBtn.addEventListener('click', closePanel);
 
 function openPanel() {
   panel.classList.add('open');
