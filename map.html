@@ -794,6 +794,7 @@
       <div id="sugFilmFields" style="display:none;">
         <div class="form-group">
           <label class="form-label">Film Title</label>
+          <label class="form-label">Film Title</label>
           <input class="form-input" id="sugFilmTitle" placeholder="Film title">
         </div>
         <div class="form-row">
@@ -1343,7 +1344,6 @@ function applyFilmFilters() {
     const id = item.getAttribute('data-film-id'); const f = films.find(x => x.id === id); if (!f) { item.classList.add('hidden'); return; }
     let show = true;
     if (activeFilmFilters.genre !== 'all' && !(f.genre || '').toLowerCase().includes(activeFilmFilters.genre.toLowerCase())) show = false;
-    if (activeFilmFilters.checkpoint !== 'all' && !(f.checkpointIds || []).includes(activeFilmFilters.checkpoint)) show = false;
     if (activeFilmFilters.year !== 'all' && Math.floor((f.year || 0) / 10) * 10 !== activeFilmFilters.year) show = false;
     item.classList.toggle('hidden', !show); if (show) anyVisible = true;
   });
