@@ -794,7 +794,6 @@
       <div id="sugFilmFields" style="display:none;">
         <div class="form-group">
           <label class="form-label">Film Title</label>
-          <label class="form-label">Film Title</label>
           <input class="form-input" id="sugFilmTitle" placeholder="Film title">
         </div>
         <div class="form-row">
@@ -1340,6 +1339,7 @@ function buildFilmYearChips() {
 
 function applyFilmFilters() {
   let anyVisible = false;
+  document.querySelectorAll('.film-list-item').forEach(item => {
   document.querySelectorAll('.film-list-item').forEach(item => {
     const id = item.getAttribute('data-film-id'); const f = films.find(x => x.id === id); if (!f) { item.classList.add('hidden'); return; }
     let show = true;
