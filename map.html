@@ -882,8 +882,7 @@
    CONFIG & STATE
 ══════════════════════════════ */
 // Replace with your actual Mapbox token
-mapboxgl.accessToken = 'pk.eyJ1IjoiYXdpc21hMDEiLCJhIjoiY21sYjZudTJkMGs5ZTNkcTY2ZXRnbmt0NiJ9.3XcsI4p3lFOou3ulXWFXXQ';
-
+mapboxgl.accessToken = 'pk.eyJ1IjoiYXVzZXJuYW1lIiwiYSI6ImN...YOUR_REAL_TOKEN_HERE...';
 const ADMIN_HASH = 'YOUR_ADMIN_PASSWORD_HASH_HERE'; // sha256 of your admin password
 
 let checkpoints = [];
@@ -1678,6 +1677,7 @@ function setAdminUI() {
   const lb = document.getElementById('adminLockBtn'); lb.textContent = isAdmin ? '🔓' : '🔒'; lb.style.opacity = isAdmin ? '0.85' : '0.4'; lb.title = isAdmin ? 'Admin — click to log out' : 'Admin login';
   if (isAdmin) { buildSubmissionsList(); updateSubmissionBadge(); }
   else if (activePanelTab === 'submissions') switchPanelTab('checkpoints');
+  if (activeCpId) openCheckpoint(activeCpId);
   if (activeCpId) openCheckpoint(activeCpId);
   if (activeFilmId) openFilmDetail(activeFilmId);
 }
