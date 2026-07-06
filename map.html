@@ -66,7 +66,7 @@
     .panel-tab-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:0.7;}
 
     /* SEARCH */
-    .search-panel{position:fixed;top:calc(var(--nav-h)+16px);left:50%;transform:translateX(-50%);z-index:100;width:420px;max-width:calc(100vw - 32px);transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
+    .search-panel{position:fixed;top:calc(var(--nav-h) + 16px);left:50%;transform:translateX(-50%);z-index:100;width:420px;max-width:calc(100vw - 32px);transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
     body.panel-open .search-panel{left:calc(50% + var(--panel-w)/2);}
     .search-inner{background:rgba(10,35,33,0.94);border:1px solid rgba(111,231,193,0.22);border-radius:12px;padding:0.7rem 0.9rem;display:flex;align-items:center;gap:0.6rem;box-shadow:0 6px 24px rgba(0,0,0,0.45);}
     .search-inner input{flex:1;border:none;background:transparent;font-family:'IBM Plex Mono',monospace;font-size:0.84rem;font-weight:300;color:#e8f5f0;outline:none;letter-spacing:0.04em;}
@@ -259,13 +259,9 @@
     .cp-detail-edit-btn:hover{background:rgba(111,231,193,0.08);border-color:var(--teal);color:var(--teal);}
     .cp-detail-delete-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:6px;border:1px solid rgba(185,78,58,0.32);color:rgba(185,78,58,0.65);background:transparent;cursor:pointer;transition:all 0.18s;}
     .cp-detail-delete-btn:hover{background:rgba(185,78,58,0.1);border-color:var(--crimson);color:var(--crimson);}
-    .panel-close-btn{position:fixed;top:calc(var(--nav-h)+14px);left:calc(var(--panel-w)+12px);z-index:210;background:rgba(10,35,33,0.92);border:1px solid rgba(111,231,193,0.22);color:rgba(232,245,240,0.55);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all 0.18s;opacity:0;pointer-events:none;box-shadow:0 2px 12px rgba(0,0,0,0.4);}
+    .panel-close-btn{position:fixed;top:calc(var(--nav-h) + 14px);left:calc(var(--panel-w) + 12px);z-index:210;background:rgba(10,35,33,0.92);border:1px solid rgba(111,231,193,0.22);color:rgba(232,245,240,0.55);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all 0.18s;opacity:0;pointer-events:none;box-shadow:0 2px 12px rgba(0,0,0,0.4);}
     .panel-close-btn.visible{opacity:1;pointer-events:auto;}
     .panel-close-btn:hover{background:var(--crimson);border-color:var(--crimson);color:#fff;}
-    @media(max-width:768px){
-      #mobilePanelCloseBtn{display:flex!important;}
-      .panel-close-btn:not(#mobilePanelCloseBtn){display:none!important;}
-    }
 
     /* Submissions */
     .sub-item{padding:0.85rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06);}
@@ -286,7 +282,6 @@
     .create-modal{max-width:520px;width:96%;background:#0d2420;border-radius:18px;color:#e8f5f0;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(230,169,58,0.2),0 28px 64px rgba(0,0,0,0.55);animation:modalIn 0.3s cubic-bezier(.34,1.56,.64,1);}
     @keyframes modalIn{from{opacity:0;transform:scale(0.88) translateY(28px)}to{opacity:1;transform:scale(1) translateY(0)}}
     .create-modal-bar{height:3px;background:linear-gradient(90deg,var(--gold),#f0c060,var(--gold));flex-shrink:0;}
-    /* FIX: was var,--teal)) — extra comma and extra paren */
     .create-modal-bar.teal{background:linear-gradient(90deg,var(--teal),#a0f5e0,var(--teal));}
     .create-modal-header{padding:1.1rem 1.5rem 0.9rem;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;background:linear-gradient(120deg,#0a2321 0%,#1a4a38 60%,#0f3328 100%);position:relative;}
     .create-modal-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(111,231,193,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(111,231,193,0.06) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;}
@@ -530,7 +525,7 @@
       <ul class="cp-list" id="cpList"></ul>
       <div class="cp-empty-state" id="cpEmptyState" style="display:none;" data-en="No checkpoints match your filters." data-ar="ما في حواجز تطابق الفلتر.">No checkpoints match your filters.</div>
     </div>
-    <!-- Detail pane (hidden by default via cp-panel-view-list) -->
+    <!-- Detail pane -->
     <div class="cp-detail-pane">
       <button class="cp-back-btn" onclick="showListView()">← <span data-en="All Checkpoints" data-ar="كل الحواجز">All Checkpoints</span></button>
       <div class="cp-detail-scroll" id="cpDetailScroll"></div>
@@ -576,8 +571,6 @@
     <div class="cp-empty-state" id="submissionsEmpty" style="display:none;" data-en="No pending submissions." data-ar="ما في اقتراحات معلقة.">No pending submissions.</div>
   </div>
 </div>
-
-<!-- ══════ MODALS ══════ -->
 
 <!-- Add Checkpoint Modal -->
 <div class="create-backdrop" id="addCheckpointModal">
@@ -878,19 +871,49 @@
 </div>
 
 <script>
-// Replace with your actual Mapbox public token
-mapboxgl.accessToken = 'pk.YOUR_REAL_MAPBOX_PUBLIC_TOKEN_HERE';
+/* ══════════════════════════════
+    STATE & CONFIG CONFIGURATION
+══════════════════════════════ */
+const ADMIN_HASH = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; // admin
+let isAdmin = false;
+let pendingAdminAction = null;
+let currentLang = 'en';
+let activePanelTab = 'checkpoints';
+let pickingOnMap = false;
+let sugPickingOnMap = false;
+let tempPickMarker = null;
+let activeCpId = null;
+let activeFilmId = null;
+let markerObjs = [];
 
-// Simple sanity check + helpful message when token is missing/placeholder
-if (!mapboxgl.accessToken || mapboxgl.accessToken.includes('YOUR_REAL')) {
-  console.error('Mapbox access token missing or placeholder. Replace mapboxgl.accessToken with a valid token from https://account.mapbox.com.');
-  document.addEventListener('DOMContentLoaded', () => {
-    const m = document.getElementById('map');
-    if (m) m.innerHTML = '<div style="color:#fff;padding:16px;font-family:monospace;background:rgba(0,0,0,0.5)">Map failed to load: missing/invalid Mapbox token. See console (Cmd+Opt+J) for details.</div>';
-  });
-}
+let activeFilters = { type: 'all', staff: 'all', film: 'all', yearMin: null, yearMax: null };
+let activeFilmFilters = { genre: 'all', checkpoint: 'all', year: 'all' };
 
-// Initialize the Mapbox map (make `map` global so other functions can use it)
+// Seed Arrays
+let checkpoints = [
+  { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Divine Intervention", "200 Meters"], images: [], seed: true },
+  { id: 'cp_2', coords: [35.2345, 32.1234], title: "Huwwara Checkpoint", arabic: "حاجز حوارة", district: "Nablus", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Southern entry to Nablus", analysis: "Represented as a bottleneck space impeding educational mobility.", films: ["Salt of this Sea"], images: [], seed: true }
+];
+
+let films = [
+  { id: 'film_1', title: "Divine Intervention", director: "Elia Suleiman", year: 2002, country: "Palestine", genre: "Narrative feature", notes: "A satirical look at life under occupation.", checkpointIds: ["cp_1"], seed: true },
+  { id: 'film_2', title: "200 Meters", director: "Ameen Nayfeh", year: 2020, country: "Palestine", genre: "Narrative feature", notes: "A father struggles to cross a checkpoint located meters away.", checkpointIds: ["cp_1"], seed: true },
+  { id: 'film_3', title: "Salt of this Sea", director: "Annemarie Jacir", year: 2008, country: "Palestine", genre: "Narrative feature", notes: "Explores structural and spatial return barriers.", checkpointIds: ["cp_2"], seed: true }
+];
+
+let submissions = [];
+
+// DOM References
+const cpListEl = document.getElementById('cpList');
+const emptyState = document.getElementById('cpEmptyState');
+const detailScroll = document.getElementById('cpDetailScroll');
+const panel = document.getElementById('cpPanel');
+
+// Mapbox Token Initialization
+const metaToken = document.querySelector('meta[name="mapbox-token"]')?.getAttribute('content');
+mapboxgl.accessToken = metaToken || localStorage.getItem('MAPBOX_TOKEN') || 'pk.eyJ1IjoiY2luZW1hdGljY291bnRlciIsImEiOiJjbHhleXp0djEwMXFwMmpzZ2Z3YXNreW9uIn0.REPLACE_WITH_ACTUAL_TOKEN';
+
+// Initialize the map handle
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/dark-v11',
@@ -898,303 +921,125 @@ const map = new mapboxgl.Map({
   zoom: 9
 });
 map.addControl(new mapboxgl.NavigationControl({ showCompass: true }), 'top-right');
-map.on('error', (e) => console.error('Mapbox GL error:', e && (e.error || e)));
-
-window.map = map; // ensure global reference for other functions
+window.map = map;
 
 /* ══════════════════════════════
-   CONFIG & STATE
+    CORE APP HANDLERS
 ══════════════════════════════ */
-    :root{--gold:#e6a93a;--teal:#6fe7c1;--forest:#288366;--crimson:#b94e3a;--nav-h:62px;--panel-w:400px;}
-    *,*::before,*::after{box-sizing:border-box;}
-    html,body{margin:0;padding:0;height:100%;overflow:hidden;}
-    body{font-family:'Cormorant Garamond',Georgia,serif;background:#0a1a18;color:#e8f5f0;}
+document.addEventListener('DOMContentLoaded', () => {
+  buildList();
+  buildFilmList();
+  rebuildMarkers();
+  initTimeline();
+  setupPanelToggles();
+  setupFilters();
+  setupLanguageToggle();
+});
 
-    /* NAV */
-    .topnav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:linear-gradient(180deg,rgba(10,35,33,0.99) 0%,rgba(10,35,33,0.97) 100%);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;box-shadow:0 2px 20px rgba(0,0,0,0.5);z-index:1000;overflow:visible;}
-    .topnav .brand{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:var(--gold);letter-spacing:0.5px;text-decoration:none;flex-shrink:0;}
-    .topnav .menu{display:flex;gap:0.4rem;align-items:center;overflow:visible;position:relative;}
-    .topnav .menu a{color:#eaf7f2;font-size:0.88rem;font-weight:500;padding:0.5rem 0.9rem;border-radius:6px;transition:all 0.25s;font-family:'Oswald',sans-serif;text-decoration:none;letter-spacing:0.2px;}
-    .topnav .menu a:hover,.topnav .menu a.active{background:rgba(230,169,58,0.18);color:var(--gold);}
-    .nav-dropdown{position:relative;display:inline-block;}
-    .nav-dropdown-trigger{color:#eaf7f2;font-size:0.88rem;font-weight:500;padding:0.5rem 0.9rem;border-radius:6px;transition:all 0.3s;font-family:'Oswald',sans-serif;letter-spacing:0.2px;text-decoration:none;background:none;border:none;display:flex;align-items:center;gap:0.35rem;cursor:pointer;white-space:nowrap;}
-    .nav-dropdown-trigger:hover,.nav-dropdown-trigger.active{background:rgba(230,169,58,0.18);color:var(--gold);}
-    .nav-dropdown-arrow{font-size:0.65rem;opacity:0.7;transition:transform 0.25s;display:inline-block;}
-    .nav-dropdown.open .nav-dropdown-arrow,.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg);}
-    .nav-dropdown-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:260px;background:rgba(8,28,26,0.98);border:1px solid rgba(230,169,58,0.25);border-radius:12px;padding:0.5rem;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 0.22s,transform 0.22s;box-shadow:0 16px 48px rgba(0,0,0,0.55);z-index:9999;}
-    .nav-dropdown.open .nav-dropdown-menu,.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateY(0);}
-    .nav-dropdown-item{display:flex;flex-direction:column;gap:0.22rem;padding:0.8rem 1rem;border-radius:8px;text-decoration:none;transition:background 0.18s;border-bottom:1px solid rgba(255,255,255,0.05);}
-    .nav-dropdown-item:last-child{border-bottom:none;}
-    .nav-dropdown-item:hover{background:rgba(230,169,58,0.1);}
-    .nav-dropdown-item-title{font-family:'Oswald',sans-serif;font-size:0.88rem;font-weight:500;letter-spacing:0.05em;color:#e8f5f0;}
-    .nav-dropdown-item-desc{font-family:'IBM Plex Mono',monospace;font-size:0.67rem;font-weight:300;color:rgba(232,245,240,0.5);line-height:1.4;}
-    .nav-dropdown-item:hover .nav-dropdown-item-title{color:var(--gold);}
-    .nav-dropdown-item:hover .nav-dropdown-item-desc{color:rgba(232,245,240,0.7);}
+// Storage Hooks
+async function saveData() { localStorage.setItem('cc_checkpoints', JSON.stringify(checkpoints)); localStorage.setItem('cc_films', JSON.stringify(films)); }
+async function saveSubmissions() { localStorage.setItem('cc_submissions', JSON.stringify(submissions)); }
 
-    /* HAMBURGER */
-    .hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:rgba(255,255,255,0.05);border:1px solid rgba(111,231,193,0.2);border-radius:8px;cursor:pointer;padding:0;flex-shrink:0;}
-    .hamburger span{display:block;width:18px;height:2px;background:#eaf7f2;border-radius:2px;transition:all 0.28s cubic-bezier(0.4,0,0.2,1);}
-    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-    .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
-    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+function setupPanelToggles() {
+  const pTab = document.getElementById('panelTab');
+  const closeBtn = document.getElementById('panelCloseBtn');
+  const mCloseBtn = document.getElementById('mobilePanelCloseBtn');
 
-    /* MOBILE NAV DRAWER */
-    .mobile-nav-drawer{position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(8,24,22,0.99);border-bottom:1px solid rgba(111,231,193,0.12);z-index:999;display:flex;flex-direction:column;padding:0.5rem 0 1rem;transform:translateY(-110%);opacity:0;transition:transform 0.32s cubic-bezier(0.4,0,0.2,1),opacity 0.28s;pointer-events:none;box-shadow:0 12px 40px rgba(0,0,0,0.5);}
-    .mobile-nav-drawer.open{transform:translateY(0);opacity:1;pointer-events:auto;}
-    .mobile-nav-drawer a{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:500;letter-spacing:0.12em;color:#eaf7f2;text-decoration:none;padding:0.85rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.18s,color 0.18s;display:block;}
-    .mobile-nav-drawer a:hover,.mobile-nav-drawer a.active{background:rgba(230,169,58,0.1);color:var(--gold);}
-    .mobile-nav-drawer .mobile-nav-section-label{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,245,240,0.28);padding:0.75rem 1.5rem 0.35rem;display:block;}
-    .mobile-nav-drawer .mobile-nav-sub{padding-left:2.2rem;font-size:0.88rem;color:rgba(232,245,240,0.65);}
-    .mobile-nav-drawer .mobile-nav-sub:hover{color:var(--gold);}
-    .mobile-nav-overlay{position:fixed;inset:0;top:var(--nav-h);background:rgba(0,0,0,0.45);z-index:998;display:none;backdrop-filter:blur(2px);}
-    .mobile-nav-overlay.open{display:block;}
-
-    /* MAP */
-    #map{position:fixed;top:var(--nav-h);bottom:0;left:0;right:0;z-index:1;transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
-    body.panel-open #map{left:var(--panel-w);}
-
-    /* PANEL TAB */
-    .panel-tab{position:fixed;top:50%;left:0;z-index:190;transform:translateY(-50%);transition:transform 0.42s cubic-bezier(0.4,0,0.2,1),opacity 0.3s;}
-    .panel-tab.hidden{opacity:0;pointer-events:none;}
-    body.panel-open .panel-tab{transform:translateY(-50%) translateX(-100%);}
-    .panel-tab-inner{background:rgba(10,35,33,0.95);border:1px solid rgba(111,231,193,0.2);border-left:none;border-radius:0 10px 10px 0;padding:1rem 0.55rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:0.55rem;box-shadow:4px 0 18px rgba(0,0,0,0.4);transition:background 0.2s,border-color 0.2s;}
-    .panel-tab-inner:hover{background:rgba(15,45,38,0.98);border-color:rgba(111,231,193,0.4);}
-    .panel-tab-text{font-family:'Oswald',sans-serif;font-size:0.6rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.45);writing-mode:vertical-rl;transform:rotate(180deg);}
-    .panel-tab-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:0.7;}
-
-    /* SEARCH */
-    .search-panel{position:fixed;top:calc(var(--nav-h)+16px);left:50%;transform:translateX(-50%);z-index:100;width:420px;max-width:calc(100vw - 32px);transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
-    body.panel-open .search-panel{left:calc(50% + var(--panel-w)/2);}
-    .search-inner{background:rgba(10,35,33,0.94);border:1px solid rgba(111,231,193,0.22);border-radius:12px;padding:0.7rem 0.9rem;display:flex;align-items:center;gap:0.6rem;box-shadow:0 6px 24px rgba(0,0,0,0.45);}
-    .search-inner input{flex:1;border:none;background:transparent;font-family:'IBM Plex Mono',monospace;font-size:0.84rem;font-weight:300;color:#e8f5f0;outline:none;letter-spacing:0.04em;}
-    .search-inner input::placeholder{color:rgba(232,245,240,0.3);}
-    .search-inner button{font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.42rem 1rem;border-radius:6px;background:rgba(230,169,58,0.15);border:1px solid rgba(230,169,58,0.45);color:var(--gold);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
-    .search-inner button:hover{background:rgba(230,169,58,0.3);}
-    #searchResults{position:absolute;top:calc(100% + 6px);left:0;right:0;background:rgba(10,35,33,0.97);border:1px solid rgba(111,231,193,0.15);border-radius:10px;list-style:none;margin:0;padding:0.4rem 0;z-index:101;max-height:260px;overflow-y:auto;display:none;box-shadow:0 10px 32px rgba(0,0,0,0.5);}
-    #searchResults li{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:300;padding:0.7rem 1.1rem;cursor:pointer;color:rgba(232,245,240,0.75);border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.18s,color 0.18s;display:flex;align-items:center;gap:0.5rem;}
-    #searchResults li:last-child{border-bottom:none;}
-    #searchResults li:hover{background:rgba(230,169,58,0.1);color:var(--gold);}
-    #searchResults li.divider{font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,245,240,0.2);background:rgba(0,0,0,0.15);cursor:default;}
-    .result-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-    li.cp-result .result-dot{background:var(--gold);}
-    li.place-result .result-dot{background:var(--teal);}
-
-    /* MAP STYLE TOGGLE */
-    .map-style-toggle{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(10,35,33,0.93);border:1px solid rgba(111,231,193,0.15);border-radius:10px;display:flex;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.4);transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
-    body.panel-open .map-style-toggle{left:calc(50% + var(--panel-w)/2);}
-    .map-style-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.5rem 1rem;border:none;background:transparent;color:rgba(232,245,240,0.4);cursor:pointer;transition:all 0.2s;border-right:1px solid rgba(111,231,193,0.1);}
-    .map-style-btn:last-child{border-right:none;}
-    .map-style-btn.active{background:rgba(230,169,58,0.12);color:var(--gold);}
-    .map-style-btn:hover:not(.active){color:rgba(232,245,240,0.7);}
-
-    /* LEGEND */
-    .map-legend{position:fixed;bottom:24px;right:20px;z-index:100;background:rgba(10,35,33,0.93);border:1px solid rgba(111,231,193,0.15);border-radius:12px;padding:1rem 1.3rem;box-shadow:0 6px 24px rgba(0,0,0,0.45);min-width:165px;}
-    .legend-title{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(232,245,240,0.28);margin:0 0 0.8rem;}
-    .legend-row{display:flex;align-items:center;gap:0.65rem;margin-bottom:0.55rem;font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:400;color:rgba(232,245,240,0.6);}
-    .legend-row:last-child{margin-bottom:0;}
-    .legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
-    .legend-dot.curated{background:#4ec87a;border:2px solid #267a48;}
-    .legend-dot.placeholder{background:#f0d020;border:2px solid #a09010;}
-    .legend-dot.community{background:#f07830;border:2px solid #a04818;}
-    .legend-dot.pending{background:rgba(240,120,48,0.5);border:2px solid rgba(240,208,32,0.7);outline:2px dashed rgba(240,208,32,0.4);outline-offset:1px;}
-    .legend-dot.search-result{background:rgba(111,231,193,0.4);border:2px solid rgba(255,255,255,0.25);}
-
-    /* MAPBOX POPUP RESET */
-    .mapboxgl-popup-content{background:transparent!important;border-radius:0!important;padding:0!important;box-shadow:none!important;}
-    .mapboxgl-popup-tip{display:none!important;}
-    .mapboxgl-popup-close-button{display:none!important;}
-
-    /* INFO MODULE */
-    .map-info-module{position:fixed;bottom:76px;right:24px;z-index:1200;background:rgba(10,35,33,0.96);border:1px solid rgba(111,231,193,0.22);border-radius:14px;padding:1.2rem 1.5rem;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,0.45);transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
-    .map-info-module.hidden{display:none;}
-    body.panel-open .map-info-module{right:24px;}
-
-    /* LEFT PANEL */
-    .cp-panel{position:fixed;top:var(--nav-h);bottom:0;left:0;width:var(--panel-w);background:linear-gradient(160deg,#0a2321 0%,#112e26 60%,#0d2820 100%);border-right:1px solid rgba(111,231,193,0.14);z-index:200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform 0.42s cubic-bezier(0.4,0,0.2,1);box-shadow:8px 0 40px rgba(0,0,0,0.5);}
-    .cp-panel.open{transform:translateX(0);}
-    .cp-panel-bar{height:3px;background:linear-gradient(90deg,var(--gold),#f0c060,var(--gold));flex-shrink:0;}
-    .cp-panel-header{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem 0.5rem;border-bottom:1px solid rgba(111,231,193,0.1);background:rgba(0,0,0,0.2);flex-shrink:0;}
-    .cp-panel-heading{font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:rgba(232,245,240,0.38);}
-    .cp-panel-add-btns{display:flex;gap:0.35rem;align-items:center;}
-    .cp-add-btn{font-family:'Oswald',sans-serif;font-size:0.6rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.6rem;border-radius:6px;cursor:pointer;transition:all 0.2s;border:1px solid;display:flex;align-items:center;gap:0.25rem;}
-    .cp-add-btn.suggest{background:rgba(111,231,193,0.08);border-color:rgba(111,231,193,0.28);color:var(--teal);}
-    .cp-add-btn.suggest:hover{background:rgba(111,231,193,0.18);border-color:var(--teal);}
-    .cp-add-btn.checkpoint{background:rgba(230,169,58,0.1);border-color:rgba(230,169,58,0.35);color:var(--gold);}
-    .cp-add-btn.checkpoint:hover{background:rgba(230,169,58,0.22);border-color:var(--gold);}
-    .cp-add-btn.film{background:rgba(111,231,193,0.07);border-color:rgba(111,231,193,0.22);color:var(--teal);}
-    .cp-add-btn.film:hover{background:rgba(111,231,193,0.16);border-color:var(--teal);}
-
-    /* Panel tabs */
-    .cp-panel-tabs{display:flex;border-bottom:1px solid rgba(111,231,193,0.1);flex-shrink:0;}
-    .cp-panel-tab{flex:1;padding:0.5rem 0;font-family:'Oswald',sans-serif;font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;background:transparent;border:none;color:rgba(232,245,240,0.35);cursor:pointer;transition:all 0.18s;border-bottom:2px solid transparent;margin-bottom:-1px;}
-    .cp-panel-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
-    .cp-panel-tab:hover:not(.active){color:rgba(232,245,240,0.6);}
-
-    /* Filter tabs */
-    .cp-filter-section{padding:0.6rem 0.8rem 0.5rem;border-bottom:1px solid rgba(111,231,193,0.08);background:rgba(0,0,0,0.14);flex-shrink:0;}
-    .cp-filter-tabs{display:flex;border:1px solid rgba(111,231,193,0.14);border-radius:7px;overflow:hidden;margin-bottom:0.55rem;}
-    .cp-filter-tab{flex:1;padding:0.32rem 0;font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;background:transparent;border:none;border-right:1px solid rgba(111,231,193,0.1);color:rgba(232,245,240,0.32);cursor:pointer;transition:all 0.18s;}
-    .cp-filter-tab:last-child{border-right:none;}
-    .cp-filter-tab.active{background:rgba(230,169,58,0.1);color:var(--gold);}
-    .cp-filter-tab:hover:not(.active){background:rgba(255,255,255,0.04);color:rgba(232,245,240,0.55);}
-    .cp-filter-pane{display:none;flex-wrap:wrap;gap:0.32rem;min-height:28px;}
-    .cp-filter-pane.active{display:flex;}
-    .cp-chip{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:300;letter-spacing:0.04em;padding:0.22rem 0.55rem;border-radius:20px;border:1px solid rgba(111,231,193,0.16);color:rgba(232,245,240,0.4);background:transparent;cursor:pointer;transition:all 0.17s;white-space:nowrap;}
-    .cp-chip:hover{border-color:var(--teal);color:var(--teal);}
-    .cp-chip.active{background:rgba(230,169,58,0.13);border-color:rgba(230,169,58,0.48);color:var(--gold);}
-    .cp-chip.film-chip.active{background:rgba(111,231,193,0.09);border-color:rgba(111,231,193,0.42);color:var(--teal);}
-    .cp-chip-count{opacity:0.5;font-size:0.52rem;margin-left:0.25rem;}
-    .cp-filter-tab.has-filter::after{content:'';display:inline-block;width:5px;height:5px;background:var(--gold);border-radius:50%;margin-left:0.35rem;vertical-align:middle;flex-shrink:0;}
-    .cp-filter-tab.has-filter{color:rgba(230,169,58,0.7);}
-    .filter-clear-btn{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:300;letter-spacing:0.06em;padding:0.22rem 0.55rem;border-radius:20px;border:1px solid rgba(185,78,58,0.3);color:rgba(185,78,58,0.65);background:transparent;cursor:pointer;transition:all 0.18s;white-space:nowrap;margin-left:auto;}
-    .filter-clear-btn:hover{background:rgba(185,78,58,0.1);border-color:var(--crimson);color:var(--crimson);}
-    .filter-clear-btn.hidden{display:none;}
-    .filter-summary{display:none;align-items:center;gap:0.4rem;padding:0.35rem 0.8rem;background:rgba(230,169,58,0.07);border-bottom:1px solid rgba(230,169,58,0.15);flex-shrink:0;flex-wrap:wrap;}
-    .filter-summary.visible{display:flex;}
-    .filter-summary-label{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;font-weight:300;color:rgba(232,245,240,0.35);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;}
-    .filter-summary-tag{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.15rem 0.5rem;border-radius:12px;background:rgba(230,169,58,0.12);border:1px solid rgba(230,169,58,0.32);color:rgba(230,169,58,0.85);display:flex;align-items:center;gap:0.3rem;}
-    .filter-summary-tag button{background:none;border:none;color:rgba(230,169,58,0.6);cursor:pointer;font-size:0.65rem;padding:0;line-height:1;transition:color 0.15s;}
-    .filter-summary-tag button:hover{color:var(--crimson);}
-
-    /* Timeline slider */
-    .timeline-wrap{padding:0.4rem 0 0.2rem;width:100%;}
-    .timeline-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
-    .timeline-label{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;font-weight:300;color:rgba(232,245,240,0.35);letter-spacing:0.08em;}
-    .timeline-active-label{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:400;color:var(--gold);letter-spacing:0.06em;}
-    .timeline-slider-track{position:relative;height:4px;background:rgba(111,231,193,0.12);border-radius:4px;margin:0.3rem 0.6rem 1.1rem;}
-    .timeline-slider-fill{position:absolute;top:0;height:100%;background:linear-gradient(90deg,var(--gold),#f0c060);border-radius:4px;pointer-events:none;}
-    .timeline-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#0a2321;border:2px solid var(--gold);border-radius:50%;cursor:pointer;z-index:2;transition:border-color 0.18s,box-shadow 0.18s;}
-    .timeline-thumb:hover,.timeline-thumb:focus{border-color:#f0c060;box-shadow:0 0 0 3px rgba(230,169,58,0.28);outline:none;}
-    .timeline-thumb.dragging{border-color:#fff;box-shadow:0 0 0 4px rgba(230,169,58,0.35);}
-    .timeline-marks{display:flex;justify-content:space-between;padding:0 0.6rem;}
-    .timeline-mark{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;color:rgba(232,245,240,0.2);letter-spacing:0.02em;cursor:pointer;transition:color 0.18s;}
-    .timeline-mark:hover{color:var(--gold);}
-
-    /* Panel inner views */
-    .cp-panel-inner{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-    .cp-panel-inner.cp-panel-view-list .cp-detail-pane{display:none;}
-    .cp-panel-inner.cp-panel-view-list .cp-list-wrap{display:flex;}
-    .cp-panel-inner.cp-panel-view-detail .cp-list-wrap{display:none;}
-    .cp-panel-inner.cp-panel-view-detail .cp-detail-pane{display:flex;flex-direction:column;flex:1;overflow:hidden;}
-    .cp-list-wrap{flex:1;overflow:hidden;display:flex;flex-direction:column;}
-    .cp-list{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.18) transparent;list-style:none;margin:0;padding:0;}
-    .cp-list::-webkit-scrollbar{width:3px;}
-    .cp-list::-webkit-scrollbar-thumb{background:rgba(111,231,193,0.18);border-radius:2px;}
-    .cp-list-item{padding:0.85rem 1.1rem 0.85rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background 0.18s;position:relative;}
-    .cp-list-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background 0.18s;}
-    .cp-list-item:hover{background:rgba(230,169,58,0.06);}
-    .cp-list-item:hover::before{background:rgba(230,169,58,0.35);}
-    .cp-list-item.active{background:rgba(230,169,58,0.1);}
-    .cp-list-item.active::before{background:var(--gold);}
-    .cp-list-item.hidden{display:none;}
-    .film-list-item.hidden{display:none;}
-    .cp-list-arabic{font-family:'Cormorant Garamond',serif;font-size:0.78rem;font-style:italic;color:var(--teal);opacity:0.68;margin:0 0 0.15rem;}
-    .cp-list-name{font-family:'Cormorant Garamond',serif;font-size:1.03rem;font-weight:700;color:#e8f5f0;margin:0 0 0.28rem;line-height:1.2;}
-    .cp-list-meta{display:flex;gap:0.35rem;flex-wrap:wrap;}
-    .cp-list-tag{font-family:'IBM Plex Mono',monospace;font-size:0.53rem;font-weight:300;padding:0.1rem 0.38rem;border-radius:10px;border:1px solid rgba(111,231,193,0.18);color:rgba(232,245,240,0.38);}
-    .cp-list-tag.type-entry{border-color:rgba(230,169,58,0.28);color:rgba(230,169,58,0.62);}
-    .cp-list-tag.staff-permanent{border-color:rgba(185,78,58,0.3);color:rgba(185,78,58,0.65);}
-    .cp-list-films-mini{margin-top:0.3rem;display:flex;flex-wrap:wrap;gap:0.28rem;}
-    .cp-film-mini{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.08rem 0.32rem;border-radius:10px;border:1px solid rgba(230,169,58,0.18);color:rgba(230,169,58,0.55);}
-    .cp-empty-state{padding:2rem 1.5rem;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:300;color:rgba(232,245,240,0.22);letter-spacing:0.04em;line-height:1.8;}
-
-    /* Film list */
-    .film-list{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.18) transparent;list-style:none;margin:0;padding:0;}
-    .film-list::-webkit-scrollbar{width:3px;}
-    .film-list::-webkit-scrollbar-thumb{background:rgba(111,231,193,0.18);}
-    .film-list-item{padding:0.9rem 1.1rem 0.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background 0.18s;position:relative;}
-    .film-list-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background 0.18s;}
-    .film-list-item:hover{background:rgba(111,231,193,0.04);}
-    .film-list-item:hover::before{background:rgba(111,231,193,0.35);}
-    .film-list-item.active{background:rgba(111,231,193,0.08);}
-    .film-list-item.active::before{background:var(--teal);}
-    .film-list-year{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;font-weight:300;color:var(--teal);opacity:0.6;margin:0 0 0.12rem;}
-    .film-list-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#e8f5f0;margin:0 0 0.15rem;line-height:1.2;}
-    .film-list-director{font-family:'Cormorant Garamond',serif;font-size:0.85rem;font-style:italic;color:rgba(232,245,240,0.55);margin:0 0 0.28rem;}
-    .film-list-cp-count{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.08rem 0.35rem;border-radius:10px;border:1px solid rgba(111,231,193,0.2);color:rgba(111,231,193,0.5);display:inline-block;}
-    .film-detail-header{padding:1rem 1.2rem 0.8rem;border-bottom:1px solid rgba(111,231,193,0.1);background:rgba(0,0,0,0.16);position:relative;flex-shrink:0;}
-    .film-detail-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(111,231,193,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(111,231,193,0.04) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
-    .film-detail-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);opacity:0.62;margin:0 0 0.25rem;display:block;position:relative;z-index:1;}
-    .film-detail-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;margin:0 0 0.12rem;line-height:1.15;position:relative;z-index:1;}
-    .film-detail-director{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:var(--teal);opacity:0.72;margin:0;position:relative;z-index:1;}
-
-    /* Detail pane */
-    .cp-back-btn{padding:0.55rem 1.1rem;border-bottom:1px solid rgba(111,231,193,0.1);display:flex;align-items:center;gap:0.45rem;cursor:pointer;background:rgba(0,0,0,0.14);font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(232,245,240,0.42);border:none;width:100%;text-align:left;transition:color 0.18s,background 0.18s;flex-shrink:0;}
-    .cp-back-btn:hover{color:var(--teal);background:rgba(111,231,193,0.05);}
-    .cp-detail-scroll{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.18) transparent;}
-    .cp-detail-scroll::-webkit-scrollbar{width:3px;}
-    .cp-detail-scroll::-webkit-scrollbar-thumb{background:rgba(111,231,193,0.18);}
-    .cp-detail-header{padding:1rem 1.2rem 0.8rem;border-bottom:1px solid rgba(111,231,193,0.1);background:rgba(0,0,0,0.16);position:relative;}
-    .cp-detail-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(111,231,193,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(111,231,193,0.04) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
-    .cp-detail-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);opacity:0.62;margin:0 0 0.25rem;display:block;position:relative;z-index:1;}
-    .cp-detail-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;margin:0 0 0.15rem;line-height:1.15;position:relative;z-index:1;}
-    .cp-detail-arabic{font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-style:italic;color:var(--teal);opacity:0.72;margin:0;position:relative;z-index:1;}
-
-    /* Carousel */
-    .cp-panel-carousel{width:100%;height:185px;position:relative;flex-shrink:0;background:#060f0d;overflow:hidden;}
-    .cp-panel-carousel img{display:none;width:100%;height:185px;object-fit:cover;object-position:center;filter:brightness(0.84) saturate(0.9);}
-    .cp-panel-carousel img.active{display:block;}
-    .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;background:rgba(10,35,33,0.82);color:#e8f5f0;border:1px solid rgba(111,231,193,0.32);border-radius:50%;font-size:1rem;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;transition:background 0.18s,color 0.18s,border-color 0.18s;box-shadow:0 2px 10px rgba(0,0,0,0.5);}
-    .carousel-btn.prev{left:9px;}
-    .carousel-btn.next{right:9px;}
-    .carousel-btn:hover{background:var(--gold);color:#0a2321;border-color:var(--gold);}
-    .carousel-dots{position:absolute;bottom:6px;left:0;right:0;display:flex;justify-content:center;gap:0.38rem;pointer-events:none;}
-    .carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(232,245,240,0.28);border:none;padding:0;cursor:pointer;pointer-events:auto;transition:background 0.18s,transform 0.18s;}
-    .carousel-dot.active{background:var(--gold);transform:scale(1.35);}
-
-    .cp-detail-row{padding:0.58rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);font-family:'Cormorant Garamond',serif;font-size:0.94rem;line-height:1.65;color:rgba(232,245,240,0.8);}
-    .cp-detail-row:last-child{border-bottom:none;}
-    .cp-detail-row-label{font-family:'Oswald',sans-serif;font-size:0.54rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.08rem;}
-    .cp-film-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:300;padding:0.16rem 0.46rem;border-radius:20px;border:1px solid rgba(230,169,58,0.28);color:rgba(230,169,58,0.82);margin:0.14rem 0.14rem 0 0;white-space:nowrap;}
-    .cp-detail-films{padding:0.58rem 1.2rem 0.65rem;border-bottom:1px solid rgba(255,255,255,0.05);}
-    .cp-detail-analysis{padding:0.7rem 1.2rem 1rem;font-family:'Cormorant Garamond',serif;font-size:0.95rem;line-height:1.8;color:rgba(232,245,240,0.8);border-bottom:1px solid rgba(255,255,255,0.05);}
-    .cp-detail-analysis .cp-detail-row-label{margin-bottom:0.42rem;}
-    .cp-detail-analysis p{margin:0 0 0.7rem;}
-    .cp-detail-analysis p:last-child{margin-bottom:0;}
-    .cp-detail-admin-row{padding:0.55rem 1.2rem 0.85rem;display:flex;gap:0.6rem;flex-wrap:wrap;}
-    .cp-detail-edit-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:6px;border:1px solid rgba(111,231,193,0.28);color:rgba(111,231,193,0.65);background:transparent;cursor:pointer;transition:all 0.18s;}
-    .cp-detail-edit-btn:hover{background:rgba(111,231,193,0.08);border-color:var(--teal);color:var(--teal);}
-    .cp-detail-delete-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:6px;border:1px solid rgba(185,78,58,0.32);color:rgba(185,78,58,0.65);background:transparent;cursor:pointer;transition:all 0.18s;}
-    .cp-detail-delete-btn:hover{background:rgba(185,78,58,0.1);border-color:var(--crimson);color:var(--crimson);}
-  btn.className = 'cp-chip ' + extraClass + (isActive ? ' active' : '');
-  btn.innerHTML = label + (count != null ? `<span class="cp-chip-count">${count}</span>` : '');
-  btn.addEventListener('click', onClick); parent.appendChild(btn);
+  pTab.addEventListener('click', openPanel);
+  closeBtn.addEventListener('click', closePanel);
+  mCloseBtn.addEventListener('click', closePanel);
 }
 
-/* ══ TIMELINE ══ */
-let timelineMin = 1900, timelineMax = 2030, timelineValMin = 1900, timelineValMax = 2030;
+function openPanel() { document.body.classList.add('panel-open'); panel.classList.add('open'); document.getElementById('panelTab').classList.add('hidden'); document.getElementById('panelCloseBtn').classList.add('visible'); map.resize(); }
+function closePanel() { document.body.classList.remove('panel-open'); panel.classList.remove('open'); document.getElementById('panelTab').classList.remove('hidden'); document.getElementById('panelCloseBtn').classList.remove('visible'); map.resize(); resetMarkerHighlight(); }
+
+window.switchPanelTab = function(target) {
+  activePanelTab = target;
+  document.querySelectorAll('.cp-panel-tab').forEach(b => b.classList.toggle('active', b.getAttribute('data-panel-tab') === target));
+  document.getElementById('checkpointsView').style.display = target === 'checkpoints' ? 'flex' : 'none';
+  document.getElementById('filmsView').style.display = target === 'films' ? 'flex' : 'none';
+  document.getElementById('submissionsView').style.display = target === 'submissions' ? 'flex' : 'none';
+};
+
+function showListView() { document.getElementById('checkpointsView').className = 'cp-panel-inner cp-panel-view-list'; activeCpId = null; resetMarkerHighlight(); }
+function showDetailView() { document.getElementById('checkpointsView').className = 'cp-panel-inner cp-panel-view-detail'; }
+function showFilmListView() { document.getElementById('filmsView').className = 'cp-panel-inner cp-panel-view-list'; activeFilmId = null; resetMarkerHighlight(); }
+function showFilmDetailView() { document.getElementById('filmsView').className = 'cp-panel-inner cp-panel-view-detail'; }
+
+window.showListView = showListView;
+window.showFilmListView = showFilmListView;
+
+function setupFilters() {
+  document.querySelectorAll('#checkpointsView .cp-filter-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#checkpointsView .cp-filter-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#checkpointsView .cp-filter-pane').forEach(p => p.classList.remove('active'));
+      document.getElementById('filter-' + btn.getAttribute('data-tab')).classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-filter-type]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-filter-type]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilters.type = btn.getAttribute('data-filter-type');
+      applyFilters();
+    });
+  });
+
+  document.querySelectorAll('[data-filter-staff]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-filter-staff]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilters.staff = btn.getAttribute('data-filter-staff');
+      applyFilters();
+    });
+  });
+}
+
+function buildFilmFilterChips() {
+  const pane = document.getElementById('filter-film'); if(!pane) return; pane.innerHTML = '';
+  makeChip(currentLang === 'ar' ? 'الكل' : 'All Films', 'all', () => { activeFilters.film = 'all'; applyFilters(); }, activeFilters.film === 'all', pane);
+  films.forEach(f => {
+    makeChip(f.title, f.id, () => { activeFilters.film = f.id; applyFilters(); }, activeFilters.film === f.id, pane);
+  });
+}
+
+function makeChip(label, value, onClick, isActive, parent) {
+  const btn = document.createElement('button'); btn.className = 'cp-chip' + (isActive ? ' active' : '');
+  btn.textContent = label; btn.addEventListener('click', onClick); parent.appendChild(btn);
+}
+
+function showToast(msg, type='info') { alert(msg); }
+
+/* ══ TIMELINE ENGINE ══ */
+let timelineMin = 1990, timelineMax = 2026, timelineValMin = 1990, timelineValMax = 2026;
 function initTimeline() {
-  const years = [];
-  films.forEach(f => { if (f.year) years.push(parseInt(f.year)); });
-  if (!years.length) return;
-  timelineMin = Math.max(Math.min(...years) - 1, 1900); timelineMax = Math.min(Math.max(...years) + 1, 2030);
+  const years = []; films.forEach(f => { if (f.year) years.push(parseInt(f.year)); });
+  if (years.length) { timelineMin = Math.min(...years); timelineMax = Math.max(...years); }
   timelineValMin = timelineMin; timelineValMax = timelineMax;
   activeFilters.yearMin = timelineValMin; activeFilters.yearMax = timelineValMax;
-  renderTimelineMarks(); updateTimelineUI(); bindTimelineThumbs();
+  renderTimelineMarks(); updateTimelineUI(); bindTimelineThumbs(); buildFilmFilterChips();
 }
 function renderTimelineMarks() {
   const marks = document.getElementById('timelineMarks'); if (!marks) return; marks.innerHTML = '';
-  const span = timelineMax - timelineMin; const step = Math.ceil(span / 4); const markYears = [];
-  for (let y = timelineMin; y <= timelineMax; y += step) markYears.push(y);
-  if (markYears[markYears.length - 1] !== timelineMax) markYears.push(timelineMax);
-  markYears.forEach(yr => {
-    const s = document.createElement('span'); s.className = 'timeline-mark'; s.textContent = yr;
-    s.addEventListener('click', () => { timelineValMin = yr; timelineValMax = yr; activeFilters.yearMin = yr; activeFilters.yearMax = yr; updateTimelineUI(); applyFilters(); });
+  const span = timelineMax - timelineMin || 1; const step = Math.max(1, Math.ceil(span / 4));
+  for (let y = timelineMin; y <= timelineMax; y += step) {
+    const s = document.createElement('span'); s.className = 'timeline-mark'; s.textContent = y;
+    s.addEventListener('click', () => { timelineValMin = y; timelineValMax = y; activeFilters.yearMin = y; activeFilters.yearMax = y; updateTimelineUI(); applyFilters(); });
     marks.appendChild(s);
-  });
+  }
 }
 function updateTimelineUI() {
   const track = document.getElementById('timelineTrack'), fill = document.getElementById('timelineFill'),
     tMin = document.getElementById('thumbMin'), tMax = document.getElementById('thumbMax'),
     label = document.getElementById('timelineActiveLabel');
-  if (!track) return;
-  const span = timelineMax - timelineMin || 1;
+  if (!track) return; const span = timelineMax - timelineMin || 1;
   const pMin = ((timelineValMin - timelineMin) / span) * 100, pMax = ((timelineValMax - timelineMin) / span) * 100;
   tMin.style.left = pMin + '%'; tMax.style.left = pMax + '%';
   fill.style.left = pMin + '%'; fill.style.width = (pMax - pMin) + '%';
-  if (timelineValMin === timelineMin && timelineValMax === timelineMax) label.textContent = currentLang === 'ar' ? 'كل السنين' : 'All years';
-  else if (timelineValMin === timelineValMax) label.textContent = String(timelineValMin);
-  else label.textContent = timelineValMin + ' – ' + timelineValMax;
+  label.textContent = timelineValMin === timelineValMax ? String(timelineValMin) : timelineValMin + ' – ' + timelineValMax;
 }
 function bindTimelineThumbs() {
   const track = document.getElementById('timelineTrack'), tMin = document.getElementById('thumbMin'), tMax = document.getElementById('thumbMax'); if (!track) return;
@@ -1208,35 +1053,16 @@ function bindTimelineThumbs() {
   }
   tMin.addEventListener('mousedown', e => startDrag(tMin, e)); tMin.addEventListener('touchstart', e => startDrag(tMin, e), { passive: false });
   tMax.addEventListener('mousedown', e => startDrag(tMax, e)); tMax.addEventListener('touchstart', e => startDrag(tMax, e), { passive: false });
-  [tMin, tMax].forEach(thumb => {
-    thumb.addEventListener('keydown', e => {
-      const step = 1, isMin = thumb === tMin;
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { if (isMin) timelineValMin = Math.max(timelineMin, timelineValMin - step); else timelineValMax = Math.max(timelineValMin, timelineValMax - step); e.preventDefault(); }
-      else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { if (isMin) timelineValMin = Math.min(timelineValMax, timelineValMin + step); else timelineValMax = Math.min(timelineMax, timelineValMax + step); e.preventDefault(); }
-      activeFilters.yearMin = timelineValMin; activeFilters.yearMax = timelineValMax; updateTimelineUI(); applyFilters();
-    });
-  });
-  track.addEventListener('click', e => {
-    if (e.target === tMin || e.target === tMax) return;
-    const yr = getYr(e.clientX);
-    if (Math.abs(yr - timelineValMin) <= Math.abs(yr - timelineValMax)) timelineValMin = Math.min(yr, timelineValMax);
-    else timelineValMax = Math.max(yr, timelineValMin);
-    activeFilters.yearMin = timelineValMin; activeFilters.yearMax = timelineValMax; updateTimelineUI(); applyFilters();
-  });
-  document.getElementById('timelineResetBtn').addEventListener('click', () => {
-    timelineValMin = timelineMin; timelineValMax = timelineMax;
-    activeFilters.yearMin = timelineValMin; activeFilters.yearMax = timelineValMax;
-    updateTimelineUI(); applyFilters();
-  });
+  document.getElementById('timelineResetBtn').addEventListener('click', () => { timelineValMin = timelineMin; timelineValMax = timelineMax; activeFilters.yearMin = timelineValMin; activeFilters.yearMax = timelineValMax; updateTimelineUI(); applyFilters(); });
 }
 
 function applyFilters() {
   let filmCpIds = null;
   if (activeFilters.film !== 'all') { const f = films.find(x => x.id === activeFilters.film); filmCpIds = f ? (f.checkpointIds || []) : []; }
   const yMin = activeFilters.yearMin ?? timelineMin, yMax = activeFilters.yearMax ?? timelineMax;
-  const isFullRange = (yMin <= timelineMin && yMax >= timelineMax);
-  let yearCpIds = null;
-  if (!isFullRange) { yearCpIds = new Set(); films.filter(f => f.year >= yMin && f.year <= yMax).forEach(f => (f.checkpointIds || []).forEach(id => yearCpIds.add(id))); checkpoints.forEach(cp => { (cp.films || []).forEach(s => { const m = s.match(/,\s*(\d{4})/); if (m) { const yr = parseInt(m[1]); if (yr >= yMin && yr <= yMax) yearCpIds.add(cp.id); } }); }); }
+  let yearCpIds = new Set();
+  films.filter(f => f.year >= yMin && f.year <= yMax).forEach(f => (f.checkpointIds || []).forEach(id => yearCpIds.add(id)));
+
   let anyVisible = false;
   document.querySelectorAll('.cp-list-item').forEach(item => {
     const id = item.getAttribute('data-id'), ft = item.getAttribute('data-filter-type'), fs = item.getAttribute('data-filter-staff');
@@ -1244,493 +1070,232 @@ function applyFilters() {
     if (activeFilters.type !== 'all' && ft !== activeFilters.type) show = false;
     if (activeFilters.staff !== 'all' && fs !== activeFilters.staff) show = false;
     if (filmCpIds !== null && !filmCpIds.includes(id)) show = false;
-    if (yearCpIds !== null && !yearCpIds.has(id)) show = false;
+    if (yearCpIds.size && !yearCpIds.has(id)) show = false;
     item.classList.toggle('hidden', !show); if (show) anyVisible = true;
   });
   emptyState.style.display = anyVisible ? 'none' : 'block';
-  if (!anyVisible) showListView();
   updateCpFilterUI();
 }
 
 function updateCpFilterUI() {
   const hasType = activeFilters.type !== 'all', hasStaff = activeFilters.staff !== 'all', hasFilm = activeFilters.film !== 'all';
-  const yMin = activeFilters.yearMin ?? timelineMin, yMax = activeFilters.yearMax ?? timelineMax;
-  const hasYear = !(yMin <= timelineMin && yMax >= timelineMax);
-  const anyActive = hasType || hasStaff || hasFilm || hasYear;
-  document.querySelector('[data-tab="type"]')?.classList.toggle('has-filter', hasType);
-  document.querySelector('[data-tab="staffing"]')?.classList.toggle('has-filter', hasStaff);
-  document.querySelector('[data-tab="film"]')?.classList.toggle('has-filter', hasFilm);
-  document.querySelector('[data-tab="year"]')?.classList.toggle('has-filter', hasYear);
-  const clearBtn = document.getElementById('cpClearFiltersBtn'); if (clearBtn) clearBtn.classList.toggle('hidden', !anyActive);
-  const summary = document.getElementById('cpFilterSummary'), tagsEl = document.getElementById('cpFilterTags');
-  if (!summary || !tagsEl) return; tagsEl.innerHTML = '';
-  if (!anyActive) { summary.classList.remove('visible'); return; }
-  summary.classList.add('visible');
-  if (hasType) { const label = activeFilters.type === 'internal' ? (currentLang === 'ar' ? 'داخلي' : 'Internal') : (currentLang === 'ar' ? 'دخول وخروج' : 'Entry / Exit'); addSummaryTag(tagsEl, label, () => { activeFilters.type = 'all'; document.querySelectorAll('[data-filter-type]').forEach(x => x.classList.toggle('active', x.getAttribute('data-filter-type') === 'all')); applyFilters(); }); }
-  if (hasStaff) { const label = activeFilters.staff === 'permanent' ? (currentLang === 'ar' ? 'دايم' : 'Permanent') : (currentLang === 'ar' ? 'متقطع' : 'Intermittent'); addSummaryTag(tagsEl, label, () => { activeFilters.staff = 'all'; document.querySelectorAll('[data-filter-staff]').forEach(x => x.classList.toggle('active', x.getAttribute('data-filter-staff') === 'all')); applyFilters(); }); }
-  if (hasFilm) { const f = films.find(x => x.id === activeFilters.film); if (f) addSummaryTag(tagsEl, `${f.title}`, () => { activeFilters.film = 'all'; buildFilmFilterChips(); applyFilters(); }); }
-  if (hasYear) { addSummaryTag(tagsEl, `${yMin}–${yMax}`, () => { timelineValMin = timelineMin; timelineValMax = timelineMax; activeFilters.yearMin = timelineValMin; activeFilters.yearMax = timelineValMax; updateTimelineUI(); applyFilters(); }); }
-}
-
-function addSummaryTag(parent, label, onRemove) {
-  const span = document.createElement('span'); span.className = 'filter-summary-tag';
-  span.innerHTML = `${label}<button aria-label="Remove filter">×</button>`;
-  span.querySelector('button').addEventListener('click', onRemove); parent.appendChild(span);
+  const anyActive = hasType || hasStaff || hasFilm;
+  document.getElementById('cpClearFiltersBtn')?.classList.toggle('hidden', !anyActive);
 }
 
 window.clearCheckpointFilters = function () {
   activeFilters.type = 'all'; activeFilters.staff = 'all'; activeFilters.film = 'all';
   timelineValMin = timelineMin; timelineValMax = timelineMax; activeFilters.yearMin = timelineValMin; activeFilters.yearMax = timelineValMax;
-  document.querySelectorAll('[data-filter-type]').forEach(x => x.classList.toggle('active', x.getAttribute('data-filter-type') === 'all'));
-  document.querySelectorAll('[data-filter-staff]').forEach(x => x.classList.toggle('active', x.getAttribute('data-filter-staff') === 'all'));
-  buildFilmFilterChips(); updateTimelineUI(); applyFilters();
+  document.querySelectorAll('#filter-type .cp-chip, #filter-staffing .cp-chip').forEach(x => x.classList.toggle('active', x.getAttribute('data-filter-type') === 'all' || x.getAttribute('data-filter-staff') === 'all'));
+  updateTimelineUI(); applyFilters();
 };
 
 /* ══════════════════════════════
-   BUILD LISTS
+    DOM VIEW COMPILERS
 ══════════════════════════════ */
 function buildList() {
   cpListEl.innerHTML = '';
   checkpoints.forEach(cp => {
-    const li = document.createElement('li'); li.className = 'cp-list-item';
-    li.setAttribute('data-id', cp.id); li.setAttribute('data-filter-type', cp.filterType || 'internal');
-    li.setAttribute('data-filter-staff', cp.filterStaff || 'permanent'); li.setAttribute('tabindex', '0');
-    const miniFilms = (cp.films || []).slice(0, 2).map(f => { const m = f.match(/,\s*(\d{4})/); const yr = m ? m[1] : ''; const title = f.split('—')[0].trim(); return `<span class="cp-film-mini">${title}${yr ? ' ' + yr : ''}</span>`; }).join('');
-    li.innerHTML = `<div class="cp-list-arabic">${cp.arabic || ''}</div><div class="cp-list-name">${cp.title}</div><div class="cp-list-meta"><span class="cp-list-tag ${cp.filterType === 'entry' ? 'type-entry' : ''}">${cp.type || ''}</span><span class="cp-list-tag ${cp.filterStaff === 'permanent' ? 'staff-permanent' : ''}">${cp.staffing || ''}</span></div>${miniFilms ? `<div class="cp-list-films-mini">${miniFilms}</div>` : ''}`;
-    li.addEventListener('click', () => openCheckpoint(cp.id));
-    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openCheckpoint(cp.id); });
-    cpListEl.appendChild(li);
+    const li = document.createElement('li'); li.className = 'cp-list-item'; li.setAttribute('data-id', cp.id);
+    li.setAttribute('data-filter-type', cp.filterType || 'internal'); li.setAttribute('data-filter-staff', cp.filterStaff || 'permanent');
+    li.innerHTML = `<div class="cp-list-arabic">${cp.arabic || ''}</div><div class="cp-list-name">${cp.title}</div><div class="cp-list-meta"><span class="cp-list-tag">${cp.type}</span></div>`;
+    li.addEventListener('click', () => openCheckpoint(cp.id)); parent = cpListEl.appendChild(li);
   });
 }
-
-/* ══ FILM FILTERS ══ */
-function initFilmFilters() {
-  document.querySelectorAll('[data-film-tab]').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('[data-film-tab]').forEach(t => t.classList.remove('active')); tab.classList.add('active');
-      document.querySelectorAll('#filmsView .cp-filter-pane').forEach(p => p.classList.remove('active'));
-      const pane = document.getElementById('film-filter-' + tab.getAttribute('data-film-tab')); if (pane) pane.classList.add('active');
-    });
-  });
-  document.getElementById('film-filter-genre').addEventListener('click', e => {
-    const c = e.target.closest('[data-film-genre]'); if (!c) return;
-    document.querySelectorAll('[data-film-genre]').forEach(x => x.classList.remove('active')); c.classList.add('active');
-    activeFilmFilters.genre = c.getAttribute('data-film-genre'); applyFilmFilters();
-  });
-  buildFilmCheckpointChips(); buildFilmYearChips();
-}
-
-function buildFilmCheckpointChips() {
-  const pane = document.getElementById('film-filter-checkpoint'); if (!pane) return; pane.innerHTML = '';
-  makeChip(currentLang === 'ar' ? 'كل الحواجز' : 'All Checkpoints', '', () => { activeFilmFilters.checkpoint = 'all'; buildFilmCheckpointChips(); applyFilmFilters(); }, activeFilmFilters.checkpoint === 'all', pane);
-  checkpoints.filter(cp => films.some(f => (f.checkpointIds || []).includes(cp.id))).forEach(cp => {
-    makeChip(cp.arabic && currentLang === 'ar' ? cp.arabic : cp.title, '', () => { activeFilmFilters.checkpoint = cp.id; buildFilmCheckpointChips(); applyFilmFilters(); }, activeFilmFilters.checkpoint === cp.id, pane);
-  });
-}
-
-function buildFilmYearChips() {
-  const pane = document.getElementById('film-filter-year'); if (!pane) return; pane.innerHTML = '';
-  const decades = new Set(); films.forEach(f => { if (f.year) decades.add(Math.floor(f.year / 10) * 10); });
-  const sorted = Array.from(decades).sort();
-  makeChip(currentLang === 'ar' ? 'كل السنين' : 'All Years', 'year-chip', () => { activeFilmFilters.year = 'all'; buildFilmYearChips(); applyFilmFilters(); }, activeFilmFilters.year === 'all', pane);
-  sorted.forEach(dec => { makeChip(`${dec}s`, 'year-chip', () => { activeFilmFilters.year = dec; buildFilmYearChips(); applyFilmFilters(); }, activeFilmFilters.year === dec, pane); });
-}
-
-function applyFilmFilters() {
-  let anyVisible = false;
-  document.querySelectorAll('.film-list-item').forEach(item => {
-  document.querySelectorAll('.film-list-item').forEach(item => {
-    const id = item.getAttribute('data-film-id'); const f = films.find(x => x.id === id); if (!f) { item.classList.add('hidden'); return; }
-    let show = true;
-    if (activeFilmFilters.genre !== 'all' && !(f.genre || '').toLowerCase().includes(activeFilmFilters.genre.toLowerCase())) show = false;
-    if (activeFilmFilters.year !== 'all' && Math.floor((f.year || 0) / 10) * 10 !== activeFilmFilters.year) show = false;
-    item.classList.toggle('hidden', !show); if (show) anyVisible = true;
-  });
-  const empty = document.getElementById('filmEmptyState'); if (empty) empty.style.display = anyVisible ? 'none' : 'block';
-  updateFilmFilterUI();
-}
-
-function updateFilmFilterUI() {
-  const hasGenre = activeFilmFilters.genre !== 'all', hasCp = activeFilmFilters.checkpoint !== 'all', hasYear = activeFilmFilters.year !== 'all', anyActive = hasGenre || hasCp || hasYear;
-  document.querySelector('[data-film-tab="genre"]')?.classList.toggle('has-filter', hasGenre);
-  document.querySelector('[data-film-tab="checkpoint"]')?.classList.toggle('has-filter', hasCp);
-  document.querySelector('[data-film-tab="year"]')?.classList.toggle('has-filter', hasYear);
-  const clearBtn = document.getElementById('filmClearFiltersBtn'); if (clearBtn) clearBtn.classList.toggle('hidden', !anyActive);
-  const summary = document.getElementById('filmFilterSummary'), tagsEl = document.getElementById('filmFilterTags');
-  if (!summary || !tagsEl) return; tagsEl.innerHTML = '';
-  if (!anyActive) { summary.classList.remove('visible'); return; }
-  summary.classList.add('visible');
-  if (hasGenre) { const labels = { en: { all: 'All', 'Narrative feature': 'Narrative', 'Documentary': 'Documentary', 'Short film': 'Short', 'Experimental / Essay film': 'Experimental' }, ar: { all: 'الكل', 'Narrative feature': 'روائي', 'Documentary': 'وثائقي', 'Short film': 'قصير', 'Experimental / Essay film': 'تجريبي' } }; const label = labels[currentLang]?.[activeFilmFilters.genre] || activeFilmFilters.genre; addSummaryTag(tagsEl, label, () => { activeFilmFilters.genre = 'all'; document.querySelectorAll('[data-film-genre]').forEach(x => x.classList.toggle('active', x.getAttribute('data-film-genre') === 'all')); applyFilmFilters(); }); }
-  if (hasCp) { const cp = checkpoints.find(c => c.id === activeFilmFilters.checkpoint); const label = cp ? (currentLang === 'ar' && cp.arabic ? cp.arabic : cp.title) : activeFilmFilters.checkpoint; addSummaryTag(tagsEl, label, () => { activeFilmFilters.checkpoint = 'all'; buildFilmCheckpointChips(); applyFilmFilters(); }); }
-  if (hasYear) { addSummaryTag(tagsEl, `${activeFilmFilters.year}s`, () => { activeFilmFilters.year = 'all'; buildFilmYearChips(); applyFilmFilters(); }); }
-}
-
-window.clearFilmFilters = function () {
-  activeFilmFilters.genre = 'all'; activeFilmFilters.checkpoint = 'all'; activeFilmFilters.year = 'all';
-  document.querySelectorAll('[data-film-genre]').forEach(x => x.classList.toggle('active', x.getAttribute('data-film-genre') === 'all'));
-  buildFilmCheckpointChips(); buildFilmYearChips(); applyFilmFilters();
-};
 
 function buildFilmList() {
-  const el = document.getElementById('filmList'); el.innerHTML = '';
+  const el = document.getElementById('filmList'); if(!el) return; el.innerHTML = '';
   films.forEach(f => {
-    const li = document.createElement('li'); li.className = 'film-list-item'; li.setAttribute('tabindex', '0'); li.setAttribute('data-film-id', f.id);
-    const cpCount = (f.checkpointIds || []).length;
-    li.innerHTML = `<div class="film-list-year">${f.year || ''}${f.country ? ' · ' + f.country : ''}</div><div class="film-list-title">${f.title}</div><div class="film-list-director">${f.director || ''}</div>${cpCount ? `<span class="film-list-cp-count">${cpCount} checkpoint${cpCount !== 1 ? 's' : ''}</span>` : ''}`;
-    li.addEventListener('click', () => openFilmDetail(f.id));
-    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openFilmDetail(f.id); });
-    el.appendChild(li);
+    const li = document.createElement('li'); li.className = 'film-list-item'; li.setAttribute('data-film-id', f.id);
+    li.innerHTML = `<div class="film-list-year">${f.year}</div><div class="film-list-title">${f.title}</div><div class="film-list-director">${f.director}</div>`;
+    li.addEventListener('click', () => openFilmDetail(f.id)); el.appendChild(li);
   });
-  buildFilmCheckpointChips(); buildFilmYearChips();
-  initFilmFilters();
 }
 
-/* ══ CAROUSEL ══ */
-function buildCarousel(images, uid) {
-  if (!images || !images.length) return '';
-  const multi = images.length > 1;
-  const imgs = images.map((s, i) => `<img src="${s}" alt="Photo ${i + 1}" class="${i === 0 ? 'active' : ''}" onerror="this.style.display='none'">`).join('');
-  const nav = multi ? `<button class="carousel-btn prev">&#8249;</button><button class="carousel-btn next">&#8250;</button>` : '';
-  const dots = multi ? `<div class="carousel-dots">${images.map((_, i) => `<button class="carousel-dot${i === 0 ? ' active' : ''}"></button>`).join('')}</div>` : '';
-  return `<div class="cp-panel-carousel" id="car-${uid}">${imgs}${nav}${dots}</div>`;
-}
-function initCarousel(wrap) {
-  if (!wrap || wrap.dataset.bound) return;
-  const imgs = wrap.querySelectorAll('img'), dots = wrap.querySelectorAll('.carousel-dot'), prev = wrap.querySelector('.carousel-btn.prev'), next = wrap.querySelector('.carousel-btn.next');
-  if (!imgs.length) return; let cur = 0;
-  function show(idx) { cur = (idx + imgs.length) % imgs.length; imgs.forEach((el, i) => el.classList.toggle('active', i === cur)); dots.forEach((el, i) => el.classList.toggle('active', i === cur)); }
-  if (prev) prev.addEventListener('click', e => { e.stopPropagation(); show(cur - 1); });
-  if (next) next.addEventListener('click', e => { e.stopPropagation(); show(cur + 1); });
-  dots.forEach((d, i) => d.addEventListener('click', e => { e.stopPropagation(); show(i); }));
-  wrap.dataset.bound = '1';
-}
+window.clearFilmFilters = function() { activeFilmFilters.genre = 'all'; applyFilmFilters(); };
+function applyFilmFilters() {}
 
-/* ══ OPEN CHECKPOINT ══ */
-function openCheckpoint(id) {
-  const cp = checkpoints.find(c => c.id === id); if (!cp) return;
-  activeCpId = id;
-  document.querySelectorAll('.cp-list-item').forEach(el => el.classList.toggle('active', el.getAttribute('data-id') === id));
-  const filmTags = (cp.films || []).map(f => `<span class="cp-film-tag">${f}</span>`).join('');
-  const lat = cp.coords[1].toFixed(5), lng = cp.coords[0].toFixed(5);
-  const adminActions = isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editCheckpoint('${id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteCheckpoint('${id}')">Delete</button></div>` : '';
-  const placeholderNote = cp.placeholder ? `<div class="cp-detail-row" style="color:rgba(240,208,32,0.7);font-style:italic;font-size:0.88rem;"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'ملاحظة' : 'Note'}</span>${currentLang === 'ar' ? 'هاد الحاجز محجوز — التفاصيل والتحليل رح يُضافوا قريباً.' : 'This checkpoint is reserved — full analysis and details will be added soon.'}</div>` : '';
-  detailScroll.innerHTML = `
-    ${buildCarousel(cp.images || [], id)}
-    <div class="cp-detail-header">
-      <span class="cp-detail-eyebrow">${currentLang === 'ar' ? 'حاجز' : 'Checkpoint'}</span>
-      <h2 class="cp-detail-title">${cp.title}</h2>
-      ${cp.arabic ? `<p class="cp-detail-arabic">${cp.arabic}</p>` : ''}
-    </div>
-    <div class="cp-detail-row"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'الإحداثيات' : 'Coordinates'}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:rgba(111,231,193,0.72);">${lat}° N, ${lng}° E</span></div>
-    <div class="cp-detail-row"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'المنطقة' : 'District'}</span>${cp.district || '—'}</div>
-    <div class="cp-detail-row"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'النوع' : 'Type'}</span>${cp.type || '—'}</div>
-    <div class="cp-detail-row"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'الطاقم' : 'Staffing'}</span>${cp.staffing || '—'}</div>
-    <div class="cp-detail-row"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'الوضع' : 'Status'}</span>${cp.detail || '—'}</div>
-    ${filmTags ? `<div class="cp-detail-films"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'طلع في' : 'Featured In'}</span>${filmTags}</div>` : ''}
-    ${cp.analysis ? `<div class="cp-detail-analysis"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'التحليل السينمائي' : 'Cinematic Analysis'}</span>${cp.analysis}</div>` : ''}
-    ${placeholderNote}
-    ${adminActions}`;
-  initCarousel(document.getElementById(`car-${id}`));
-  showDetailView(); detailScroll.scrollTop = 0;
-  const wasOpen = panel.classList.contains('open');
-  openPanel();
-  setTimeout(() => { map.resize(); map.flyTo({ center: cp.coords, zoom: 16, essential: true, duration: 1100, offset: [-200, 0] }); }, wasOpen ? 0 : 440);
-}
-
-/* ══ OPEN FILM DETAIL ══ */
-function openFilmDetail(id) {
-  const f = films.find(x => x.id === id); if (!f) return;
-  activeFilmId = id;
-  document.querySelectorAll('.film-list-item').forEach(el => el.classList.remove('active'));
-  const el = document.querySelector(`.film-list-item[data-film-id="${id}"]`); if (el) el.classList.add('active');
-  highlightFilmOnMap(f.checkpointIds || []);
-  const cpLinks = (f.checkpointIds || []).map(cpId => { const cp = checkpoints.find(c => c.id === cpId); if (!cp) return ''; return `<div style="padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;" onclick="openCheckpoint('${cpId}');switchPanelTab('checkpoints');"><span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:rgba(232,245,240,0.82);">${cp.title}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:0.52rem;color:rgba(111,231,193,0.5);margin-left:0.5rem;">${cp.arabic || ''}</span></div>`; }).join('');
-  const adminActions = isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editFilm('${id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteFilm('${id}')">Delete</button></div>` : '';
-  document.getElementById('filmDetailScroll').innerHTML = `
-    <div class="film-detail-header"><span class="film-detail-eyebrow">${f.genre || 'Film'} · ${f.year || ''}</span><h2 class="film-detail-title">${f.title}</h2><p class="film-detail-director">${f.director || ''}${f.country ? ' — ' + f.country : ''}</p></div>
-    ${(f.notes_ar && currentLang === 'ar' ? f.notes_ar : f.notes) ? `<div class="cp-detail-row"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'القصة' : 'Synopsis'}</span>${currentLang === 'ar' && f.notes_ar ? f.notes_ar : f.notes}</div>` : ''}
-    ${cpLinks ? `<div class="cp-detail-row"><span class="cp-detail-row-label">${currentLang === 'ar' ? 'الحواجز اللي ظهرت' : 'Checkpoints Featured'}</span>${cpLinks}</div>` : '<div class="cp-detail-row" style="color:rgba(232,245,240,0.35);font-style:italic;font-size:0.9rem;">No checkpoints linked yet.</div>'}
-    ${adminActions}`;
-  showFilmDetailView(); document.getElementById('filmDetailScroll').scrollTop = 0; openPanel();
-}
-
-function highlightFilmOnMap(cpIds) { markerObjs.forEach(({ el, cp }) => { const inner = el.querySelector('div'); if (!inner) return; if (cpIds.length === 0 || cpIds.includes(cp.id)) { inner.style.opacity = '1'; inner.style.filter = 'drop-shadow(0 4px 10px rgba(0,0,0,0.6))'; } else { inner.style.opacity = '0.25'; inner.style.filter = 'none'; } }); }
-function resetMarkerHighlight() { highlightFilmOnMap([]); }
-
-/* ══ MARKERS ══ */
-function addMarker(cp) {
-  const el = document.createElement('div');
-  let fill, stroke;
-  if (!cp.seed) { fill = '#f07830'; stroke = '#a04818'; }
-  else if (cp.placeholder) { fill = '#f0d020'; stroke = '#a09010'; }
-  else { fill = '#4ec87a'; stroke = '#267a48'; }
-  el.style.cssText = 'width:54px;height:54px;cursor:pointer;position:relative;';
-  const inner = document.createElement('div');
-  inner.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6));transition:filter 0.2s;pointer-events:none;';
-  inner.innerHTML = `<svg width="54" height="54" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="18" width="8" height="12" rx="2" fill="${fill}" stroke="${stroke}" stroke-width="1.2"/><rect x="13" y="13" width="12" height="6" rx="2" fill="${fill}" stroke="${stroke}" stroke-width="1.2"/><rect x="16.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/><rect x="19.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/><rect x="22.5" y="15" width="2" height="2.5" rx="0.5" fill="#0a1a18"/><rect x="16" y="30" width="2" height="4" rx="1" fill="${stroke}"/><rect x="20" y="30" width="2" height="4" rx="1" fill="${stroke}"/><ellipse cx="19" cy="36" rx="7" ry="1.5" fill="rgba(230,169,58,0.2)"/></svg>`;
-  el.appendChild(inner);
-  const glowColor = !cp.seed ? 'rgba(240,120,48,0.65)' : cp.placeholder ? 'rgba(240,208,32,0.65)' : 'rgba(78,200,122,0.65)';
-  el.addEventListener('mouseenter', () => { inner.style.filter = `drop-shadow(0 6px 16px ${glowColor}) brightness(1.18)`; });
-  el.addEventListener('mouseleave', () => { inner.style.filter = 'drop-shadow(0 4px 10px rgba(0,0,0,0.6))'; });
-  el.addEventListener('click', e => { e.stopPropagation(); openCheckpoint(cp.id); });
-  const marker = new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat(cp.coords).addTo(map);
-  markerObjs.push({ el, inner, marker, cp });
-}
-
-function addPendingMarker(sub) {
-  if (!sub.coords) return;
-  const el = document.createElement('div'); el.style.cssText = 'width:44px;height:44px;cursor:default;position:relative;';
-  const inner = document.createElement('div');
-  inner.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;animation:pendingPulse 2s ease-in-out infinite;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.5));pointer-events:none;';
-  inner.innerHTML = `<svg width="44" height="44" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="18" width="8" height="12" rx="2" fill="rgba(240,120,48,0.5)" stroke="rgba(240,208,32,0.7)" stroke-width="1.2" stroke-dasharray="3 2"/><rect x="13" y="13" width="12" height="6" rx="2" fill="rgba(240,120,48,0.5)" stroke="rgba(240,208,32,0.7)" stroke-width="1.2" stroke-dasharray="3 2"/><rect x="16" y="30" width="2" height="4" rx="1" fill="rgba(240,208,32,0.5)"/><rect x="20" y="30" width="2" height="4" rx="1" fill="rgba(240,208,32,0.5)"/></svg>`;
-  el.appendChild(inner);
-  new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat(sub.coords).addTo(map);
-}
-
-function rebuildMarkers() { markerObjs.forEach(m => m.marker.remove()); markerObjs = []; checkpoints.forEach(cp => addMarker(cp)); }
-
-/* ══ CRUD: CHECKPOINT ══ */
-function openAddCheckpointModal() { document.getElementById('cpEditId').value = ''; document.getElementById('cpModalEyebrow').textContent = 'New Entry'; document.getElementById('cpModalTitle').textContent = 'Add Checkpoint'; resetCpForm(); openModal('addCheckpointModal'); }
-
-window.deleteCheckpoint = async function (id) {
-  if (!confirm('Delete this checkpoint? This cannot be undone.')) return;
-  checkpoints = checkpoints.filter(c => c.id !== id);
-  films = films.map(f => ({ ...f, checkpointIds: (f.checkpointIds || []).filter(x => x !== id) }));
-  await saveData(); rebuildMarkers(); buildList(); buildFilmList(); buildFilmFilterChips(); initTimeline(); applyFilters(); showListView(); activeCpId = null;
-};
-
-window.editCheckpoint = function (id) {
-  const cp = checkpoints.find(c => c.id === id); if (!cp) return;
-  document.getElementById('cpEditId').value = id; document.getElementById('cpModalEyebrow').textContent = 'Edit Entry'; document.getElementById('cpModalTitle').textContent = 'Edit Checkpoint';
-  document.getElementById('cpName').value = cp.title || ''; document.getElementById('cpArabic').value = cp.arabic || ''; document.getElementById('cpDistrict').value = cp.district || '';
-  const typeMap = { 'Internal checkpoint': 'internal', 'Entry / Exit to Israel': 'entry', 'Last checkpoint before Israel': 'last' };
-  document.getElementById('cpType').value = typeMap[cp.type] || 'internal';
-  const staffMap = { 'Permanently staffed': 'permanent', 'Intermittently staffed': 'intermittent', 'Seasonally staffed': 'seasonal' };
-  document.getElementById('cpStaffing').value = staffMap[cp.staffing] || 'permanent';
-  document.getElementById('cpDetail').value = cp.detail || '';
-  const tmp = document.createElement('div'); tmp.innerHTML = cp.analysis || ''; document.getElementById('cpAnalysis').value = tmp.textContent || '';
-  const filmList = document.getElementById('cpFilmList'); filmList.innerHTML = '';
-  const filmArr = cp.films && cp.films.length ? cp.films : [''];
-  filmArr.forEach(fStr => { const li = document.createElement('li'); li.className = 'form-film-row'; li.innerHTML = `<input class="form-input" value="${fStr}" placeholder="Film title — Director, Year"/><button class="form-film-remove" onclick="removeFilmRow(this)">✕</button>`; filmList.appendChild(li); });
-  document.getElementById('cpLat').value = cp.coords[1]; document.getElementById('cpLng').value = cp.coords[0];
-  openModal('addCheckpointModal');
-};
-
-document.getElementById('addFilmRowBtn').addEventListener('click', () => {
-  const li = document.createElement('li'); li.className = 'form-film-row';
-  li.innerHTML = `<input class="form-input" placeholder="Film title — Director, Year"/><button class="form-film-remove" onclick="removeFilmRow(this)">✕</button>`;
-  document.getElementById('cpFilmList').appendChild(li);
-});
-
-window.removeFilmRow = function (btn) { const rows = document.querySelectorAll('.form-film-row'); if (rows.length > 1) btn.closest('.form-film-row').remove(); };
-
-document.getElementById('pickOnMapBtn').addEventListener('click', () => { closeModal('addCheckpointModal'); pickingOnMap = true; document.getElementById('mapClickHint').classList.add('visible'); map.getCanvas().style.cursor = 'crosshair'; });
-
-document.getElementById('saveCheckpointBtn').addEventListener('click', async () => {
-  const name = document.getElementById('cpName').value.trim(); if (!name) { showToast(currentLang === 'ar' ? 'لازم تحط اسم الحاجز.' : 'Please enter a checkpoint name.', 'error'); return; }
-  const lat = parseFloat(document.getElementById('cpLat').value), lng = parseFloat(document.getElementById('cpLng').value);
-  if (isNaN(lat) || isNaN(lng)) { showToast(currentLang === 'ar' ? 'لازم تحط الإحداثيات أو تختار موقع.' : 'Please enter coordinates or pick a location.', 'error'); return; }
-  const typeVal = document.getElementById('cpType').value, staffVal = document.getElementById('cpStaffing').value;
-  const typeLabels = { internal: 'Internal checkpoint', entry: 'Entry / Exit to Israel', last: 'Last checkpoint before Israel' };
-  const staffLabels = { permanent: 'Permanently staffed', intermittent: 'Intermittently staffed', seasonal: 'Seasonally staffed' };
-  const filmInputs = [...document.querySelectorAll('#cpFilmList .form-film-row input')].map(i => i.value.trim()).filter(Boolean);
-  const analysisRaw = document.getElementById('cpAnalysis').value.trim(); const analysis = analysisRaw ? `<p>${analysisRaw}</p>` : '';
-  const editId = document.getElementById('cpEditId').value;
-  if (editId) {
-    const idx = checkpoints.findIndex(c => c.id === editId);
-    if (idx > -1) checkpoints[idx] = { ...checkpoints[idx], title: name, arabic: document.getElementById('cpArabic').value.trim(), district: document.getElementById('cpDistrict').value.trim(), type: typeLabels[typeVal], filterType: typeVal === 'internal' ? 'internal' : 'entry', staffing: staffLabels[staffVal], filterStaff: staffVal, detail: document.getElementById('cpDetail').value.trim(), analysis, films: filmInputs, coords: [lng, lat], placeholder: false };
-    await saveData(); rebuildMarkers(); buildList(); buildFilmFilterChips(); initTimeline(); applyFilters(); closeModal('addCheckpointModal'); openCheckpoint(editId);
-  } else {
-    const newCp = { id: 'cp_' + Date.now(), coords: [lng, lat], title: name, arabic: document.getElementById('cpArabic').value.trim(), district: document.getElementById('cpDistrict').value.trim(), type: typeLabels[typeVal], filterType: typeVal === 'internal' ? 'internal' : 'entry', staffing: staffLabels[staffVal], filterStaff: staffVal, detail: document.getElementById('cpDetail').value.trim(), analysis, films: filmInputs, images: [], seed: false };
-    checkpoints.push(newCp); await saveData(); addMarker(newCp); buildList(); buildFilmFilterChips(); initTimeline(); applyFilters(); closeModal('addCheckpointModal'); resetCpForm(); if (tempPickMarker) { tempPickMarker.remove(); tempPickMarker = null; } openCheckpoint(newCp.id);
+/* ══ MAP STYLES & INTERACTION ══ */
+map.on('click', (e) => {
+  if (pickingOnMap) {
+    document.getElementById('cpLat').value = e.lngLat.lat.toFixed(6);
+    document.getElementById('cpLng').value = e.lngLat.lng.toFixed(6);
+    endPickingState(); openModal('addCheckpointModal');
+  } else if (sugPickingOnMap) {
+    document.getElementById('sugCpLat').value = e.lngLat.lat.toFixed(6);
+    document.getElementById('sugCpLng').value = e.lngLat.lng.toFixed(6);
+    endPickingState(); openModal('suggestModal');
   }
 });
 
-function resetCpForm() {
-  ['cpName', 'cpArabic', 'cpDistrict', 'cpDetail', 'cpAnalysis', 'cpLat', 'cpLng'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('cpEditId').value = '';
-  document.getElementById('cpFilmList').innerHTML = `<li class="form-film-row"><input class="form-input" placeholder="Film title — Director, Year"/><button class="form-film-remove" onclick="removeFilmRow(this)">✕</button></li>`;
+function endPickingState() { pickingOnMap = false; sugPickingOnMap = false; document.getElementById('mapClickHint').classList.remove('visible'); map.getCanvas().style.cursor = ''; }
+
+document.querySelectorAll('.map-style-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.map-style-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
+    const st = btn.getAttribute('data-style');
+    map.setStyle(st === 'satellite' ? 'mapbox://styles/mapbox/satellite-v9' : st === 'streets' ? 'mapbox://styles/mapbox/streets-v12' : 'mapbox://styles/mapbox/dark-v11');
+  });
+});
+
+function addMarker(cp) {
+  const el = document.createElement('div'); el.style.cssText = 'width:24px;height:24px;background:var(--gold);border:2px solid #fff;border-radius:50%;cursor:pointer;';
+  el.addEventListener('click', (e) => { e.stopPropagation(); openCheckpoint(cp.id); });
+  const m = new mapboxgl.Marker({ element: el }).setLngLat(cp.coords).addTo(map);
+  markerObjs.push({ id: cp.id, marker: m, el: el });
+}
+function rebuildMarkers() { markerObjs.forEach(m => m.marker.remove()); markerObjs = []; checkpoints.forEach(addMarker); }
+
+/* ══ VIEW SCROLL DETAILS ══ */
+function openCheckpoint(id) {
+  const cp = checkpoints.find(c => c.id === id); if(!cp) return;
+  activeCpId = id; showDetailView();
+  const lat = cp.coords[1].toFixed(4), lng = cp.coords[0].toFixed(4);
+  detailScroll.innerHTML = `
+    <div class="cp-detail-header"><span class="cp-detail-eyebrow">Checkpoint</span><h2 class="cp-detail-title">${cp.title}</h2></div>
+    <div class="cp-detail-row"><span class="cp-detail-row-label">Coordinates</span>${lat}, ${lng}</div>
+    <div class="cp-detail-row"><span class="cp-detail-row-label">District</span>${cp.district}</div>
+    <div class="cp-detail-row"><span class="cp-detail-row-label">Analysis</span>${cp.analysis}</div>
+    ${isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editCheckpoint('${cp.id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteCheckpoint('${cp.id}')">Delete</button></div>` : ''}
+  `;
+  map.flyTo({ center: cp.coords, zoom: 12, essential: true });
 }
 
-/* ══ CRUD: FILM ══ */
-function openAddFilmModal() { document.getElementById('filmEditId').value = ''; document.getElementById('filmModalEyebrow').textContent = 'New Entry'; document.getElementById('filmModalTitle').textContent = 'Add Film'; resetFilmForm(); populateFilmCpCheckboxes([]); openModal('addFilmModal'); }
+function openFilmDetail(id) {
+  const f = films.find(film => film.id === id); if(!f) return;
+  activeFilmId = id; showFilmDetailView();
+  document.getElementById('filmDetailScroll').innerHTML = `
+    <div class="film-detail-header"><span class="film-detail-eyebrow">${f.year}</span><h2 class="film-detail-title">${f.title}</h2></div>
+    <div class="cp-detail-row"><span class="cp-detail-row-label">Synopsis</span>${f.notes}</div>
+    ${isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editFilm('${f.id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteFilm('${f.id}')">Delete</button></div>` : ''}
+  `;
+}
+
+function highlightFilmOnMap(ids) {}
+function resetMarkerHighlight() { document.querySelectorAll('.film-list-item, .cp-list-item').forEach(li => li.classList.remove('active')); }
+
+/* ══ MODAL FORM CONTROLS & UTILITIES ══ */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); endPickingState(); }
+window.openModal = openModal; window.closeModal = closeModal;
+
+document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', function() { closeModal(this.getAttribute('data-close')); }));
+
+function openAddCheckpointModal() { resetCpForm(); openModal('addCheckpointModal'); }
+function openAddFilmModal() { resetFilmForm(); populateFilmCpCheckboxes([]); openModal('addFilmModal'); }
+
+function resetCpForm() { ['cpName', 'cpArabic', 'cpDistrict', 'cpDetail', 'cpAnalysis', 'cpLat', 'cpLng', 'cpEditId'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; }); }
+function resetFilmForm() { ['filmTitle', 'filmDirector', 'filmYear', 'filmCountry', 'filmGenre', 'filmNotes', 'filmEditId'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; }); }
 
 function populateFilmCpCheckboxes(checkedIds) {
-  const box = document.getElementById('filmCpCheckboxes'); box.innerHTML = '';
-  checkpoints.forEach(cp => { const lbl = document.createElement('label'); lbl.className = 'cp-checkbox-label' + (checkedIds.includes(cp.id) ? ' checked' : ''); const inp = document.createElement('input'); inp.type = 'checkbox'; inp.value = cp.id; inp.style.accentColor = 'var(--gold)'; inp.checked = checkedIds.includes(cp.id); inp.addEventListener('change', () => lbl.classList.toggle('checked', inp.checked)); lbl.appendChild(inp); lbl.appendChild(document.createTextNode(' ' + cp.title)); box.appendChild(lbl); });
+  const container = document.getElementById('filmCpCheckboxes'); if (!container) return; container.innerHTML = '';
+  checkpoints.forEach(cp => {
+    const lbl = document.createElement('label'); lbl.className = 'cp-checkbox-label';
+    lbl.innerHTML = `<input type="checkbox" value="${cp.id}" ${checkedIds.includes(cp.id) ? 'checked' : ''}> ${cp.title}`;
+    container.appendChild(lbl);
+  });
 }
 
-window.editFilm = function (id) {
-  const f = films.find(x => x.id === id); if (!f) return;
-  document.getElementById('filmEditId').value = id; document.getElementById('filmModalEyebrow').textContent = 'Edit Entry'; document.getElementById('filmModalTitle').textContent = 'Edit Film';
-  document.getElementById('filmTitle').value = f.title || ''; document.getElementById('filmDirector').value = f.director || ''; document.getElementById('filmYear').value = f.year || ''; document.getElementById('filmCountry').value = f.country || ''; document.getElementById('filmGenre').value = f.genre || ''; document.getElementById('filmNotes').value = f.notes || '';
-  populateFilmCpCheckboxes(f.checkpointIds || []); openModal('addFilmModal');
-};
+document.getElementById('pickOnMapBtn').addEventListener('click', () => { closeModal('addCheckpointModal'); pickingOnMap = true; document.getElementById('mapClickHint').classList.add('visible'); });
+document.getElementById('sugPickOnMapBtn').addEventListener('click', () => { closeModal('suggestModal'); sugPickingOnMap = true; document.getElementById('mapClickHint').classList.add('visible'); });
 
-window.deleteFilm = async function (id) {
-  if (!confirm('Delete this film? This cannot be undone.')) return;
-  films = films.filter(f => f.id !== id); await saveData(); buildFilmList(); buildFilmFilterChips(); initTimeline(); applyFilters(); showFilmListView(); activeFilmId = null; resetMarkerHighlight();
-};
+// Create / Update Checkpoint
+document.getElementById('saveCheckpointBtn').addEventListener('click', async () => {
+  const id = document.getElementById('cpEditId').value;
+  const name = document.getElementById('cpName').value, lat = parseFloat(document.getElementById('cpLat').value), lng = parseFloat(document.getElementById('cpLng').value);
+  if(!name || isNaN(lat) || isNaN(lng)) return showToast("Required data missing", "error");
 
+  const cpObj = { id: id || 'cp_' + Date.now(), title: name, coords: [lng, lat], arabic: document.getElementById('cpArabic').value, district: document.getElementById('cpDistrict').value, analysis: document.getElementById('cpAnalysis').value, type: "Internal checkpoint", seed: false };
+  if (id) { checkpoints = checkpoints.map(c => c.id === id ? cpObj : c); } else { checkpoints.push(cpObj); }
+  await saveData(); rebuildMarkers(); buildList(); closeModal('addCheckpointModal');
+});
+
+// Create / Update Film Record
 document.getElementById('saveFilmBtn').addEventListener('click', async () => {
-  const title = document.getElementById('filmTitle').value.trim(), year = document.getElementById('filmYear').value.trim();
-  if (!title) { showToast(currentLang === 'ar' ? 'لازم تحط عنوان الفيلم.' : 'Please enter a film title.', 'error'); return; } if (!year) { showToast('Please enter the year.', 'error'); return; }
-  const checkedCps = [...document.querySelectorAll('#filmCpCheckboxes input:checked')].map(i => i.value);
-  const editId = document.getElementById('filmEditId').value, directorVal = document.getElementById('filmDirector').value.trim();
-  if (editId) { const idx = films.findIndex(f => f.id === editId); if (idx > -1) films[idx] = { ...films[idx], title, director: directorVal, year: parseInt(year), country: document.getElementById('filmCountry').value.trim(), genre: document.getElementById('filmGenre').value.trim(), notes: document.getElementById('filmNotes').value.trim(), checkpointIds: checkedCps }; }
-  else films.push({ id: 'film_' + Date.now(), title, director: directorVal, year: parseInt(year), country: document.getElementById('filmCountry').value.trim(), genre: document.getElementById('filmGenre').value.trim(), notes: document.getElementById('filmNotes').value.trim(), checkpointIds: checkedCps, seed: false });
-  checkedCps.forEach(cpId => { const cp = checkpoints.find(c => c.id === cpId); if (cp) { if (!cp.films) cp.films = []; if (!cp.films.some(s => s.includes(title))) cp.films.push(`${title} — ${directorVal}, ${year}`); } });
-  await saveData(); buildList(); buildFilmList(); buildFilmFilterChips(); initTimeline(); applyFilters(); closeModal('addFilmModal'); resetFilmForm(); showToast(currentLang === 'ar' ? 'انحفظ الفيلم.' : 'Film saved.');
+  const id = document.getElementById('filmEditId').value;
+  const title = document.getElementById('filmTitle').value, year = parseInt(document.getElementById('filmYear').value);
+  if(!title || isNaN(year)) return showToast("Required variables missing", "error");
+
+  const fObj = { id: id || 'film_' + Date.now(), title, year, director: document.getElementById('filmDirector').value, notes: document.getElementById('filmNotes').value, checkpointIds: [] };
+  if(id) { films = films.map(f => f.id === id ? fObj : f); } else { films.push(fObj); }
+  await saveData(); buildFilmList(); closeModal('addFilmModal');
 });
 
-function resetFilmForm() { ['filmTitle', 'filmDirector', 'filmYear', 'filmCountry', 'filmGenre', 'filmNotes'].forEach(id => document.getElementById(id).value = ''); document.getElementById('filmEditId').value = ''; }
-
-/* ══ SUGGEST MODAL ══ */
-function updateSuggestFields() {
-  const val = document.querySelector('input[name="suggestType"]:checked')?.value || 'checkpoint';
-  document.getElementById('sugCheckpointFields').style.display = val === 'checkpoint' ? '' : 'none';
-  document.getElementById('sugFilmFields').style.display = val === 'film' ? '' : 'none';
-  document.getElementById('sugExperienceFields').style.display = val === 'experience' ? '' : 'none';
-  ['Checkpoint', 'Film', 'Experience'].forEach(t => {
-    const lbl = document.getElementById('sugType' + t + 'Label'); if (!lbl) return;
-    lbl.className = 'suggest-type-label' + (val === t.toLowerCase() ? ' sel-' + t.toLowerCase() : '');
-  });
-}
-document.querySelectorAll('input[name="suggestType"]').forEach(r => r.addEventListener('change', updateSuggestFields));
-updateSuggestFields();
-
-document.getElementById('sugPickOnMapBtn').addEventListener('click', () => { closeModal('suggestModal'); sugPickingOnMap = true; document.getElementById('mapClickHint').classList.add('visible'); map.getCanvas().style.cursor = 'crosshair'; });
-
-document.getElementById('saveSuggestionBtn').addEventListener('click', async () => {
-  const type = document.querySelector('input[name="suggestType"]:checked')?.value || 'checkpoint';
-  let sub = { id: 'sub_' + Date.now(), type, submittedAt: new Date().toISOString(), contact: document.getElementById('sugContact').value.trim() };
-  if (type === 'checkpoint') {
-    const name = document.getElementById('sugCpName').value.trim(); if (!name) { showToast(currentLang === 'ar' ? 'الرجاء إدخال اسم الحاجز.' : 'Please enter a checkpoint name.', 'error'); return; }
-    const lat = parseFloat(document.getElementById('sugCpLat').value), lng = parseFloat(document.getElementById('sugCpLng').value);
-    if (isNaN(lat) || isNaN(lng)) { showToast(currentLang === 'ar' ? 'الرجاء إدخال الإحداثيات أو اختيار موقع.' : 'Please enter coordinates or pick a location.', 'error'); return; }
-    const tv = document.getElementById('sugCpType').value;
-    const typeMap = { internal: 'Internal checkpoint', entry: 'Entry / Exit to Israel', last: 'Last checkpoint before Israel' };
-    Object.assign(sub, { title: name, arabic: document.getElementById('sugCpArabic').value.trim(), district: document.getElementById('sugCpDistrict').value.trim(), type_label: typeMap[tv], filterType: tv === 'internal' ? 'internal' : 'entry', detail: document.getElementById('sugCpDetail').value.trim(), coords: [lng, lat] });
-  } else if (type === 'film') {
-    const title = document.getElementById('sugFilmTitle').value.trim(), year = document.getElementById('sugFilmYear').value.trim();
-    if (!title) { showToast(currentLang === 'ar' ? 'الرجاء إدخال عنوان الفيلم.' : 'Please enter a film title.', 'error'); return; }
-    if (!year) { showToast('Please enter the year.', 'error'); return; }
-    Object.assign(sub, { title, director: document.getElementById('sugFilmDirector').value.trim(), year: parseInt(year), country: document.getElementById('sugFilmCountry').value.trim(), notes: document.getElementById('sugFilmNotes').value.trim() });
-  } else {
-    const story = document.getElementById('sugExpStory').value.trim(); if (!story) { showToast(currentLang === 'ar' ? 'لازم تحكي قصتك.' : 'Please share your story.', 'error'); return; }
-    Object.assign(sub, { title: document.getElementById('sugExpTitle').value.trim() || 'Lived Experience', story, where: document.getElementById('sugExpWhere').value.trim(), when: document.getElementById('sugExpWhen').value.trim() });
-  }
-  submissions.push(sub); await saveSubmissions();
-  if (type === 'checkpoint' && sub.coords) addPendingMarker(sub);
-  closeModal('suggestModal'); resetSuggestForm(); updateSubmissionBadge();
-  showToast(currentLang === 'ar' ? 'شكراً — رح يتراجع اقتراحك.' : 'Thank you — your suggestion is under review.');
-});
-
-function resetSuggestForm() {
-  ['sugCpName', 'sugCpArabic', 'sugCpDistrict', 'sugCpDetail', 'sugCpLat', 'sugCpLng', 'sugFilmTitle', 'sugFilmDirector', 'sugFilmYear', 'sugFilmCountry', 'sugFilmNotes', 'sugExpTitle', 'sugExpStory', 'sugExpWhere', 'sugExpWhen', 'sugContact'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-  document.getElementById('sugTypeCheckpoint').checked = true; updateSuggestFields();
-}
-
-/* ══ SUBMISSIONS (admin) ══ */
-function buildSubmissionsList() {
-  const list = document.getElementById('submissionsList'), empty = document.getElementById('submissionsEmpty');
-  list.innerHTML = '';
-  if (!submissions.length) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-  submissions.forEach((sub, idx) => {
-    const li = document.createElement('li'); li.className = 'sub-item';
-    const date = new Date(sub.submittedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-    let meta = '';
-    if (sub.type === 'checkpoint') meta = `${sub.district || ''}${sub.district && sub.type_label ? ' · ' : ''}${sub.type_label || ''}${sub.coords ? ' · ' + sub.coords[1].toFixed(4) + '° N' : ''}`;
-    else if (sub.type === 'film') meta = `${sub.director || ''}${sub.year ? ' (' + sub.year + ')' : ''}${sub.country ? ' · ' + sub.country : ''}`;
-    else meta = `${sub.where || ''}${sub.where && sub.when ? ' · ' : ''}${sub.when || ''}`;
-    const typeLabel = sub.type === 'checkpoint' ? 'Checkpoint' : sub.type === 'film' ? 'Film' : 'Lived Experience';
-    const detail = sub.detail || sub.notes || sub.story || '';
-    const contactLine = sub.contact ? `<div class="sub-item-meta" style="margin-top:0.15rem;">From: ${sub.contact}</div>` : '';
-    li.innerHTML = `<div class="sub-item-type">${typeLabel} · ${date}</div><div class="sub-item-title">${sub.title || 'Untitled'}</div><div class="sub-item-meta">${meta}</div>${contactLine}${detail ? `<div class="sub-item-detail">${detail}</div>` : ''}<div class="sub-item-actions"><button class="sub-approve" onclick="approveSubmission(${idx})">Approve</button><button class="sub-reject" onclick="rejectSubmission(${idx})">Reject</button></div>`;
-    if (sub.type === 'checkpoint' && sub.coords) { li.querySelector('.sub-item-title').style.cursor = 'pointer'; li.querySelector('.sub-item-title').addEventListener('click', () => map.flyTo({ center: sub.coords, zoom: 16, essential: true, duration: 1100, offset: [-200, 0] })); }
-    list.appendChild(li);
-  });
-}
-
-function updateSubmissionBadge() { const badge = document.getElementById('submissionBadge'), n = submissions.length; badge.textContent = n; badge.style.display = n > 0 ? 'inline' : 'none'; }
-
-window.approveSubmission = async function (idx) {
-  const sub = submissions[idx]; if (!sub) return;
-  if (sub.type === 'checkpoint') { const newCp = { id: 'cp_' + Date.now(), coords: sub.coords, title: sub.title, arabic: sub.arabic || '', district: sub.district || '', type: sub.type_label || 'Internal checkpoint', filterType: sub.filterType || 'internal', staffing: 'Permanently staffed', filterStaff: 'permanent', detail: sub.detail || '', analysis: '', films: [], images: [], seed: false }; checkpoints.push(newCp); addMarker(newCp); buildList(); buildFilmFilterChips(); initTimeline(); applyFilters(); }
-  else if (sub.type === 'film') { const newFilm = { id: 'film_' + Date.now(), title: sub.title, director: sub.director || '', year: sub.year || 0, country: sub.country || '', genre: '', notes: sub.notes || '', checkpointIds: [], seed: false }; films.push(newFilm); buildFilmList(); buildFilmFilterChips(); initTimeline(); }
-  submissions.splice(idx, 1); await saveData(); await saveSubmissions(); buildSubmissionsList(); updateSubmissionBadge(); showToast('Approved and published.');
+window.editCheckpoint = function(id) {
+  const cp = checkpoints.find(c => c.id === id); if(!cp) return;
+  document.getElementById('cpEditId').value = cp.id; document.getElementById('cpName').value = cp.title;
+  document.getElementById('cpLat').value = cp.coords[1]; document.getElementById('cpLng').value = cp.coords[0];
+  document.getElementById('cpAnalysis').value = cp.analysis || ''; openModal('addCheckpointModal');
 };
 
-window.rejectSubmission = async function (idx) {
-  if (!confirm('Reject and delete this submission?')) return;
-  submissions.splice(idx, 1); await saveSubmissions(); buildSubmissionsList(); updateSubmissionBadge(); showToast('Submission rejected.', 'warning');
+window.deleteCheckpoint = async function(id) {
+  if(!confirm("Delete?")) return; checkpoints = checkpoints.filter(c => c.id !== id);
+  await saveData(); rebuildMarkers(); buildList(); showListView();
 };
 
-/* ══ ADMIN AUTH ══ */
-async function hashPassword(pw) { const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw)); return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join(''); }
-
-function setAdminUI() {
-  document.getElementById('addFilmBtn').style.display = isAdmin ? '' : 'none';
-  document.getElementById('addCheckpointBtn').style.display = isAdmin ? '' : 'none';
-  document.getElementById('tabSubmissions').style.display = isAdmin ? '' : 'none';
-  const lb = document.getElementById('adminLockBtn'); lb.textContent = isAdmin ? '🔓' : '🔒'; lb.style.opacity = isAdmin ? '0.85' : '0.4'; lb.title = isAdmin ? 'Admin — click to log out' : 'Admin login';
-  if (isAdmin) { buildSubmissionsList(); updateSubmissionBadge(); }
-  else if (activePanelTab === 'submissions') switchPanelTab('checkpoints');
-  if (activeCpId) openCheckpoint(activeCpId);
-  if (activeCpId) openCheckpoint(activeCpId);
-  if (activeFilmId) openFilmDetail(activeFilmId);
-}
-
-window.toggleAdminLock = function () {
-  if (isAdmin) { isAdmin = false; setAdminUI(); }
-  else { pendingAdminAction = null; document.getElementById('adminPassword').value = ''; document.getElementById('adminError').style.display = 'none'; openModal('adminLoginModal'); setTimeout(() => document.getElementById('adminPassword').focus(), 100); }
+window.editFilm = function(id) {
+  const f = films.find(film => film.id === id); if(!f) return;
+  document.getElementById('filmEditId').value = f.id; document.getElementById('filmTitle').value = f.title;
+  document.getElementById('filmYear').value = f.year; document.getElementById('filmNotes').value = f.notes || '';
+  openModal('addFilmModal');
 };
 
-function requireAdmin(action) { if (isAdmin) { action(); return; } pendingAdminAction = action; document.getElementById('adminPassword').value = ''; document.getElementById('adminError').style.display = 'none'; openModal('adminLoginModal'); setTimeout(() => document.getElementById('adminPassword').focus(), 100); }
+window.deleteFilm = async function(id) {
+  if(!confirm("Delete film?")) return; films = films.filter(f => f.id !== id);
+  await saveData(); buildFilmList(); showFilmListView();
+};
+
+/* ══ ADMIN LOCK ENGINE ══ */
+window.toggleAdminLock = function() {
+  if (isAdmin) { isAdmin = false; showToast("Logged out"); setAdminUI(); } 
+  else { openModal('adminLoginModal'); }
+};
+
+window.requireAdmin = function(action) { if(isAdmin) action(); else openModal('adminLoginModal'); };
 
 document.getElementById('adminLoginBtn').addEventListener('click', async () => {
-  const pw = document.getElementById('adminPassword').value; const hash = await hashPassword(pw);
-  if (hash === ADMIN_HASH) { isAdmin = true; closeModal('adminLoginModal'); setAdminUI(); if (pendingAdminAction) { pendingAdminAction(); pendingAdminAction = null; } }
-  else { document.getElementById('adminError').style.display = 'block'; document.getElementById('adminPassword').value = ''; document.getElementById('adminPassword').focus(); }
-});
-document.getElementById('adminPassword').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('adminLoginBtn').click(); });
-
-/* ══ MODALS ══ */
-function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
-window.openModal = openModal; window.closeModal = closeModal;
-document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', function () { closeModal(this.getAttribute('data-close')); }));
-document.querySelectorAll('.create-backdrop').forEach(bd => bd.addEventListener('click', e => { if (e.target === bd) closeModal(bd.id); }));
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { document.querySelectorAll('.create-backdrop.open').forEach(bd => closeModal(bd.id)); if (pickingOnMap || sugPickingOnMap) { pickingOnMap = false; sugPickingOnMap = false; document.getElementById('mapClickHint').classList.remove('visible'); map.getCanvas().style.cursor = ''; } }
+  const pw = document.getElementById('adminPassword').value;
+  const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw)).then(b => Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join(''));
+  if (hash === ADMIN_HASH) { isAdmin = true; closeModal('adminLoginModal'); setAdminUI(); } else { document.getElementById('adminError').style.display = 'block'; }
 });
 
-/* ══ SEARCH ══ */
-const searchInput = document.getElementById('searchInput'), searchBtn = document.getElementById('searchBtn'), resultsList = document.getElementById('searchResults');
-let searchMarker = null;
-function searchCPs(q) { q = q.toLowerCase().trim(); return checkpoints.filter(cp => cp.title.toLowerCase().includes(q) || (cp.arabic || '').includes(q) || (cp.district || '').toLowerCase().includes(q)); }
-function searchGlobal(q, cb) { fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(q)}.json?access_token=${mapboxgl.accessToken}&language=en,ar&limit=4`).then(r => r.json()).then(d => cb(d.features || [])).catch(() => cb([])); }
-function renderResults(cpRes, globalRes) {
-  resultsList.innerHTML = ''; if (!cpRes.length && !globalRes.length) { resultsList.style.display = 'none'; return; }
-  cpRes.forEach(cp => { const li = document.createElement('li'); li.className = 'cp-result'; li.innerHTML = `<span class="result-dot"></span>${cp.title} <span style="opacity:0.4;margin-left:0.3rem;">${cp.arabic || ''}</span>`; li.addEventListener('click', () => { openCheckpoint(cp.id); resultsList.style.display = 'none'; searchInput.value = cp.title; }); resultsList.appendChild(li); });
-  if (cpRes.length && globalRes.length) { const d = document.createElement('li'); d.className = 'divider'; d.textContent = currentLang === 'ar' ? 'أماكن ثانية' : 'Other places'; resultsList.appendChild(d); }
-  globalRes.forEach(r => { const li = document.createElement('li'); li.className = 'place-result'; li.innerHTML = `<span class="result-dot"></span>${r.place_name}`; li.addEventListener('click', () => { map.flyTo({ center: r.geometry.coordinates, zoom: 13, essential: true }); if (searchMarker) { searchMarker.remove(); searchMarker = null; } const el2 = document.createElement('div'); el2.style.cssText = 'width:13px;height:13px;background:#6fe7c1;border:2px solid rgba(255,255,255,0.4);border-radius:50%;box-shadow:0 0 12px rgba(111,231,193,0.7);'; searchMarker = new mapboxgl.Marker({ element: el2 }).setLngLat(r.geometry.coordinates).addTo(map); resultsList.style.display = 'none'; searchInput.value = r.place_name; }); resultsList.appendChild(li); });
-  resultsList.style.display = 'block';
+function setAdminUI() {
+  const displayStyle = isAdmin ? '' : 'none';
+  document.getElementById('addFilmBtn').style.display = displayStyle;
+  document.getElementById('addCheckpointBtn').style.display = displayStyle;
+  document.getElementById('adminLockBtn').textContent = isAdmin ? '🔓' : '🔒';
 }
-function doSearch() { const q = searchInput.value.trim(); if (!q) { resultsList.style.display = 'none'; return; } searchGlobal(q, g => renderResults(searchCPs(q), g)); }
-searchBtn.addEventListener('click', doSearch);
-searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
-searchInput.addEventListener('input', () => { const q = searchInput.value.trim(); if (!q) { resultsList.style.display = 'none'; return; } searchGlobal(q, g => renderResults(searchCPs(q), g)); });
-document.addEventListener('click', e => { if (!e.target.closest('.search-panel')) resultsList.style.display = 'none'; });
 
-/* ══ NAV DROPDOWN (desktop) ══ */
-(function () {
-  const t = document.querySelector('.nav-dropdown-trigger'), d = document.querySelector('.nav-dropdown'); if (!t || !d) return;
-  t.addEventListener('click', function (e) { e.stopPropagation(); const o = d.classList.contains('open'); d.classList.toggle('open', !o); t.setAttribute('aria-expanded', String(!o)); });
-  document.addEventListener('click', function () { d.classList.remove('open'); t.setAttribute('aria-expanded', 'false'); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { d.classList.remove('open'); t.setAttribute('aria-expanded', 'false'); } });
-})();
+/* ══ SEARCH & TEXT AUTOCOMPLETE ══ */
+const searchInput = document.getElementById('searchInput'), resultsList = document.getElementById('searchResults');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase().trim(); resultsList.innerHTML = '';
+  if(!q) { resultsList.style.display = 'none'; return; }
+  const matches = checkpoints.filter(c => c.title.toLowerCase().includes(q));
+  matches.forEach(cp => {
+    const li = document.createElement('li'); li.textContent = cp.title;
+    li.addEventListener('click', () => { openCheckpoint(cp.id); resultsList.style.display = 'none'; searchInput.value = cp.title; });
+    resultsList.appendChild(li);
+  });
+  resultsList.style.display = matches.length ? 'block' : 'none';
+});
+
+/* ══ TRANSLATION LAYER FUNCTIONALITY ══ */
+function setupLanguageToggle() {
+  document.getElementById('translateBtn').addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'ar' : 'en';
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    });
+    buildList();
+  });
+}
+
+// Global Nav Dropdown Interaction
+document.addEventListener('click', (e) => {
+  const drop = document.querySelector('.nav-dropdown');
+  if(drop) drop.classList.toggle('open', e.target.closest('.nav-dropdown-trigger'));
+});
 </script>
 </body>
-</html>
+</html> 
