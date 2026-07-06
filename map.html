@@ -878,284 +878,284 @@
 </div>
 
 <script>
-/* ══════════════════════════════
-   CONFIG & STATE
-══════════════════════════════ */
 // Replace with your actual Mapbox public token
 mapboxgl.accessToken = 'pk.YOUR_REAL_MAPBOX_PUBLIC_TOKEN_HERE';
-const ADMIN_HASH = 'YOUR_ADMIN_PASSWORD_HASH_HERE'; // sha256 of your admin password
 
-let checkpoints = [];
-let films = [];
-let submissions = [];
-let markerObjs = [];
-let activeCpId = null;
-let activeFilmId = null;
-let activePanelTab = 'checkpoints';
-let isAdmin = false;
-let pendingAdminAction = null;
-let pickingOnMap = false;
-let sugPickingOnMap = false;
-let tempPickMarker = null;
-let currentLang = 'en';
-
-const activeFilters = { type: 'all', staff: 'all', film: 'all', yearMin: null, yearMax: null };
-const activeFilmFilters = { genre: 'all', checkpoint: 'all', year: 'all' };
-
-/* ══════════════════════════════
-   DATA (load from your backend / JSON here)
-══════════════════════════════ */
-async function loadData() {
-  checkpoints = [
-    {id:'qalandia',coords:[35.2176,31.8654],title:"Qalandia Checkpoint",arabic:"حاجز قلنديا",district:"Ramallah / Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"The largest checkpoint in the West Bank, separating Ramallah from Jerusalem. Operating 24 hours with turnstiles, biometric scanning, and military oversight. Since October 2023, movement has been severely restricted.",films:["Divine Intervention — Elia Suleiman, 2002","Salt of This Sea — Annemarie Jacir, 2008","Checkpoint — Yoav Shamir, 2003"],images:[],analysis:"<p>Qalandia is the most cinematically documented checkpoint in Palestinian film. In <em>Divine Intervention</em>, Suleiman renders it as a theatre of the absurd — a balloon drifts past soldiers, a ninja woman dismantles the architecture of control with balletic precision. The checkpoint is never shown as merely functional; it is staged, surreal, politically loaded. In <em>Salt of This Sea</em>, Qalandia appears as the site of confrontation between diasporic memory and the present reality of occupation — Soraya's American passport meaningless before the logic of the checkpoint.</p>",seed:true,placeholder:false},
-    {id:'bethlehem300',coords:[35.1874,31.7200],title:"Bethlehem 300 Checkpoint",arabic:"حاجز بيت لحم ٣٠٠",district:"Bethlehem",type:"Entry / Exit to Israel",filterType:"entry",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Primary crossing between Bethlehem and Jerusalem for Palestinian workers and residents. A terminal-style structure with biometric ID requirements, turnstiles, and lengthy queues beginning before dawn.",films:["The Present — Farah Nablusi, 2020","3000 Nights — Mai Masri, 2015"],images:[],analysis:"<p>In <em>The Present</em>, the Bethlehem checkpoint becomes the structuring absence of the entire film — Yusef and his daughter spend the day attempting to buy a refrigerator as a wedding anniversary gift, the checkpoint both the origin and the destination of their ordeal. Nablusi films the checkpoint with a patient, observational camera that refuses to dramatise what is already, in itself, dramatic.</p>",seed:true,placeholder:false},
-    {id:'huwwara',coords:[35.2785,32.1534],title:"Huwwara Checkpoint",arabic:"حاجز حوارة",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Southern entrance to Nablus on Route 60. One of the most frequently appearing checkpoints in film and testimony. Site of significant violence, particularly in 2023.",films:["Wajib — Annemarie Jacir, 2017","When I Saw You — Annemarie Jacir, 2012"],images:[],analysis:"<p>In <em>Wajib</em>, Huwwara frames the rhythms of daily Palestinian life — Abu Shadi and Shadi navigate it as part of delivering wedding invitations across Nazareth. Jacir depicts the checkpoint not as an exceptional event but as banal infrastructure, something to be navigated like traffic. This is a crucial formal decision: the checkpoint becomes ordinary, which is precisely how its violence operates.</p>",seed:true,placeholder:false},
-    {id:'container',coords:[35.2976,31.6927],title:"Container Checkpoint (Wadi a-Nar)",arabic:"حاجز الكونتينر (وادي النار)",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"East of Abu Dis, controlling travel between northern and southern West Bank. Since October 2023, strict inspections with limited outbound hours.",films:[],images:[],analysis:"<p>The Container rarely gets cinematic attention even though it is strategically crucial — controlling movement between Bethlehem and Hebron. Its absence from narrative film is itself telling: certain sites become iconic while others remain underdocumented. That gap is part of the story.</p>",seed:true,placeholder:false},
-    {id:'beit_iba',coords:[35.1782,32.2185],title:"Beit Iba Checkpoint",arabic:"حاجز بيت إيبا",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Western entrance to Nablus. One of the primary checkpoints controlling access to the city from the west.",films:[],images:[],analysis:"",seed:true,placeholder:true},
-    {id:'al_hamra',coords:[35.3589,32.0812],title:"Al-Hamra Checkpoint",arabic:"حاجز الحمراء",district:"Jericho / Jordan Valley",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement between the Jordan Valley and the northern West Bank highlands.",films:[],images:[],analysis:"",seed:true,placeholder:true},
-    {id:'tayasir',coords:[35.5182,32.2743],title:"Tayasir Checkpoint",arabic:"حاجز تياسير",district:"Tubas / Jordan Valley",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Separates the northern Jordan Valley from the rest of the northern West Bank. Restricts access for Palestinians without special permits.",films:[],images:[],analysis:"",seed:true,placeholder:true},
-    {id:'jaba',coords:[35.2241,32.3512],title:"Jaba Checkpoint",arabic:"حاجز جبع",district:"Jenin",type:"Internal checkpoint",filterType:"internal",staffing:"Intermittently staffed",filterStaff:"intermittent",detail:"Controls the main route between Jenin and the rest of the northern West Bank.",films:["Jenin Jenin — Mohammad Bakri, 2002"],images:[],analysis:"",seed:true,placeholder:true},
-    {id:'gilo',coords:[35.1753,31.7450],title:"Gilo / Rachel's Tomb Checkpoint",arabic:"حاجز جيلو / قبر راحيل",district:"Bethlehem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Near Rachel's Tomb in Bethlehem. The checkpoint is embedded within the separation wall.",films:[],images:[],analysis:"",seed:true,placeholder:true},
-    {id:'hebron_h2',coords:[35.1262,31.5252],title:"Hebron H2 Checkpoint",arabic:"حاجز الخليل (ح٢)",district:"Hebron",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement into the H2 zone of Hebron under Israeli military control. Palestinian movement is heavily restricted throughout the old city.",films:[],images:[],analysis:"",seed:true,placeholder:true},
-    {id:'abu_dis',coords:[35.2731,31.7638],title:"Abu Dis Checkpoint",arabic:"حاجز أبو ديس",district:"Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Separates the Jerusalem suburb of Abu Dis from the city itself. The separation wall runs through the centre of what was once a single community.",films:[],images:[],analysis:"",seed:true,placeholder:true},
-    {id:'ras_al_amud',coords:[35.2495,31.7712],title:"Ras al-Amud Checkpoint",arabic:"حاجز رأس العمود",district:"Jerusalem",type:"Internal checkpoint",filterType:"internal",staffing:"Intermittently staffed",filterStaff:"intermittent",detail:"Controls movement between Ras al-Amud and the Mount of Olives area. Part of the network of checkpoints fragmenting East Jerusalem.",films:[],images:[],analysis:"",seed:true,placeholder:true},
-    {id:'beit_el',coords:[35.2157,31.9412],title:"Beit El Checkpoint",arabic:"حاجز بيت إيل",district:"Ramallah",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"North of Ramallah, adjacent to the Beit El settlement. Controls movement on the main road between Ramallah and Bireh.",films:[],images:[],analysis:"",seed:true,placeholder:true},
-    {id:'awarta',coords:[35.3102,32.1538],title:"Awarta Checkpoint",arabic:"حاجز عوارة",district:"Nablus",type:"Internal checkpoint",filterType:"internal",staffing:"Permanently staffed",filterStaff:"permanent",detail:"Controls movement on Route 60 south of Nablus near the village of Awarta.",films:[],images:[],analysis:"",seed:true,placeholder:true}
-  ];
-
-  films = [
-    {id:'film_divine_intervention',title:"Divine Intervention",director:"Elia Suleiman",year:2002,country:"Palestine / France",genre:"Narrative feature",notes:"A series of absurdist vignettes about Palestinian life under occupation, centred on a couple who meet at the Qalandia checkpoint. Suleiman's deadpan minimalism transforms the checkpoint into a stage for dark comedy and surreal resistance.",checkpointIds:["qalandia"],seed:true},
-    {id:'film_salt_of_this_sea',title:"Salt of This Sea",director:"Annemarie Jacir",year:2008,country:"Palestine / Belgium / Spain",genre:"Narrative feature",notes:"A Palestinian-American woman returns to claim her grandfather's confiscated home in Jaffa. The film navigates the contradictions of diaspora, return, and the checkpoint as a site of contested identity.",checkpointIds:["qalandia"],seed:true},
-    {id:'film_the_present',title:"The Present",director:"Farah Nablusi",year:2020,country:"Palestine / UK",genre:"Short film",notes:"A father and his young daughter attempt to cross a checkpoint to buy a refrigerator as an anniversary gift. Winner of the Academy Award for Best Live Action Short Film.",checkpointIds:["bethlehem300"],seed:true},
-    {id:'film_wajib',title:"Wajib",director:"Annemarie Jacir",year:2017,country:"Palestine / Germany / France",genre:"Narrative feature",notes:"A father and his estranged son drive across Nazareth delivering handwritten wedding invitations. Checkpoints punctuate the film as everyday infrastructure, shaping movement and conversation.",checkpointIds:["huwwara"],seed:true},
-    {id:'film_3000_nights',title:"3000 Nights",director:"Mai Masri",year:2015,country:"Palestine / Jordan / UAE",genre:"Narrative feature",notes:"A Palestinian teacher is unjustly imprisoned in an Israeli jail where she gives birth to a son. The film explores confinement, solidarity, and survival within a carceral space that is itself an extension of checkpoint logic.",checkpointIds:["bethlehem300"],seed:true},
-    {id:'film_when_i_saw_you',title:"When I Saw You",director:"Annemarie Jacir",year:2012,country:"Palestine / Jordan / UAE",genre:"Narrative feature",notes:"Set in 1967 Jordan, a young Palestinian boy separated from his father in a refugee camp tries to cross back into his homeland.",checkpointIds:["huwwara"],seed:true},
-    {id:'film_checkpoint',title:"Checkpoint",director:"Yoav Shamir",year:2003,country:"Israel",genre:"Documentary",notes:"An Israeli documentary filmmaker embeds with soldiers at West Bank checkpoints, capturing the daily mechanics of occupation from the perspective of those enforcing it.",checkpointIds:["qalandia"],seed:true},
-    {id:'film_paradise_now',title:"Paradise Now",director:"Hany Abu-Assad",year:2005,country:"Palestine / Germany / France / Netherlands",genre:"Narrative feature",notes:"Two friends from Nablus are recruited for a suicide bombing mission in Tel Aviv. The film explores radicalisation and despair under occupation, with checkpoints as nodes that make normal movement impossible.",checkpointIds:["huwwara","beit_iba"],seed:true},
-    {id:'film_omar',title:"Omar",director:"Hany Abu-Assad",year:2013,country:"Palestine",genre:"Narrative feature",notes:"A young Palestinian man regularly scales the separation wall to see his childhood sweetheart. Trapped between occupation, betrayal, and love, the film uses the wall and checkpoints as the architecture of an impossible life.",checkpointIds:["bethlehem300","gilo"],seed:true},
-    {id:'film_jenin_jenin',title:"Jenin Jenin",director:"Mohammad Bakri",year:2002,country:"Palestine / Israel",genre:"Documentary",notes:"Filmed in the immediate aftermath of the Israeli military operation in Jenin refugee camp in April 2002. Bakri interviews survivors as ruins smoulder.",checkpointIds:["jaba"],seed:true},
-    {id:'film_5_broken_cameras',title:"5 Broken Cameras",director:"Emad Burnat & Guy Davidi",year:2011,country:"Palestine / Israel / France",genre:"Documentary",notes:"Palestinian farmer Emad Burnat documents the nonviolent resistance movement in Bil'in village against the separation wall and settlement expansion.",checkpointIds:["beit_el"],seed:true},
-    {id:'film_the_teacher',title:"The Teacher",director:"Farah Nablusi",year:2023,country:"Palestine / UK",genre:"Narrative feature",notes:"A Palestinian teacher in the West Bank is drawn into resistance after a personal tragedy. The film traces how everyday life under occupation radicalises ordinary people.",checkpointIds:["huwwara","bethlehem300"],seed:true},
-    {id:'film_chronicle',title:"Chronicle of a Disappearance",director:"Elia Suleiman",year:1996,country:"Palestine / France / Germany / Italy",genre:"Narrative feature",notes:"Suleiman's debut feature — a semi-autobiographical portrait of Palestinian life in Nazareth and Jerusalem. A precursor to Divine Intervention in its deadpan observation of a people under surveillance and erasure.",checkpointIds:["qalandia","abu_dis"],seed:true},
-    {id:'film_all_thats_left',title:"All That's Left of You",director:"Cherien Dabis",year:2025,country:"Palestine / USA",genre:"Narrative feature",notes:"A Palestinian-American woman returns to the West Bank to confront her family's past. Navigating checkpoints between Jordan and the West Bank, the film explores how diaspora Palestinians experience a homeland made inaccessible.",checkpointIds:["qalandia","bethlehem300"],seed:true}
-  ];
-
-  submissions = [];
+// Simple sanity check + helpful message when token is missing/placeholder
+if (!mapboxgl.accessToken || mapboxgl.accessToken.includes('YOUR_REAL')) {
+  console.error('Mapbox access token missing or placeholder. Replace mapboxgl.accessToken with a valid token from https://account.mapbox.com.');
+  document.addEventListener('DOMContentLoaded', () => {
+    const m = document.getElementById('map');
+    if (m) m.innerHTML = '<div style="color:#fff;padding:16px;font-family:monospace;background:rgba(0,0,0,0.5)">Map failed to load: missing/invalid Mapbox token. See console (Cmd+Opt+J) for details.</div>';
+  });
 }
 
-async function saveData() {
-  // Replace with actual save logic
-}
-
-async function saveSubmissions() {
-  // Replace with actual save logic
-}
-
-/* ══════════════════════════════
-   MAP INIT
-══════════════════════════════ */
+// Initialize the Mapbox map (make `map` global so other functions can use it)
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/dark-v11',
   center: [35.2, 31.9],
   zoom: 9
 });
+map.addControl(new mapboxgl.NavigationControl({ showCompass: true }), 'top-right');
+map.on('error', (e) => console.error('Mapbox GL error:', e && (e.error || e)));
 
-map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-
-map.on('load', async () => {
-  await loadData();
-  buildList();
-  buildFilmList();
-  buildFilmFilterChips();
-  initTimeline();
-  applyFilters();
-  checkpoints.forEach(cp => addMarker(cp));
-  setAdminUI();
-  setTimeout(() => {
-    document.getElementById('infoModule').classList.remove('hidden');
-  }, 600);
-});
-
-map.on('click', e => {
-  if (pickingOnMap) {
-    document.getElementById('cpLat').value = e.lngLat.lat.toFixed(6);
-    document.getElementById('cpLng').value = e.lngLat.lng.toFixed(6);
-    if (tempPickMarker) tempPickMarker.remove();
-    const el = document.createElement('div');
-    el.style.cssText = 'width:12px;height:12px;background:var(--gold);border:2px solid #fff;border-radius:50%;box-shadow:0 0 10px rgba(230,169,58,0.8);';
-    tempPickMarker = new mapboxgl.Marker({ element: el }).setLngLat(e.lngLat).addTo(map);
-    pickingOnMap = false;
-    document.getElementById('mapClickHint').classList.remove('visible');
-    map.getCanvas().style.cursor = '';
-    openModal('addCheckpointModal');
-  } else if (sugPickingOnMap) {
-    document.getElementById('sugCpLat').value = e.lngLat.lat.toFixed(6);
-    document.getElementById('sugCpLng').value = e.lngLat.lng.toFixed(6);
-    sugPickingOnMap = false;
-    document.getElementById('mapClickHint').classList.remove('visible');
-    map.getCanvas().style.cursor = '';
-    openModal('suggestModal');
-  }
-});
-
-/* MAP STYLE TOGGLE */
-document.querySelectorAll('.map-style-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.map-style-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const styles = {
-      dark: 'mapbox://styles/mapbox/dark-v11',
-      satellite: 'mapbox://styles/mapbox/satellite-streets-v12',
-      streets: 'mapbox://styles/mapbox/streets-v12'
-    };
-    map.setStyle(styles[btn.dataset.style]);
-    map.once('style.load', () => rebuildMarkers());
-  });
-});
+window.map = map; // ensure global reference for other functions
 
 /* ══════════════════════════════
-   PANEL
+   CONFIG & STATE
 ══════════════════════════════ */
-const panel = document.getElementById('cpPanel');
-const panelCloseBtn = document.getElementById('panelCloseBtn');
-const mobilePanelCloseBtn = document.getElementById('mobilePanelCloseBtn');
-const panelTab = document.getElementById('panelTab');
-const panelTabInner = document.getElementById('panelTabInner');
-const cpListEl = document.getElementById('cpList');
-const detailScroll = document.getElementById('cpDetailScroll');
-const emptyState = document.getElementById('cpEmptyState');
+    :root{--gold:#e6a93a;--teal:#6fe7c1;--forest:#288366;--crimson:#b94e3a;--nav-h:62px;--panel-w:400px;}
+    *,*::before,*::after{box-sizing:border-box;}
+    html,body{margin:0;padding:0;height:100%;overflow:hidden;}
+    body{font-family:'Cormorant Garamond',Georgia,serif;background:#0a1a18;color:#e8f5f0;}
 
-panelTabInner.addEventListener('click', openPanel);
-panelCloseBtn.addEventListener('click', closePanel);
-mobilePanelCloseBtn.addEventListener('click', closePanel);
+    /* NAV */
+    .topnav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:linear-gradient(180deg,rgba(10,35,33,0.99) 0%,rgba(10,35,33,0.97) 100%);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;box-shadow:0 2px 20px rgba(0,0,0,0.5);z-index:1000;overflow:visible;}
+    .topnav .brand{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:var(--gold);letter-spacing:0.5px;text-decoration:none;flex-shrink:0;}
+    .topnav .menu{display:flex;gap:0.4rem;align-items:center;overflow:visible;position:relative;}
+    .topnav .menu a{color:#eaf7f2;font-size:0.88rem;font-weight:500;padding:0.5rem 0.9rem;border-radius:6px;transition:all 0.25s;font-family:'Oswald',sans-serif;text-decoration:none;letter-spacing:0.2px;}
+    .topnav .menu a:hover,.topnav .menu a.active{background:rgba(230,169,58,0.18);color:var(--gold);}
+    .nav-dropdown{position:relative;display:inline-block;}
+    .nav-dropdown-trigger{color:#eaf7f2;font-size:0.88rem;font-weight:500;padding:0.5rem 0.9rem;border-radius:6px;transition:all 0.3s;font-family:'Oswald',sans-serif;letter-spacing:0.2px;text-decoration:none;background:none;border:none;display:flex;align-items:center;gap:0.35rem;cursor:pointer;white-space:nowrap;}
+    .nav-dropdown-trigger:hover,.nav-dropdown-trigger.active{background:rgba(230,169,58,0.18);color:var(--gold);}
+    .nav-dropdown-arrow{font-size:0.65rem;opacity:0.7;transition:transform 0.25s;display:inline-block;}
+    .nav-dropdown.open .nav-dropdown-arrow,.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg);}
+    .nav-dropdown-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:260px;background:rgba(8,28,26,0.98);border:1px solid rgba(230,169,58,0.25);border-radius:12px;padding:0.5rem;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 0.22s,transform 0.22s;box-shadow:0 16px 48px rgba(0,0,0,0.55);z-index:9999;}
+    .nav-dropdown.open .nav-dropdown-menu,.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateY(0);}
+    .nav-dropdown-item{display:flex;flex-direction:column;gap:0.22rem;padding:0.8rem 1rem;border-radius:8px;text-decoration:none;transition:background 0.18s;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .nav-dropdown-item:last-child{border-bottom:none;}
+    .nav-dropdown-item:hover{background:rgba(230,169,58,0.1);}
+    .nav-dropdown-item-title{font-family:'Oswald',sans-serif;font-size:0.88rem;font-weight:500;letter-spacing:0.05em;color:#e8f5f0;}
+    .nav-dropdown-item-desc{font-family:'IBM Plex Mono',monospace;font-size:0.67rem;font-weight:300;color:rgba(232,245,240,0.5);line-height:1.4;}
+    .nav-dropdown-item:hover .nav-dropdown-item-title{color:var(--gold);}
+    .nav-dropdown-item:hover .nav-dropdown-item-desc{color:rgba(232,245,240,0.7);}
 
-function openPanel() {
-  panel.classList.add('open');
-  document.body.classList.add('panel-open');
-  panelCloseBtn.classList.add('visible');
-  panelTab.classList.add('hidden');
-  setTimeout(() => map.resize(), 440);
-}
+    /* HAMBURGER */
+    .hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;background:rgba(255,255,255,0.05);border:1px solid rgba(111,231,193,0.2);border-radius:8px;cursor:pointer;padding:0;flex-shrink:0;}
+    .hamburger span{display:block;width:18px;height:2px;background:#eaf7f2;border-radius:2px;transition:all 0.28s cubic-bezier(0.4,0,0.2,1);}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-function closePanel() {
-  panel.classList.remove('open');
-  document.body.classList.remove('panel-open');
-  panelCloseBtn.classList.remove('visible');
-  panelTab.classList.remove('hidden');
-  setTimeout(() => map.resize(), 440);
-  resetMarkerHighlight();
-}
+    /* MOBILE NAV DRAWER */
+    .mobile-nav-drawer{position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(8,24,22,0.99);border-bottom:1px solid rgba(111,231,193,0.12);z-index:999;display:flex;flex-direction:column;padding:0.5rem 0 1rem;transform:translateY(-110%);opacity:0;transition:transform 0.32s cubic-bezier(0.4,0,0.2,1),opacity 0.28s;pointer-events:none;box-shadow:0 12px 40px rgba(0,0,0,0.5);}
+    .mobile-nav-drawer.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+    .mobile-nav-drawer a{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:500;letter-spacing:0.12em;color:#eaf7f2;text-decoration:none;padding:0.85rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.18s,color 0.18s;display:block;}
+    .mobile-nav-drawer a:hover,.mobile-nav-drawer a.active{background:rgba(230,169,58,0.1);color:var(--gold);}
+    .mobile-nav-drawer .mobile-nav-section-label{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,245,240,0.28);padding:0.75rem 1.5rem 0.35rem;display:block;}
+    .mobile-nav-drawer .mobile-nav-sub{padding-left:2.2rem;font-size:0.88rem;color:rgba(232,245,240,0.65);}
+    .mobile-nav-drawer .mobile-nav-sub:hover{color:var(--gold);}
+    .mobile-nav-overlay{position:fixed;inset:0;top:var(--nav-h);background:rgba(0,0,0,0.45);z-index:998;display:none;backdrop-filter:blur(2px);}
+    .mobile-nav-overlay.open{display:block;}
 
-function switchPanelTab(tab) {
-  activePanelTab = tab;
-  document.querySelectorAll('.cp-panel-tab').forEach(t => t.classList.toggle('active', t.dataset.panelTab === tab));
-  document.getElementById('checkpointsView').style.display = tab === 'checkpoints' ? 'flex' : 'none';
-  document.getElementById('filmsView').style.display = tab === 'films' ? 'flex' : 'none';
-  document.getElementById('submissionsView').style.display = tab === 'submissions' ? 'flex' : 'none';
-  if (tab === 'submissions') buildSubmissionsList();
-}
+    /* MAP */
+    #map{position:fixed;top:var(--nav-h);bottom:0;left:0;right:0;z-index:1;transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
+    body.panel-open #map{left:var(--panel-w);}
 
-function showListView() {
-  const view = document.getElementById('checkpointsView');
-  view.className = 'cp-panel-inner cp-panel-view-list';
-}
+    /* PANEL TAB */
+    .panel-tab{position:fixed;top:50%;left:0;z-index:190;transform:translateY(-50%);transition:transform 0.42s cubic-bezier(0.4,0,0.2,1),opacity 0.3s;}
+    .panel-tab.hidden{opacity:0;pointer-events:none;}
+    body.panel-open .panel-tab{transform:translateY(-50%) translateX(-100%);}
+    .panel-tab-inner{background:rgba(10,35,33,0.95);border:1px solid rgba(111,231,193,0.2);border-left:none;border-radius:0 10px 10px 0;padding:1rem 0.55rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:0.55rem;box-shadow:4px 0 18px rgba(0,0,0,0.4);transition:background 0.2s,border-color 0.2s;}
+    .panel-tab-inner:hover{background:rgba(15,45,38,0.98);border-color:rgba(111,231,193,0.4);}
+    .panel-tab-text{font-family:'Oswald',sans-serif;font-size:0.6rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.45);writing-mode:vertical-rl;transform:rotate(180deg);}
+    .panel-tab-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:0.7;}
 
-function showDetailView() {
-  const view = document.getElementById('checkpointsView');
-  view.className = 'cp-panel-inner cp-panel-view-detail';
-}
+    /* SEARCH */
+    .search-panel{position:fixed;top:calc(var(--nav-h)+16px);left:50%;transform:translateX(-50%);z-index:100;width:420px;max-width:calc(100vw - 32px);transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
+    body.panel-open .search-panel{left:calc(50% + var(--panel-w)/2);}
+    .search-inner{background:rgba(10,35,33,0.94);border:1px solid rgba(111,231,193,0.22);border-radius:12px;padding:0.7rem 0.9rem;display:flex;align-items:center;gap:0.6rem;box-shadow:0 6px 24px rgba(0,0,0,0.45);}
+    .search-inner input{flex:1;border:none;background:transparent;font-family:'IBM Plex Mono',monospace;font-size:0.84rem;font-weight:300;color:#e8f5f0;outline:none;letter-spacing:0.04em;}
+    .search-inner input::placeholder{color:rgba(232,245,240,0.3);}
+    .search-inner button{font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.42rem 1rem;border-radius:6px;background:rgba(230,169,58,0.15);border:1px solid rgba(230,169,58,0.45);color:var(--gold);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+    .search-inner button:hover{background:rgba(230,169,58,0.3);}
+    #searchResults{position:absolute;top:calc(100% + 6px);left:0;right:0;background:rgba(10,35,33,0.97);border:1px solid rgba(111,231,193,0.15);border-radius:10px;list-style:none;margin:0;padding:0.4rem 0;z-index:101;max-height:260px;overflow-y:auto;display:none;box-shadow:0 10px 32px rgba(0,0,0,0.5);}
+    #searchResults li{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:300;padding:0.7rem 1.1rem;cursor:pointer;color:rgba(232,245,240,0.75);border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.18s,color 0.18s;display:flex;align-items:center;gap:0.5rem;}
+    #searchResults li:last-child{border-bottom:none;}
+    #searchResults li:hover{background:rgba(230,169,58,0.1);color:var(--gold);}
+    #searchResults li.divider{font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,245,240,0.2);background:rgba(0,0,0,0.15);cursor:default;}
+    .result-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    li.cp-result .result-dot{background:var(--gold);}
+    li.place-result .result-dot{background:var(--teal);}
 
-function showFilmListView() {
-  document.getElementById('filmsView').className = 'cp-panel-inner cp-panel-view-list';
-  resetMarkerHighlight();
-  activeFilmId = null;
-}
+    /* MAP STYLE TOGGLE */
+    .map-style-toggle{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(10,35,33,0.93);border:1px solid rgba(111,231,193,0.15);border-radius:10px;display:flex;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.4);transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
+    body.panel-open .map-style-toggle{left:calc(50% + var(--panel-w)/2);}
+    .map-style-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.5rem 1rem;border:none;background:transparent;color:rgba(232,245,240,0.4);cursor:pointer;transition:all 0.2s;border-right:1px solid rgba(111,231,193,0.1);}
+    .map-style-btn:last-child{border-right:none;}
+    .map-style-btn.active{background:rgba(230,169,58,0.12);color:var(--gold);}
+    .map-style-btn:hover:not(.active){color:rgba(232,245,240,0.7);}
 
-function showFilmDetailView() {
-  document.getElementById('filmsView').className = 'cp-panel-inner cp-panel-view-detail';
-}
+    /* LEGEND */
+    .map-legend{position:fixed;bottom:24px;right:20px;z-index:100;background:rgba(10,35,33,0.93);border:1px solid rgba(111,231,193,0.15);border-radius:12px;padding:1rem 1.3rem;box-shadow:0 6px 24px rgba(0,0,0,0.45);min-width:165px;}
+    .legend-title{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(232,245,240,0.28);margin:0 0 0.8rem;}
+    .legend-row{display:flex;align-items:center;gap:0.65rem;margin-bottom:0.55rem;font-family:'Oswald',sans-serif;font-size:0.75rem;font-weight:400;color:rgba(232,245,240,0.6);}
+    .legend-row:last-child{margin-bottom:0;}
+    .legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+    .legend-dot.curated{background:#4ec87a;border:2px solid #267a48;}
+    .legend-dot.placeholder{background:#f0d020;border:2px solid #a09010;}
+    .legend-dot.community{background:#f07830;border:2px solid #a04818;}
+    .legend-dot.pending{background:rgba(240,120,48,0.5);border:2px solid rgba(240,208,32,0.7);outline:2px dashed rgba(240,208,32,0.4);outline-offset:1px;}
+    .legend-dot.search-result{background:rgba(111,231,193,0.4);border:2px solid rgba(255,255,255,0.25);}
 
-/* INFO MODULE */
-document.getElementById('infoModuleClose').addEventListener('click', () => {
-  document.getElementById('infoModule').classList.add('hidden');
-});
-document.getElementById('showInfoBtn').addEventListener('click', () => {
-  document.getElementById('infoModule').classList.remove('hidden');
-});
+    /* MAPBOX POPUP RESET */
+    .mapboxgl-popup-content{background:transparent!important;border-radius:0!important;padding:0!important;box-shadow:none!important;}
+    .mapboxgl-popup-tip{display:none!important;}
+    .mapboxgl-popup-close-button{display:none!important;}
 
-/* MOBILE HAMBURGER */
-const hamburgerBtn = document.getElementById('hamburgerBtn');
-const mobileNavDrawer = document.getElementById('mobileNavDrawer');
-const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+    /* INFO MODULE */
+    .map-info-module{position:fixed;bottom:76px;right:24px;z-index:1200;background:rgba(10,35,33,0.96);border:1px solid rgba(111,231,193,0.22);border-radius:14px;padding:1.2rem 1.5rem;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,0.45);transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
+    .map-info-module.hidden{display:none;}
+    body.panel-open .map-info-module{right:24px;}
 
-hamburgerBtn.addEventListener('click', () => {
-  const open = mobileNavDrawer.classList.toggle('open');
-  mobileNavOverlay.classList.toggle('open', open);
-  hamburgerBtn.classList.toggle('open', open);
-  hamburgerBtn.setAttribute('aria-expanded', String(open));
-});
-mobileNavOverlay.addEventListener('click', () => {
-  mobileNavDrawer.classList.remove('open');
-  mobileNavOverlay.classList.remove('open');
-  hamburgerBtn.classList.remove('open');
-  hamburgerBtn.setAttribute('aria-expanded', 'false');
-});
+    /* LEFT PANEL */
+    .cp-panel{position:fixed;top:var(--nav-h);bottom:0;left:0;width:var(--panel-w);background:linear-gradient(160deg,#0a2321 0%,#112e26 60%,#0d2820 100%);border-right:1px solid rgba(111,231,193,0.14);z-index:200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform 0.42s cubic-bezier(0.4,0,0.2,1);box-shadow:8px 0 40px rgba(0,0,0,0.5);}
+    .cp-panel.open{transform:translateX(0);}
+    .cp-panel-bar{height:3px;background:linear-gradient(90deg,var(--gold),#f0c060,var(--gold));flex-shrink:0;}
+    .cp-panel-header{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem 0.5rem;border-bottom:1px solid rgba(111,231,193,0.1);background:rgba(0,0,0,0.2);flex-shrink:0;}
+    .cp-panel-heading{font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:rgba(232,245,240,0.38);}
+    .cp-panel-add-btns{display:flex;gap:0.35rem;align-items:center;}
+    .cp-add-btn{font-family:'Oswald',sans-serif;font-size:0.6rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.6rem;border-radius:6px;cursor:pointer;transition:all 0.2s;border:1px solid;display:flex;align-items:center;gap:0.25rem;}
+    .cp-add-btn.suggest{background:rgba(111,231,193,0.08);border-color:rgba(111,231,193,0.28);color:var(--teal);}
+    .cp-add-btn.suggest:hover{background:rgba(111,231,193,0.18);border-color:var(--teal);}
+    .cp-add-btn.checkpoint{background:rgba(230,169,58,0.1);border-color:rgba(230,169,58,0.35);color:var(--gold);}
+    .cp-add-btn.checkpoint:hover{background:rgba(230,169,58,0.22);border-color:var(--gold);}
+    .cp-add-btn.film{background:rgba(111,231,193,0.07);border-color:rgba(111,231,193,0.22);color:var(--teal);}
+    .cp-add-btn.film:hover{background:rgba(111,231,193,0.16);border-color:var(--teal);}
 
-/* TRANSLATE */
-document.getElementById('translateBtn').addEventListener('click', () => {
-  currentLang = currentLang === 'en' ? 'ar' : 'en';
-  document.documentElement.lang = currentLang;
-  document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-  document.querySelectorAll('[data-en][data-ar]').forEach(el => {
-    el.textContent = el.getAttribute('data-' + currentLang);
-  });
-  buildFilmFilterChips();
-  buildFilmCheckpointChips();
-  buildFilmYearChips();
-});
+    /* Panel tabs */
+    .cp-panel-tabs{display:flex;border-bottom:1px solid rgba(111,231,193,0.1);flex-shrink:0;}
+    .cp-panel-tab{flex:1;padding:0.5rem 0;font-family:'Oswald',sans-serif;font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;background:transparent;border:none;color:rgba(232,245,240,0.35);cursor:pointer;transition:all 0.18s;border-bottom:2px solid transparent;margin-bottom:-1px;}
+    .cp-panel-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+    .cp-panel-tab:hover:not(.active){color:rgba(232,245,240,0.6);}
 
-/* TOAST */
-function showToast(msg, type = 'success') {
-  const t = document.createElement('div');
-  t.textContent = msg;
-  t.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:${type === 'error' ? 'var(--crimson)' : type === 'warning' ? '#a07020' : 'var(--forest)'};color:#fff;font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:0.1em;padding:0.55rem 1.2rem;border-radius:8px;z-index:9999;box-shadow:0 4px 18px rgba(0,0,0,0.4);animation:modalIn 0.25s ease;`;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 3000);
-}
+    /* Filter tabs */
+    .cp-filter-section{padding:0.6rem 0.8rem 0.5rem;border-bottom:1px solid rgba(111,231,193,0.08);background:rgba(0,0,0,0.14);flex-shrink:0;}
+    .cp-filter-tabs{display:flex;border:1px solid rgba(111,231,193,0.14);border-radius:7px;overflow:hidden;margin-bottom:0.55rem;}
+    .cp-filter-tab{flex:1;padding:0.32rem 0;font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;background:transparent;border:none;border-right:1px solid rgba(111,231,193,0.1);color:rgba(232,245,240,0.32);cursor:pointer;transition:all 0.18s;}
+    .cp-filter-tab:last-child{border-right:none;}
+    .cp-filter-tab.active{background:rgba(230,169,58,0.1);color:var(--gold);}
+    .cp-filter-tab:hover:not(.active){background:rgba(255,255,255,0.04);color:rgba(232,245,240,0.55);}
+    .cp-filter-pane{display:none;flex-wrap:wrap;gap:0.32rem;min-height:28px;}
+    .cp-filter-pane.active{display:flex;}
+    .cp-chip{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:300;letter-spacing:0.04em;padding:0.22rem 0.55rem;border-radius:20px;border:1px solid rgba(111,231,193,0.16);color:rgba(232,245,240,0.4);background:transparent;cursor:pointer;transition:all 0.17s;white-space:nowrap;}
+    .cp-chip:hover{border-color:var(--teal);color:var(--teal);}
+    .cp-chip.active{background:rgba(230,169,58,0.13);border-color:rgba(230,169,58,0.48);color:var(--gold);}
+    .cp-chip.film-chip.active{background:rgba(111,231,193,0.09);border-color:rgba(111,231,193,0.42);color:var(--teal);}
+    .cp-chip-count{opacity:0.5;font-size:0.52rem;margin-left:0.25rem;}
+    .cp-filter-tab.has-filter::after{content:'';display:inline-block;width:5px;height:5px;background:var(--gold);border-radius:50%;margin-left:0.35rem;vertical-align:middle;flex-shrink:0;}
+    .cp-filter-tab.has-filter{color:rgba(230,169,58,0.7);}
+    .filter-clear-btn{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:300;letter-spacing:0.06em;padding:0.22rem 0.55rem;border-radius:20px;border:1px solid rgba(185,78,58,0.3);color:rgba(185,78,58,0.65);background:transparent;cursor:pointer;transition:all 0.18s;white-space:nowrap;margin-left:auto;}
+    .filter-clear-btn:hover{background:rgba(185,78,58,0.1);border-color:var(--crimson);color:var(--crimson);}
+    .filter-clear-btn.hidden{display:none;}
+    .filter-summary{display:none;align-items:center;gap:0.4rem;padding:0.35rem 0.8rem;background:rgba(230,169,58,0.07);border-bottom:1px solid rgba(230,169,58,0.15);flex-shrink:0;flex-wrap:wrap;}
+    .filter-summary.visible{display:flex;}
+    .filter-summary-label{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;font-weight:300;color:rgba(232,245,240,0.35);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;}
+    .filter-summary-tag{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.15rem 0.5rem;border-radius:12px;background:rgba(230,169,58,0.12);border:1px solid rgba(230,169,58,0.32);color:rgba(230,169,58,0.85);display:flex;align-items:center;gap:0.3rem;}
+    .filter-summary-tag button{background:none;border:none;color:rgba(230,169,58,0.6);cursor:pointer;font-size:0.65rem;padding:0;line-height:1;transition:color 0.15s;}
+    .filter-summary-tag button:hover{color:var(--crimson);}
 
-/* ══════════════════════════════
-   FILTER TABS
-══════════════════════════════ */
-document.querySelectorAll('.cp-filter-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.cp-filter-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    document.querySelectorAll('.cp-filter-pane').forEach(p => p.classList.remove('active'));
-    document.getElementById('filter-' + tab.dataset.tab).classList.add('active');
-  });
-});
+    /* Timeline slider */
+    .timeline-wrap{padding:0.4rem 0 0.2rem;width:100%;}
+    .timeline-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
+    .timeline-label{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;font-weight:300;color:rgba(232,245,240,0.35);letter-spacing:0.08em;}
+    .timeline-active-label{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:400;color:var(--gold);letter-spacing:0.06em;}
+    .timeline-slider-track{position:relative;height:4px;background:rgba(111,231,193,0.12);border-radius:4px;margin:0.3rem 0.6rem 1.1rem;}
+    .timeline-slider-fill{position:absolute;top:0;height:100%;background:linear-gradient(90deg,var(--gold),#f0c060);border-radius:4px;pointer-events:none;}
+    .timeline-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#0a2321;border:2px solid var(--gold);border-radius:50%;cursor:pointer;z-index:2;transition:border-color 0.18s,box-shadow 0.18s;}
+    .timeline-thumb:hover,.timeline-thumb:focus{border-color:#f0c060;box-shadow:0 0 0 3px rgba(230,169,58,0.28);outline:none;}
+    .timeline-thumb.dragging{border-color:#fff;box-shadow:0 0 0 4px rgba(230,169,58,0.35);}
+    .timeline-marks{display:flex;justify-content:space-between;padding:0 0.6rem;}
+    .timeline-mark{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;color:rgba(232,245,240,0.2);letter-spacing:0.02em;cursor:pointer;transition:color 0.18s;}
+    .timeline-mark:hover{color:var(--gold);}
 
-document.getElementById('filter-type').addEventListener('click', e => {
-  const c = e.target.closest('[data-filter-type]'); if (!c) return;
-  document.querySelectorAll('[data-filter-type]').forEach(x => x.classList.remove('active')); c.classList.add('active');
-  activeFilters.type = c.dataset.filterType; applyFilters();
-});
+    /* Panel inner views */
+    .cp-panel-inner{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+    .cp-panel-inner.cp-panel-view-list .cp-detail-pane{display:none;}
+    .cp-panel-inner.cp-panel-view-list .cp-list-wrap{display:flex;}
+    .cp-panel-inner.cp-panel-view-detail .cp-list-wrap{display:none;}
+    .cp-panel-inner.cp-panel-view-detail .cp-detail-pane{display:flex;flex-direction:column;flex:1;overflow:hidden;}
+    .cp-list-wrap{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+    .cp-list{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.18) transparent;list-style:none;margin:0;padding:0;}
+    .cp-list::-webkit-scrollbar{width:3px;}
+    .cp-list::-webkit-scrollbar-thumb{background:rgba(111,231,193,0.18);border-radius:2px;}
+    .cp-list-item{padding:0.85rem 1.1rem 0.85rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background 0.18s;position:relative;}
+    .cp-list-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background 0.18s;}
+    .cp-list-item:hover{background:rgba(230,169,58,0.06);}
+    .cp-list-item:hover::before{background:rgba(230,169,58,0.35);}
+    .cp-list-item.active{background:rgba(230,169,58,0.1);}
+    .cp-list-item.active::before{background:var(--gold);}
+    .cp-list-item.hidden{display:none;}
+    .film-list-item.hidden{display:none;}
+    .cp-list-arabic{font-family:'Cormorant Garamond',serif;font-size:0.78rem;font-style:italic;color:var(--teal);opacity:0.68;margin:0 0 0.15rem;}
+    .cp-list-name{font-family:'Cormorant Garamond',serif;font-size:1.03rem;font-weight:700;color:#e8f5f0;margin:0 0 0.28rem;line-height:1.2;}
+    .cp-list-meta{display:flex;gap:0.35rem;flex-wrap:wrap;}
+    .cp-list-tag{font-family:'IBM Plex Mono',monospace;font-size:0.53rem;font-weight:300;padding:0.1rem 0.38rem;border-radius:10px;border:1px solid rgba(111,231,193,0.18);color:rgba(232,245,240,0.38);}
+    .cp-list-tag.type-entry{border-color:rgba(230,169,58,0.28);color:rgba(230,169,58,0.62);}
+    .cp-list-tag.staff-permanent{border-color:rgba(185,78,58,0.3);color:rgba(185,78,58,0.65);}
+    .cp-list-films-mini{margin-top:0.3rem;display:flex;flex-wrap:wrap;gap:0.28rem;}
+    .cp-film-mini{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.08rem 0.32rem;border-radius:10px;border:1px solid rgba(230,169,58,0.18);color:rgba(230,169,58,0.55);}
+    .cp-empty-state{padding:2rem 1.5rem;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:300;color:rgba(232,245,240,0.22);letter-spacing:0.04em;line-height:1.8;}
 
-document.getElementById('filter-staffing').addEventListener('click', e => {
-  const c = e.target.closest('[data-filter-staff]'); if (!c) return;
-  document.querySelectorAll('[data-filter-staff]').forEach(x => x.classList.remove('active')); c.classList.add('active');
-  activeFilters.staff = c.dataset.filterStaff; applyFilters();
-});
+    /* Film list */
+    .film-list{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.18) transparent;list-style:none;margin:0;padding:0;}
+    .film-list::-webkit-scrollbar{width:3px;}
+    .film-list::-webkit-scrollbar-thumb{background:rgba(111,231,193,0.18);}
+    .film-list-item{padding:0.9rem 1.1rem 0.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background 0.18s;position:relative;}
+    .film-list-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background 0.18s;}
+    .film-list-item:hover{background:rgba(111,231,193,0.04);}
+    .film-list-item:hover::before{background:rgba(111,231,193,0.35);}
+    .film-list-item.active{background:rgba(111,231,193,0.08);}
+    .film-list-item.active::before{background:var(--teal);}
+    .film-list-year{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;font-weight:300;color:var(--teal);opacity:0.6;margin:0 0 0.12rem;}
+    .film-list-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#e8f5f0;margin:0 0 0.15rem;line-height:1.2;}
+    .film-list-director{font-family:'Cormorant Garamond',serif;font-size:0.85rem;font-style:italic;color:rgba(232,245,240,0.55);margin:0 0 0.28rem;}
+    .film-list-cp-count{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.08rem 0.35rem;border-radius:10px;border:1px solid rgba(111,231,193,0.2);color:rgba(111,231,193,0.5);display:inline-block;}
+    .film-detail-header{padding:1rem 1.2rem 0.8rem;border-bottom:1px solid rgba(111,231,193,0.1);background:rgba(0,0,0,0.16);position:relative;flex-shrink:0;}
+    .film-detail-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(111,231,193,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(111,231,193,0.04) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
+    .film-detail-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);opacity:0.62;margin:0 0 0.25rem;display:block;position:relative;z-index:1;}
+    .film-detail-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;margin:0 0 0.12rem;line-height:1.15;position:relative;z-index:1;}
+    .film-detail-director{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:var(--teal);opacity:0.72;margin:0;position:relative;z-index:1;}
 
-function buildFilmFilterChips() {
-  const pane = document.getElementById('filter-film'); pane.innerHTML = '';
-  makeChip(currentLang === 'ar' ? 'كل الأفلام' : 'All Films', 'film-chip', () => { activeFilters.film = 'all'; buildFilmFilterChips(); applyFilters(); }, activeFilters.film === 'all', pane);
-  films.forEach(f => { const count = (f.checkpointIds || []).length; makeChip(`${f.title} (${f.year})`, 'film-chip', () => { activeFilters.film = f.id; buildFilmFilterChips(); applyFilters(); }, activeFilters.film === f.id, pane, count); });
-}
+    /* Detail pane */
+    .cp-back-btn{padding:0.55rem 1.1rem;border-bottom:1px solid rgba(111,231,193,0.1);display:flex;align-items:center;gap:0.45rem;cursor:pointer;background:rgba(0,0,0,0.14);font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(232,245,240,0.42);border:none;width:100%;text-align:left;transition:color 0.18s,background 0.18s;flex-shrink:0;}
+    .cp-back-btn:hover{color:var(--teal);background:rgba(111,231,193,0.05);}
+    .cp-detail-scroll{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.18) transparent;}
+    .cp-detail-scroll::-webkit-scrollbar{width:3px;}
+    .cp-detail-scroll::-webkit-scrollbar-thumb{background:rgba(111,231,193,0.18);}
+    .cp-detail-header{padding:1rem 1.2rem 0.8rem;border-bottom:1px solid rgba(111,231,193,0.1);background:rgba(0,0,0,0.16);position:relative;}
+    .cp-detail-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(111,231,193,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(111,231,193,0.04) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
+    .cp-detail-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);opacity:0.62;margin:0 0 0.25rem;display:block;position:relative;z-index:1;}
+    .cp-detail-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#fff;margin:0 0 0.15rem;line-height:1.15;position:relative;z-index:1;}
+    .cp-detail-arabic{font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-style:italic;color:var(--teal);opacity:0.72;margin:0;position:relative;z-index:1;}
 
-function makeChip(label, extraClass, onClick, isActive, parent, count) {
-  const btn = document.createElement('button');
+    /* Carousel */
+    .cp-panel-carousel{width:100%;height:185px;position:relative;flex-shrink:0;background:#060f0d;overflow:hidden;}
+    .cp-panel-carousel img{display:none;width:100%;height:185px;object-fit:cover;object-position:center;filter:brightness(0.84) saturate(0.9);}
+    .cp-panel-carousel img.active{display:block;}
+    .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;background:rgba(10,35,33,0.82);color:#e8f5f0;border:1px solid rgba(111,231,193,0.32);border-radius:50%;font-size:1rem;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;transition:background 0.18s,color 0.18s,border-color 0.18s;box-shadow:0 2px 10px rgba(0,0,0,0.5);}
+    .carousel-btn.prev{left:9px;}
+    .carousel-btn.next{right:9px;}
+    .carousel-btn:hover{background:var(--gold);color:#0a2321;border-color:var(--gold);}
+    .carousel-dots{position:absolute;bottom:6px;left:0;right:0;display:flex;justify-content:center;gap:0.38rem;pointer-events:none;}
+    .carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(232,245,240,0.28);border:none;padding:0;cursor:pointer;pointer-events:auto;transition:background 0.18s,transform 0.18s;}
+    .carousel-dot.active{background:var(--gold);transform:scale(1.35);}
+
+    .cp-detail-row{padding:0.58rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);font-family:'Cormorant Garamond',serif;font-size:0.94rem;line-height:1.65;color:rgba(232,245,240,0.8);}
+    .cp-detail-row:last-child{border-bottom:none;}
+    .cp-detail-row-label{font-family:'Oswald',sans-serif;font-size:0.54rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.08rem;}
+    .cp-film-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:300;padding:0.16rem 0.46rem;border-radius:20px;border:1px solid rgba(230,169,58,0.28);color:rgba(230,169,58,0.82);margin:0.14rem 0.14rem 0 0;white-space:nowrap;}
+    .cp-detail-films{padding:0.58rem 1.2rem 0.65rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .cp-detail-analysis{padding:0.7rem 1.2rem 1rem;font-family:'Cormorant Garamond',serif;font-size:0.95rem;line-height:1.8;color:rgba(232,245,240,0.8);border-bottom:1px solid rgba(255,255,255,0.05);}
+    .cp-detail-analysis .cp-detail-row-label{margin-bottom:0.42rem;}
+    .cp-detail-analysis p{margin:0 0 0.7rem;}
+    .cp-detail-analysis p:last-child{margin-bottom:0;}
+    .cp-detail-admin-row{padding:0.55rem 1.2rem 0.85rem;display:flex;gap:0.6rem;flex-wrap:wrap;}
+    .cp-detail-edit-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:6px;border:1px solid rgba(111,231,193,0.28);color:rgba(111,231,193,0.65);background:transparent;cursor:pointer;transition:all 0.18s;}
+    .cp-detail-edit-btn:hover{background:rgba(111,231,193,0.08);border-color:var(--teal);color:var(--teal);}
+    .cp-detail-delete-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:6px;border:1px solid rgba(185,78,58,0.32);color:rgba(185,78,58,0.65);background:transparent;cursor:pointer;transition:all 0.18s;}
+    .cp-detail-delete-btn:hover{background:rgba(185,78,58,0.1);border-color:var(--crimson);color:var(--crimson);}
   btn.className = 'cp-chip ' + extraClass + (isActive ? ' active' : '');
   btn.innerHTML = label + (count != null ? `<span class="cp-chip-count">${count}</span>` : '');
   btn.addEventListener('click', onClick); parent.appendChild(btn);
