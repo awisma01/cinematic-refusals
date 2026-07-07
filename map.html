@@ -74,7 +74,7 @@
     .search-inner button{font-family:'Oswald',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.42rem 1rem;border-radius:6px;background:rgba(230,169,58,0.15);border:1px solid rgba(230,169,58,0.45);color:var(--gold);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
     .search-inner button:hover{background:rgba(230,169,58,0.3);}
     #searchResults{position:absolute;top:calc(100% + 6px);left:0;right:0;background:rgba(10,35,33,0.97);border:1px solid rgba(111,231,193,0.15);border-radius:10px;list-style:none;margin:0;padding:0.4rem 0;z-index:101;max-height:260px;overflow-y:auto;display:none;box-shadow:0 10px 32px rgba(0,0,0,0.5);}
-    #searchResults li{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:300;padding:0.7rem 1.1rem;cursor:pointer;color:rgba(232,245,240,0.75);border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.18s,color 0.18s;display:flex;align-items:center;gap:0.5rem;}
+    #searchResults li{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:300;padding:0.7rem 1.1rem;cursor:pointer;color:rgba(232,245,240,0.75);border-bottom:1px solid rgba(255,255,255,0.05);transition:background 0.18s,color 0.18s;display:flex;align-items:center;gap:0.5rem;}
     #searchResults li:last-child{border-bottom:none;}
     #searchResults li:hover{background:rgba(230,169,58,0.1);color:var(--gold);}
     #searchResults li.divider{font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,245,240,0.2);background:rgba(0,0,0,0.15);cursor:default;}
@@ -889,7 +889,7 @@ let markerObjs = [];
 let activeFilters = { type: 'all', staff: 'all', film: 'all', yearMin: null, yearMax: null };
 let activeFilmFilters = { genre: 'all', checkpoint: 'all', year: 'all' };
 
-// Seed Arrays
+// Baseline seed data arrays
 let checkpoints = [
   { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Divine Intervention", "200 Meters"], images: [], seed: true },
   { id: 'cp_2', coords: [35.2345, 32.1234], title: "Huwwara Checkpoint", arabic: "حاجز حوارة", district: "Nablus", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Southern entry to Nablus", analysis: "Represented as a bottleneck space impeding educational mobility.", films: ["Salt of this Sea"], images: [], seed: true }
@@ -903,25 +903,46 @@ let films = [
 
 let submissions = [];
 
+// Local Storage Layer Recovery Handlers
+try {
+  const storedCheckpoints = JSON.parse(localStorage.getItem('cc_checkpoints'));
+  if (Array.isArray(storedCheckpoints) && storedCheckpoints.length) {
+    checkpoints = storedCheckpoints;
+  }
+  const storedFilms = JSON.parse(localStorage.getItem('cc_films'));
+  if (Array.isArray(storedFilms) && storedFilms.length) {
+    films = storedFilms;
+  }
+} catch (e) {
+  console.warn('LocalStorage data recovery bypass:', e);
+}
+
+// Mapbox Public Access Key Validation
+const PROVIDED_MAPBOX_TOKEN = 'pk.eyJ1IjoiYXdpc21hMDEiLCJhIjoiY21sYjZudTJkMGs5ZTNkcTY2ZXRnbmt0NiJ9.3XcsI4p3lFOou3ulXWFXXQ';
+localStorage.setItem('MAPBOX_TOKEN', PROVIDED_MAPBOX_TOKEN);
+mapboxgl.accessToken = PROVIDED_MAPBOX_TOKEN;
+
+// Initialize layout positioning container metrics
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/dark-v11',
+  center: [35.2, 31.9],
+  zoom: 9,
+  trackResize: true
+});
+map.addControl(new mapboxgl.NavigationControl({ showCompass: true }), 'top-right');
+window.map = map;
+
+// Force view boundaries re-evaluation on immediate layer completion
+map.on('load', () => {
+  map.resize();
+});
+
 // DOM References
 const cpListEl = document.getElementById('cpList');
 const emptyState = document.getElementById('cpEmptyState');
 const detailScroll = document.getElementById('cpDetailScroll');
 const panel = document.getElementById('cpPanel');
-
-// Mapbox Token Initialization
-const metaToken = document.querySelector('meta[name="mapbox-token"]')?.getAttribute('content');
-mapboxgl.accessToken = metaToken || localStorage.getItem('MAPBOX_TOKEN') || 'pk.eyJ1IjoiY2luZW1hdGljY291bnRlciIsImEiOiJjbHhleXp0djEwMXFwMmpzZ2Z3YXNreW9uIn0.REPLACE_WITH_ACTUAL_TOKEN';
-
-// Initialize the map handle
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/dark-v11',
-  center: [35.2, 31.9],
-  zoom: 9
-});
-map.addControl(new mapboxgl.NavigationControl({ showCompass: true }), 'top-right');
-window.map = map;
 
 /* ══════════════════════════════
     CORE APP HANDLERS
@@ -934,9 +955,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setupPanelToggles();
   setupFilters();
   setupLanguageToggle();
+  setTimeout(() => { map.resize(); }, 200);
 });
 
-// Storage Hooks
 async function saveData() { localStorage.setItem('cc_checkpoints', JSON.stringify(checkpoints)); localStorage.setItem('cc_films', JSON.stringify(films)); }
 async function saveSubmissions() { localStorage.setItem('cc_submissions', JSON.stringify(submissions)); }
 
@@ -1099,7 +1120,7 @@ function buildList() {
     const li = document.createElement('li'); li.className = 'cp-list-item'; li.setAttribute('data-id', cp.id);
     li.setAttribute('data-filter-type', cp.filterType || 'internal'); li.setAttribute('data-filter-staff', cp.filterStaff || 'permanent');
     li.innerHTML = `<div class="cp-list-arabic">${cp.arabic || ''}</div><div class="cp-list-name">${cp.title}</div><div class="cp-list-meta"><span class="cp-list-tag">${cp.type}</span></div>`;
-    li.addEventListener('click', () => openCheckpoint(cp.id)); parent = cpListEl.appendChild(li);
+    li.addEventListener('click', () => openCheckpoint(cp.id)); cpListEl.appendChild(li);
   });
 }
 
@@ -1298,4 +1319,4 @@ document.addEventListener('click', (e) => {
 });
 </script>
 </body>
-</html> 
+</html>
