@@ -223,7 +223,7 @@
     /* PULL QUOTE */
     .pull-quote {
       background:rgba(0,0,0,0.28); border-left:3px solid var(--gold);
-      border-radius:0 12px 12px 0; padding:1.8rem 2.2rem; margin:0;
+      border-radius: 0 12px 12px 0; padding:1.8rem 2.2rem; margin:0;
     }
     html[dir="rtl"] .pull-quote { border-left:none; border-right:3px solid var(--gold); border-radius:12px 0 0 12px; }
     .pull-quote blockquote { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-style:italic; line-height:1.85; color:rgba(232,245,240,0.84); margin:0 0 0.9rem; }
@@ -1142,19 +1142,6 @@
     </section>
   </main>
 
-  <!-- WHAT'S NOT MAPPED DROPDOWN TRIGGER -->
-  <div class="wnm-trigger-section">
-    <button class="wnm-trigger-btn" id="wnmTrigger" aria-expanded="false" aria-controls="wnmPanel">
-      <div class="wnm-trigger-left">
-        <span class="wnm-trigger-eyebrow">05 / 05, Beyond the Archive</span>
-        <span class="wnm-trigger-title">What's <em>Not Mapped</em></span>
-        <span class="wnm-trigger-sub">
-          The politics of omission, the gaps in the archive, and what this project refuses to show.
-        </span>
-      </div>
-      <span class="wnm-trigger-icon" aria-hidden="true">+</span>
-    </button>
-  </div>
 
   <!-- ACCORDION PANEL -->
   <div class="wnm-panel" id="wnmPanel" role="region" aria-labelledby="wnmTrigger">
@@ -1264,108 +1251,6 @@
     window.PAGE_T = window._T;
   </script>
   <script src="js/shared.js"></script>
-
-  <!-- MOBILE NAV OVERLAY -->
-  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
-    <div class="mobile-nav-header">
-      <a href="index.html" class="mobile-nav-brand">Cinematic Counter&#8209;Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <nav class="mobile-nav-links">
-      <a href="index.html" class="">Home</a>
-      <a href="map.html" class="">Map</a>
-      <span class="mobile-nav-section-label">Archive</span>
-      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
-      <a href="analysis.html" class="archive-item">Visual Analysis</a>
-      <a href="surveillance-space.html" class="archive-item active">Surveillance Space</a>
-      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
-      <a href="glossary.html" class="archive-item">Glossary</a>
-      <a href="about.html" class="">About</a>
-    </nav>
-  </div>
-
-  <!-- MOBILE NAV JS -->
-  <script>
-    (function() {
-      var btn    = document.getElementById('navHamburger');
-      var nav    = document.getElementById('mobileNav');
-      var close  = document.getElementById('mobileNavClose');
-      if (!btn || !nav) return;
-      function openNav() {
-        nav.classList.add('open');
-        btn.classList.add('open');
-        btn.setAttribute('aria-expanded','true');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeNav() {
-        nav.classList.remove('open');
-        btn.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-        document.body.style.overflow = '';
-      }
-      btn.addEventListener('click', openNav);
-      if (close) close.addEventListener('click', closeNav);
-      nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
-      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
-    })();
-  </script>
-
-  <!-- remove the old blanket blockers so glossary links can function -->
-  <script>
-  // Keep only the improved, selective diagnostic that allows normal inline glossary links
-  document.addEventListener('click', function(ev){
-    const a = ev.target.closest('a[href*="glossary.html"]');
-    if (!a) return;
-
-    // Allow intentionally visible glossary links:
-    if (
-      a.classList.contains('gloss-tooltip-link') ||
-      a.closest('.gloss-tooltip') ||
-      a.closest('.vocab-list') ||
-      a.closest('.vocab-card') ||
-      a.closest('.wnm-panel') ||
-      a.closest('.nav-dropdown-menu')
-    ) {
-      // let normal navigation proceed
-      console.debug('Allowed glossary navigation:', a);
-      return;
-    }
-
-    // If anchor is unusually large (likely an overlay), block and highlight it for inspection
-    const r = a.getBoundingClientRect();
-    const vw = window.innerWidth || document.documentElement.clientWidth;
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    const largeThreshold = 0.9; // 90% of viewport
-    const isLarge = (r.width >= vw * largeThreshold) || (r.height >= vh * largeThreshold);
-    const coversMost = (r.top <= 0 && r.left <= 0 && r.bottom >= vh && r.right >= vw);
-
-    if (isLarge || coversMost) {
-      ev.preventDefault();
-      ev.stopPropagation();
-      a.style.outline = '3px solid rgba(255,80,80,0.95)';
-      a.style.transition = 'outline 0.2s';
-      console.warn('Blocked likely-overlay glossary link (highlighted):', a, { rect: r });
-      return;
-    }
-
-    // Otherwise allow navigation but log for diagnostics
-    console.debug('Glossary link clicked (allowed):', a);
-  }, true);
-
-  // Optional helper: press Escape to remove any outlines added by the diagnostic blocker
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') {
-      document.querySelectorAll('a[style*="outline"]').forEach(el => el.style.outline = '');
-      console.info('Cleared diagnostic outlines.');
-    }
-  });
-  </script>
-
-  <script>
-    // Test for em-dash in text content
-    [...document.querySelectorAll('body, body *')].forEach(el=>{
-      if ((el.textContent||'').includes('—')) console.log('has em-dash:', el);
-    });
-  </script>
+  <script src="js/gloss-links.js"></script>
 </body>
 </html>
