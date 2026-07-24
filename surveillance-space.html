@@ -1042,7 +1042,7 @@
           <p>Shalhoub-Kevorkian's work on "<span class="gloss-term" tabindex="0">infiltrated intimacies<span class="gloss-tooltip"><span class="gloss-tooltip-term">infiltrated intimacies</span><span class="gloss-tooltip-def">Shalhoub-Kevorkian: the occupation of domestic and bodily space — night raids, surveillance of family members, governance of birth and reproductive decisions.</span><a class="gloss-tooltip-link" href="glossary.html#term-infiltrated-intimacies">Full definition &rarr;</a></span></span>" extends this analysis into the home. Occupation enters through night raids, through the surveillance of family members, through the impossibility of family reunification under permit regimes. Women live with a constant anticipation of intrusion — the late-night knock, the raid that disrupts the household, the interrogation that redraws the boundaries of privacy. Because Palestinian women artists inhabit these intimate spaces, they can witness from the inside: the fear after a raid, the emotional negotiations families make, the altered routines children develop, the sensory memories that linger after soldiers leave. These forms of knowledge never appear in military archives. They are structurally invisible.</p>
           <p>The same cultural and religious norms that limit how Palestinian women appear in public create the exact blind spots that Israeli surveillance cannot reach. Browne's insight that surveillance is always racialized and gendered is crucial here: those blind spots become some of the most powerful counter-archival material in the archive. Palestinian women artists turn what surveillance is structurally unable to record into knowledge — <span class="gloss-term" tabindex="0">feminist witnessing<span class="gloss-tooltip"><span class="gloss-tooltip-term">feminist witnessing</span><span class="gloss-tooltip-def">An epistemological practice for seeing and preserving what the surveillance state cannot capture — the intimate, bodily, and relational dimensions of occupation.</span><a class="gloss-tooltip-link" href="glossary.html#term-feminist-witnessing">Full definition &rarr;</a></span></span> as epistemological practice and method for seeing, documenting, and preserving what the surveillance state is literally not designed to capture.</p>
           <p>Masri witnesses through the body; Shibli witnesses through interior consciousness; Bisan Owda witnesses in real time through social media documentation, claiming the title of Hakawatiya — traditional Arabic oral storyteller — within the context of genocide to position her witnessing within a long tradition of Palestinian cultural memory-making. What they all share is a commitment to working in the spaces surveillance does not see, and turning those moments into records that matter politically.</p>
-          <p>This is how feminist witnessing opens space for imagining Palestinian futures — not by laying out a vision of liberation but by insisting again and again that Palestinian life exceeds what occupation tries to reduce it to. Haddad's formulation of sumud as a radical and daring act of imagination, aligned with Vizenor's concept of <span class="gloss-term" tabindex="0">survivance<span class="gloss-tooltip"><span class="gloss-tooltip-term">survivance</span><span class="gloss-tooltip-def">Vizenor: active presence over absence — the continuities of stories as generative world-making rather than mere survival.</span><a class="gloss-tooltip-link" href="glossary.html#term-survivance">Full definition &rarr;</span></span> — active presence over absence, the continuities of stories — frames this generative dimension of the archive. The act of documentation is itself the imagination: not imagining a future abstractly, but insisting daily that there is a future in which this will be remembered and in which these filmmakers will have been witnesses, not just victims.</p>
+          <p>This is how feminist witnessing opens space for imagining Palestinian futures — not by laying out a vision of liberation but by insisting again and again that Palestinian life exceeds what occupation tries to reduce it to. Haddad's formulation of sumud as a radical and daring act of imagination, aligned with Vizenor's concept of <span class="gloss-term" tabindex="0">survivance<span class="gloss-tooltip"><span class="gloss-tooltip-term">survivance</span><span class="gloss-tooltip-def">Vizenor: active presence over absence, the continuities of stories — aligned here with sumud as generative world-making rather than mere survival.</span><a class="gloss-tooltip-link" href="glossary.html#term-survivance">Full definition &rarr;</a></span></span> — active presence over absence, the continuities of stories — frames this generative dimension of the archive. The act of documentation is itself the imagination: not imagining a future abstractly, but insisting daily that there is a future in which this will be remembered and in which these filmmakers will have been witnesses, not just victims.</p>
         </div>
         <div class="vocab-card">
           <h4 style="color:rgba(255,255,255,0.55);">Key Concepts</h4>
@@ -1308,6 +1308,64 @@
       nav.addEventListener('click', function(e) { if (e.target === nav) closeNav(); });
       document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeNav(); });
     })();
+  </script>
+
+  <!-- remove the old blanket blockers so glossary links can function -->
+  <script>
+  // Keep only the improved, selective diagnostic that allows normal inline glossary links
+  document.addEventListener('click', function(ev){
+    const a = ev.target.closest('a[href*="glossary.html"]');
+    if (!a) return;
+
+    // Allow intentionally visible glossary links:
+    if (
+      a.classList.contains('gloss-tooltip-link') ||
+      a.closest('.gloss-tooltip') ||
+      a.closest('.vocab-list') ||
+      a.closest('.vocab-card') ||
+      a.closest('.wnm-panel') ||
+      a.closest('.nav-dropdown-menu')
+    ) {
+      // let normal navigation proceed
+      console.debug('Allowed glossary navigation:', a);
+      return;
+    }
+
+    // If anchor is unusually large (likely an overlay), block and highlight it for inspection
+    const r = a.getBoundingClientRect();
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const largeThreshold = 0.9; // 90% of viewport
+    const isLarge = (r.width >= vw * largeThreshold) || (r.height >= vh * largeThreshold);
+    const coversMost = (r.top <= 0 && r.left <= 0 && r.bottom >= vh && r.right >= vw);
+
+    if (isLarge || coversMost) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      a.style.outline = '3px solid rgba(255,80,80,0.95)';
+      a.style.transition = 'outline 0.2s';
+      console.warn('Blocked likely-overlay glossary link (highlighted):', a, { rect: r });
+      return;
+    }
+
+    // Otherwise allow navigation but log for diagnostics
+    console.debug('Glossary link clicked (allowed):', a);
+  }, true);
+
+  // Optional helper: press Escape to remove any outlines added by the diagnostic blocker
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') {
+      document.querySelectorAll('a[style*="outline"]').forEach(el => el.style.outline = '');
+      console.info('Cleared diagnostic outlines.');
+    }
+  });
+  </script>
+
+  <script>
+    // Test for em-dash in text content
+    [...document.querySelectorAll('body, body *')].forEach(el=>{
+      if ((el.textContent||'').includes('—')) console.log('has em-dash:', el);
+    });
   </script>
 </body>
 </html>
