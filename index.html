@@ -33,30 +33,47 @@
       pointer-events: none; z-index: 0;
     }
     /* NAV */
-    .topnav {
-      background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
-      padding: 1.2rem 3rem; display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 1000;
-      overflow: visible; height: var(--nav-h); direction: ltr !important;
-    }
-    .topnav .brand { font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--gold); letter-spacing: 0.5px; }
-    .topnav .menu { display: flex; gap: 0.5rem; overflow: visible; position: relative; }
-    .topnav .menu a { color: var(--link-color); font-size: 0.9rem; font-weight: 500; padding: 0.55rem 1rem; border-radius: 6px; transition: all 0.3s; font-family: 'Oswald', sans-serif; letter-spacing: 0.3px; text-decoration: none; }
-    .topnav .menu a:hover, .topnav .menu a.active { background: rgba(230,169,58,0.2); color: var(--gold); }
-    .nav-dropdown { position: relative; display: inline-block; }
-    .nav-dropdown-trigger { color: #eaf7f2; font-size: 0.9rem; font-weight: 500; padding: 0.55rem 1rem; border-radius: 6px; transition: all 0.3s; font-family: 'Oswald', sans-serif; letter-spacing: 0.3px; background: none; border: none; display: flex; align-items: center; gap: 0.35rem; cursor: pointer; white-space: nowrap; }
-    .nav-dropdown-trigger:hover, .nav-dropdown-trigger.active { background: rgba(230,169,58,0.2); color: var(--gold); }
-    .nav-dropdown-arrow { font-size: 0.65rem; opacity: 0.7; transition: transform 0.25s; display: inline-block; }
-    .nav-dropdown.open .nav-dropdown-arrow, .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(180deg); }
-    .nav-dropdown-menu { position: absolute; top: calc(100% + 8px); right: 0; min-width: 260px; background: rgba(8,28,26,0.98); border: 1px solid rgba(230,169,58,0.25); border-radius: 12px; padding: 0.5rem; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 0.22s, transform 0.22s; box-shadow: 0 16px 48px rgba(0,0,0,0.55); z-index: 9999; }
-    .nav-dropdown.open .nav-dropdown-menu, .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
-    .nav-dropdown-item { display: flex; flex-direction: column; gap: 0.22rem; padding: 0.8rem 1rem; border-radius: 8px; text-decoration: none; transition: background 0.18s; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .nav-dropdown-item:last-child { border-bottom: none; }
-    .nav-dropdown-item:hover { background: rgba(230,169,58,0.1); }
-    .nav-dropdown-item-title { font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.05em; color: #e8f5f0; }
-    .nav-dropdown-item-desc { font-family: 'IBM Plex Mono', monospace; font-size: 0.67rem; font-weight: 300; color: var(--text-muted); line-height: 1.4; }
-    .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
-    .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.7); }
+    /* --- unified topnav styles (shared across pages) --- */
+.topnav {
+  background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
+  padding: 1.2rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  overflow: visible;
+  height: var(--nav-h);
+  direction: ltr !important;
+}
+.topnav .brand { font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--gold); letter-spacing: 0.5px; }
+.topnav .menu { display: flex; gap: 0.5rem; align-items:center; }
+.topnav .menu a { color: var(--link-color); font-size: 0.9rem; font-weight: 500; padding: 0.55rem 1rem; border-radius: 6px; transition: all 0.3s; font-family: 'Oswald', sans-serif; letter-spacing: 0.3px; text-decoration: none; }
+.topnav .menu a:hover, .topnav .menu a.active { background: rgba(230,169,58,0.2); color: var(--gold); }
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown-trigger { color: var(--link-color); font-size: 0.9rem; font-weight: 500; padding: 0.55rem 1rem; border-radius: 6px; background: none; border: none; display:flex; align-items:center; gap:0.35rem; cursor: pointer; white-space: nowrap; }
+.nav-dropdown-menu { position: absolute; top: calc(100% + 8px); right: 0; min-width: 260px; background: rgba(8,28,26,0.98); border: 1px solid rgba(230,169,58,0.25); border-radius: 12px; padding: 0.5rem; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 0.22s, transform 0.22s; box-shadow: 0 16px 48px rgba(0,0,0,0.55); z-index: 9999; }
+.nav-dropdown.open .nav-dropdown-menu, .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.nav-dropdown-item { display: block; padding: 0.8rem 1rem; border-radius: 8px; text-decoration: none; transition: background 0.18s; border-bottom: 1px solid rgba(255,255,255,0.05); color: inherit; }
+.nav-dropdown-item:last-child { border-bottom: none; }
+.nav-dropdown-item:hover { background: rgba(230,169,58,0.1); }
+.nav-dropdown-item-title { font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.05em; color: #e8f5f0; }
+.nav-dropdown-item-desc { font-family: 'IBM Plex Mono', monospace; font-size: 0.67rem; font-weight: 300; color: var(--text-muted); line-height: 1.4; }
+/* mobile nav */
+.nav-hamburger { background:none;border:none;padding:0.4rem;display:inline-flex;flex-direction:column;gap:4px;cursor:pointer }
+.nav-hamburger span{ display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .18s,opacity .18s}
+.nav-hamburger.open span:nth-child(1){ transform: translateY(6px) rotate(45deg) }
+.nav-hamburger.open span:nth-child(2){ opacity:0 }
+.nav-hamburger.open span:nth-child(3){ transform: translateY(-6px) rotate(-45deg) }
+/* small screens adjustments */
+@media (max-width:900px){
+  .topnav { padding: 0.9rem 1rem; }
+  .topnav .menu { gap: 0.35rem; }
+  .topnav .menu a, .nav-dropdown-trigger { padding: 0.45rem 0.7rem; font-size: 0.86rem; }
+}
+/* --- end unified nav styles --- */
     /* HERO */
     .hero-section { position: relative; padding: 7rem 2rem 5rem; text-align: center; z-index: auto; overflow: hidden; }
     .hero-section::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(40,131,102,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(40,131,102,0.07) 1px, transparent 1px); background-size: 60px 60px; animation: gridDrift 30s linear infinite; z-index: -1; }
