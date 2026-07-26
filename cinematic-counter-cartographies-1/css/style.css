@@ -176,9 +176,8 @@ img,video{max-width:100%;height:auto;display:block}
 /* Dropdown */
 .nav-dropdown{ position:relative; display:inline-block; }
 .nav-dropdown-trigger{ font-family:'Oswald',sans-serif; font-weight:600; font-size:0.78rem;
-  background:none;border:0;color:var(--link-color);padding:0.55rem 1rem;border-radius:6px;cursor:pointer; text-transform:uppercase;
-  font-family:'Oswald',sans-serif;
-  display:flex;align-items:center;gap:0.35rem;.filter-pill.active{ background: rgba(230,169,58,0.08); color:var(--gold); border-color:var(--gold); }
+  background:none;border:0;color:var(--link-color);padding:0.55rem 1rem;border-radius:6px;cursor:pointer;
+  display:flex;align-items:center;gap:0.35rem;text-transform: none;.filter-pill.active{ background: rgba(230,169,58,0.08); color:var(--gold); border-color:var(--gold); }
 }
 .nav-dropdown-menu{
   position:absolute; top:calc(100% + 8px); right:0;); }
