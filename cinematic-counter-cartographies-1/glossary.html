@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Glossary — Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="index.html" class="brand">Cinematic Counter&#8209;Cartographies</a>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="map.html">Map</a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">&#9662;</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="analysis.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Visual Analysis</span>
+            <span class="nav-dropdown-item-desc">Film-by-film formal and spatial readings</span>
+          </a>
+          <a href="surveillance-space.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">Surveillance Space</span>
+            <span class="nav-dropdown-item-desc">Five typologies of occupation beyond the checkpoint</span>
+          </a>
+          <a href="not-mapped.html" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">What's Not Mapped</span>
+            <span class="nav-dropdown-item-desc">Omission, gaps, and the politics of refusal</span>
+          </a>
+          <a href="glossary.html" class="nav-dropdown-item active">
+            <span class="nav-dropdown-item-title">Glossary</span>
+            <span class="nav-dropdown-item-desc">Key terms and theoretical concepts</span>
+          </a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <p class="page-eyebrow">Key Terms</p>
+      <h1 class="page-title"><em>Glossary</em></h1>
+      <div class="gold-rule"></div>
+      <p class="page-lead">Theoretical concepts, spatial frameworks, and critical vocabulary used across this archive. Terms marked with a dotted underline in the analysis pages link back here.</p>
+    </section>
+
+    <div class="gloss-controls">
+      <div class="gloss-controls-inner">
+        <div class="gloss-search-row">
+          <div class="gloss-search-wrap">
+            <span class="gloss-search-icon">&#9998;</span>
+            <input class="gloss-search" id="glossSearch" type="text" placeholder="Search terms, definitions, scholars&#8230;" autocomplete="off">
+          </div>
+          <span class="gloss-count" id="glossCount"></span>
+        </div>
+        <div class="gloss-filter">
+          <button class="gloss-pill active" data-cat="all">All</button>
+          <button class="gloss-pill" data-cat="spatial">Spatial</button>
+          <button class="gloss-pill" data-cat="feminist">Feminist</button>
+          <button class="gloss-pill" data-cat="cinematic">Cinematic</button>
+          <button class="gloss-pill" data-cat="political">Political</button>
+          <button class="gloss-pill" data-cat="theoretical">Theoretical</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="alpha-jump" id="alphaJump"></div>
+
+    <div class="glossary-outer">
+      <nav class="gloss-sidebar" aria-label="Jump to letter" id="glossSidebar"></nav>
+      <div class="gloss-main" id="glossMain">
+        <p class="no-results" id="noResults">No terms match your search.</p>
+
+        <div class="letter-group" id="group-A">
+          <h2 class="letter-heading" id="letter-A">A</h2>
+          <div class="term-card" id="term-anticipatory-punishment" data-cat="political"></div>
+          <div class="term-card" id="term-anticipatory-surveillance" data-cat="political"></div>
+          <div class="term-card" id="term-aesthetics-of-urgency" data-cat="cinematic"></div>
+          <div class="term-card" id="term-algorithmic-suppression" data-cat="political"></div>
+          <div class="term-card" id="term-authorial-risk" data-cat="political"></div>
+        </div>
+
+        <div class="letter-group" id="group-C">
+          <h2 class="letter-heading" id="letter-C">C</h2>
+          <div class="term-card" id="term-carceral-continuum" data-cat="political"></div>
+          <div class="term-card" id="term-carceral-time" data-cat="spatial"></div>
+          <div class="term-card" id="term-counter-cartography" data-cat="spatial"></div>
+          <div class="term-card" id="term-counter-surveillance-aesthetics" data-cat="cinematic"></div>
+          <div class="term-card" id="term-chain-of-provenance" data-cat="theoretical"></div>
+          <div class="term-card" id="term-counter-archive" data-cat="theoretical"></div>
+        </div>
+
+        <div class="letter-group" id="group-D">
+          <h2 class="letter-heading" id="letter-D">D</h2>
+          <div class="term-card" id="term-dead-time" data-cat="political"></div>
+        </div>
+
+        <div class="letter-group" id="group-F">
+          <h2 class="letter-heading" id="letter-F">F</h2>
+          <div class="term-card" id="term-faithful-witnessing" data-cat="feminist"></div>
+          <div class="term-card" id="term-feminist-witnessing" data-cat="feminist"></div>
+          <div class="term-card" id="term-forensic-image" data-cat="political"></div>
+        </div>
+
+        <div class="letter-group" id="group-G">
+          <h2 class="letter-heading" id="letter-G">G</h2>
+          <div class="term-card" id="term-geotagging" data-cat="spatial" data-used-on="surveillance-space.html,analysis.html"></div>
+        </div>
+
+        <div class="letter-group" id="group-L">
+          <h2 class="letter-heading" id="letter-L">L</h2>
+          <div class="term-card" id="term-legibility" data-cat="spatial"></div>
+          <div class="term-card" id="term-long-take" data-cat="cinematic"></div>
+        </div>
+
+        <div class="letter-group" id="group-M">
+          <h2 class="letter-heading" id="letter-M">M</h2>
+          <div class="term-card" id="term-media-custody" data-cat="political"></div>
+          <div class="term-card" id="term-mobile-counter-archive" data-cat="theoretical"></div>
+        </div>
+
+        <div class="letter-group" id="group-P">
+          <h2 class="letter-heading" id="letter-P">P</h2>
+          <div class="term-card" id="term-politics-of-unchilding" data-cat="political"></div>
+          <div class="term-card" id="term-politics-of-verticality" data-cat="spatial"></div>
+          <div class="term-card" id="term-post-custodial-archiving" data-cat="theoretical"></div>
+          <div class="term-card" id="term-protective-witnessing" data-cat="feminist"></div>
+        </div>
+
+        <div class="letter-group" id="group-S">
+          <h2 class="letter-heading" id="letter-S">S</h2>
+          <div class="term-card" id="term-slow-violence" data-cat="political"></div>
+          <div class="term-card" id="term-sumud" data-cat="theoretical"></div>
+          <div class="term-card" id="term-spectacularization" data-cat="theoretical"></div>
+          <div class="term-card" id="term-survivance" data-cat="theoretical"></div>
+        </div>
+
+        <div class="letter-group" id="group-V">
+          <h2 class="letter-heading" id="letter-V">V</h2>
+          <div class="term-card" id="term-visual-sovereignty" data-cat="theoretical"></div>
+        </div>
+
+        <div class="letter-group" id="group-W">
+          <h2 class="letter-heading" id="letter-W">W</h2>
+          <div class="term-card" id="term-withheld-image" data-cat="cinematic"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" id="footer">
+    &#169; 2025&#8211;2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+  </footer>
+  <button id="scrollTopBtn" aria-label="Scroll to top"><span aria-hidden="true">&#8593;</span></button>
+
+  <!-- mobile nav overlay (paste into pages that lack one) -->
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter‑Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
+      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
+      <a href="analysis.html" class="archive-item" data-t="nav-analysis">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item" data-t="nav-notmapped">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
+      <a href="about.html" data-t="nav-about">About</a>
+    </nav>
+  </div>
+
+  <script src="js/shared.js"></script>
+  <script src="js/glossary.js"></script>
+</body>
+</html>
