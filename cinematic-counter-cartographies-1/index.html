@@ -261,7 +261,35 @@
       .spotlight-image { min-height: 260px; }
     }
   </style>
-</head>
+
+  <!-- NAV FIX OVERRIDES: ensure archive dropdown sits above overlays, is clickable, and matches other pages -->
+  <style>
+    /* raise the nav above any fixed overlays and allow clicks */
+    .topnav {
+      z-index: 1300 !important;
+      pointer-events: auto !important;
+      position: sticky;
+      top: 0;
+    }
+
+    /* keep the trigger color/casing consistent with other pages */
+    .nav-dropdown-trigger {
+      color: var(--link-color) !important;
+      text-transform: none !important;
+      cursor: pointer;
+    }
+
+    /* ensure the dropdown panel sits above overlays and receives pointer events */
+    .nav-dropdown-menu {
+      z-index: 1400 !important;
+      pointer-events: auto !important;
+      background: rgba(8,28,26,0.98) !important;
+    }
+
+    /* keep mobile overlay under the nav when closed */
+    .mobile-nav-overlay { z-index: 1250; }
+  </style>
+ </head>
 <body>
   <nav class="topnav" aria-label="Main navigation">
     <div class="brand" data-t="brand">Cinematic Counter‑Cartographies</div>
@@ -316,7 +344,7 @@
       <button class="carousel-nav prev" id="quote-prev" aria-label="Previous quote"><span aria-hidden="true">‹</span></button>
       <button class="carousel-nav next" id="quote-next" aria-label="Next quote"><span aria-hidden="true">›</span></button>
       <div class="carousel-content">
-        <div class="carousel-image"><img id="quote-image" src="assets/images/checkp1.jpg" alt="Quote illustration"></div>
+        <div class="carousel-image"><img id="quote-image" src="../assets/images/checkp1.jpg" alt="Quote illustration"></div>
         <div class="carousel-quotes">
           <div class="quote-slide active" data-img="assets/images/central1.jpeg" data-ar="تعسف ما يحدث داخل نقطة التفتيش من حيث سيطرة الجنود على وقت الفلسطينيين يمكن مقارنته بأشكال الحبس الانفرادي.">
             <p class="quote-text">The arbitrariness of what happens inside a checkpoint in terms of soldiers' control of Palestinians' time is further comparable to forms of solitary confinement.</p>
@@ -365,7 +393,7 @@
       <p class="spotlight-eyebrow" data-t="spotlight-eyebrow">Featured Film</p>
       <div class="spotlight-card">
         <div class="spotlight-image">
-          <img src="assets/images/3000nights.jpg" alt="3000 Nights, Mai Masri, 2015" onerror="this.src='https://picsum.photos/seed/3000nights/900/600'">
+          <img src="../assets/images/3000nights.jpg" alt="3000 Nights, Mai Masri, 2015" onerror="this.src='https://picsum.photos/seed/3000nights/900/600'">
           <div class="spotlight-overlay"><span class="spotlight-year">2015</span></div>
         </div>
         <div class="spotlight-content">
