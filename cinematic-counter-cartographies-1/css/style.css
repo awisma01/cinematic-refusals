@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mobile Navigation — Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <!-- mobile nav overlay (paste this into pages or include server-side) -->
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter‑Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="mobile-nav-links" aria-label="Mobile navigation">
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
+      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
+      <a href="analysis.html" class="archive-item" data-t="nav-analysis">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item" data-t="nav-notmapped">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
+      <a href="about.html" data-t="nav-about">About</a>
+    </nav>
+  </div>
+
+  <script src="js/shared.js"></script>
+  <script>
+    // runtime helper: inject a unified topnav markup and wire dropdown + mobile overlay
+    (function unifyTopNav() {
+      function navTemplate() {
+        return `
+          <a href="index.html" class="brand" data-t="brand">Cinematic Counter‑Cartographies</a>
+          <div class="menu" role="navigation">
+            <a href="index.html" data-t="nav-home">Home</a>
+            <a href="map.html" data-t="nav-map">Map</a>
+            <div class="nav-dropdown" role="none">
+              <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" data-t="nav-archive">Archive <span class="nav-dropdown-arrow">▾</span></button>
+              <div class="nav-dropdown-menu" role="menu" aria-label="Archive menu">
+                <a href="analysis.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-analysis">Visual Analysis</span><span class="nav-dropdown-item-desc" data-t="nav-analysis-desc">Film-by-film formal and spatial readings</span></a>
+                <a href="surveillance-space.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-surveillance">Surveillance Space</span><span class="nav-dropdown-item-desc" data-t="nav-surveillance-desc">Five typologies of occupation beyond the checkpoint</span></a>
+                <a href="not-mapped.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-notmapped">What's Not Mapped</span><span class="nav-dropdown-item-desc" data-t="nav-notmapped-desc">Omission, gaps, and the politics of refusal</span></a>
+                <a href="glossary.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-glossary">Glossary</span><span class="nav-dropdown-item-desc" data-t="nav-glossary-desc">Key terms and theoretical concepts</span></a>
+              </div>
+            </div>
+            <a href="about.html" data-t="nav-about">About</a>
+          </div>
+          <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+        `;
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const nav = document.querySelector('.topnav');
+        if (!nav) return;
+        nav.innerHTML = navTemplate();
+
+        // mark active link based on filename
+        const path = (window.location.pathname.split('/').pop() || 'index.html');
+        nav.querySelectorAll('.menu a').forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === path);
+        });
+
+        // dropdown behaviour
+        const trigger = nav.querySelector('.nav-dropdown-trigger');
+        const dropdown = nav.querySelector('.nav-dropdown');
+        if (trigger && dropdown) {
+          trigger.addEventListener('click', e => {
+            e.stopPropagation();
+            const isOpen = dropdown.classList.toggle('open');
+            trigger.setAttribute('aria-expanded', String(isOpen));
+          });
+          document.addEventListener('click', () => { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); });
+          document.addEventListener('keydown', e => { if (e.key === 'Escape') { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); } });
+        }
+
+        // mobile overlay — uses existing #mobileNav and #mobileNavClose if present
+        const mobileBtn = nav.querySelector('#navHamburger');
+        const mobileOverlay = document.getElementById('mobileNav');
+        const mobileClose = document.getElementById('mobileNavClose');
+        if (mobileBtn && mobileOverlay) {
+          function openNav()  { mobileOverlay.classList.add('open'); mobileBtn.classList.add('open'); mobileBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+          function closeNav() { mobileOverlay.classList.remove('open'); mobileBtn.classList.remove('open'); mobileBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+          mobileBtn.addEventListener('click', () => mobileOverlay.classList.contains('open') ? closeNav() : openNav());
+          if (mobileClose) mobileClose.addEventListener('click', closeNav);
+          mobileOverlay.addEventListener('click', e => { if (e.target === mobileOverlay) closeNav(); });
+          document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+          mobileOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+        }
+
+        // re-run translations if applyLang exists
+        if (typeof applyLang === 'function') {
+          const lang = localStorage.getItem('ccc-lang') || 'en';
+          applyLang(lang);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
+/* CINEMATIC COUNTER‑CARTOGRAPHIES — SHARED SITE STYLES
+   Replaces corrupted HTML that was embedded in this stylesheet.
+   Centralizes the surveillance palette and mobile/nav styles so the
+   same aesthetics apply across all pages.
+*/
+
+:root{
+  /* surveillance-derived palette (applies surveillance page aesthetics site-wide) */
+  --gold: #c47b5a;
+  --gold-soft: #f0c060;
+  --teal: #66e0b8;
+  --forest: #288366;
+  --dark-forest: #0a2321;
+  --crimson: #b94e3a;
+  --nav-h: 70px;
+  --text: #d3e8df;
+  --text-muted: rgba(211,232,223,0.88);
+  --link-color: #dff7ee;
+  --filter-bg: rgba(40,131,102,0.06);
+}
+
+/* RESET / BASE */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body,html{min-height:100vh;margin:0;padding:0;overflow-x:hidden}
+body{
+  background: linear-gradient(160deg,#183f36 0%,#285944 35%,#3a7a62 65%,#2b6a56 100%);
+  background-attachment: fixed;
+  color:var(--text);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* TYPOGRAPHY HELPERS */
+a{color:var(--link-color);text-decoration:none}
+img,video{max-width:100%;height:auto;display:block}
+
+/* --- TOP NAV (shared) --- */
+.topnav{
+  background: linear-gradient(180deg, rgba(10,35,33,0.98), rgba(10,35,33,0.95));
+  padding:1.2rem 3rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 2px 20px rgba(0,0,0,0.3);
+  position:sticky; top:0; z-index:1000;
+  height:var(--nav-h);
+  direction:ltr !important;
+}
+
+.topnav .brand{
+  font-family:'Oswald',sans-serif;
+  font-size:1.3rem;
+  font-weight:600;
+  color:var(--gold);
+  letter-spacing:0.5px;
+}
+.topnav .menu{ display:flex; gap:0.5rem; align-items:center; }
+.topnav .menu a{
+  color:var(--link-color);
+  font-size:0.9rem;
+  font-weight:500;
+  padding:0.55rem 1rem;
+  border-radius:6px;
+  transition:all .28s;
+  font-family:'Oswald',sans-serif;
+}
+.topnav .menu a:hover, .topnav .menu a.active{
+  background: rgba(230,169,58,0.16);
+  color: var(--gold);
+}
+
+/* Dropdown */
+.nav-dropdown{ position:relative; display:inline-block; }
+.nav-dropdown-trigger{ font-family:'Oswald',sans-serif; font-weight:600; font-size:0.78rem;
+  background:none;border:0;color:var(--link-color);padding:0.55rem 1rem;border-radius:6px;cursor:pointer; text-transform:uppercase;
+  font-family:'Oswald',sans-serif;
+  display:flex;align-items:center;gap:0.35rem;.filter-pill.active{ background: rgba(230,169,58,0.08); color:var(--gold); border-color:var(--gold); }
+}
+.nav-dropdown-menu{
+  position:absolute; top:calc(100% + 8px); right:0;); }
+  min-width:260px;
+  background: rgba(8,28,26,0.98);color: rgba(185,78,58,0.22); color: rgba(185,78,58,0.95); }
+  border:1px solid rgba(230,169,58,0.22);
+  border-radius:12px; padding:0.5rem;active{ background:linear-gradient(90deg, rgba(196,123,90,0.08), rgba(240,192,96,0.03)); color:var(--gold); }
+  opacity:0; pointer-events:none; transform:translateY(-8px);
+  transition:opacity .22s, transform .22s;ckground:linear-gradient(90deg, rgba(102,224,184,0.06), rgba(102,224,184,0.02)); color:var(--teal); }
+  box-shadow:0 16px 48px rgba(0,0,0,0.55);
+  z-index:9999;.filter-pill[data-director="Farah Nablusi"].active{ background:linear-gradient(90deg, rgba(185,78,58,0.06), rgba(185,78,58,0.02)); color:var(--crimson); }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* (rest of your original stylesheet should follow here) */.filter-pill[data-director="Farah Nablusi"].active{ background:linear-gradient(90deg, rgba(185,78,58,0.06), rgba(185,78,58,0.02)); color:var(--crimson); }.filter-pill[data-director="Farah Nablusi"]:hover,.filter-pill[data-director="Mai Masri"].active{ background:linear-gradient(90deg, rgba(102,224,184,0.06), rgba(102,224,184,0.02)); color:var(--teal); }.filter-pill[data-director="Mai Masri"]:hover,.filter-pill[data-director="Annemarie Jacir"].active{ background:linear-gradient(90deg, rgba(196,123,90,0.08), rgba(240,192,96,0.03)); color:var(--gold); }.filter-pill[data-director="Annemarie Jacir"]:hover,.filter-pill[data-director="Farah Nablusi"]{ border-color: rgba(185,78,58,0.22); color: rgba(185,78,58,0.95); }.filter-pill[data-director="Mai Masri"]{ border-color: rgba(102,224,184,0.22); color: rgba(102,224,184,0.95); }.filter-pill[data-director="Annemarie Jacir"]{ border-color: rgba(196,123,90,0.25); color: rgba(196,123,90,0.95); }/* director-colors */.filter-pill.active{ background: rgba(230,169,58,0.08); color:var(--gold); border-color:var(--gold); }}  text-transform:uppercase;  background:var(--filter-bg); border:1px solid rgba(255,255,255,0.04);  display:inline-block; padding:0.28rem 0.6rem; border-radius:999px;.filter-pill{/* --- FILTER PILL STYLES (site-wide) --- */}  color: rgba(232,245,240,0.28); padding:1rem 1.5rem 0.4rem; display:block;  font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.35em; text-transform:uppercase;.mobile-nav-section-label{.mobile-nav-links a:hover, .mobile-nav-links a.active{ background: rgba(230,169,58,0.1); color:var(--gold); }}  border-bottom:1px solid rgba(255,255,255,0.04); color: rgba(232,245,240,0.85);  font-family:'Oswald',sans-serif; font-size:1.05rem; font-weight:500; padding:0.95rem 1.5rem;.mobile-nav-links a{.mobile-nav-links{ display:flex; flex-direction:column; padding:0.6rem 0 2rem; flex:1; }/* Mobile links */}  cursor:pointer; color: rgba(232,245,240,0.6); font-size:1.2rem;  width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center;  background: rgba(255,255,255,0.07); border:1px solid rgba(111,231,193,0.22);.mobile-nav-close{.mobile-nav-brand{ font-family:'Oswald',sans-serif; font-size:1rem; color:var(--gold); text-decoration:none; }}  background: rgba(10,35,33,0.98); border-bottom:1px solid rgba(111,231,193,0.12);  display:flex; align-items:center; justify-content:space-between; padding:1.2rem 1.4rem;.mobile-nav-header{}  background: linear-gradient(90deg, var(--gold), var(--gold-soft), var(--gold));  content:''; display:block; height:3px;.mobile-nav-overlay::before{.mobile-nav-overlay.open{ transform:translateX(0); }}  transition:transform .36s cubic-bezier(.4,0,.2,1); overflow-y:auto;  display:flex; flex-direction:column; transform:translateX(-100%);  position:fixed; inset:0; background:rgba(5,20,18,0.97); z-index:2000;.mobile-nav-overlay{.nav-hamburger.open span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }.nav-hamburger.open span:nth-child(2){ opacity:0; transform:scaleX(0); }.nav-hamburger.open span:nth-child(1){ transform: translateY(6px) rotate(45deg); }}  transition: all .18s;  display:block; width:22px; height:2px; background:var(--text); border-radius:2px;.nav-hamburger span{}  display:none; background:none; border:none; padding:0.4rem; gap:6px; cursor:pointer;.nav-hamburger{/* --- MOBILE HAMBURGER & OVERLAY (shared) --- */.nav-dropdown-item:hover{ background: rgba(230,169,58,0.08); }.nav-dropdown-item{ display:block; padding:0.8rem 1rem; color:inherit; border-radius:8px; text-decoration:none; }.nav-dropdown:hover .nav-dropdown-menu{ opacity:1; pointer-events:auto; transform:translateY(0); }.nav-dropdown.open .nav-dropdown-menu,/* (rest of your original stylesheet should follow here) */

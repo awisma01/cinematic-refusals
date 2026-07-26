@@ -14,7 +14,7 @@
 */
 
 :root{
-  /* surveillance-derived palette */
+  /* surveillance-derived palette (applies surveillance page aesthetics site-wide) */
   --gold: #c47b5a;
   --gold-soft: #f0c060;
   --teal: #66e0b8;
