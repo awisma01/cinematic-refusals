@@ -1,495 +1,467 @@
-/* ===================================================
-   CINEMATIC COUNTER-CARTOGRAPHIES — Global Stylesheet
-   =================================================== */
-
-:root {
-  --gold:         #e6a93a;
-  --gold-light:   #f0c060;
-  --teal:         #6fe7c1;
-  --forest:       #288366;
-  --dark-forest:  #0a2321;
-  --crimson:      #b94e3a;
-  --cream:        #f7f3e9;
-  --nav-h:        64px;
-
-  /* Typology accent colors */
-  --arch-color:     #8b7355;
-  --digital-color:  #4a9eba;
-  --temporal-color: #9b6b9b;
-  --intimate-color: #c47b5a;
-  --cinematic-color:#288366;
-
-  /* Olive accent color */
-  --olive: #7a8450;
-}
-
-/* ── RESET ── */
-*, *::before, *::after { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body, html {
-  margin: 0; padding: 0;
-  min-height: 100vh;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-
-body {
-  background: linear-gradient(160deg, #1b3c34 0%, #2a5c4c 30%, #357a5a 60%, #23634c 100%);
-  background-attachment: fixed;
-  color: #e8f5f0;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-}
-
-body::before {
-  content: "";
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background-image: repeating-linear-gradient(
-    0deg, transparent, transparent 3px,
-    rgba(0,255,180,0.012) 3px, rgba(0,255,180,0.012) 4px
-  );
-  pointer-events: none; z-index: 0;
-}
-
-/* ── TYPOGRAPHY ── */
-h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.15; }
-p { font-size: 1.1rem; line-height: 1.9; }
-
-/* ── GOLD RULE ── */
-.gold-rule {
-  width: 70px; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 1.8rem auto;
-}
-
-/* Olive accent for headings and highlights */
-.hero-main-title em {
-  color: var(--olive);
-  font-style: italic;
-}
-
-.gold-rule {
-  background: linear-gradient(90deg, transparent, var(--olive), transparent);
-}
-
-.spotlight-year {
-  background: rgba(122,132,80,0.85);
-  color: #fff;
-}
-
-.card-eyebrow,
-.intro-eyebrow,
-.hook-eyebrow,
-.spotlight-eyebrow,
-.entry-eyebrow {
-  color: var(--olive);
-}
-
-.nav-card:hover {
-  border-color: var(--olive);
-}
-
-.nav-card:hover .card-link {
-  color: var(--olive);
-}
-
-.entry-card:hover {
-  border-color: var(--olive);
-}
-
-.entry-card:hover .entry-link {
-  color: var(--olive);
-}
-
-.carousel-dot {
-  color: var(--olive);
-}
-
-a,
-a:visited {
-  color: var(--olive);
-}
-
-a:hover {
-  color: var(--gold);
-}
-
-/* Olive accent for buttons */
-.spotlight-btn,
-.hook-link,
-.entry-link {
-  color: var(--olive);
-  border-color: var(--olive);
-}
-
-.spotlight-btn:hover,
-.hook-link:hover,
-.entry-link:hover {
-  color: var(--gold);
-  border-color: var(--gold);
-}
-
-/* Olive accent for scroll to top button */
+<!DOCTYPE html>=======================================
+<html lang="en" dir="ltr" id="htmlRoot">bal Stylesheet
+<head>================================================ */
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Visual Analysis — Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>forest:  #0a2321;
+    :root { --gold:#c08e49;--teal:#6fe7c1;--forest:#288366;--dark-forest:#0a2321;--crimson:#b94e3a;--nav-h:70px; }
+    html { scroll-behavior:smooth; }
+    body { margin:0;background:linear-gradient(160deg,#1b3c34 0%,#2a5c4c 30%,#357a5a 60%,#23634c 100%);background-attachment:fixed;color:#e8f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden; }
+    html[lang="ar"] body { font-family:'Amiri','Cormorant Garamond',Georgia,serif; }
+    body::before { content:"";position:fixed;top:0;left:0;width:100%;height:100%;background-image:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,180,0.012) 3px,rgba(0,255,180,0.012) 4px);pointer-events:none;z-index:0; }
+    .topnav { background:linear-gradient(180deg,rgba(10,35,33,0.98) 0%,rgba(10,35,33,0.95) 100%);padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,0.3);position:sticky;top:0;z-index:1000;overflow:visible;direction:ltr!important; }
+    .topnav .brand { font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;color:var(--gold);letter-spacing:0.5px; }
+    .topnav .menu { display:flex;gap:0.5rem;overflow:visible;position:relative; }
+    .topnav .menu a { color:#eaf7f2;font-size:0.9rem;font-weight:500;padding:0.55rem 1rem;border-radius:6px;transition:all 0.3s;font-family:'Oswald',sans-serif;letter-spacing:0.3px;text-decoration:none; }
+    .topnav .menu a:hover,.topnav .menu a.active { background:rgba(230,169,58,0.2);color:var(--gold); }
+    .nav-dropdown { position:relative;display:inline-block; }
+    .nav-dropdown-trigger { color:#eaf7f2;font-size:0.9rem;font-weight:500;padding:0.55rem 1rem;border-radius:6px;transition:all 0.3s;font-family:'Oswald',sans-serif;letter-spacing:0.3px;background:none;border:none;display:flex;align-items:center;gap:0.35rem;cursor:pointer;white-space:nowrap; }
+    .nav-dropdown-trigger:hover,.nav-dropdown-trigger.active { background:rgba(230,169,58,0.2);color:var(--gold); }
+    .nav-dropdown-arrow { font-size:0.65rem;opacity:0.7;transition:transform 0.25s;display:inline-block; }
+    .nav-dropdown.open .nav-dropdown-arrow,.nav-dropdown:hover .nav-dropdown-arrow { transform:rotate(180deg); }
+    .nav-dropdown-menu { position:absolute;top:calc(100% + 8px);right:0;min-width:260px;background:rgba(8,28,26,0.98);border:1px solid rgba(230,169,58,0.25);border-radius:12px;padding:0.5rem;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 0.22s,transform 0.22s;box-shadow:0 16px 48px rgba(0,0,0,0.55);z-index:9999; }
+    .nav-dropdown.open .nav-dropdown-menu,.nav-dropdown:hover .nav-dropdown-menu { opacity:1;pointer-events:auto;transform:translateY(0); }
+    .nav-dropdown-item { display:flex;flex-direction:column;gap:0.22rem;padding:0.8rem 1rem;border-radius:8px;text-decoration:none;transition:background 0.18s;border-bottom:1px solid rgba(255,255,255,0.05); }
+    .nav-dropdown-item:last-child { border-bottom:none; }
+    .nav-dropdown-item:hover,.nav-dropdown-item.active { background:rgba(230,169,58,0.1); }
+    .nav-dropdown-item-title { font-family:'Oswald',sans-serif;font-size:0.88rem;font-weight:500;letter-spacing:0.05em;color:#e8f5f0; }
+    .nav-dropdown-item.active .nav-dropdown-item-title { color:var(--gold); }
+    .nav-dropdown-item-desc { font-family:'IBM Plex Mono',monospace;font-size:0.67rem;font-weight:300;color:rgba(232,245,240,0.5);line-height:1.4; }
+    .nav-dropdown-item:hover .nav-dropdown-item-title { color:var(--gold); }
+    .nav-dropdown-item:hover .nav-dropdown-item-desc { color:rgba(232,245,240,0.7); }
+    /* LANG TOGGLE */
+    /* HERO */
+    .page-hero { position:relative;padding:5rem 2rem 3.5rem;text-align:center;z-index:1; }
+    .page-hero::after { content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(40,131,102,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(40,131,102,0.06) 1px,transparent 1px);background-size:60px 60px;animation:gridDrift 30s linear infinite;z-index:-1; }
+    @keyframes gridDrift { from{background-position:0 0}to{background-position:60px 60px} }
+    .page-eyebrow { font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);opacity:0.7;margin:0 0 1.2rem; }
+    .page-title { font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;color:#e8f5f0;margin:0 0 0.5rem;line-height:1.1;letter-spacing:-0.5px; }
+    html[lang="ar"] .page-title { font-family:'Amiri',serif; }
+    .page-title em { color:var(--gold);font-style:italic; }
+    .gold-rule { width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.5rem auto; }
+    .page-lead { font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:rgba(232,245,240,0.70);max-width:600px;margin:0 auto; }
+    html[lang="ar"] .page-lead { font-family:'Amiri',serif;font-size:1.25rem; }
+    /* FILTER BAR */repeating-linear-gradient(
+    .filter-bar { display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;max-width:900px;margin:0 auto 3rem;padding:0 2rem;position:relative;z-index:1; }
+    .filter-pill { font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.5rem 1.2rem;border-radius:30px;border:1px solid rgba(111,231,193,0.25);color:rgba(232,245,240,0.55);background:transparent;cursor:pointer;transition:all 0.25s; }
+    html[lang="ar"] .filter-pill { font-family:'Amiri',serif;letter-spacing:0;text-transform:none;font-size:1rem; }
+    .filter-pill:hover,.filter-pill.active { border-color:var(--gold);color:var(--gold);background:rgba(230,169,58,0.08); }
+    /* FILM GRID */
+    .film-grid-outer { max-width:1200px;margin:0 auto 5rem;padding:0 2rem;position:relative;z-index:auto; }
+    .film-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem; }
+    @media(max-width:1000px) { .film-grid{grid-template-columns:repeat(2,1fr);} }
+    .film-card { background:rgba(255,255,255,0.03);border:1px solid rgba(111,231,193,0.1);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:all 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .film-card:hover { transform:translateY(-6px);border-color:rgba(230,169,58,0.35);box-shadow:0 12px 40px rgba(0,0,0,0.35);background:rgba(255,255,255,0.05); }
+    .film-card-img { width:100%;height:200px;object-fit:contain;object-position:center;background:rgba(0,0,0,0.3);display:block; }
+    .film-card-body { padding:1.5rem;display:flex;flex-direction:column;flex:1; }
+    .film-card-badge { font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#f0b84a;margin:0 0 0.75rem; }
+    .film-card-title { font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:#e8f5f0;margin:0 0 0.4rem; }
+    html[lang="ar"] .film-card-title { font-family:'Amiri',serif; }
+    .film-card-meta { font-family:'IBM Plex Mono',monospace;font-size:0.75rem;font-weight:300;color:rgba(232,245,240,0.70);margin:0 0 1rem; }
+    .film-card-coverage { font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:rgba(232,245,240,0.72);margin:0 0 1.5rem; }
+    html[lang="ar"] .film-card-coverage { font-family:'Amiri',serif; }
+    .film-card-btn { font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;padding:0.65rem 1.2rem;border-radius:6px;border:1px solid rgba(111,231,193,0.25);background:transparent;color:var(--teal);cursor:pointer;transition:all 0.25s;margin-top:auto;align-self:flex-start; }
+    html[lang="ar"] .film-card-btn { font-family:'Amiri',serif;letter-spacing:0;text-transform:none;font-size:1rem; }
+    .film-card-btn:hover { background:rgba(230,169,58,0.12);border-color:var(--gold);color:var(--gold); }
+    /* CAROUSEL */
+    .carousel-responsive { max-width:700px;margin:0 auto 1.2rem; }
+    .carousel-responsive .carousel-item { width:100%;max-height:400px;min-height:220px;object-fit:contain;background:#000;display:none;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,0.25); }
+    .carousel-responsive .carousel-item.active { display:block; }ransparent);
+    .carousel-responsive .carousel-controls { text-align:center;margin-top:0.5rem; }
+    .carousel-responsive .carousel-dot { font-size:1.2rem;cursor:pointer;margin:0 0.18em;transition:color 0.2s; }
+    /* MODAL */ {
+    .modal-backdrop { position:fixed;inset:0;background:rgba(5,20,18,0.85);display:none;z-index:2000;align-items:center;justify-content:center;padding:1.5rem; }
+    .modal-backdrop.open { display:flex; }
+    .modal { max-width:600px;width:95%;background:#0d2420;border-radius:20px;color:#e8f5f0;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(230,169,58,0.25),0 30px 70px rgba(0,0,0,0.55);animation:modalPopIn 0.35s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes modalPopIn { from{opacity:0;transform:scale(0.88) translateY(32px)}to{opacity:1;transform:scale(1) translateY(0)} }
+    .modal-header { padding:1.6rem 1.8rem 1.3rem;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;background:linear-gradient(120deg,#0a2321 0%,#1a4a38 60%,#0f3328 100%);position:relative;overflow:hidden; }
+    .modal-header::before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(111,231,193,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(111,231,193,0.07) 1px,transparent 1px);background-size:28px 28px;pointer-events:none; }
+    .modal-header::after { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),#f0c060,var(--gold)); }
+    .modal-header-text { position:relative;z-index:1;flex:1; }
+    .modal-eyebrow { font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);opacity:0.7;margin:0 0 0.5rem;display:block; }
+    .modal h3 { font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:#fff;margin:0;font-weight:700;line-height:1.25; }
+    html[lang="ar"] .modal h3 { font-family:'Amiri',serif; }
+    .modal .close { position:relative;z-index:1;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:1rem;cursor:pointer;transition:all 0.22s;flex-shrink:0;margin-left:1.2rem;margin-top:0.2rem;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center; }
+    .modal .close:hover { background:var(--gold);border-color:var(--gold);color:#0a2321;transform:rotate(90deg); }
+    .modal-body { padding:0;overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:rgba(111,231,193,0.25) transparent; }
+    .modal-body p { margin:0;padding:1.1rem 1.8rem;font-family:'Cormorant Garamond',serif;font-size:1.2rem;line-height:2;color:rgba(232,245,240,0.9);border-bottom:1px solid rgba(255,255,255,0.07); }
+    html[lang="ar"] .modal-body p { font-family:'Amiri',serif;font-size:1.25rem; }
+    .modal-body p:last-child { border-bottom:none; }
+    .modal-body strong { font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.2rem; }
+    html[lang="ar"] .modal-body strong { font-family:'Amiri',serif;letter-spacing:0;text-transform:none;font-size:0.95rem; }
+    .modal-body ul { margin:0;padding:0.8rem 1.8rem 0.8rem 3rem;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03); }
+    html[dir="rtl"] .modal-body ul { padding:0.8rem 3rem 0.8rem 1.8rem; }
+    .modal-body li { font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(232,245,240,0.88);margin-bottom:0.4rem;line-height:1.7; }
+    html[lang="ar"] .modal-body li { font-family:'Amiri',serif;font-size:1.15rem; }
+    .modal-body li::marker { color:var(--gold); }
+    .modal-body .coming-soon { display:flex;align-items:center;gap:0.8rem;margin:1.5rem 1.8rem;padding:1.1rem 1.4rem;background:rgba(230,169,58,0.08);border:1px solid rgba(230,169,58,0.3);border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;font-weight:400;letter-spacing:0.08em;color:rgba(230,169,58,0.85); }
+    /* FOOTER */live);
+    .footer { background:rgba(10,35,33,0.98);color:var(--teal);text-align:center;padding:2rem;font-family:'Oswald',sans-serif;font-size:0.88rem;letter-spacing:0.1em; }
+    #scrollTopBtn { display:none;position:fixed;bottom:32px;right:32px;z-index:99;background:var(--forest);color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.5rem;cursor:pointer;transition:background 0.2s,transform 0.2s; }
+    #scrollTopBtn:hover { background:var(--gold);transform:translateY(-4px); }
+    @media(max-width:600px) { .film-grid{grid-template-columns:1fr;} .page-hero{padding:3.5rem 1rem 2.5rem;} .modal{border-radius:12px;} .modal-backdrop{padding:0.75rem;} }
+  </style>
+</head>
+<body>
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="index.html" class="brand" data-t="brand">Cinematic Counter&#8209;Cartographies</a>
+    <div class="menu">
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" data-t="nav-archive">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="analysis.html" class="nav-dropdown-item active"><span class="nav-dropdown-item-title" data-t="nav-analysis">Visual Analysis</span><span class="nav-dropdown-item-desc" data-t="nav-analysis-desc">Film-by-film formal and spatial readings</span></a>
+          <a href="surveillance-space.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-surveillance">Surveillance Space</span><span class="nav-dropdown-item-desc" data-t="nav-surveillance-desc">Five typologies of occupation beyond the checkpoint</span></a>
+          <a href="not-mapped.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-notmapped">What's Not Mapped</span><span class="nav-dropdown-item-desc" data-t="nav-notmapped-desc">Omission, gaps, and the politics of refusal</span></a>
+          <a href="glossary.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-glossary">Glossary</span><span class="nav-dropdown-item-desc" data-t="nav-glossary-desc">Key terms and theoretical concepts</span></a>
+        </div>-olive);
+      </div>or: var(--olive);
+      <a href="about.html" data-t="nav-about">About</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>nk:hover,
+  <main>ink:hover {
+    <section class="page-hero">
+      <p class="page-eyebrow" data-t="eyebrow">Film Archive</p>
+      <h1 class="page-title" data-t="page-title">Visual <em>Analysis</em></h1>
+      <div class="gold-rule"></div>
+      <p class="page-lead" data-t="page-lead">Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.</p>
 #scrollTopBtn {
-  background: var(--olive);
-}
-
-#scrollTopBtn:hover {
+      <p class="clip-note" data-t="clip-note" style="font-family:'IBM Plex Mono',monospace;font-size:0.86rem;color:rgba(232,245,240,0.62);max-width:760px;margin:1rem auto 0;">
+        Note: Clips embedded in each film card are short excerpts included for visual analysis and illustration. These are provided for educational/research purposes only and not as full‑length films. Use the player controls to pause, seek, or stop playback.
+      </p>
+    </section>hover {
   background: var(--gold);
-}
-
-/* Olive accent for mobile nav overlay */
-.mobile-nav-overlay {
-  border-top: 4px solid var(--olive);
-}
-
+    <nav aria-label="Breadcrumb" style="max-width:960px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;">
+      <ol style="list-style:none;display:flex;gap:0.5em;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:rgba(232,245,240,0.4);padding:0;margin:0;align-items:center;">
+        <li><a href="index.html" style="color:var(--teal);text-decoration:none;" data-t="nav-home">Home</a></li>
+        <li style="margin:0 0.3em;opacity:0.4;">/</li>
+        <li aria-current="page" style="color:rgba(232,245,240,0.75);" data-t="nav-analysis">Visual Analysis</li>
+      </ol>
+    </nav>
 /* ================================================
-   NAV — with dropdown support
-   ================================================ */
-.topnav {
-  background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.96) 100%);
-  backdrop-filter: blur(12px);
-  padding: 0 2.5rem;
-  height: var(--nav-h);
-  display: flex; align-items: center; justify-content: space-between;
+    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.25);margin:0 0 0.5rem;position:relative;z-index:1;" data-t="filter-hint">Single click to filter · Double click any pill to reset</p>
+    <nav class="filter-bar" aria-label="Filter films">
+      <button class="filter-pill active" data-director="all" data-t="filter-all">All Films</button>
+      <button class="filter-pill" data-director="Annemarie Jacir">Annemarie Jacir</button>
+      <button class="filter-pill" data-director="Mai Masri">Mai Masri</button>
+      <button class="filter-pill" data-director="Farah Nablusi">Farah Nablusi</button>
+      <button class="filter-pill" data-director="other" data-t="filter-other">Other Directors</button>
+    </nav> flex; align-items: center; justify-content: space-between;
   box-shadow: 0 2px 24px rgba(0,0,0,0.35);
-  position: sticky; top: 0; z-index: 500;
-  border-bottom: 1px solid rgba(111,231,193,0.08);
+    <div class="film-grid-outer">ex: 500;
+      <div class="film-grid">ba(111,231,193,0.08);
 }
-
-.topnav .brand {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.2rem; font-weight: 600;
-  color: var(--gold); letter-spacing: 0.4px;
-  text-decoration: none; white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.topnav .nav-right {
-  display: flex; align-items: center; gap: 0.4rem;
-}
-
-.topnav .menu {
-  display: flex; align-items: center; gap: 0.25rem;
-  list-style: none; margin: 0; padding: 0;
-}
-
-.topnav .menu > li { position: relative; }
-
-.topnav .menu a,
-.topnav .menu button.nav-link {
+        <!-- Salt of This Sea -->
+        <div class="film-card">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/salt.jpg"><source src="assets/videos/saltvideo.mp4" type="video/mp4"></video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;"><source src="assets/videos/saltvideo2.mp4" type="video/mp4"></video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;"><source src="assets/videos/saltvideo3.mp4" type="video/mp4"></video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span></span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
+          <div class="film-card-body">gap: 0.25rem;
+            <p class="film-card-badge">Annemarie Jacir</p>
+            <h3 class="film-card-title" data-t="film1-title">Salt of This Sea</h3>
+            <p class="film-card-meta">2008</p>
+            <p class="film-card-coverage" data-t="film1-cov">Coverage: 2 of 4 checkpoints</p>
+            <button class="film-card-btn" data-popup-title-en="Salt of This Sea — Analysis" data-popup-title-ar="ملح هذا البحر — تحليل" data-popup-en="<p><strong>Salt of This Sea / Annemarie Jacir / 2008</strong></p><p><em>Checkpoint Coverage: 2 of 4</em></p><p>Annemarie Jacir's <em>Salt of This Sea</em> broadens the checkpoint film frame by extending into the entire West Bank landscape. The film revolves around Soraya, a Palestinian-American, and Emad, whose movement is restricted by his West Bank ID — making the mobility hierarchy immediately visible.</p><p>Jacir films the West Bank as both beautiful and militarized without resolving that tension. The camera moves across hills, olive groves, and settlement roads in a way that refuses the military map's flattening of Palestinian geography. The mobility asymmetry between Soraya's American passport and Emad's West Bank ID becomes the film's central spatial argument.</p><p><em>Checkpoints: Qalandiya, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>ملح هذا البحر / أنيماري جاسر / ٢٠٠٨</strong></p><p><em>تغطية الحواجز: ٢ من ٤</em></p><p>فيلم جاسر يوسّع إطار أفلام الحواجز إلى المشهد الكامل للضفة الغربية. يدور حول سوريا، فلسطينية أمريكية، وعماد الذي تقيّده بطاقته الهوية من الحركة — ما يُظهِر التسلسل الهرمي للتنقل بشكل مباشر.</p><p>تصوّر جاسر الضفة الغربية جميلةً ومُعسكَرةً في آنٍ واحد دون حل هذا التوتر. التناقض في حرية التنقل بين جواز سفر سوريا الأمريكي وهوية عماد يصبح الحجة المكانية المحورية للفيلم.</p>" data-t="details-btn">Details</button>
+          </div>
+        </div>button.nav-link {
   color: #eaf7f2; font-size: 0.87rem; font-weight: 500;
-  padding: 0.5rem 0.9rem; border-radius: 6px;
-  transition: all 0.25s ease;
-  font-family: 'Oswald', sans-serif; letter-spacing: 0.2px;
-  text-decoration: none; display: flex; align-items: center; gap: 0.3rem;
-  background: none; border: none; cursor: pointer; white-space: nowrap;
-}
-
-.topnav .menu a:hover,
-.topnav .menu a.active,
-.topnav .menu button.nav-link:hover,
-.topnav .menu li.active > button.nav-link {
-  background: rgba(230,169,58,0.18); color: var(--gold);
-}
-
-/* Dropdown caret */
-.nav-caret {
-  font-size: 0.6rem; opacity: 0.55;
-  transition: transform 0.2s;
-  display: inline-block;
-}
+        <!-- The Present -->rder-radius: 6px;
+        <div class="film-card">
+          <div class="carousel-responsive carousel"> 0.2px;
+            <div class="carousel-track">align-items: center; gap: 0.3rem;
+              <video class="carousel-item active film-card-img" controls poster="assets/images/present.jpg"><source src="assets/videos/presentclip.mp4" type="video/mp4"></video>
+            </div>
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>ctive > button.nav-link {
+          </div>ba(230,169,58,0.18); color: var(--gold);
+          <div class="film-card-body">
+            <p class="film-card-badge">Farah Nablusi</p>
+            <h3 class="film-card-title" data-t="film2-title">The Present</h3>
+            <p class="film-card-meta">2020</p>
+            <p class="film-card-coverage" data-t="film2-cov">Coverage: 3 of 4 checkpoints</p>
+            <button class="film-card-btn" data-popup-title-en="The Present — Analysis" data-popup-title-ar="الهدية — تحليل" data-popup-en="<p><strong>The Present / Farah Nabulsi / 2020</strong></p><p><em>Checkpoint Coverage: 3 of 4</em></p><p>Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day: a father and daughter attempting to cross Checkpoint 300 to buy an anniversary gift. The film opens with Yusef sleeping on cardboard to secure his place in line — an image that captures carceral time before a word of dialogue has been spoken.</p><p>Nabulsi's visual composition draws on the politics of verticality. Overhead shots render the crowd of waiting men as a managed mass. Low-angle shots follow boys scaling the bars to cut the line — small acts of spatial refusal the camera treats with quiet attention.</p><p><em>Checkpoints: Qalandiya, Huwwara, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>الهدية / فرح نابلسي / ٢٠٢٠</strong></p><p><em>تغطية الحواجز: ٣ من ٤</em></p><p>يضغط فيلم نابلسي المنطق المكاني للاحتلال في يوم واحد: أب وابنته يحاولان عبور حاجز ٣٠٠ لشراء هدية ذكرى زواج. يفتح الفيلم على يوسف نائماً على كرتون ليحجز مكانه في الطابور — صورة تلتقط الزمن السجني قبل أي حوار.</p><p>تقطات من الأعلى تصوّر حشد الرجال المنتظرين كحشد مُدار. زوايا منخفضة ترصد صبيةً يتسلقون الأسوار لتخطي الطابور — أفعال مقاومة مكانية صغيرة ترصدها الكاميرا باهتمام صامت.</p>" data-t="details-btn">Details</button>
+          </div>e-block;
+        </div>
 .topnav .menu li:hover .nav-caret,
-.topnav .menu li.open .nav-caret { transform: rotate(180deg); }
-
-/* Dropdown menu */
-.dropdown-menu {
-  position: absolute; top: calc(100% + 8px); left: 50%;
-  transform: translateX(-50%);
-  background: rgba(8,30,26,0.98);
-  border: 1px solid rgba(111,231,193,0.15);
-  border-radius: 10px;
-  min-width: 200px;
-  padding: 0.4rem 0;
-  list-style: none; margin: 0;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-  opacity: 0; visibility: hidden; pointer-events: none;
-  transition: opacity 0.2s, transform 0.2s;
-  transform: translateX(-50%) translateY(-6px);
-  z-index: 600;
-}
-
-.topnav .menu li:hover .dropdown-menu,
+        <!-- When I Saw You -->t { transform: rotate(180deg); }
+        <div class="film-card">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/when.jpeg"><source src="assets/videos/whenclip.mp4" type="video/mp4"></video>
+            </div>lateX(-50%);
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>0;
+          </div>ne; margin: 0;
+          <div class="film-card-body">.5);
+            <p class="film-card-badge">Annemarie Jacir</p>
+            <h3 class="film-card-title" data-t="film3-title">When I Saw You</h3>
+            <p class="film-card-meta">2012</p>;
+            <p class="film-card-coverage" data-t="film3-cov">Coverage: 1 of 4 checkpoints</p>
+            <button class="film-card-btn" data-popup-title-en="When I Saw You — Analysis" data-popup-title-ar="لما شفتك — تحليل" data-popup-en="<p><strong>When I Saw You / Annemarie Jacir / 2012</strong></p><p><em>Checkpoint Coverage: 1 of 4</em></p><p><em>When I Saw You</em> is set in a Jordanian refugee camp in 1967 and treats Palestine as something across a border — imagined, longed for. Jacir refuses to frame the camp as temporary. It is a lived world with its own social fabric and forms of knowledge.</p><p>Jacir ends without resolution. We do not see whether Tarek crosses. The camera stays with uncertainty. That unresolved ending enacts the film's argument about sumud: endurance is not the same as arrival.</p>" data-popup-ar="<p><strong>لما شفتك / أنيماري جاسر / ٢٠١٢</strong></p><p><em>تغطية الحواجز: ١ من ٤</em></p><p>الفيلم مُضمَّن في مخيم لاجئين أردني عام ١٩٦٧، ويعامل فلسطين كشيء عبر الحدود — مُتخيَّل ومشتاق إليه. جاسر ترفض تصوير المخيم كمؤقت. إنه عالم مُعاش بنسيجه الاجتماعي الخاص.</p><p>تنتهي جاسر دون حل. لا نرى هل عبر طارق أم لا. الكاميرا تبقى مع الغموض — النهاية المعلّقة تُجسّد حجة الفيلم حول الصمود: التحمّل ليس الوصول.</p>" data-t="details-btn">Details</button>
+          </div>
+        </div>li:hover .dropdown-menu,
 .topnav .menu li.open .dropdown-menu {
-  opacity: 1; visibility: visible; pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-}
-
-.dropdown-menu li a {
-  display: block; padding: 0.6rem 1.2rem;
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.83rem; font-weight: 400; letter-spacing: 0.15px;
-  color: rgba(232,245,240,0.8);
-  text-decoration: none; transition: all 0.2s;
-  border-radius: 0;
-}
-.dropdown-menu li a:hover {
-  background: rgba(230,169,58,0.12); color: var(--gold);
-  padding-left: 1.5rem;
-}
-.dropdown-menu li:not(:last-child) a {
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-
-/* ── LANG TOGGLE ── */
-.lang-toggle {
+        <!-- 3000 Nights -->sible; pointer-events: auto;
+        <div class="film-card">ranslateY(0);
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track">
+              <video class="carousel-item active film-card-img" controls poster="assets/images/3000_Nights.jpg"><source src="assets/videos/3000nightsclip.mp4" type="video/mp4"></video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights2.jpg" style="display:none;"><source src="assets/videos/3000nightsclip2.mp4" type="video/mp4"></video>
+              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights3.jpg" style="display:none;"><source src="assets/videos/3000nightsclip3.mp4" type="video/mp4"></video>
+            </div>em; font-weight: 400; letter-spacing: 0.15px;
+            <div class="carousel-controls">
+              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
+              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span></span>
+              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
+            </div>a:hover {
+          </div>ba(230,169,58,0.12); color: var(--gold);
+          <div class="film-card-body">
+            <p class="film-card-badge">Mai Masri</p>
+            <h3 class="film-card-title" data-t="film4-title">3000 Nights</h3>
+            <p class="film-card-meta">2015</p>04);
+            <p class="film-card-coverage" data-t="film4-cov">Coverage: Prison, checkpoints</p>
+            <button class="film-card-btn" data-popup-title-en="3000 Nights — Analysis" data-popup-title-ar="٣٠٠٠ ليلة — تحليل" data-popup-en="<p><strong>3000 Nights / Mai Masri / 2015</strong></p><p>Set entirely within an Israeli prison, the film shows how imprisonment lands differently on Palestinian women. Her confinement targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p><p>Masri refuses wide shots in the birth scene, locking the camera inside Layla's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands. The absence of music is a deliberate formal refusal to aestheticize the moment.</p><p>Layla's refusal to stop asking to hold her baby is the film's clearest image of sumud: persistent and embodied, refusing the state's full claim on her body.</p>" data-popup-ar="<p><strong>٣٠٠٠ ليلة / مي مصري / ٢٠١٥</strong></p><p>مُضمَّن كاملاً داخل سجن إسرائيلي، يُظهِر الفيلم كيف يقع السجن بشكل مختلف على المرأة الفلسطينية. حبسها يستهدف حملها وجسدها ورغباتها الأمومية كأدوات ضغط نفسي.</p><p>ترفض مصري اللقطات الواسعة في مشهد الولادة، تحبس الكاميرا داخل تجربة ليلى الجسدية: تنفسها، أصوات الأغلال، لقطات مقربة ليدين مكبّلتين. غياب الموسيقى رفض شكلي متعمّد لتجميل اللحظة.</p>" data-t="details-btn">Details</button>
+          </div>E ── */
+        </div>
   display: flex; gap: 3px; align-items: center;
-  margin-left: 0.8rem;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(111,231,193,0.15);
-  border-radius: 8px; padding: 3px;
-}
-.lang-btn {
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.78rem; font-weight: 600;
-  border-radius: 6px; padding: 0.3rem 0.7rem;
-  background: transparent; border: none;
-  color: rgba(232,245,240,0.5);
-  cursor: pointer; transition: all 0.2s;
-  letter-spacing: 0.05em;
-}
+        <!-- The Teacher -->
+        <div class="film-card">0.05);
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/teacher.jpeg"><source src="assets/videos/teacherclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
+          </div>
+          <div class="film-card-body">
+            <p class="film-card-badge">Farah Nablusi</p>
+            <h3 class="film-card-title" data-t="film5-title">The Teacher</h3>
+            <p class="film-card-meta">2023</p>
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="The Teacher — Analysis" data-popup-title-ar="المعلم — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+          </div>: 0.05em;
+        </div>
 .lang-btn.active { background: var(--gold); color: #0a2321; }
-.lang-btn:hover:not(.active) { color: #e8f5f0; background: rgba(255,255,255,0.08); }
-
-/* ================================================
-   FOOTER — CHI Fellowship bar
-   ================================================ */
-.footer {
-  background: linear-gradient(180deg, rgba(6,22,20,0.97) 0%, rgba(4,16,14,0.99) 100%);
-  position: relative; z-index: 1;
-  border-top: 1px solid rgba(111,231,193,0.1);
-}
-
-.footer-chi {
-  background: linear-gradient(90deg, rgba(230,169,58,0.08), rgba(230,169,58,0.14), rgba(230,169,58,0.08));
-  border-bottom: 1px solid rgba(230,169,58,0.15);
+        <!-- Wajib -->ctive) { color: #e8f5f0; background: rgba(255,255,255,0.08); }
+        <div class="film-card">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/wajib.jpg"><source src="assets/videos/wajibclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
+          </div>
+          <div class="film-card-body">rgba(6,22,20,0.97) 0%, rgba(4,16,14,0.99) 100%);
+            <p class="film-card-badge">Annemarie Jacir</p>
+            <h3 class="film-card-title" data-t="film6-title">Wajib</h3>
+            <p class="film-card-meta">2017</p>
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="Wajib — Analysis" data-popup-title-ar="واجب — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+          </div>near-gradient(90deg, rgba(230,169,58,0.08), rgba(230,169,58,0.14), rgba(230,169,58,0.08));
+        </div>m: 1px solid rgba(230,169,58,0.15);
   padding: 0.9rem 2.5rem;
-  display: flex; align-items: center; justify-content: center; gap: 1.2rem;
-  flex-wrap: wrap;
-}
-
-.footer-chi-badge {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.62rem; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--gold);
-  opacity: 0.75;
-}
-
-.footer-chi-name {
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.9rem; font-weight: 500;
+        <!-- May in the Summer -->er; justify-content: center; gap: 1.2rem;
+        <div class="film-card">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/may.jpg"><source src="assets/videos/mayclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
+          </div>IBM Plex Mono', monospace;
+          <div class="film-card-body">0.35em;
+            <p class="film-card-badge">Annemarie Jacir</p>
+            <h3 class="film-card-title" data-t="film7-title">May in the Summer</h3>
+            <p class="film-card-meta">2013</p>
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="May in the Summer — Analysis" data-popup-title-ar="مي في الصيف — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+          </div>Oswald', sans-serif;
+        </div>.9rem; font-weight: 500;
   color: var(--gold); letter-spacing: 0.08em;
-}
-
-.footer-chi-divider {
-  width: 1px; height: 14px;
-  background: rgba(230,169,58,0.3);
-}
-
-.footer-main {
-  padding: 1.8rem 2.5rem;
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 1rem;
-}
-
-.footer-copy {
+        <!-- All That's Left of You -->
+        <div class="film-card">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/left.jpeg"><source src="assets/videos/leftclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
+          </div>
+          <div class="film-card-body">
+            <p class="film-card-badge">Cherien Dabis</p>
+            <h3 class="film-card-title" data-t="film8-title">All That's Left of You</h3>
+            <p class="film-card-meta">2025</p>content: space-between;
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="All That's Left of You — Analysis" data-popup-title-ar="كل ما تبقى منك — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+          </div>
+        </div>
   font-family: 'Oswald', sans-serif;
-  font-size: 0.82rem; font-weight: 300;
-  letter-spacing: 0.1em;
-  color: rgba(111,231,193,0.55);
+        <!-- Pomegranates and Myrrh -->
+        <div class="film-card">
+          <div class="carousel-responsive carousel">
+            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/pom.jpg"><source src="assets/videos/pomclip.mp4" type="video/mp4"></video></div>
+            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
+          </div>ated {
+          <div class="film-card-body">ace;
+            <p class="film-card-badge">Najwa Najjar</p>
+            <h3 class="film-card-title" data-t="film9-title">Pomegranates and Myrrh</h3>
+            <p class="film-card-meta">2008</p>
+            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
+            <button class="film-card-btn" data-popup-title-en="Pomegranates and Myrrh — Analysis" data-popup-title-ar="الرمان والمر — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+          </div>
+        </div>x; gap: 1.5rem; align-items: center;
 }
-
-.footer-last-updated {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.65rem; letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(232,245,240,0.2);
-}
-
-.footer-links {
-  display: flex; gap: 1.5rem; align-items: center;
-}
-
-.footer-links a {
-  font-family: 'Oswald', sans-serif;
+      </div>
+    </div>nks a {
+  </main>mily: 'Oswald', sans-serif;
   font-size: 0.78rem; font-weight: 400;
-  letter-spacing: 0.1em;
-  color: rgba(232,245,240,0.35);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--gold); }
-
-/* ── SCROLL TO TOP ── */
-#scrollTopBtn {
-  display: none; position: fixed;
-  bottom: 32px; right: 32px; z-index: 99;
-  background: var(--forest); color: #fff;
-  border: none; border-radius: 50%;
+  <!-- MODAL -->: 0.1em;
+  <div class="modal-backdrop" id="filmModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <div class="modal-header-text">
+          <span class="modal-eyebrow" data-t="modal-eyebrow">Film Analysis</span>
+          <h3 id="modalTitle"></h3>
+        </div>O TOP ── */
+        <button class="close" aria-label="Close modal">✕</button>
+      </div>one; position: fixed;
+      <div class="modal-body" id="modalBody"></div>
+    </div>nd: var(--forest); color: #fff;
+  </div>: none; border-radius: 50%;
   width: 46px; height: 46px; font-size: 1.3rem;
-  cursor: pointer; transition: background 0.2s, transform 0.2s;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-}
-#scrollTopBtn:hover { background: var(--gold); color: #0a2321; transform: translateY(-4px); }
-
-/* ── PAGE HERO (shared) ── */
+  <footer class="footer">tion: background 0.2s, transform 0.2s;
+    © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
+    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-privacy">Privacy Policy</a>
+    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-terms">Terms of Use</a>
+  </footer>
+  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 .page-hero {
-  position: relative;
-  padding: 5rem 2rem 3.5rem;
-  text-align: center; z-index: 1;
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand" data-t="brand">Cinematic Counter‑Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
+    </div>::after {
+    <nav class="mobile-nav-links">
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
+      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
+      <a href="checkpoints.html" class="archive-item" data-t="nav-checkpoints">Checkpoints</a>
+      <a href="analysis.html" class="archive-item active" data-t="nav-analysis">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item" data-t="nav-notmapped">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
+      <a href="about.html" data-t="nav-about">About</a>
+    </nav>ackground-position: 0 0; }
+  </div>ackground-position: 60px 60px; }
 }
-.page-hero::after {
-  content: "";
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(40,131,102,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(40,131,102,0.06) 1px, transparent 1px);
-  background-size: 60px 60px;
-  animation: gridDrift 30s linear infinite;
-  z-index: -1;
-}
-@keyframes gridDrift {
-  from { background-position: 0 0; }
-  to { background-position: 60px 60px; }
-}
-.page-eyebrow {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--teal);
-  opacity: 0.65; margin: 0 0 1.2rem;
-}
-.page-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 700; color: #e8f5f0;
-  margin: 0 0 0.5rem; line-height: 1.1; letter-spacing: -0.5px;
-}
-.page-title em { color: var(--gold); font-style: italic; }
-.page-lead {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem; font-style: italic;
-  color: rgba(232,245,240,0.5);
-  max-width: 620px; margin: 0 auto;
-}
-
-/* ── MODAL SHARED ── */
-.modal-backdrop {
-  position: fixed; inset: 0;
-  background: rgba(5,20,18,0.88);
-  display: none; z-index: 2000;
-  align-items: center; justify-content: center;
-  padding: 1.5rem;
-  backdrop-filter: blur(12px);
-}
-.modal-backdrop.open { display: flex; }
-
-.modal {
-  max-width: 600px; width: 95%;
-  background: #0d2420;
-  border-radius: 20px; color: #e8f5f0;
-  max-height: 85vh; overflow: hidden;
-  display: flex; flex-direction: column;
+  <script>row {
+  window.PAGE_T = { Plex Mono', monospace;
+    en: {ze: 0.72rem; letter-spacing: 0.35em;
+      'brand': 'Cinematic Counter&#8209;Cartographies',
+      'eyebrow': 'Film Archive', 'page-title': 'Visual <em>Analysis</em>',
+      'page-lead': 'Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.',
+      'filter-hint': 'Single click to filter · Double click any pill to reset',
+      'filter-all': 'All Films', 'filter-other': 'Other Directors',
+      'details-btn': 'Details', 4.5rem);
+      'film1-title': 'Salt of This Sea', 'film1-cov': 'Coverage: 2 of 4 checkpoints',
+      'film2-title': 'The Present',      'film2-cov': 'Coverage: 3 of 4 checkpoints',
+      'film3-title': 'When I Saw You',   'film3-cov': 'Coverage: 1 of 4 checkpoints',
+      'film4-title': '3000 Nights',      'film4-cov': 'Coverage: Prison, checkpoints',
+      'film5-title': 'The Teacher',      'film6-title': 'Wajib',
+      'film7-title': 'May in the Summer','film8-title': "All That's Left of You",
+      'film9-title': 'Pomegranates and Myrrh',
+      'coming-soon-cov': 'Coverage: Coming soon',
+      'modal-eyebrow': 'Film Analysis'
+    },
+    ar: {
+      'brand': 'الخرائط السينمائية المضادة',
+      'eyebrow': 'أرشيف الأفلام', 'page-title': 'التحليل <em>البصري</em>',
+      'page-lead': 'قراءات بصرية ومكانية للأفلام الرئيسية، مُعيَّنة عبر الحواجز ومواقع الرفض السينمائي.',
+      'filter-hint': 'نقرة للتصفية · نقرتان على أي زر للإعادة',
+      'filter-all': 'كل الأفلام', 'filter-other': 'مخرجون آخرون',
+      'details-btn': 'تفاصيل',-content: center;
+      'film1-title': 'ملح هذا البحر',   'film1-cov': 'التغطية: ٢ من ٤ حواجز',
+      'film2-title': 'الهدية',           'film2-cov': 'التغطية: ٣ من ٤ حواجز',
+      'film3-title': 'لما شفتك',         'film3-cov': 'التغطية: ١ من ٤ حواجز',
+      'film4-title': '٣٠٠٠ ليلة',        'film4-cov': 'التغطية: السجن والحواجز',
+      'film5-title': 'المعلم',           'film6-title': 'واجب',
+      'film7-title': 'مي في الصيف',      'film8-title': 'كل ما تبقى منك',
+      'film9-title': 'الرمان والمر',
+      'coming-soon-cov': 'التغطية: قادمة قريباً',
+      'modal-eyebrow': 'تحليل الفيلم';
+    }-height: 85vh; overflow: hidden;
+  };splay: flex; flex-direction: column;
   box-shadow: 0 0 0 1px rgba(230,169,58,0.22), 0 30px 70px rgba(0,0,0,0.6);
-  animation: modalPopIn 0.32s cubic-bezier(.34,1.56,.64,1);
+  /* ── CAROUSEL ───────────────────────────────────────────────── */
+  function initCarousel(carousel) {
+    var items = carousel.querySelectorAll('.carousel-item');
+    var dots  = carousel.querySelectorAll('.carousel-dot');; }
+    var prev  = carousel.querySelector('.carousel-prev');
+    var next  = carousel.querySelector('.carousel-next');
+    var idx   = 0;
+    if (!items.length) return;m;
+    function show(i) {fy-content: space-between; align-items: flex-start;
+      items.forEach((el,j) => { el.style.display = j===i?'block':'none'; if(el.tagName==='VIDEO'&&j!==i){el.pause();el.currentTime=0;} });
+      dots.forEach((d,j) => { d.style.color = j===i?'#e6a93a':'#888'; });0%);
+      idx = i;lative; overflow: hidden;
+    }
+    if (prev) prev.onclick = e => { e.stopPropagation(); show((idx+items.length-1)%items.length); };
+    if (next) next.onclick = e => { e.stopPropagation(); show((idx+1)%items.length); };
+    dots.forEach((d,i) => { d.onclick = e => { e.stopPropagation(); show(i); }; });
+    show(0);radient(rgba(111,231,193,0.06) 1px, transparent 1px),
+  } linear-gradient(90deg, rgba(111,231,193,0.06) 1px, transparent 1px);
+  document.querySelectorAll('.film-card .carousel').forEach(initCarousel);
 }
-@keyframes modalPopIn {
-  from { opacity: 0; transform: scale(0.9) translateY(28px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-.modal-header {
-  padding: 1.6rem 1.8rem 1.3rem;
-  display: flex; justify-content: space-between; align-items: flex-start;
-  flex-shrink: 0;
-  background: linear-gradient(120deg, #0a2321 0%, #1a4a38 60%, #0f3328 100%);
-  position: relative; overflow: hidden;
-}
-.modal-header::before {
-  content: ''; position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(111,231,193,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(111,231,193,0.06) 1px, transparent 1px);
-  background-size: 28px 28px; pointer-events: none;
-}
-.modal-header::after {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
-}
-.modal-header-text { position: relative; z-index: 1; flex: 1; }
-.modal-eyebrow {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+  /* ── MODAL ──────────────────────────────────────────────────── */
+  (function() {position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    const backdrop = document.getElementById('filmModal');ld-light), var(--gold));
+    const titleEl  = document.getElementById('modalTitle');
+    const bodyEl   = document.getElementById('modalBody'); 1; }
+    const closeBtn = backdrop.querySelector('.close');
+    let currentLang = 'en';no', monospace; font-size: 0.62rem;
   letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--teal); opacity: 0.65; margin: 0 0 0.5rem; display: block;
+    document.addEventListener('langchange', e => { currentLang = e.detail.lang; });
 }
-.modal h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem; color: #fff; margin: 0; font-weight: 700; line-height: 1.25;
-}
-.modal .close {
-  position: relative; z-index: 1;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
-  color: rgba(255,255,255,0.55); font-size: 1rem; cursor: pointer;
-  flex-shrink: 0; margin-left: 1.2rem; margin-top: 0.15rem;
-  width: 32px; height: 32px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-}
-.modal .close:hover { background: var(--gold); border-color: var(--gold); color: #0a2321; transform: rotate(90deg); }
-.modal-body { padding: 0; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: rgba(111,231,193,0.2) transparent; }
-.modal-body::-webkit-scrollbar { width: 4px; }
-.modal-body::-webkit-scrollbar-thumb { background: rgba(111,231,193,0.2); border-radius: 2px; }
-.modal-body p {
-  margin: 0; padding: 1rem 1.8rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem; line-height: 1.9; color: #e8f5f0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
+    function openModal(titleEn, titleAr, htmlEn, htmlAr) {
+      const isAr = currentLang === 'ar';if;
+      titleEl.textContent = isAr ? (titleAr || titleEn) : titleEn;e-height: 1.25;
+      bodyEl.innerHTML = isAr ? (htmlAr || htmlEn) : htmlEn;
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Init carousel inside modal if any
+      setTimeout(() => { const c = bodyEl.querySelector('.carousel'); if (c) initCarousel(c); }, 100);
+    }or: rgba(255,255,255,0.55); font-size: 1rem; cursor: pointer;
+    function closeModal() { backdrop.classList.remove('open'); document.body.style.overflow = ''; }
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('[data-popup-en]');color: var(--gold); color: #0a2321; transform: rotate(90deg); }
+      if (!btn) return;0; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: rgba(111,231,193,0.2) transparent; }
+      openModal(bkit-scrollbar { width: 4px; }
+        btn.getAttribute('data-popup-title-en') || 'Analysis',1,193,0.2); border-radius: 2px; }
+        btn.getAttribute('data-popup-title-ar') || '',
+        btn.getAttribute('data-popup-en') || '',
+        btn.getAttribute('data-popup-ar') || ''
+      );ize: 1.1rem; line-height: 1.9; color: #e8f5f0;
+    });r-bottom: 1px solid rgba(255,255,255,0.06);
+  })();
 .modal-body p:last-child { border-bottom: none; }
-.modal-body strong {
-  font-family: 'Oswald', sans-serif; font-size: 0.65rem;
-  font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--teal); display: block; margin-bottom: 0.2rem;
-}
-.modal-body ul {
-  margin: 0; padding: 0.8rem 1.8rem 0.8rem 3rem;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.02);
-}
-.modal-body li { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: rgba(232,245,240,0.85); margin-bottom: 0.35rem; }
-.modal-body li::marker { color: var(--gold); }
-.modal-body hr { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 0; }
-.modal-body .coming-soon {
-  display: flex; align-items: center; gap: 0.8rem;
-  margin: 1.5rem 1.8rem; padding: 1.1rem 1.4rem;
-  background: rgba(230,169,58,0.07); border: 1px solid rgba(230,169,58,0.25); border-radius: 8px;
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; letter-spacing: 0.08em;
-  color: rgba(230,169,58,0.8);
-}
-.modal-body .tbd-badge {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  padding: 0.25rem 0.65rem; border-radius: 4px;
-  background: rgba(185,78,58,0.15); border: 1px solid rgba(185,78,58,0.3);
-  color: rgba(185,78,58,0.9); vertical-align: middle; margin-left: 0.5rem;
-}
-
-/* Add this to your CSS file to make popup/modal font white */
-.modal-body,
-.mapboxgl-popup-content {
-  color: #fff !important;
-}
+  /* ── FILTER PILLS ───────────────────────────────────────────── */
+  const knownDirectors = ['Annemarie Jacir','Mai Masri','Farah Nablusi'];
+  function filterCards(director) {: 0.25em; text-transform: uppercase;
+    document.querySelectorAll('.film-card').forEach(card => {
+      const badge = card.querySelector('.film-card-badge').textContent.trim();
+      if}
 .mapboxgl-popup-content {
   background: #0d2420 !important;
   border-radius: 16px !important;
@@ -1006,3 +978,45 @@ html[dir="rtl"] .mobile-nav-overlay.open { transform: translateX(0); }
 html[dir="rtl"] .nav-hamburger { margin-right: 0; }
 html[dir="rtl"] .mobile-nav-links .archive-item { padding-left: 1.5rem; padding-right: 2.4rem; }
 html[dir="rtl"] .mobile-nav-section-label { padding-left: 1.5rem; padding-right: 1.5rem; }
+
+/* director-colored filter pills (Surveillance Space palette) */
+.filter-pill[data-director="Annemarie Jacir"] {
+  border-color: rgba(196,123,90,0.25);
+  color: rgba(196,123,90,0.95);
+}
+.filter-pill[data-director="Annemarie Jacir"]:hover,
+.filter-pill[data-director="Annemarie Jacir"].active {
+  background: linear-gradient(90deg, rgba(196,123,90,0.08), rgba(240,192,96,0.03));
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.filter-pill[data-director="Mai Masri"] {
+  border-color: rgba(102,224,184,0.22);
+  color: rgba(102,224,184,0.95);
+}
+.filter-pill[data-director="Mai Masri"]:hover,
+.filter-pill[data-director="Mai Masri"].active {
+  background: linear-gradient(90deg, rgba(102,224,184,0.06), rgba(102,224,184,0.02));
+  color: var(--teal);
+  border-color: var(--teal);
+}
+
+.filter-pill[data-director="Farah Nablusi"] {
+  border-color: rgba(185,78,58,0.22);
+  color: rgba(185,78,58,0.95);
+}
+.filter-pill[data-director="Farah Nablusi"]:hover,
+.filter-pill[data-director="Farah Nablusi"].active {
+  background: linear-gradient(90deg, rgba(185,78,58,0.06), rgba(185,78,58,0.02));
+  color: var(--crimson);
+  border-color: var(--crimson);
+}
+
+/* keep 'All' and 'Other' pills neutral but match active style */
+.filter-pill[data-director="all"].active,
+.filter-pill[data-director="other"].active {
+  background: rgba(230,169,58,0.08);
+  color: var(--gold);
+  border-color: var(--gold);
+}

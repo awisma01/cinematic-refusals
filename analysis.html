@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/mobile.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
-    :root { --gold:#e6a93a;--teal:#6fe7c1;--forest:#288366;--dark-forest:#0a2321;--crimson:#b94e3a;--nav-h:70px; }
+    :root { --gold:#c08e49;--teal:#6fe7c1;--forest:#288366;--dark-forest:#0a2321;--crimson:#b94e3a;--nav-h:70px; }
     html { scroll-behavior:smooth; }
     body { margin:0;background:linear-gradient(160deg,#1b3c34 0%,#2a5c4c 30%,#357a5a 60%,#23634c 100%);background-attachment:fixed;color:#e8f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden; }
     html[lang="ar"] body { font-family:'Amiri','Cormorant Garamond',Georgia,serif; }
@@ -131,6 +131,10 @@
       <h1 class="page-title" data-t="page-title">Visual <em>Analysis</em></h1>
       <div class="gold-rule"></div>
       <p class="page-lead" data-t="page-lead">Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.</p>
+
+      <p class="clip-note" data-t="clip-note" style="font-family:'IBM Plex Mono',monospace;font-size:0.86rem;color:rgba(232,245,240,0.62);max-width:760px;margin:1rem auto 0;">
+        Note: Clips embedded in each film card are short excerpts included for visual analysis and illustration. These are provided for educational/research purposes only and not as full‑length films. Use the player controls to pause, seek, or stop playback.
+      </p>
     </section>
 
     <nav aria-label="Breadcrumb" style="max-width:960px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;">
@@ -143,11 +147,11 @@
 
     <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.25);margin:0 0 0.5rem;position:relative;z-index:1;" data-t="filter-hint">Single click to filter · Double click any pill to reset</p>
     <nav class="filter-bar" aria-label="Filter films">
-      <button class="filter-pill active" data-t="filter-all">All Films</button>
-      <button class="filter-pill">Annemarie Jacir</button>
-      <button class="filter-pill">Mai Masri</button>
-      <button class="filter-pill">Farah Nablusi</button>
-      <button class="filter-pill" data-t="filter-other">Other Directors</button>
+      <button class="filter-pill active" data-director="all" data-t="filter-all">All Films</button>
+      <button class="filter-pill" data-director="Annemarie Jacir">Annemarie Jacir</button>
+      <button class="filter-pill" data-director="Mai Masri">Mai Masri</button>
+      <button class="filter-pill" data-director="Farah Nablusi">Farah Nablusi</button>
+      <button class="filter-pill" data-director="other" data-t="filter-other">Other Directors</button>
     </nav>
 
     <div class="film-grid-outer">
