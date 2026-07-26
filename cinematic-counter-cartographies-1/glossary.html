@@ -306,6 +306,39 @@
       .term-name { font-size: 1.25rem; }
     }
   </style>
+
+  <!-- NAV FIX OVERRIDES: ensure dropdown is above overlays, clickable, and matches shared link color -->
+  <style>
+    .topnav {
+      z-index: 1300 !important;
+      pointer-events: auto !important;
+      position: sticky;
+      top: 0;
+      background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%) !important;
+    }
+
+    .topnav .brand,
+    .topnav .menu a,
+    .nav-dropdown-trigger,
+    .nav-dropdown-arrow,
+    .nav-dropdown-item-title {
+      color: #ffffff !important;
+    }
+
+    .nav-dropdown-trigger {
+      text-transform: none !important;
+      cursor: pointer;
+    }
+
+    .nav-dropdown-menu {
+      z-index: 1400 !important;
+      pointer-events: auto !important;
+      background: rgba(8,28,26,0.98) !important;
+    }
+
+    /* keep mobile overlay under the nav when closed */
+    .mobile-nav-overlay { z-index: 1250; }
+  </style>
 </head>
 <body>
 

@@ -105,6 +105,32 @@
     #scrollTopBtn:hover { background:var(--gold);transform:translateY(-4px); }
     @media(max-width:600px) { .film-grid{grid-template-columns:1fr;} .page-hero{padding:3.5rem 1rem 2.5rem;} .modal{border-radius:12px;} .modal-backdrop{padding:0.75rem;} }
   </style>
+
+  <!-- NAV FIX OVERRIDES: ensure dropdown is above overlays, clickable, and matches shared link color -->
+  <style>
+    /* raise the nav above fixed overlays and allow clicks */
+    .topnav {
+      z-index: 1300 !important;
+      pointer-events: auto !important;
+      position: sticky;
+      top: 0;
+    }
+
+    /* keep trigger color/casing consistent with other pages */
+    .nav-dropdown-trigger {
+      color: var(--link-color, #eaf7f2) !important;
+      text-transform: none !important;
+    }
+
+    /* ensure the dropdown panel sits above overlays and receives pointer events */
+    .nav-dropdown-menu {
+      z-index: 1400 !important;
+      pointer-events: auto !important;
+    }
+
+    /* keep the mobile overlay under the nav when closed */
+    .mobile-nav-overlay { z-index: 1250; }
+  </style>
 </head>
 <body>
   <nav class="topnav" aria-label="Main navigation">

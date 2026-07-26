@@ -654,6 +654,41 @@
     .nav-dropdown-item:hover .nav-dropdown-item-title { color: var(--gold); }
     .nav-dropdown-item:hover .nav-dropdown-item-desc { color: rgba(232,245,240,0.70); }
 
+    .topnav {
+      /* raise the nav above the lang toggle and other fixed overlays */
+      z-index: 1300 !important;
+      position: sticky; /* keep existing behavior */
+      pointer-events: auto !important;
+      top: 0;
+      /* ensure nav background matches site header (keeps visual consistency) */
+      background: linear-gradient(180deg, rgba(10,35,33,0.98), rgba(10,35,33,0.95)) !important;
+    }
+
+    /* make nav text/links white like other pages */
+    .topnav .brand,
+    .topnav .menu a,
+    .nav-dropdown-trigger,
+    .nav-dropdown-arrow,
+    .nav-dropdown-item-title {
+      color: #ffffff !important;
+    }
+
+    /* keep original hover/active accent but ensure base is white */
+    .topnav .menu a:hover,
+    .nav-dropdown-trigger:hover,
+    .nav-dropdown-item:hover .nav-dropdown-item-title {
+      color: var(--gold) !important;
+    }
+
+    /* ensure dropdown panel is above everything and receives clicks */
+    .nav-dropdown-menu {
+      z-index: 1400 !important;
+      pointer-events: auto !important;
+      background: rgba(8,28,26,0.98) !important;
+    }
+
+    /* keep the language toggle below the nav so it no longer blocks it */
+    #langToggle { z-index: 1200; }
   </style>
 </head>
 <body>
@@ -663,7 +698,9 @@
       <a href="index.html">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <a class="nav-dropdown-trigger active" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <button class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+          Archive <span class="nav-dropdown-arrow">▾</span>
+        </button>
         <div class="nav-dropdown-menu">
           <a href="analysis.html" class="nav-dropdown-item">
             <span class="nav-dropdown-item-title">Visual Analysis</span>
@@ -1252,5 +1289,11 @@
   </script>
   <script src="js/shared.js"></script>
   <script src="js/gloss-links.js"></script>
+  <script>
+    const nav = document.querySelector('.topnav');
+    const r = nav.getBoundingClientRect();
+    console.log('nav rect', r);
+    console.log('top element at nav center:', document.elementFromPoint(r.left + 10, r.top + 10));
+  </script>
 </body>
 </html>
