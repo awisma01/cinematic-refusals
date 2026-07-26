@@ -31,7 +31,7 @@ var NAV_T = {
     'nav-about':'\u0639\u0646 \u0627\u0644\u0645\u0634\u0631\u0648\u0639',
     'nav-analysis-desc':'\u0642\u0631\u0627\u0621\u0627\u062a \u0634\u0643\u0644\u064a\u0629 \u0648\u0645\u0643\u0627\u0646\u064a\u0629 \u0644\u0643\u0644 \u0641\u064a\u0644\u0645',
     'nav-surveillance-desc':'\u062e\u0645\u0633\u0629 \u0623\u0646\u0648\u0627\u0639 \u0645\u0646 \u0627\u0644\u0627\u062d\u062a\u0644\u0627\u0644 \u0645\u0627 \u0648\u0631\u0627\u0621 \u0627\u0644\u062d\u0627\u062c\u0632',
-    'nav-notmapped-desc':'\u0627\u0644\u062d\u0630\u0641 \u0648\u0627\u0644\u062b\u063a\u0631\u0627\u062a \u0648\u0633\u064a\u0627\u0633\u0629 \u0627\u0644\u0631\u0641\u0636',
+    'nav-notmapped-desc':'\u0627\u0644\u062d\u0632\u0641 \u0648\u0627\u0644\u062b\u063a\u0631\u0627\u062a \u0648\u0633\u064a\u0627\u0633\u0629 \u0627\u0644\u0631\u0641\u0636',
     'nav-glossary-desc':'\u0627\u0644\u0645\u0635\u0637\u0644\u062d\u0627\u062a \u0627\u0644\u0623\u0633\u0627\u0633\u064a\u0629 \u0648\u0627\u0644\u0645\u0641\u0627\u0647\u064a\u0645 \u0627\u0644\u0646\u0638\u0631\u064a\u0629',
     'footer-privacy':'\u0633\u064a\u0627\u0633\u0629 \u0627\u0644\u062e\u0635\u0648\u0635\u064a\u0629',
     'footer-terms':'\u0634\u0631\u0648\u0637 \u0627\u0644\u0627\u0633\u062a\u062e\u062f\u0627\u0645',
@@ -176,3 +176,71 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 });
+(function unifyTopNav() {
+  function makeNavTemplate() {
+    return `
+      <div class="brand" data-t="brand"><a href="index.html" aria-hidden="true">Cinematic Counter‑Cartographies</a></div>
+      <div class="menu" role="menubar">
+        <a href="index.html" role="menuitem" data-t="nav-home">Home</a>
+        <a href="map.html" role="menuitem" data-t="nav-map">Map</a>
+        <div class="nav-dropdown" role="none">
+          <button class="nav-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" data-t="nav-archive">Archive <span class="nav-dropdown-arrow">▾</span></button>
+          <div class="nav-dropdown-menu" role="menu" aria-label="Archive menu">
+            <a href="analysis.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-analysis">Visual Analysis</span><span class="nav-dropdown-item-desc" data-t="nav-analysis-desc">Film-by-film formal and spatial readings</span></a>
+            <a href="surveillance-space.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-surveillance">Surveillance Space</span><span class="nav-dropdown-item-desc" data-t="nav-surveillance-desc">Five typologies of occupation beyond the checkpoint</span></a>
+            <a href="not-mapped.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-notmapped">What's Not Mapped</span><span class="nav-dropdown-item-desc" data-t="nav-notmapped-desc">Omission, gaps, and the politics of refusal</span></a>
+            <a href="glossary.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-glossary">Glossary</span><span class="nav-dropdown-item-desc" data-t="nav-glossary-desc">Key terms and theoretical concepts</span></a>
+          </div>
+        </div>
+        <a href="about.html" role="menuitem" data-t="nav-about">About</a>
+      </div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+    `;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('.topnav');
+    if (!nav) return;
+    // preserve existing mobile overlay and IDs; replace inner markup
+    nav.innerHTML = makeNavTemplate();
+
+    // dropdown
+    const trigger = nav.querySelector('.nav-dropdown-trigger');
+    const dropdown = nav.querySelector('.nav-dropdown');
+    if (trigger && dropdown) {
+      trigger.addEventListener('click', e => {
+        e.stopPropagation();
+        const open = dropdown.classList.toggle('open');
+        trigger.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', () => { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); } });
+    }
+
+    // mobile button — uses existing mobile overlay markup with id="mobileNav" and id="mobileNavClose" if present
+    const mobileBtn = nav.querySelector('#navHamburger');
+    const mobileOverlay = document.getElementById('mobileNav');
+    const mobileClose = document.getElementById('mobileNavClose');
+    if (mobileBtn && mobileOverlay) {
+      function openNav(){ mobileOverlay.classList.add('open'); mobileBtn.classList.add('open'); mobileBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+      function closeNav(){ mobileOverlay.classList.remove('open'); mobileBtn.classList.remove('open'); mobileBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+      mobileBtn.addEventListener('click', ()=> mobileOverlay.classList.contains('open') ? closeNav() : openNav());
+      if (mobileClose) mobileClose.addEventListener('click', closeNav);
+      mobileOverlay.addEventListener('click', e => { if (e.target === mobileOverlay) closeNav(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+      mobileOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+    }
+
+    // mark active link based on current path
+    const path = (window.location.pathname.split('/').pop() || 'index.html');
+    nav.querySelectorAll('.menu a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === path);
+    });
+
+    // re-run translations if available
+    if (typeof applyLang === 'function') {
+      const lang = localStorage.getItem('ccc-lang') || 'en';
+      applyLang(lang);
+    }
+  });
+})();

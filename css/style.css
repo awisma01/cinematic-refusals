@@ -7,925 +7,234 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mobile.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <style>forest:  #0a2321;
-    :root { --gold:#c08e49;--teal:#6fe7c1;--forest:#288366;--dark-forest:#0a2321;--crimson:#b94e3a;--nav-h:70px; }
-    html { scroll-behavior:smooth; }
-    body { margin:0;background:linear-gradient(160deg,#1b3c34 0%,#2a5c4c 30%,#357a5a 60%,#23634c 100%);background-attachment:fixed;color:#e8f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden; }
-    html[lang="ar"] body { font-family:'Amiri','Cormorant Garamond',Georgia,serif; }
-    body::before { content:"";position:fixed;top:0;left:0;width:100%;height:100%;background-image:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,180,0.012) 3px,rgba(0,255,180,0.012) 4px);pointer-events:none;z-index:0; }
-    /* --- unified topnav styles (shared across pages) --- */
-.topnav {
-  background: linear-gradient(180deg, rgba(10,35,33,0.98) 0%, rgba(10,35,33,0.95) 100%);
-  padding: 1.2rem 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  overflow: visible;
-  height: var(--nav-h);
-  direction: ltr !important;
-}
-.topnav .brand { font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--gold); letter-spacing: 0.5px; }
-.topnav .menu { display: flex; gap: 0.5rem; align-items:center; }
-.topnav .menu a { color: var(--link-color); font-size: 0.9rem; font-weight: 500; padding: 0.55rem 1rem; border-radius: 6px; transition: all 0.3s; font-family: 'Oswald', sans-serif; letter-spacing: 0.3px; text-decoration: none; }
-.topnav .menu a:hover, .topnav .menu a.active { background: rgba(230,169,58,0.2); color: var(--gold); }
-.nav-dropdown { position: relative; display: inline-block; }
-.nav-dropdown-trigger { color: var(--link-color); font-size: 0.9rem; font-weight: 500; padding: 0.55rem 1rem; border-radius: 6px; background: none; border: none; display:flex; align-items:center; gap:0.35rem; cursor: pointer; white-space: nowrap; }
-.nav-dropdown-menu { position: absolute; top: calc(100% + 8px); right: 0; min-width: 260px; background: rgba(8,28,26,0.98); border: 1px solid rgba(230,169,58,0.25); border-radius: 12px; padding: 0.5rem; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 0.22s, transform 0.22s; box-shadow: 0 16px 48px rgba(0,0,0,0.55); z-index: 9999; }
-.nav-dropdown.open .nav-dropdown-menu, .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
-.nav-dropdown-item { display: block; padding: 0.8rem 1rem; border-radius: 8px; text-decoration: none; transition: background 0.18s; border-bottom: 1px solid rgba(255,255,255,0.05); color: inherit; }
-.nav-dropdown-item:last-child { border-bottom: none; }
-.nav-dropdown-item:hover { background: rgba(230,169,58,0.1); }
-.nav-dropdown-item-title { font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.05em; color: #e8f5f0; }
-.nav-dropdown-item-desc { font-family: 'IBM Plex Mono', monospace; font-size: 0.67rem; font-weight: 300; color: var(--text-muted); line-height: 1.4; }
-/* mobile nav */
-.nav-hamburger { background:none;border:none;padding:0.4rem;display:inline-flex;flex-direction:column;gap:4px;cursor:pointer }
-.nav-hamburger span{ display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .18s,opacity .18s}
-.nav-hamburger.open span:nth-child(1){ transform: translateY(6px) rotate(45deg) }
-.nav-hamburger.open span:nth-child(2){ opacity:0 }
-.nav-hamburger.open span:nth-child(3){ transform: translateY(-6px) rotate(-45deg) }
-/* small screens adjustments */
-@media (max-width:900px){
-  .topnav { padding: 0.9rem 1rem; }
-  .topnav .menu { gap: 0.35rem; }
-  .topnav .menu a, .nav-dropdown-trigger { padding: 0.45rem 0.7rem; font-size: 0.86rem; }
-}
-/* ================================================
-    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.25);margin:0 0 0.5rem;position:relative;z-index:1;" data-t="filter-hint">Single click to filter · Double click any pill to reset</p>
-    <nav class="filter-bar" aria-label="Filter films">
-      <button class="filter-pill active" data-director="all" data-t="filter-all">All Films</button>
-      <button class="filter-pill" data-director="Annemarie Jacir">Annemarie Jacir</button>
-      <button class="filter-pill" data-director="Mai Masri">Mai Masri</button>
-      <button class="filter-pill" data-director="Farah Nablusi">Farah Nablusi</button>
-      <button class="filter-pill" data-director="other" data-t="filter-other">Other Directors</button>
-    </nav> flex; align-items: center; justify-content: space-between;
-  box-shadow: 0 2px 24px rgba(0,0,0,0.35);
-    <div class="film-grid-outer">ex: 500;
-      <div class="film-grid">ba(111,231,193,0.08);
-}
-        <!-- Salt of This Sea -->
-        <div class="film-card">
-          <div class="carousel-responsive carousel">
-            <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/salt.jpg"><source src="assets/videos/saltvideo.mp4" type="video/mp4"></video>
-              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;"><source src="assets/videos/saltvideo2.mp4" type="video/mp4"></video>
-              <video class="carousel-item film-card-img" controls poster="assets/images/salt.jpg" style="display:none;"><source src="assets/videos/saltvideo3.mp4" type="video/mp4"></video>
-            </div>
-            <div class="carousel-controls">
-              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span></span>
-              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
-            </div>
-          </div>
-          <div class="film-card-body">gap: 0.25rem;
-            <p class="film-card-badge">Annemarie Jacir</p>
-            <h3 class="film-card-title" data-t="film1-title">Salt of This Sea</h3>
-            <p class="film-card-meta">2008</p>
-            <p class="film-card-coverage" data-t="film1-cov">Coverage: 2 of 4 checkpoints</p>
-            <button class="film-card-btn" data-popup-title-en="Salt of This Sea — Analysis" data-popup-title-ar="ملح هذا البحر — تحليل" data-popup-en="<p><strong>Salt of This Sea / Annemarie Jacir / 2008</strong></p><p><em>Checkpoint Coverage: 2 of 4</em></p><p>Annemarie Jacir's <em>Salt of This Sea</em> broadens the checkpoint film frame by extending into the entire West Bank landscape. The film revolves around Soraya, a Palestinian-American, and Emad, whose movement is restricted by his West Bank ID — making the mobility hierarchy immediately visible.</p><p>Jacir films the West Bank as both beautiful and militarized without resolving that tension. The camera moves across hills, olive groves, and settlement roads in a way that refuses the military map's flattening of Palestinian geography. The mobility asymmetry between Soraya's American passport and Emad's West Bank ID becomes the film's central spatial argument.</p><p><em>Checkpoints: Qalandiya, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>ملح هذا البحر / أنيماري جاسر / ٢٠٠٨</strong></p><p><em>تغطية الحواجز: ٢ من ٤</em></p><p>فيلم جاسر يوسّع إطار أفلام الحواجز إلى المشهد الكامل للضفة الغربية. يدور حول سوريا، فلسطينية أمريكية، وعماد الذي تقيّده بطاقته الهوية من الحركة — ما يُظهِر التسلسل الهرمي للتنقل بشكل مباشر.</p><p>تصوّر جاسر الضفة الغربية جميلةً ومُعسَرةً في آنٍ واحد دون حل هذا التوتر. التناقض في حرية التنقل بين جواز سفر سوريا الأمريكي وهوية عماد يصبح الحجة المكانية المحورية للفيلم.</p>" data-t="details-btn">Details</button>
-          </div>
-        </div>button.nav-link {
-  color: #eaf7f2; font-size: 0.87rem; font-weight: 500;
-        <!-- The Present -->rder-radius: 6px;
-        <div class="film-card">
-          <div class="carousel-responsive carousel"> 0.2px;
-            <div class="carousel-track">align-items: center; gap: 0.3rem;
-              <video class="carousel-item active film-card-img" controls poster="assets/images/present.jpg"><source src="assets/videos/presentclip.mp4" type="video/mp4"></video>
-            </div>
-            <div class="carousel-controls">
-              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span>
-              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
-            </div>ctive > button.nav-link {
-          </div>ba(230,169,58,0.18); color: var(--gold);
-          <div class="film-card-body">
-            <p class="film-card-badge">Farah Nablusi</p>
-            <h3 class="film-card-title" data-t="film2-title">The Present</h3>
-            <p class="film-card-meta">2020</p>
-            <p class="film-card-coverage" data-t="film2-cov">Coverage: 3 of 4 checkpoints</p>
-            <button class="film-card-btn" data-popup-title-en="The Present — Analysis" data-popup-title-ar="الهدية — تحليل" data-popup-en="<p><strong>The Present / Farah Nabulsi / 2020</strong></p><p><em>Checkpoint Coverage: 3 of 4</em></p><p>Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day: a father and daughter attempting to cross Checkpoint 300 to buy an anniversary gift. The film opens with Yusef sleeping on cardboard to secure his place in line — an image that captures carceral time before a word of dialogue has been spoken.</p><p>Nabulsi's visual composition draws on the politics of verticality. Overhead shots render the crowd of waiting men as a managed mass. Low-angle shots follow boys scaling the bars to cut the line — small acts of spatial refusal the camera treats with quiet attention.</p><p><em>Checkpoints: Qalandiya, Huwwara, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>الهدية / فرح نابلسي / ٢٠٢٠</strong></p><p><em>تغطية الحواجز: ٣ من ٤</em></p><p>يضغط فيلم نابلسي المنطق المكاني للاحتلال في يوم واحد: أب وابنته يحاولان عبور حاجز ٣٠٠ لشراء هدية ذكرى زواج. يفتح الفيلم على يوسف نائماً على كرتون ليحجز مكانه في الطابور — صورة تلتقط الزمن السجني قبل أي حوار.</p><p>تقطات من الأعلى تصوّر حشد الرجال المنتظرين كحشد مُدار. زوايا منخفضة ترصد صبيةً يتسلقون الأسوار لتخطي الطابور — أفعال مقاومة مكانية صغيرة ترصدها الكاميرا باهتمام صامت.</p>" data-t="details-btn">Details</button>
-          </div>e-block;
-        </div>
-.topnav .menu li:hover .nav-caret,
-        <!-- When I Saw You -->t { transform: rotate(180deg); }
-        <div class="film-card">
-          <div class="carousel-responsive carousel">
-            <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/when.jpeg"><source src="assets/videos/whenclip.mp4" type="video/mp4"></video>
-            </div>lateX(-50%);
-            <div class="carousel-controls">
-              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span>
-              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
-            </div>0;
-          </div>ne; margin: 0;
-          <div class="film-card-body">.5);
-            <p class="film-card-badge">Annemarie Jacir</p>
-            <h3 class="film-card-title" data-t="film3-title">When I Saw You</h3>
-            <p class="film-card-meta">2012</p>;
-            <p class="film-card-coverage" data-t="film3-cov">Coverage: 1 of 4 checkpoints</p>
-            <button class="film-card-btn" data-popup-title-en="When I Saw You — Analysis" data-popup-title-ar="لما شفتك — تحليل" data-popup-en="<p><strong>When I Saw You / Annemarie Jacir / 2012</strong></p><p><em>Checkpoint Coverage: 1 of 4</em></p><p><em>When I Saw You</em> is set in a Jordanian refugee camp in 1967 and treats Palestine as something across a border — imagined, longed for. Jacir refuses to frame the camp as temporary. It is a lived world with its own social fabric and forms of knowledge.</p><p>Jacir ends without resolution. We do not see whether Tarek crosses. The camera stays with uncertainty. That unresolved ending enacts the film's argument about sumud: endurance is not the same as arrival.</p>" data-popup-ar="<p><strong>لما شفتك / أنيماري جاسر / ٢٠١٢</strong></p><p><em>تغطية الحواجز: ١ من ٤</em></p><p>الفيلم مُضمَّن في مخيم لاجئين أردني عام ١٩٦٧، ويعامل فلسطين كشيء عبر الحدود — مُتخيَّل ومشتاق إليه. جاسر ترفض تصوير المخيم كمؤقت. إنه عالم مُعاش بنسيجه الاجتماعي الخاص.</p><p>تنتهي جاسر دون حل. لا نرى هل عبر طارق أم لا. الكاميرا تبقى مع الغموض — النهاية المعلّقة تُجسّد حجة الفيلم حول الصمود: التحمّل ليس الوصول.</p>" data-t="details-btn">Details</button>
-          </div>
-        </div>li:hover .dropdown-menu,
-.topnav .menu li.open .dropdown-menu {
-        <!-- 3000 Nights -->sible; pointer-events: auto;
-        <div class="film-card">ranslateY(0);
-          <div class="carousel-responsive carousel">
-            <div class="carousel-track">
-              <video class="carousel-item active film-card-img" controls poster="assets/images/3000_Nights.jpg"><source src="assets/videos/3000nightsclip.mp4" type="video/mp4"></video>
-              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights2.jpg" style="display:none;"><source src="assets/videos/3000nightsclip2.mp4" type="video/mp4"></video>
-              <video class="carousel-item film-card-img" controls poster="assets/images/3000_Nights3.jpg" style="display:none;"><source src="assets/videos/3000nightsclip3.mp4" type="video/mp4"></video>
-            </div>em; font-weight: 400; letter-spacing: 0.15px;
-            <div class="carousel-controls">
-              <button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button>
-              <span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span><span class="carousel-dot" style="color:#888;">&#9679;</span></span>
-              <button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button>
-            </div>a:hover {
-          </div>ba(230,169,58,0.12); color: var(--gold);
-          <div class="film-card-body">
-            <p class="film-card-badge">Mai Masri</p>
-            <h3 class="film-card-title" data-t="film4-title">3000 Nights</h3>
-            <p class="film-card-meta">2015</p>04);
-            <p class="film-card-coverage" data-t="film4-cov">Coverage: Prison, checkpoints</p>
-            <button class="film-card-btn" data-popup-title-en="3000 Nights — Analysis" data-popup-title-ar="٣٠٠٠ ليلة — تحليل" data-popup-en="<p><strong>3000 Nights / Mai Masri / 2015</strong></p><p>Set entirely within an Israeli prison, the film shows how imprisonment lands differently on Palestinian women. Her confinement targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p><p>Masri refuses wide shots in the birth scene, locking the camera inside Layla's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands. The absence of music is a deliberate formal refusal to aestheticize the moment.</p><p>Layla's refusal to stop asking to hold her baby is the film's clearest image of sumud: persistent and embodied, refusing the state's full claim on her body.</p>" data-popup-ar="<p><strong>٣٠٠٠ ليلة / مي مصري / ٢٠١٥</strong></p><p>مُضمَّن كاملاً داخل سجن إسرائيلي، يُظهِر الفيلم كيف يقع السجن بشكل مختلف على المرأة الفلسطينية. حبسها يستهدف حملها وجسدها ورغباتها الأمومية كأدوات ضغط نفسي.</p><p>ترفض مصري اللقطات الواسعة في مشهد الولادة، تحبس الكاميرا داخل تجربة ليلى الجسدية: تنفسها، أصوات الأغلال، لقطات مقربة ليدين مكبّلتين. غياب الموسيقى رفض شكلي متعمّد لتجميل اللحظة.</p>" data-t="details-btn">Details</button>
-          </div>E ── */
-        </div>
-  display: flex; gap: 3px; align-items: center;
-        <!-- The Teacher -->
-        <div class="film-card">0.05);
-          <div class="carousel-responsive carousel">
-            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/teacher.jpeg"><source src="assets/videos/teacherclip.mp4" type="video/mp4"></video></div>
-            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
-          </div>
-          <div class="film-card-body">
-            <p class="film-card-badge">Farah Nablusi</p>
-            <h3 class="film-card-title" data-t="film5-title">The Teacher</h3>
-            <p class="film-card-meta">2023</p>
-            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="The Teacher — Analysis" data-popup-title-ar="المعلم — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
-          </div>: 0.05em;
-        </div>
-.lang-btn.active { background: var(--gold); color: #0a2321; }
-        <!-- Wajib -->ctive) { color: #e8f5f0; background: rgba(255,255,255,0.08); }
-        <div class="film-card">
-          <div class="carousel-responsive carousel">
-            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/wajib.jpg"><source src="assets/videos/wajibclip.mp4" type="video/mp4"></video></div>
-            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
-          </div>
-          <div class="film-card-body">rgba(6,22,20,0.97) 0%, rgba(4,16,14,0.99) 100%);
-            <p class="film-card-badge">Annemarie Jacir</p>
-            <h3 class="film-card-title" data-t="film6-title">Wajib</h3>
-            <p class="film-card-meta">2017</p>
-            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="Wajib — Analysis" data-popup-title-ar="واجب — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
-          </div>near-gradient(90deg, rgba(230,169,58,0.08), rgba(230,169,58,0.14), rgba(230,169,58,0.08));
-        </div>m: 1px solid rgba(230,169,58,0.15);
-  padding: 0.9rem 2.5rem;
-        <!-- May in the Summer -->er; justify-content: center; gap: 1.2rem;
-        <div class="film-card">
-          <div class="carousel-responsive carousel">
-            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/may.jpg"><source src="assets/videos/mayclip.mp4" type="video/mp4"></video></div>
-            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
-          </div>IBM Plex Mono', monospace;
-          <div class="film-card-body">0.35em;
-            <p class="film-card-badge">Annemarie Jacir</p>
-            <h3 class="film-card-title" data-t="film7-title">May in the Summer</h3>
-            <p class="film-card-meta">2013</p>
-            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="May in the Summer — Analysis" data-popup-title-ar="مي في الصيف — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
-          </div>Oswald', sans-serif;
-        </div>.9rem; font-weight: 500;
-  color: var(--gold); letter-spacing: 0.08em;
-        <!-- All That's Left of You -->
-        <div class="film-card">
-          <div class="carousel-responsive carousel">
-            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/left.jpeg"><source src="assets/videos/leftclip.mp4" type="video/mp4"></video></div>
-            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
-          </div>
-          <div class="film-card-body">
-            <p class="film-card-badge">Cherien Dabis</p>
-            <h3 class="film-card-title" data-t="film8-title">All That's Left of You</h3>
-            <p class="film-card-meta">2025</p>content: space-between;
-            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="All That's Left of You — Analysis" data-popup-title-ar="كل ما تبقى منك — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
-          </div>
-        </div>
-  font-family: 'Oswald', sans-serif;
-        <!-- Pomegranates and Myrrh -->
-        <div class="film-card">
-          <div class="carousel-responsive carousel">
-            <div class="carousel-track"><video class="carousel-item active film-card-img" controls poster="assets/images/pom.jpg"><source src="assets/videos/pomclip.mp4" type="video/mp4"></video></div>
-            <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
-          </div>ated {
-          <div class="film-card-body">ace;
-            <p class="film-card-badge">Najwa Najjar</p>
-            <h3 class="film-card-title" data-t="film9-title">Pomegranates and Myrrh</h3>
-            <p class="film-card-meta">2008</p>
-            <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="Pomegranates and Myrrh — Analysis" data-popup-title-ar="الرمان والمر — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
-          </div>
-        </div>x; gap: 1.5rem; align-items: center;
-}
-      </div>
-    </div>nks a {
-  </main>mily: 'Oswald', sans-serif;
-  font-size: 0.78rem; font-weight: 400;
-  <!-- MODAL -->: 0.1em;
-  <div class="modal-backdrop" id="filmModal">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-header">
-        <div class="modal-header-text">
-          <span class="modal-eyebrow" data-t="modal-eyebrow">Film Analysis</span>
-          <h3 id="modalTitle"></h3>
-        </div>O TOP ── */
-        <button class="close" aria-label="Close modal">✕</button>
-      </div>one; position: fixed;
-      <div class="modal-body" id="modalBody"></div>
-    </div>nd: var(--forest); color: #fff;
-  </div>: none; border-radius: 50%;
-  width: 46px; height: 46px; font-size: 1.3rem;
-  <footer class="footer">tion: background 0.2s, transform 0.2s;
-    © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
-    <a href="privacy.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-privacy">Privacy Policy</a>
-    <a href="terms.html" style="color:#e6a93a;text-decoration:underline;margin:0 0.7em;" data-t="footer-terms">Terms of Use</a>
-  </footer>
-  <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
-.page-hero {
-  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
-    <div class="mobile-nav-header">
-      <a href="index.html" class="mobile-nav-brand" data-t="brand">Cinematic Counter‑Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
-    </div>::after {
-    <nav class="mobile-nav-links">
-      <a href="index.html" data-t="nav-home">Home</a>
-      <a href="map.html" data-t="nav-map">Map</a>
-      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
-      <a href="checkpoints.html" class="archive-item" data-t="nav-checkpoints">Checkpoints</a>
-      <a href="analysis.html" class="archive-item active" data-t="nav-analysis">Visual Analysis</a>
-      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
-      <a href="not-mapped.html" class="archive-item" data-t="nav-notmapped">What's Not Mapped</a>
-      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
-      <a href="about.html" data-t="nav-about">About</a>
-    </nav>ackground-position: 0 0; }
-  </div>ackground-position: 60px 60px; }
-}
-  <script>row {
-  window.PAGE_T = { Plex Mono', monospace;
-    en: {ze: 0.72rem; letter-spacing: 0.35em;
-      'brand': 'Cinematic Counter&#8209;Cartographies',
-      'eyebrow': 'Film Archive', 'page-title': 'Visual <em>Analysis</em>',
-      'page-lead': 'Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.',
-      'filter-hint': 'Single click to filter · Double click any pill to reset',
-      'filter-all': 'All Films', 'filter-other': 'Other Directors',
-      'details-btn': 'Details', 4.5rem);
-      'film1-title': 'Salt of This Sea', 'film1-cov': 'Coverage: 2 of 4 checkpoints',
-      'film2-title': 'The Present',      'film2-cov': 'Coverage: 3 of 4 checkpoints',
-      'film3-title': 'When I Saw You',   'film3-cov': 'Coverage: 1 of 4 checkpoints',
-      'film4-title': '3000 Nights',      'film4-cov': 'Coverage: Prison, checkpoints',
-      'film5-title': 'The Teacher',      'film6-title': 'Wajib',
-      'film7-title': 'May in the Summer','film8-title': "All That's Left of You",
-      'film9-title': 'Pomegranates and Myrrh',
-      'coming-soon-cov': 'Coverage: Coming soon',
-      'modal-eyebrow': 'Film Analysis'
-    },
-    ar: {
-      'brand': 'الخرائط السينمائية المضادة',
-      'eyebrow': 'أرشيف الأفلام', 'page-title': 'التحليل <em>البصري</em>',
-      'page-lead': 'قراءات بصرية ومكانية للأفلام الرئيسية، مُعيَّنة عبر الحواجز ومواقع الرفض السينمائي.',
-      'filter-hint': 'نقرة للتصفية · نقرتان على أي زر للإعادة',
-      'filter-all': 'كل الأفلام', 'filter-other': 'مخرجون آخرون',
-      'details-btn': 'تفاصيل',-content: center;
-      'film1-title': 'ملح هذا البحر',   'film1-cov': 'التغطية: ٢ من ٤ حواجز',
-      'film2-title': 'الهدية',           'film2-cov': 'التغطية: ٣ من ٤ حواجز',
-      'film3-title': 'لما شفتك',         'film3-cov': 'التغطية: ١ من ٤ حواجز',
-      'film4-title': '٣٠٠٠ ليلة',        'film4-cov': 'التغطية: السجن والحواجز',
-      'film5-title': 'المعلم',           'film6-title': 'واجب',
-      'film7-title': 'مي في الصيف',      'film8-title': 'كل ما تبقى منك',
-      'film9-title': 'الرمان والمر',
-      'coming-soon-cov': 'التغطية: قادمة قريباً',
-      'modal-eyebrow': 'تحليل الفيلم';
-    }-height: 85vh; overflow: hidden;
-  };splay: flex; flex-direction: column;
-  box-shadow: 0 0 0 1px rgba(230,169,58,0.22), 0 30px 70px rgba(0,0,0,0.6);
-  /* ── CAROUSEL ───────────────────────────────────────────────── */
-  function initCarousel(carousel) {
-    var items = carousel.querySelectorAll('.carousel-item');
-    var dots  = carousel.querySelectorAll('.carousel-dot');; }
-    var prev  = carousel.querySelector('.carousel-prev');
-    var next  = carousel.querySelector('.carousel-next');
-    var idx   = 0;
-    if (!items.length) return;m;
-    function show(i) {fy-content: space-between; align-items: flex-start;
-      items.forEach((el,j) => { el.style.display = j===i?'block':'none'; if(el.tagName==='VIDEO'&&j!==i){el.pause();el.currentTime=0;} });
-      dots.forEach((d,j) => { d.style.color = j===i?'#e6a93a':'#888'; });0%);
-      idx = i;lative; overflow: hidden;
-    }
-    if (prev) prev.onclick = e => { e.stopPropagation(); show((idx+items.length-1)%items.length); };
-    if (next) next.onclick = e => { e.stopPropagation(); show((idx+1)%items.length); };
-    dots.forEach((d,i) => { d.onclick = e => { e.stopPropagation(); show(i); }; });
-    show(0);radient(rgba(111,231,193,0.06) 1px, transparent 1px),
-  } linear-gradient(90deg, rgba(111,231,193,0.06) 1px, transparent 1px);
-  document.querySelectorAll('.film-card .carousel').forEach(initCarousel);
-}
-  /* ── MODAL ──────────────────────────────────────────────────── */
-  (function() {position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    const backdrop = document.getElementById('filmModal');ld-light), var(--gold));
-    const titleEl  = document.getElementById('modalTitle');
-    const bodyEl   = document.getElementById('modalBody'); 1; }
-    const closeBtn = backdrop.querySelector('.close');
-    let currentLang = 'en';no', monospace; font-size: 0.62rem;
-  letter-spacing: 0.35em; text-transform: uppercase;
-    document.addEventListener('langchange', e => { currentLang = e.detail.lang; });
-}
-    function openModal(titleEn, titleAr, htmlEn, htmlAr) {
-      const isAr = currentLang === 'ar';if;
-      titleEl.textContent = isAr ? (titleAr || titleEn) : titleEn;e-height: 1.25;
-      bodyEl.innerHTML = isAr ? (htmlAr || htmlEn) : htmlEn;
-      backdrop.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      // Init carousel inside modal if any
-      setTimeout(() => { const c = bodyEl.querySelector('.carousel'); if (c) initCarousel(c); }, 100);
-    }or: rgba(255,255,255,0.55); font-size: 1rem; cursor: pointer;
-    function closeModal() { backdrop.classList.remove('open'); document.body.style.overflow = ''; }
-    closeBtn.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-    document.addEventListener('click', e => {
-      const btn = e.target.closest('[data-popup-en]');color: var(--gold); color: #0a2321; transform: rotate(90deg); }
-      if (!btn) return;0; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: rgba(111,231,193,0.2) transparent; }
-      openModal(bkit-scrollbar { width: 4px; }
-        btn.getAttribute('data-popup-title-en') || 'Analysis',1,193,0.2); border-radius: 2px; }
-        btn.getAttribute('data-popup-title-ar') || '',
-        btn.getAttribute('data-popup-en') || '',
-        btn.getAttribute('data-popup-ar') || ''
-      );ize: 1.1rem; line-height: 1.9; color: #e8f5f0;
-    });r-bottom: 1px solid rgba(255,255,255,0.06);
-  })();
-.modal-body p:last-child { border-bottom: none; }
-  /* ── FILTER PILLS ───────────────────────────────────────────── */
-  const knownDirectors = ['Annemarie Jacir','Mai Masri','Farah Nablusi'];
-  function filterCards(director) {: 0.25em; text-transform: uppercase;
-    document.querySelectorAll('.film-card').forEach(card => {
-      const badge = card.querySelector('.film-card-badge').textContent.trim();
-      if}
-.mapboxgl-popup-content {
-  background: #0d2420 !important;
-  border-radius: 16px !important;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.08rem;
-  line-height: 1.8;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-}
-.mapboxgl-popup-content p,
-.mapboxgl-popup-content strong,
-.mapboxgl-popup-content em {
-  color: #fff !important;
+  <style>/* CINEMATIC COUNTER‑CARTOGRAPHIES — SHARED SITE STYLES
+   Replaces corrupted/inline HTML+JS that was embedded in the stylesheet.
+   This file centralizes the surveillance palette and mobile/nav styles
+   so the same aesthetics apply across all pages.
+*/
+
+:root{
+  /* surveillance-derived palette */
+  --gold: #c47b5a;
+  --gold-soft: #f0c060;
+  --teal: #66e0b8;
+  --forest: #288366;
+  --dark-forest: #0a2321;
+  --crimson: #b94e3a;
+  --nav-h: 70px;
+  --text: #d3e8df;
+  --text-muted: rgba(211,232,223,0.88);
+  --link-color: #dff7ee;
+  --filter-bg: rgba(40,131,102,0.06);
 }
 
-/* ── SIDEBAR TAB (shared, used in checkpoints & analysis) ── */
-.sidebar-tab-wrap {
-  position: fixed; right: 0; top: 50%; transform: translateY(-50%);
-  z-index: 300; display: flex; flex-direction: column; gap: 2px;
-}
-.sidebar-tab {
-  writing-mode: vertical-rl;
-  font-family: 'Oswald', sans-serif; font-size: 0.7rem;
-  font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 1rem 0.6rem;
-  background: rgba(10,35,33,0.9); border: 1px solid rgba(111,231,193,0.12);
-  border-right: none; border-radius: 8px 0 0 8px;
-  color: rgba(232,245,240,0.45);
-  cursor: pointer; transition: all 0.25s;
-}
-.sidebar-tab:hover, .sidebar-tab.active {
-  background: rgba(230,169,58,0.12); color: var(--gold);
-  border-color: rgba(230,169,58,0.25);
-}
-.sidebar-panel {
-  position: fixed; right: -360px; top: var(--nav-h); bottom: 0;
-  width: 340px; z-index: 290;
-  background: linear-gradient(180deg, rgba(8,28,24,0.98) 0%, rgba(6,20,18,0.99) 100%);
-  border-left: 1px solid rgba(111,231,193,0.12);
-  backdrop-filter: blur(16px);
-  overflow-y: auto; padding: 2rem 1.5rem;
-  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
-  scrollbar-width: thin; scrollbar-color: rgba(111,231,193,0.2) transparent;
-}
-.sidebar-panel.open { right: 0; }
-.sidebar-panel h3 {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
-  font-weight: 700; color: #e8f5f0; margin: 0 0 0.3rem;
-}
-.sidebar-panel .sidebar-eyebrow {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--teal); opacity: 0.6; margin: 0 0 1.2rem; display: block;
-}
-.sidebar-panel p {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
-  line-height: 1.85; color: rgba(232,245,240,0.72); margin: 0 0 1rem;
-}
-.sidebar-close {
-  position: absolute; top: 1rem; right: 1rem;
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.4); width: 28px; height: 28px;
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  cursor: pointer; font-size: 0.85rem; transition: all 0.2s;
-}
-.sidebar-close:hover { background: var(--gold); color: #0a2321; }
-
-/* ── BIB / BIBLIOGRAPHY ── */
-.bib-entry {
-  padding: 0.9rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-.bib-entry:last-child { border-bottom: none; }
-.bib-entry p { font-size: 0.95rem; line-height: 1.75; margin: 0; color: rgba(232,245,240,0.7); }
-.bib-entry .bib-author { color: var(--teal); font-weight: 600; }
-.bib-entry .bib-title { font-style: italic; color: rgba(232,245,240,0.85); }
-.bib-entry .bib-year {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
-  color: var(--gold); opacity: 0.75; margin-left: 0.4rem;
+/* RESET / BASE */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body,html{min-height:100vh;margin:0;padding:0;overflow-x:hidden}
+body{
+  background: linear-gradient(160deg,#183f36 0%,#285944 35%,#3a7a62 65%,#2b6a56 100%);
+  background-attachment: fixed;
+  color:var(--text);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* ── VIDEO CLIP ── */
-.video-wrap {
-  position: relative; width: 100%; padding-top: 56.25%; /* 16:9 */
-  background: #000; border-radius: 10px; overflow: hidden;
-  border: 1px solid rgba(111,231,193,0.12);
-}
-.video-wrap iframe, .video-wrap video {
-  position: absolute; top:0; left:0; width:100%; height:100%; border:none;
-}
+/* TYPOGRAPHY HELPERS */
+a{color:var(--link-color);text-decoration:none}
+img,video{max-width:100%;height:auto;display:block}
 
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .topnav { padding: 0 1rem; }
-  .topnav .brand { font-size: 1rem; }
-  .topnav .menu a, .topnav .menu button.nav-link { padding: 0.45rem 0.65rem; font-size: 0.78rem; }
-  .dropdown-menu { left: 0; transform: none; }
-  .dropdown-menu { opacity: 0; }
-  .topnav .menu li.open .dropdown-menu { transform: none; }
-  .sidebar-tab-wrap { display: none; }
-  .footer-main { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+/* --- TOP NAV (shared) --- */
+.topnav{
+  background: linear-gradient(180deg, rgba(10,35,33,0.98), rgba(10,35,33,0.95));
+  padding:1.2rem 3rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 2px 20px rgba(0,0,0,0.3);
+  position:sticky; top:0; z-index:1000;
+  height:var(--nav-h);
+  direction:ltr !important;
 }
 
-@media (max-width: 768px) {
-  .topnav {
-    padding: 0 1rem;
-  }
-  .topnav .menu {
-    display: none;
-  }
-  .nav-hamburger,
-  .hamburger {
-    display: flex !important;
-  }
-  .entry-grid,
-  .nav-grid,
-  .film-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.2rem !important;
-  }
-  .section-divider,
-  .project-community-module,
-  .project-hook,
-  .spotlight-section,
-  .entry-section {
-    padding-left: 0.7rem !important;
-    padding-right: 0.7rem !important;
-  }
-  .footer {
-    font-size: 0.9rem;
-    padding: 1.2rem 0 0.7rem 0;
-  }
+.topnav .brand{
+  font-family:'Oswald',sans-serif;
+  font-size:1.3rem;
+  font-weight:600;
+  color:var(--gold);
+  letter-spacing:0.5px;
+}
+.topnav .menu{ display:flex; gap:0.5rem; align-items:center; }
+.topnav .menu a{
+  color:var(--link-color);
+  font-size:0.9rem;
+  font-weight:500;
+  padding:0.55rem 1rem;
+  border-radius:6px;
+  transition:all .28s;
+  font-family:'Oswald',sans-serif;
+}
+.topnav .menu a:hover, .topnav .menu a.active{
+  background: rgba(230,169,58,0.16);
+  color: var(--gold);
 }
 
-@media (max-width: 600px) {
-  body, html {
-    font-size: 16px;
-    padding: 0;
-    margin: 0;
-  }
-  .topnav {
-    padding: 0 0.5rem;
-    height: 54px;
-  }
-  .topnav .brand {
-    font-size: 0.95rem;
-  }
-  .hero-section {
-    padding: 3.5rem 0.7rem 2.5rem;
-  }
-  .hero-main-title {
-    font-size: 2.1rem;
-  }
-  .hero-subtitle {
-    font-size: 1rem;
-    padding: 0 0.2rem;
-  }
-  .quote-carousel {
-    padding: 1.2rem 0.5rem;
-  }
-  .carousel-content {
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-  .carousel-image {
-    flex: 0 0 100%;
-    height: 160px;
-    margin-bottom: 1rem;
-  }
-  .section-divider {
-    margin: 2rem auto;
-    padding: 0 0.5rem;
-  }
-  .project-hook, .spotlight-section, .entry-section {
-    padding: 1.2rem 0.5rem;
-  }
-  .entry-grid, .film-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .footer {
-    font-size: 0.9rem;
-    padding: 1.2rem 0 0.7rem 0;
-  }
-  #scrollTopBtn {
-    bottom: 16px;
-    right: 16px;
-    width: 38px;
-    height: 38px;
-    font-size: 1.1rem;
-  }
-  .project-community-module {
-    padding: 1.2rem 0.7rem 1rem 0.7rem !important;
-    margin: 1.2rem auto 2rem auto !important;
-  }
+/* Dropdown */
+.nav-dropdown{ position:relative; display:inline-block; }
+.nav-dropdown-trigger{
+  background:none;border:0;color:var(--link-color);padding:0.55rem 1rem;border-radius:6px;cursor:pointer;
+  font-family:'Oswald',sans-serif;
+  display:flex;align-items:center;gap:0.35rem;
+}
+.nav-dropdown-menu{
+  position:absolute; top:calc(100% + 8px); right:0;
+  min-width:260px;
+  background: rgba(8,28,26,0.98);
+  border:1px solid rgba(230,169,58,0.22);
+  border-radius:12px; padding:0.5rem;
+  opacity:0; pointer-events:none; transform:translateY(-8px);
+  transition:opacity .22s, transform .22s;
+  box-shadow:0 16px 48px rgba(0,0,0,0.55);
+  z-index:9999;
+}
+.nav-dropdown.open .nav-dropdown-menu,
+.nav-dropdown:hover .nav-dropdown-menu{ opacity:1; pointer-events:auto; transform:translateY(0); }
+.nav-dropdown-item{ display:block; padding:0.8rem 1rem; color:inherit; border-radius:8px; text-decoration:none; }
+.nav-dropdown-item:hover{ background: rgba(230,169,58,0.08); }
+
+/* --- MOBILE HAMBURGER & OVERLAY (shared) --- */
+.nav-hamburger{
+  display:none; background:none; border:none; padding:0.4rem; gap:6px; cursor:pointer;
+}
+.nav-hamburger span{
+  display:block; width:22px; height:2px; background:var(--text); border-radius:2px;
+  transition: all .18s;
+}
+.nav-hamburger.open span:nth-child(1){ transform: translateY(6px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2){ opacity:0; transform:scaleX(0); }
+.nav-hamburger.open span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
+
+.mobile-nav-overlay{
+  position:fixed; inset:0; background:rgba(5,20,18,0.97); z-index:2000;
+  display:flex; flex-direction:column; transform:translateX(-100%);
+  transition:transform .36s cubic-bezier(.4,0,.2,1); overflow-y:auto;
+}
+.mobile-nav-overlay.open{ transform:translateX(0); }
+.mobile-nav-overlay::before{
+  content:''; display:block; height:3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-soft), var(--gold));
+}
+.mobile-nav-header{
+  display:flex; align-items:center; justify-content:space-between; padding:1.2rem 1.4rem;
+  background: rgba(10,35,33,0.98); border-bottom:1px solid rgba(111,231,193,0.12);
+}
+.mobile-nav-brand{ font-family:'Oswald',sans-serif; font-size:1rem; color:var(--gold); text-decoration:none; }
+.mobile-nav-close{
+  background: rgba(255,255,255,0.07); border:1px solid rgba(111,231,193,0.22);
+  width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color: rgba(232,245,240,0.6); font-size:1.2rem;
 }
 
-@media (max-width: 480px) {
-  .topnav .brand {
-    font-size: 1rem;
-  }
-  .hero-main-title {
-    font-size: 1.5rem;
-  }
-  .hero-section {
-    padding: 2.2rem 0.5rem 1.5rem;
-  }
-  .project-community-module {
-    padding: 1rem 0.5rem !important;
-  }
+/* Mobile links */
+.mobile-nav-links{ display:flex; flex-direction:column; padding:0.6rem 0 2rem; flex:1; }
+.mobile-nav-links a{
+  font-family:'Oswald',sans-serif; font-size:1.05rem; font-weight:500; padding:0.95rem 1.5rem;
+  border-bottom:1px solid rgba(255,255,255,0.04); color: rgba(232,245,240,0.85);
+}
+.mobile-nav-links a:hover, .mobile-nav-links a.active{ background: rgba(230,169,58,0.1); color:var(--gold); }
+.mobile-nav-section-label{
+  font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.35em; text-transform:uppercase;
+  color: rgba(232,245,240,0.28); padding:1rem 1.5rem 0.4rem; display:block;
 }
 
-/* Place this block near the top of your CSS file, after :root and reset, before other media queries and nav styles. Remove any duplicate or conflicting mobile nav/hamburger menu CSS below. */
-
-/* ═══════════════════════════════════════════════════════════════
-   CINEMATIC COUNTER-CARTOGRAPHIES — SHARED MOBILE CSS
-   Applies to: index, map, analysis, surveillance-space, not-mapped,
-               glossary, about, checkpoints, and any future pages.
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ── HAMBURGER BUTTON ─────────────────────────────────────────── */
-.nav-hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(111,231,193,0.22);
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 0;
-  flex-shrink: 0;
-  transition: background 0.2s, border-color 0.2s;
-  z-index: 1100;
+/* --- FILTER PILL STYLES (site-wide) --- */
+.filter-pill{
+  display:inline-block; padding:0.28rem 0.6rem; border-radius:999px;
+  background:var(--filter-bg); border:1px solid rgba(255,255,255,0.04);
+  color:var(--dark-forest); font-family:'Oswald',sans-serif; font-weight:600; font-size:0.78rem;
+  text-transform:uppercase;
 }
-.nav-hamburger span {
-  display: block;
-  width: 18px;
-  height: 2px;
-  background: #eaf7f2;
-  border-radius: 2px;
-  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.nav-hamburger:hover {
-  background: rgba(111,231,193,0.1);
-  border-color: rgba(111,231,193,0.45);
-}
-.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.filter-pill.active{ background: rgba(230,169,58,0.08); color:var(--gold); border-color:var(--gold); }
 
-/* ── MOBILE NAV OVERLAY ───────────────────────────────────────── */
-.mobile-nav-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(5, 20, 18, 0.97);
-  z-index: 2000;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(-100%);
-  transition: transform 0.36s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow-y: auto;
-}
-.mobile-nav-overlay.open {
-  transform: translateX(0);
-}
-
-.mobile-nav-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.2rem 1.4rem;
-  border-bottom: 1px solid rgba(111,231,193,0.12);
-  background: rgba(10,35,33,0.98);
-  flex-shrink: 0;
-}
-.mobile-nav-brand {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--gold, #e6a93a);
-  text-decoration: none;
-  letter-spacing: 0.3px;
-  line-height: 1.3;
-}
-.mobile-nav-close {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(111,231,193,0.22);
-  color: rgba(232,245,240,0.6);
-  font-size: 1.4rem;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  flex-shrink: 0;
-}
-.mobile-nav-close:hover {
-  background: var(--crimson, #b94e3a);
-  color: #fff;
-  border-color: var(--crimson, #b94e3a);
-}
-
-/* Gold accent bar at top of drawer */
-.mobile-nav-overlay::before {
-  content: '';
-  display: block;
-  height: 3px;
-  background: linear-gradient(90deg, var(--gold, #e6a93a), #f0c060, var(--gold, #e6a93a));
-  flex-shrink: 0;
-}
-
-.mobile-nav-links {
-  display: flex;
-  flex-direction: column;
-  padding: 0.6rem 0 2rem;
-  flex: 1;
-}
-.mobile-nav-links a {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  color: rgba(232,245,240,0.85);
-  text-decoration: none;
-  padding: 0.95rem 1.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  transition: background 0.18s, color 0.18s;
-  display: block;
-}
-.mobile-nav-links a:hover,
-.mobile-nav-links a.active {
-  background: rgba(230,169,58,0.1);
-  color: var(--gold, #e6a93a);
-}
-.mobile-nav-section-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: rgba(232,245,240,0.28);
-  padding: 1rem 1.5rem 0.4rem;
-  display: block;
-}
-.mobile-nav-links .archive-item {
-  padding-left: 2.4rem;
-  font-size: 0.95rem;
-  color: rgba(232,245,240,0.65);
-}
-.mobile-nav-links .archive-item:hover,
-.mobile-nav-links .archive-item.active {
-  color: var(--teal, #6fe7c1);
-  background: rgba(111,231,193,0.06);
-}
-
-/* ── TRANSLATE BUTTON (shared style) ─────────────────────────── */
-.translate-btn-fixed {
-  position: fixed;
-  z-index: 1200;
-  background: rgba(10,35,33,0.95);
-  color: var(--teal, #6fe7c1);
-  border: 1px solid rgba(111,231,193,0.35);
-  border-radius: 8px;
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-  transition: background 0.2s, border-color 0.2s;
-  padding: 0.45rem 1rem;
-}
-.translate-btn-fixed:hover {
-  background: rgba(111,231,193,0.1);
-  border-color: var(--teal, #6fe7c1);
-}
-
-/* ── RESPONSIVE BREAKPOINTS ───────────────────────────────────── */
-@media (max-width: 768px) {
-  /* Show hamburger, hide desktop menu */
-  .nav-hamburger { display: flex !important; }
-  .topnav .menu  { display: none !important; }
-
-  /* Nav padding */
-  .topnav { padding: 0 1rem !important; }
-
-  /* Translate button moves under nav */
-  #translateBtn,
-  .translate-btn-fixed {
-    top: calc(var(--nav-h, 62px) + 8px) !important;
-    right: 1rem !important;
-    font-size: 0.72rem !important;
-    padding: 0.38rem 0.75rem !important;
-  }
-
-  /* Grids collapse to single column */
-  .entry-grid,
-  .nav-grid,
-  .film-grid,
-  .content-grid,
-  .content-grid.wide,
-  .omission-grid,
-  .category-grid,
-  .spotlight-card {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Spotlight image height on mobile */
-  .spotlight-image { min-height: 220px !important; }
-
-  /* Quote carousel stacks */
-  .carousel-content { flex-direction: column !important; }
-  .carousel-image   { flex: 0 0 auto !important; width: 100% !important; height: 200px !important; }
-  .carousel-nav.prev { left: 8px !important; }
-  .carousel-nav.next { right: 8px !important; }
-
-  /* Sections get comfortable padding */
-  .project-intro,
-  .project-hook,
-  .spotlight-section,
-  .entry-section,
-  .nm-outer,
-  .ss-intro,
-  .typology-section,
-  .matrix-section,
-  .wnm-trigger-section,
-  .wnm-panel,
-  .film-grid-outer,
-  .filter-bar,
-  .section-divider,
-  .ss-divider {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-
-  /* Cards padding */
-  .intro-card,
-  .hook-card,
-  .prose-block,
-  .closing-card,
-  .wnm-panel-inner {
-    padding: 1.5rem !important;
-  }
-
-  /* Hero sections */
-  .hero-section  { padding: 3.5rem 1rem 2.5rem !important; }
-  .page-hero     { padding: 3.5rem 1rem 2.5rem !important; }
-  .ss-hero       { padding: 3.5rem 1rem 2.5rem !important; }
-
-  /* Community module */
-  .project-community-module {
-    padding: 1.4rem 1rem !important;
-    margin: 1.5rem auto 2.5rem !important;
-  }
-
-  /* WNM trigger */
-  .wnm-trigger-btn { padding: 1.4rem 1.2rem !important; }
-  .wnm-trigger-icon { font-size: 1.5rem !important; margin-left: 0.8rem !important; }
-
-  /* Matrix table — horizontal scroll */
-  .matrix-section { overflow-x: auto; }
-  .matrix-table   { min-width: 560px; }
-
-  /* Modals */
-  .modal-content,
-  .create-modal {
-    max-width: 100% !important;
-    border-radius: 12px !important;
-  }
-  .create-backdrop { padding: 1rem 0.75rem !important; }
-
-  /* Form rows collapse */
-  .form-row { grid-template-columns: 1fr !important; }
-
-  /* Section header stacks */
-  .section-header { flex-direction: column !important; gap: 0.8rem !important; }
-  .section-number { writing-mode: horizontal-tb !important; }
-
-  /* Film card images */
-  .film-card-img { height: 170px !important; }
-
-  /* Footer */
-  .footer { font-size: 0.82rem !important; padding: 1.5rem 1rem !important; }
-
-  /* Map panel takes full width */
-  .cp-panel { width: 100vw !important; }
-  body.panel-open #map { left: 0 !important; }
-  body.panel-open .search-panel,
-  body.panel-open .map-style-toggle,
-  body.panel-open .map-info-module { left: 50% !important; }
-  .panel-close-btn { left: auto !important; right: 12px !important; }
-  .map-legend { display: none !important; }
-}
-
-@media (max-width: 480px) {
-  .topnav .brand      { font-size: 0.95rem !important; }
-  .hero-main-title    { font-size: clamp(1.6rem, 8vw, 2.4rem) !important; }
-  .page-title         { font-size: clamp(2rem, 8vw, 2.8rem) !important; }
-  .ss-hero-title      { font-size: clamp(2rem, 8vw, 2.8rem) !important; }
-  .quote-carousel     { padding: 1.5rem 1rem !important; }
-  .typology-pill      { font-size: 0.72rem !important; padding: 0.4rem 0.7rem !important; }
-  .filter-pill        { font-size: 0.72rem !important; padding: 0.4rem 0.8rem !important; }
-  .mobile-nav-brand   { font-size: 0.88rem !important; }
-}
-
-/* RTL adjustments when Arabic is active */
-html[dir="rtl"] .mobile-nav-overlay { transform: translateX(100%); }
-html[dir="rtl"] .mobile-nav-overlay.open { transform: translateX(0); }
-html[dir="rtl"] .nav-hamburger { margin-right: 0; }
-html[dir="rtl"] .mobile-nav-links .archive-item { padding-left: 1.5rem; padding-right: 2.4rem; }
-html[dir="rtl"] .mobile-nav-section-label { padding-left: 1.5rem; padding-right: 1.5rem; }
-
-/* director-colored filter pills (Surveillance Space palette) */
-.filter-pill[data-director="Annemarie Jacir"] {
-  border-color: rgba(196,123,90,0.25);
-  color: rgba(196,123,90,0.95);
-}
+/* director-colors */
+.filter-pill[data-director="Annemarie Jacir"]{ border-color: rgba(196,123,90,0.25); color: rgba(196,123,90,0.95); }
+.filter-pill[data-director="Mai Masri"]{ border-color: rgba(102,224,184,0.22); color: rgba(102,224,184,0.95); }
+.filter-pill[data-director="Farah Nablusi"]{ border-color: rgba(185,78,58,0.22); color: rgba(185,78,58,0.95); }
 .filter-pill[data-director="Annemarie Jacir"]:hover,
-.filter-pill[data-director="Annemarie Jacir"].active {
-  background: linear-gradient(90deg, rgba(196,123,90,0.08), rgba(240,192,96,0.03));
-  color: var(--gold);
-  border-color: var(--gold);
-}
-
-.filter-pill[data-director="Mai Masri"] {
-  border-color: rgba(102,224,184,0.22);
-  color: rgba(102,224,184,0.95);
-}
+.filter-pill[data-director="Annemarie Jacir"].active{ background:linear-gradient(90deg, rgba(196,123,90,0.08), rgba(240,192,96,0.03)); color:var(--gold); }
 .filter-pill[data-director="Mai Masri"]:hover,
-.filter-pill[data-director="Mai Masri"].active {
-  background: linear-gradient(90deg, rgba(102,224,184,0.06), rgba(102,224,184,0.02));
-  color: var(--teal);
-  border-color: var(--teal);
-}
-
-.filter-pill[data-director="Farah Nablusi"] {
-  border-color: rgba(185,78,58,0.22);
-  color: rgba(185,78,58,0.95);
-}
+.filter-pill[data-director="Mai Masri"].active{ background:linear-gradient(90deg, rgba(102,224,184,0.06), rgba(102,224,184,0.02)); color:var(--teal); }
 .filter-pill[data-director="Farah Nablusi"]:hover,
-.filter-pill[data-director="Farah Nablusi"].active {
-  background: linear-gradient(90deg, rgba(185,78,58,0.06), rgba(185,78,58,0.02));
-  color: var(--crimson);
-  border-color: var(--crimson);
+.filter-pill[data-director="Farah Nablusi"].active{ background:linear-gradient(90deg, rgba(185,78,58,0.06), rgba(185,78,58,0.02)); color:var(--crimson); }
+
+/* --- MODAL (film analysis) --- */
+.modal-backdrop{
+  position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+  background: rgba(2,8,6,0.6); z-index:4000;
+}
+.modal-backdrop.open{ display:flex; padding:1.2rem; }
+.modal{
+  width:100%; max-width:960px; max-height:85vh; overflow:auto;
+  background: linear-gradient(180deg, rgba(8,28,26,0.98), rgba(6,20,18,0.99));
+  border-radius:12px; box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+  padding:1rem; position:relative;
+}
+.modal .modal-header{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.modal .modal-eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--teal); letter-spacing:0.2em; text-transform:uppercase; opacity:0.9; }
+.modal .close{ background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+
+/* --- SIDEBAR PANEL (shared) --- */
+.sidebar-tab-wrap{ position:fixed; right:0; top:50%; transform:translateY(-50%); z-index:300; display:flex; flex-direction:column; gap:6px; }
+.sidebar-tab{ writing-mode:vertical-rl; font-family:'Oswald',sans-serif; font-size:0.72rem; padding:1rem 0.6rem; background:rgba(10,35,33,0.9); border:1px solid rgba(111,231,193,0.12); color:rgba(232,245,240,0.45); border-right:none; border-radius:8px 0 0 8px; cursor:pointer; }
+.sidebar-tab.active{ background: rgba(230,169,58,0.12); color:var(--gold); border-color: rgba(230,169,58,0.25); }
+.sidebar-panel{
+  position:fixed; right:-360px; top:var(--nav-h); bottom:0; width:340px; z-index:290;
+  background: linear-gradient(180deg, rgba(8,28,24,0.98), rgba(6,20,18,0.99));
+  border-left:1px solid rgba(111,231,193,0.12); padding:2rem 1.5rem; overflow:auto; transition:right .35s cubic-bezier(.4,0,.2,1);
+}
+.sidebar-panel.open{ right:0; }
+
+/* --- FILM GRID baseline (keeps layout consistent) --- */
+.film-grid-outer{ padding:1.25rem 3rem; max-width:1200px; margin:0 auto; }
+.film-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; align-items:start; }
+
+/* film card */
+.film-card{ background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02)); border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); display:flex; flex-direction:column; }
+.film-card .film-card-img{ width:100%; height:220px; object-fit:cover; background:#000; }
+.film-card-body{ padding:0.9rem 1rem; }
+
+/* carousel controls small helper */
+.carousel-controls{ display:flex; align-items:center; justify-content:space-between; gap:0.6rem; }
+
+/* --- MAPBOX POPUP OVERRIDES --- */
+.mapboxgl-popup-content{ background:#0d2420 !important; border-radius:16px !important; font-family:'Cormorant Garamond',serif; color:#fff; box-shadow:0 8px 32px rgba(0,0,0,0.35); }
+.mapboxgl-popup-content p, .mapboxgl-popup-content em, .mapboxgl-popup-content strong{ color: #fff !important; }
+
+/* --- RESPONSIVE RULES --- */
+@media (max-width:900px){
+  .topnav{ padding:0.9rem 1rem; }
+  .topnav .brand{ font-size:1rem; }
+  .topnav .menu a, .nav-dropdown-trigger{ padding:0.45rem 0.7rem; font-size:0.86rem; }
+}
+@media (max-width:768px){
+  .nav-hamburger{ display:flex !important; }
+  .topnav .menu{ display:none !important; }
+  .film-grid{ grid-template-columns:1fr !important; }
+  .film-card .film-card-img{ height:170px !important; }
+}
+@media (max-width:600px){
+  body{ font-size:16px; }
+  .topnav{ height:54px; padding:0 0.5rem; }
+  .mobile-nav-brand{ font-size:0.88rem; }
+  .modal{ max-width:calc(100% - 2rem); }
 }
 
-/* keep 'All' and 'Other' pills neutral but match active style */
-.filter-pill[data-director="all"].active,
-.filter-pill[data-director="other"].active {
-  background: rgba(230,169,58,0.08);
-  color: var(--gold);
-  border-color: var(--gold);
-}
+/* RTL small adjustments */
+html[dir="rtl"] .mobile-nav-overlay{ transform:translateX(100%); }
+html[dir="rtl"] .mobile-nav-overlay.open{ transform:translateX(0); }
+html[dir="rtl"] .mobile-nav-links .archive-item{ padding-left:1.5rem; padding-right:2.4rem; }
+
+/* keep room for future per-page overrides */
+:root { /* end of shared stylesheet */ }
+/* ...existing code... */
