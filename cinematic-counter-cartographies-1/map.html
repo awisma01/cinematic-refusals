@@ -1333,8 +1333,8 @@ window.openModal = openModal; window.closeModal = closeModal;
 
 document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', function() { closeModal(this.getAttribute('data-close')); }));
 
-function openAddCheckpointModal() { resetCpForm(); openModal('addCheckpointModal'); }
-function openAddFilmModal() { resetFilmForm(); populateFilmCpCheckboxes([]); openModal('addFilmModal'); }
+function openAddCheckpointModal() { resetCpForm(); document.getElementById('cpModalEyebrow').textContent = 'New Entry'; document.getElementById('cpModalTitle').textContent = 'Add Checkpoint'; openModal('addCheckpointModal'); }
+function openAddFilmModal() { resetFilmForm(); populateFilmCpCheckboxes([]); document.getElementById('filmModalEyebrow').textContent = 'New Entry'; document.getElementById('filmModalTitle').textContent = 'Add Film'; openModal('addFilmModal'); }
 
 function resetCpForm() {
   ['cpName', 'cpArabic', 'cpDistrict', 'cpDetail', 'cpAnalysis', 'cpLat', 'cpLng', 'cpEditId'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
@@ -1497,6 +1497,7 @@ window.editCheckpoint = function(id) {
   document.getElementById('cpAnalysis').value = cp.analysis || '';
   const filmList = document.getElementById('cpFilmList');
   filmList.innerHTML = (cp.films && cp.films.length ? cp.films : ['']).map(title => `<li class="form-film-row"><input class="form-input" placeholder="Film title \u2014 Director, Year" value="${title}"><button class="form-film-remove" onclick="removeFilmRow(this)">\u2715</button></li>`).join('');
+  document.getElementById('cpModalEyebrow').textContent = 'Edit Entry'; document.getElementById('cpModalTitle').textContent = 'Edit Checkpoint';
   openModal('addCheckpointModal');
 };
 
@@ -1512,6 +1513,7 @@ window.editFilm = function(id) {
   document.getElementById('filmCountry').value = f.country || ''; document.getElementById('filmGenre').value = f.genre || '';
   document.getElementById('filmNotes').value = f.notes || '';
   populateFilmCpCheckboxes(f.checkpointIds || []);
+  document.getElementById('filmModalEyebrow').textContent = 'Edit Entry'; document.getElementById('filmModalTitle').textContent = 'Edit Film';
   openModal('addFilmModal');
 };
 
@@ -1521,12 +1523,17 @@ window.deleteFilm = async function(id) {
 };
 
 /* ══ ADMIN LOCK ENGINE ══ */
+function openAdminLoginModal() {
+  document.getElementById('adminPassword').value = '';
+  document.getElementById('adminError').style.display = 'none';
+  openModal('adminLoginModal');
+}
 window.toggleAdminLock = function() {
   if (isAdmin) { isAdmin = false; showToast("Logged out"); setAdminUI(); } 
-  else { openModal('adminLoginModal'); }
+  else { openAdminLoginModal(); }
 };
 
-window.requireAdmin = function(action) { if(isAdmin) action(); else openModal('adminLoginModal'); };
+window.requireAdmin = function(action) { if(isAdmin) action(); else openAdminLoginModal(); };
 
 document.getElementById('adminLoginBtn').addEventListener('click', async () => {
   const pw = document.getElementById('adminPassword').value;
@@ -1546,16 +1553,29 @@ function setAdminUI() {
 
 /* ══ SEARCH & TEXT AUTOCOMPLETE ══ */
 const searchInput = document.getElementById('searchInput'), resultsList = document.getElementById('searchResults');
-searchInput.addEventListener('input', () => {
+function runSearch() {
   const q = searchInput.value.toLowerCase().trim(); resultsList.innerHTML = '';
   if(!q) { resultsList.style.display = 'none'; return; }
-  const matches = checkpoints.filter(c => c.title.toLowerCase().includes(q));
-  matches.forEach(cp => {
-    const li = document.createElement('li'); li.textContent = cp.title;
+  const cpMatches = checkpoints.filter(c => c.title.toLowerCase().includes(q));
+  const filmMatches = films.filter(f => f.title.toLowerCase().includes(q));
+  cpMatches.forEach(cp => {
+    const li = document.createElement('li'); li.className = 'cp-result';
+    li.innerHTML = `<span class="result-dot"></span>${cp.title}`;
     li.addEventListener('click', () => { openCheckpoint(cp.id); resultsList.style.display = 'none'; searchInput.value = cp.title; });
     resultsList.appendChild(li);
   });
-  resultsList.style.display = matches.length ? 'block' : 'none';
+  filmMatches.forEach(f => {
+    const li = document.createElement('li'); li.className = 'place-result';
+    li.innerHTML = `<span class="result-dot"></span>${f.title}`;
+    li.addEventListener('click', () => { openFilmDetail(f.id); resultsList.style.display = 'none'; searchInput.value = f.title; });
+    resultsList.appendChild(li);
+  });
+  resultsList.style.display = (cpMatches.length + filmMatches.length) ? 'block' : 'none';
+}
+searchInput.addEventListener('input', runSearch);
+document.getElementById('searchBtn').addEventListener('click', runSearch);
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-panel')) resultsList.style.display = 'none';
 });
 
 /* ══ TRANSLATION LAYER FUNCTIONALITY ══ */
