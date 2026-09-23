@@ -664,13 +664,13 @@
       background: linear-gradient(180deg, rgba(10,35,33,0.98), rgba(10,35,33,0.95)) !important;
     }
 
-    /* make nav text/links white like other pages */
+    /* make nav text/links match other pages */
     .topnav .brand,
     .topnav .menu a,
     .nav-dropdown-trigger,
     .nav-dropdown-arrow,
     .nav-dropdown-item-title {
-      color: #ffffff !important;
+      color: var(--link-color, #eaf7f2) !important;
     }
 
     /* keep original hover/active accent but ensure base is white */
@@ -698,9 +698,9 @@
       <a href="index.html">Home</a>
       <a href="map.html">Map</a>
       <div class="nav-dropdown">
-        <button class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
           Archive <span class="nav-dropdown-arrow">▾</span>
-        </button>
+        </a>
         <div class="nav-dropdown-menu">
           <a href="analysis.html" class="nav-dropdown-item">
             <span class="nav-dropdown-item-title">Visual Analysis</span>
@@ -726,6 +726,23 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
+
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand">Cinematic Counter‑Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="mobile-nav-links" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="map.html">Map</a>
+      <span class="mobile-nav-section-label">Archive</span>
+      <a href="analysis.html" class="archive-item">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item active">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item">Glossary</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
 
   <div id="langToggle" dir="ltr" style="position:fixed;top:calc(var(--nav-h,70px) + 10px);right:2.5rem;z-index:1200;background:rgba(10,35,33,0.95);border:1px solid rgba(111,231,193,0.35);border-radius:8px;overflow:hidden;display:flex;flex-direction:row;box-shadow:0 2px 12px rgba(0,0,0,0.3);">
     <button id="btnEN" onclick="applyLang('en')" style="font-family:Oswald,sans-serif;font-size:0.78rem;font-weight:600;padding:0.42rem 0.8rem;border:none;cursor:pointer;background:#e6a93a;color:#0a2321;letter-spacing:0.08em;">EN</button>
@@ -1289,11 +1306,5 @@
   </script>
   <script src="js/shared.js"></script>
   <script src="js/gloss-links.js"></script>
-  <script>
-    const nav = document.querySelector('.topnav');
-    const r = nav.getBoundingClientRect();
-    console.log('nav rect', r);
-    console.log('top element at nav center:', document.elementFromPoint(r.left + 10, r.top + 10));
-  </script>
 </body>
 </html>

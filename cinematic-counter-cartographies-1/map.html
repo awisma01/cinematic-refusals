@@ -53,8 +53,7 @@
     .mobile-nav-overlay.open{display:block;}
 
     /* MAP */
-    #map{position:fixed;top:var(--nav-h);bottom:0;left:0;right:0;z-index:1;transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
-    body.panel-open #map{left:var(--panel-w);}
+    #map{position:fixed;top:var(--nav-h);bottom:0;left:0;right:0;z-index:1;}
 
     /* PANEL TAB */
     .panel-tab{position:fixed;top:50%;left:0;z-index:190;transform:translateY(-50%);transition:transform 0.42s cubic-bezier(0.4,0,0.2,1),opacity 0.3s;}
@@ -106,6 +105,14 @@
     .mapboxgl-popup-content{background:transparent!important;border-radius:0!important;padding:0!important;box-shadow:none!important;}
     .mapboxgl-popup-tip{display:none!important;}
     .mapboxgl-popup-close-button{display:none!important;}
+
+    /* MARKER POPUP CARD */
+    .map-popup-card{background:rgba(10,35,33,0.97);border:1px solid rgba(111,231,193,0.25);border-radius:12px;padding:0.9rem 1.1rem;min-width:200px;max-width:260px;box-shadow:0 10px 32px rgba(0,0,0,0.5);}
+    .map-popup-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#e8f5f0;margin:0 0 0.15rem;line-height:1.2;}
+    .map-popup-arabic{font-family:'Cormorant Garamond',serif;font-size:0.8rem;font-style:italic;color:var(--teal);opacity:0.75;margin:0 0 0.5rem;}
+    .map-popup-meta{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.06em;color:rgba(232,245,240,0.45);margin:0 0 0.7rem;}
+    .map-popup-btn{font-family:'Oswald',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.4rem 0.75rem;border-radius:6px;background:rgba(230,169,58,0.14);border:1px solid rgba(230,169,58,0.4);color:var(--gold);cursor:pointer;transition:all 0.18s;width:100%;}
+    .map-popup-btn:hover{background:rgba(230,169,58,0.28);border-color:var(--gold);}
 
     /* INFO MODULE */
     .map-info-module{position:fixed;bottom:76px;right:24px;z-index:1200;background:rgba(10,35,33,0.96);border:1px solid rgba(111,231,193,0.22);border-radius:14px;padding:1.2rem 1.5rem;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,0.45);transition:left 0.42s cubic-bezier(0.4,0,0.2,1);}
@@ -336,7 +343,6 @@
       .topnav .menu{display:none;}
       #translateBtn{top:calc(var(--nav-h) + 8px);left:8px;}
       .hamburger{display:flex;}
-      body.panel-open #map{left:0;}
       body.panel-open .search-panel{left:50%;}
       body.panel-open .map-style-toggle{left:50%;}
       .panel-close-btn{left:auto;right:12px;}
@@ -891,27 +897,46 @@ let activeFilmFilters = { genre: 'all', checkpoint: 'all', year: 'all' };
 
 // Baseline seed data arrays
 let checkpoints = [
-  { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Divine Intervention", "200 Meters"], images: [], seed: true },
-  { id: 'cp_2', coords: [35.2345, 32.1234], title: "Huwwara Checkpoint", arabic: "حاجز حوارة", district: "Nablus", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Southern entry to Nablus", analysis: "Represented as a bottleneck space impeding educational mobility.", films: ["Salt of this Sea"], images: [], seed: true }
+  { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Divine Intervention", "200 Meters", "Salt of This Sea", "The Present"], images: [], seed: true },
+  { id: 'cp_2', coords: [35.2345, 32.1234], title: "Huwwara Checkpoint", arabic: "حاجز حوارة", district: "Nablus", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Southern entry to Nablus", analysis: "Represented as a bottleneck space impeding educational mobility.", films: ["Salt of this Sea", "The Present"], images: [], seed: true },
+  { id: 'cp_3', coords: [35.2033, 31.7046], title: "Rachel Crossing (Checkpoint 300)", arabic: "معبر راحيل (حاجز ٣٠٠)", district: "Bethlehem", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing between Bethlehem and Jerusalem", analysis: "Central site in The Present and Salt of This Sea; associated with anticipatory punishment and carceral time.", films: ["Salt of This Sea", "The Present"], images: [], seed: true },
+  { id: 'cp_4', coords: [35.1975, 31.6768], title: "Container Checkpoint", arabic: "حاجز الكونتينر", district: "Bethlehem–Hebron road (Wadi Nar)", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Junction checkpoint linking Bethlehem and Hebron districts", analysis: "Present in the geographic archive without direct film cross-references; marks a gap between mapped space and cinematic representation.", films: [], images: [], seed: true }
 ];
 
 let films = [
   { id: 'film_1', title: "Divine Intervention", director: "Elia Suleiman", year: 2002, country: "Palestine", genre: "Narrative feature", notes: "A satirical look at life under occupation.", checkpointIds: ["cp_1"], seed: true },
   { id: 'film_2', title: "200 Meters", director: "Ameen Nayfeh", year: 2020, country: "Palestine", genre: "Narrative feature", notes: "A father struggles to cross a checkpoint located meters away.", checkpointIds: ["cp_1"], seed: true },
-  { id: 'film_3', title: "Salt of this Sea", director: "Annemarie Jacir", year: 2008, country: "Palestine", genre: "Narrative feature", notes: "Explores structural and spatial return barriers.", checkpointIds: ["cp_2"], seed: true }
+  { id: 'film_3', title: "Salt of This Sea", director: "Annemarie Jacir", year: 2008, country: "Palestine", genre: "Narrative feature", notes: "Explores structural and spatial return barriers across Qalandiya and Rachel/Bethlehem.", checkpointIds: ["cp_1", "cp_3"], seed: true },
+  { id: 'film_4', title: "The Present", director: "Farah Nabulsi", year: 2020, country: "Palestine", genre: "Narrative feature", notes: "A father and daughter attempt to cross Checkpoint 300 to buy an anniversary gift.", checkpointIds: ["cp_1", "cp_2", "cp_3"], seed: true },
+  { id: 'film_5', title: "When I Saw You", director: "Annemarie Jacir", year: 2012, country: "Palestine", genre: "Narrative feature", notes: "Set in a Jordanian refugee camp in 1967; treats Palestine as something across a border.", checkpointIds: [], seed: true },
+  { id: 'film_6', title: "3000 Nights", director: "Mai Masri", year: 2015, country: "Palestine", genre: "Narrative feature", notes: "Set entirely within an Israeli prison; examines how imprisonment lands differently on Palestinian women.", checkpointIds: [], seed: true },
+  { id: 'film_7', title: "The Teacher", director: "Farah Nabulsi", year: 2023, country: "Palestine", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
+  { id: 'film_8', title: "Wajib", director: "Annemarie Jacir", year: 2017, country: "Palestine", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
+  { id: 'film_9', title: "May in the Summer", director: "Cherien Dabis", year: 2013, country: "Palestine / Jordan", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
+  { id: 'film_10', title: "All That's Left of You", director: "Cherien Dabis", year: 2025, country: "Palestine", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
+  { id: 'film_11', title: "Pomegranates and Myrrh", director: "Najwa Najjar", year: 2008, country: "Palestine", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
+  { id: 'film_12', title: "Checkpoint", director: "Yoav Shamir", year: 2003, country: "Israel", genre: "Documentary", notes: "Occupies the surveillance position, illuminating how the camera itself can reproduce architectural power.", checkpointIds: [], seed: true },
+  { id: 'film_13', title: "The Wanted 18", director: "Amer Shomali & Paul Cowan", year: 2014, country: "Palestine / Canada", genre: "Documentary", notes: "Referenced in the archive's digital surveillance typology.", checkpointIds: [], seed: true },
+  { id: 'film_14', title: "Farha", director: "Darin J. Sallam", year: 2021, country: "Jordan / Palestine", genre: "Narrative feature", notes: "Referenced in the archive's intimate surveillance typology.", checkpointIds: [], seed: true },
+  { id: 'film_15', title: "Children of Shatila", director: "Mai Masri", year: 1998, country: "Lebanon / Palestine", genre: "Documentary", notes: "Referenced in the archive's intimate surveillance typology.", checkpointIds: [], seed: true }
 ];
 
 let submissions = [];
 
 // Local Storage Layer Recovery Handlers
+// Merge in only user-added entries so seed data updates aren't hidden by stale storage
 try {
   const storedCheckpoints = JSON.parse(localStorage.getItem('cc_checkpoints'));
-  if (Array.isArray(storedCheckpoints) && storedCheckpoints.length) {
-    checkpoints = storedCheckpoints;
+  if (Array.isArray(storedCheckpoints)) {
+    checkpoints = checkpoints.concat(storedCheckpoints.filter(c => !c.seed));
   }
   const storedFilms = JSON.parse(localStorage.getItem('cc_films'));
-  if (Array.isArray(storedFilms) && storedFilms.length) {
-    films = storedFilms;
+  if (Array.isArray(storedFilms)) {
+    films = films.concat(storedFilms.filter(f => !f.seed));
+  }
+  const storedSubmissions = JSON.parse(localStorage.getItem('cc_submissions'));
+  if (Array.isArray(storedSubmissions)) {
+    submissions = storedSubmissions;
   }
 } catch (e) {
   console.warn('LocalStorage data recovery bypass:', e);
@@ -954,9 +979,26 @@ document.addEventListener('DOMContentLoaded', () => {
   initTimeline();
   setupPanelToggles();
   setupFilters();
+  setupFilmFilters();
   setupLanguageToggle();
+  setupMobileNav();
+  setupSuggestModal();
+  renderSubmissions();
   setTimeout(() => { map.resize(); }, 200);
+  document.getElementById('infoModule').classList.remove('hidden');
 });
+
+function setupMobileNav() {
+  const btn = document.getElementById('hamburgerBtn'), drawer = document.getElementById('mobileNavDrawer'), overlay = document.getElementById('mobileNavOverlay');
+  function toggleDrawer(open) {
+    const isOpen = open ?? !drawer.classList.contains('open');
+    btn.classList.toggle('open', isOpen); btn.setAttribute('aria-expanded', String(isOpen));
+    drawer.classList.toggle('open', isOpen); overlay.classList.toggle('open', isOpen);
+  }
+  btn.addEventListener('click', () => toggleDrawer());
+  overlay.addEventListener('click', () => toggleDrawer(false));
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleDrawer(false)));
+}
 
 async function saveData() { localStorage.setItem('cc_checkpoints', JSON.stringify(checkpoints)); localStorage.setItem('cc_films', JSON.stringify(films)); }
 async function saveSubmissions() { localStorage.setItem('cc_submissions', JSON.stringify(submissions)); }
@@ -971,8 +1013,8 @@ function setupPanelToggles() {
   mCloseBtn.addEventListener('click', closePanel);
 }
 
-function openPanel() { document.body.classList.add('panel-open'); panel.classList.add('open'); document.getElementById('panelTab').classList.add('hidden'); document.getElementById('panelCloseBtn').classList.add('visible'); map.resize(); }
-function closePanel() { document.body.classList.remove('panel-open'); panel.classList.remove('open'); document.getElementById('panelTab').classList.remove('hidden'); document.getElementById('panelCloseBtn').classList.remove('visible'); map.resize(); resetMarkerHighlight(); }
+function openPanel() { document.body.classList.add('panel-open'); panel.classList.add('open'); document.getElementById('panelTab').classList.add('hidden'); document.getElementById('panelCloseBtn').classList.add('visible'); }
+function closePanel() { document.body.classList.remove('panel-open'); panel.classList.remove('open'); document.getElementById('panelTab').classList.remove('hidden'); document.getElementById('panelCloseBtn').classList.remove('visible'); resetMarkerHighlight(); }
 
 window.switchPanelTab = function(target) {
   activePanelTab = target;
@@ -980,6 +1022,7 @@ window.switchPanelTab = function(target) {
   document.getElementById('checkpointsView').style.display = target === 'checkpoints' ? 'flex' : 'none';
   document.getElementById('filmsView').style.display = target === 'films' ? 'flex' : 'none';
   document.getElementById('submissionsView').style.display = target === 'submissions' ? 'flex' : 'none';
+  if (target === 'submissions') renderSubmissions();
 };
 
 function showListView() { document.getElementById('checkpointsView').className = 'cp-panel-inner cp-panel-view-list'; activeCpId = null; resetMarkerHighlight(); }
@@ -1119,7 +1162,7 @@ function buildList() {
   checkpoints.forEach(cp => {
     const li = document.createElement('li'); li.className = 'cp-list-item'; li.setAttribute('data-id', cp.id);
     li.setAttribute('data-filter-type', cp.filterType || 'internal'); li.setAttribute('data-filter-staff', cp.filterStaff || 'permanent');
-    li.innerHTML = `<div class="cp-list-arabic">${cp.arabic || ''}</div><div class="cp-list-name">${cp.title}</div><div class="cp-list-meta"><span class="cp-list-tag">${cp.type}</span></div>`;
+    li.innerHTML = `<div class="cp-list-name">${cp.title}</div><div class="cp-list-arabic">${cp.arabic || ''}</div><div class="cp-list-meta"><span class="cp-list-tag">${cp.type}</span></div>`;
     li.addEventListener('click', () => openCheckpoint(cp.id)); cpListEl.appendChild(li);
   });
 }
@@ -1128,13 +1171,78 @@ function buildFilmList() {
   const el = document.getElementById('filmList'); if(!el) return; el.innerHTML = '';
   films.forEach(f => {
     const li = document.createElement('li'); li.className = 'film-list-item'; li.setAttribute('data-film-id', f.id);
+    li.setAttribute('data-genre', f.genre || ''); li.setAttribute('data-year', f.year || ''); li.setAttribute('data-checkpoints', (f.checkpointIds || []).join(','));
     li.innerHTML = `<div class="film-list-year">${f.year}</div><div class="film-list-title">${f.title}</div><div class="film-list-director">${f.director}</div>`;
     li.addEventListener('click', () => openFilmDetail(f.id)); el.appendChild(li);
   });
+  buildFilmFilterPanes();
 }
 
-window.clearFilmFilters = function() { activeFilmFilters.genre = 'all'; applyFilmFilters(); };
-function applyFilmFilters() {}
+function buildFilmFilterPanes() {
+  const cpPane = document.getElementById('film-filter-checkpoint');
+  if (cpPane) {
+    cpPane.innerHTML = '';
+    makeFilmChip('All', 'all', cpPane, 'checkpoint');
+    checkpoints.forEach(cp => makeFilmChip(cp.title, cp.id, cpPane, 'checkpoint'));
+  }
+  const yearPane = document.getElementById('film-filter-year');
+  if (yearPane) {
+    yearPane.innerHTML = '';
+    makeFilmChip('All', 'all', yearPane, 'year');
+    Array.from(new Set(films.map(f => f.year).filter(Boolean))).sort((a, b) => b - a).forEach(y => makeFilmChip(String(y), String(y), yearPane, 'year'));
+  }
+}
+
+function makeFilmChip(label, value, parent, kind) {
+  const btn = document.createElement('button'); btn.className = 'cp-chip film-chip' + (activeFilmFilters[kind] === value ? ' active' : '');
+  btn.textContent = label;
+  btn.addEventListener('click', () => {
+    activeFilmFilters[kind] = value;
+    parent.querySelectorAll('.cp-chip').forEach(b => b.classList.toggle('active', b === btn));
+    applyFilmFilters();
+  });
+  parent.appendChild(btn);
+}
+
+function setupFilmFilters() {
+  document.querySelectorAll('#filmsView .cp-filter-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#filmsView .cp-filter-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#filmsView .cp-filter-pane').forEach(p => p.classList.remove('active'));
+      document.getElementById('film-filter-' + btn.getAttribute('data-film-tab')).classList.add('active');
+    });
+  });
+  document.querySelectorAll('[data-film-genre]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-film-genre]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilmFilters.genre = btn.getAttribute('data-film-genre');
+      applyFilmFilters();
+    });
+  });
+}
+
+window.clearFilmFilters = function() {
+  activeFilmFilters = { genre: 'all', checkpoint: 'all', year: 'all' };
+  document.querySelectorAll('[data-film-genre]').forEach(b => b.classList.toggle('active', b.getAttribute('data-film-genre') === 'all'));
+  document.querySelectorAll('#film-filter-checkpoint .cp-chip, #film-filter-year .cp-chip').forEach(b => b.classList.toggle('active', b.textContent === 'All'));
+  applyFilmFilters();
+};
+function applyFilmFilters() {
+  let anyVisible = false;
+  document.querySelectorAll('.film-list-item').forEach(item => {
+    const genre = item.getAttribute('data-genre'), year = item.getAttribute('data-year');
+    const cps = (item.getAttribute('data-checkpoints') || '').split(',').filter(Boolean);
+    let show = true;
+    if (activeFilmFilters.genre !== 'all' && genre !== activeFilmFilters.genre) show = false;
+    if (activeFilmFilters.checkpoint !== 'all' && !cps.includes(activeFilmFilters.checkpoint)) show = false;
+    if (activeFilmFilters.year !== 'all' && year !== activeFilmFilters.year) show = false;
+    item.classList.toggle('hidden', !show); if (show) anyVisible = true;
+  });
+  const emptyState = document.getElementById('filmEmptyState'); if (emptyState) emptyState.style.display = anyVisible ? 'none' : 'block';
+  document.getElementById('filmClearFiltersBtn')?.classList.toggle('hidden', activeFilmFilters.genre === 'all' && activeFilmFilters.checkpoint === 'all' && activeFilmFilters.year === 'all');
+}
 
 /* ══ MAP STYLES & INTERACTION ══ */
 map.on('click', (e) => {
@@ -1159,9 +1267,24 @@ document.querySelectorAll('.map-style-btn').forEach(btn => {
   });
 });
 
+let activePopup = null;
 function addMarker(cp) {
   const el = document.createElement('div'); el.style.cssText = 'width:24px;height:24px;background:var(--gold);border:2px solid #fff;border-radius:50%;cursor:pointer;';
-  el.addEventListener('click', (e) => { e.stopPropagation(); openCheckpoint(cp.id); });
+  el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (activePopup) activePopup.remove();
+    activePopup = new mapboxgl.Popup({ offset: 16, closeButton: false, closeOnClick: true, maxWidth: '280px' })
+      .setLngLat(cp.coords)
+      .setHTML(`
+        <div class="map-popup-card">
+          <div class="map-popup-title">${cp.title}</div>
+          ${cp.arabic ? `<div class="map-popup-arabic">${cp.arabic}</div>` : ''}
+          <div class="map-popup-meta">${cp.district || ''}${cp.district && cp.type ? ' \u00b7 ' : ''}${cp.type || ''}</div>
+          <button class="map-popup-btn" onclick="openCheckpoint('${cp.id}')">View Details</button>
+        </div>
+      `)
+      .addTo(map);
+  });
   const m = new mapboxgl.Marker({ element: el }).setLngLat(cp.coords).addTo(map);
   markerObjs.push({ id: cp.id, marker: m, el: el });
 }
@@ -1170,13 +1293,16 @@ function rebuildMarkers() { markerObjs.forEach(m => m.marker.remove()); markerOb
 /* ══ VIEW SCROLL DETAILS ══ */
 function openCheckpoint(id) {
   const cp = checkpoints.find(c => c.id === id); if(!cp) return;
-  activeCpId = id; showDetailView();
+  if (activePopup) { activePopup.remove(); activePopup = null; }
+  activeCpId = id; openPanel(); switchPanelTab('checkpoints'); showDetailView();
   const lat = cp.coords[1].toFixed(4), lng = cp.coords[0].toFixed(4);
+  const linkedFilms = films.filter(f => (f.checkpointIds || []).includes(cp.id));
   detailScroll.innerHTML = `
-    <div class="cp-detail-header"><span class="cp-detail-eyebrow">Checkpoint</span><h2 class="cp-detail-title">${cp.title}</h2></div>
+    <div class="cp-detail-header"><span class="cp-detail-eyebrow">Checkpoint</span><h2 class="cp-detail-title">${cp.title}</h2>${cp.arabic ? `<p class="cp-detail-arabic">${cp.arabic}</p>` : ''}</div>
     <div class="cp-detail-row"><span class="cp-detail-row-label">Coordinates</span>${lat}, ${lng}</div>
     <div class="cp-detail-row"><span class="cp-detail-row-label">District</span>${cp.district}</div>
     <div class="cp-detail-row"><span class="cp-detail-row-label">Analysis</span>${cp.analysis}</div>
+    ${linkedFilms.length ? `<div class="cp-detail-films"><span class="cp-detail-row-label">Films</span>${linkedFilms.map(f => `<span class="cp-film-tag" style="cursor:pointer" onclick="openFilmDetail('${f.id}')">${f.title}</span>`).join('')}</div>` : ''}
     ${isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editCheckpoint('${cp.id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteCheckpoint('${cp.id}')">Delete</button></div>` : ''}
   `;
   map.flyTo({ center: cp.coords, zoom: 12, essential: true });
@@ -1184,10 +1310,15 @@ function openCheckpoint(id) {
 
 function openFilmDetail(id) {
   const f = films.find(film => film.id === id); if(!f) return;
-  activeFilmId = id; showFilmDetailView();
+  if (activePopup) { activePopup.remove(); activePopup = null; }
+  activeFilmId = id; openPanel(); switchPanelTab('films'); showFilmDetailView();
+  const linkedCps = checkpoints.filter(c => (f.checkpointIds || []).includes(c.id));
   document.getElementById('filmDetailScroll').innerHTML = `
-    <div class="film-detail-header"><span class="film-detail-eyebrow">${f.year}</span><h2 class="film-detail-title">${f.title}</h2></div>
+    <div class="film-detail-header"><span class="film-detail-eyebrow">${f.year}</span><h2 class="film-detail-title">${f.title}</h2>${f.director ? `<p class="film-detail-director">${f.director}</p>` : ''}</div>
+    <div class="cp-detail-row"><span class="cp-detail-row-label">Genre</span>${f.genre || '—'}</div>
+    <div class="cp-detail-row"><span class="cp-detail-row-label">Country</span>${f.country || '—'}</div>
     <div class="cp-detail-row"><span class="cp-detail-row-label">Synopsis</span>${f.notes}</div>
+    ${linkedCps.length ? `<div class="cp-detail-films"><span class="cp-detail-row-label">Checkpoints</span>${linkedCps.map(c => `<span class="cp-film-tag" style="cursor:pointer" onclick="openCheckpoint('${c.id}')">${c.title}</span>`).join('')}</div>` : ''}
     ${isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editFilm('${f.id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteFilm('${f.id}')">Delete</button></div>` : ''}
   `;
 }
@@ -1205,8 +1336,25 @@ document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('c
 function openAddCheckpointModal() { resetCpForm(); openModal('addCheckpointModal'); }
 function openAddFilmModal() { resetFilmForm(); populateFilmCpCheckboxes([]); openModal('addFilmModal'); }
 
-function resetCpForm() { ['cpName', 'cpArabic', 'cpDistrict', 'cpDetail', 'cpAnalysis', 'cpLat', 'cpLng', 'cpEditId'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; }); }
+function resetCpForm() {
+  ['cpName', 'cpArabic', 'cpDistrict', 'cpDetail', 'cpAnalysis', 'cpLat', 'cpLng', 'cpEditId'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  const filmList = document.getElementById('cpFilmList');
+  filmList.innerHTML = '<li class="form-film-row"><input class="form-input" placeholder="Film title \u2014 Director, Year"><button class="form-film-remove" onclick="removeFilmRow(this)">\u2715</button></li>';
+}
 function resetFilmForm() { ['filmTitle', 'filmDirector', 'filmYear', 'filmCountry', 'filmGenre', 'filmNotes', 'filmEditId'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; }); }
+
+function removeFilmRow(btn) {
+  const list = document.getElementById('cpFilmList');
+  if (list.children.length > 1) btn.closest('.form-film-row').remove();
+}
+window.removeFilmRow = removeFilmRow;
+
+document.getElementById('addFilmRowBtn').addEventListener('click', () => {
+  const list = document.getElementById('cpFilmList');
+  const li = document.createElement('li'); li.className = 'form-film-row';
+  li.innerHTML = `<input class="form-input" placeholder="Film title \u2014 Director, Year"><button class="form-film-remove" onclick="removeFilmRow(this)">\u2715</button>`;
+  list.appendChild(li);
+});
 
 function populateFilmCpCheckboxes(checkedIds) {
   const container = document.getElementById('filmCpCheckboxes'); if (!container) return; container.innerHTML = '';
@@ -1220,13 +1368,109 @@ function populateFilmCpCheckboxes(checkedIds) {
 document.getElementById('pickOnMapBtn').addEventListener('click', () => { closeModal('addCheckpointModal'); pickingOnMap = true; document.getElementById('mapClickHint').classList.add('visible'); });
 document.getElementById('sugPickOnMapBtn').addEventListener('click', () => { closeModal('suggestModal'); sugPickingOnMap = true; document.getElementById('mapClickHint').classList.add('visible'); });
 
+/* ══ SUGGEST-AN-ADDITION MODAL ══ */
+function setupSuggestModal() {
+  document.querySelectorAll('input[name="suggestType"]').forEach(r => r.addEventListener('change', updateSuggestType));
+  updateSuggestType();
+}
+
+function updateSuggestType() {
+  const val = document.querySelector('input[name="suggestType"]:checked').value;
+  document.getElementById('sugCheckpointFields').style.display = val === 'checkpoint' ? '' : 'none';
+  document.getElementById('sugFilmFields').style.display = val === 'film' ? '' : 'none';
+  document.getElementById('sugExperienceFields').style.display = val === 'experience' ? '' : 'none';
+  document.getElementById('sugTypeCheckpointLabel').classList.toggle('sel-checkpoint', val === 'checkpoint');
+  document.getElementById('sugTypeFilmLabel').classList.toggle('sel-film', val === 'film');
+  document.getElementById('sugTypeExperienceLabel').classList.toggle('sel-experience', val === 'experience');
+}
+
+function resetSuggestForm() {
+  document.querySelectorAll('#suggestModal .form-input, #suggestModal .form-textarea, #suggestModal .form-select').forEach(el => el.value = '');
+  document.getElementById('sugTypeCheckpoint').checked = true;
+  updateSuggestType();
+}
+
+document.getElementById('saveSuggestionBtn').addEventListener('click', async () => {
+  const type = document.querySelector('input[name="suggestType"]:checked').value;
+  let entry;
+  if (type === 'checkpoint') {
+    const title = document.getElementById('sugCpName').value.trim();
+    if (!title) return showToast('Please enter a checkpoint name', 'error');
+    entry = { title, arabic: document.getElementById('sugCpArabic').value, district: document.getElementById('sugCpDistrict').value, cpType: document.getElementById('sugCpType').value, detail: document.getElementById('sugCpDetail').value, lat: document.getElementById('sugCpLat').value, lng: document.getElementById('sugCpLng').value };
+  } else if (type === 'film') {
+    const title = document.getElementById('sugFilmTitle').value.trim();
+    if (!title) return showToast('Please enter a film title', 'error');
+    entry = { title, director: document.getElementById('sugFilmDirector').value, year: document.getElementById('sugFilmYear').value, country: document.getElementById('sugFilmCountry').value, notes: document.getElementById('sugFilmNotes').value };
+  } else {
+    const story = document.getElementById('sugExpStory').value.trim();
+    if (!story) return showToast('Please share your story', 'error');
+    entry = { title: document.getElementById('sugExpTitle').value || 'Untitled experience', story, where: document.getElementById('sugExpWhere').value, when: document.getElementById('sugExpWhen').value };
+  }
+  submissions.push(Object.assign({ id: 'sub_' + Date.now(), type, contact: document.getElementById('sugContact').value, createdAt: new Date().toISOString() }, entry));
+  await saveSubmissions();
+  renderSubmissions();
+  resetSuggestForm();
+  closeModal('suggestModal');
+  showToast('Thank you! Your suggestion has been submitted for review.');
+});
+
+function renderSubmissions() {
+  const list = document.getElementById('submissionsList'), empty = document.getElementById('submissionsEmpty'); if (!list) return;
+  const badge = document.getElementById('submissionBadge');
+  if (badge) { badge.textContent = submissions.length; badge.style.display = submissions.length ? 'inline-block' : 'none'; }
+  list.innerHTML = '';
+  if (!submissions.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  submissions.forEach(s => {
+    const detail = s.type === 'checkpoint' ? s.detail : s.type === 'film' ? s.notes : s.story;
+    const li = document.createElement('li'); li.className = 'sub-item';
+    li.innerHTML = `
+      <div class="sub-item-type">${s.type}</div>
+      <div class="sub-item-title">${s.title}</div>
+      <div class="sub-item-meta">${new Date(s.createdAt).toLocaleDateString()}${s.contact ? ' · ' + s.contact : ''}</div>
+      ${detail ? `<div class="sub-item-detail">${detail}</div>` : ''}
+      <div class="sub-item-actions">
+        <button class="sub-approve" onclick="approveSubmission('${s.id}')">Approve</button>
+        <button class="sub-reject" onclick="rejectSubmission('${s.id}')">Reject</button>
+      </div>`;
+    list.appendChild(li);
+  });
+}
+
+window.approveSubmission = async function(id) {
+  const s = submissions.find(x => x.id === id); if (!s) return;
+  if (s.type === 'checkpoint') {
+    const lat = parseFloat(s.lat), lng = parseFloat(s.lng);
+    checkpoints.push({ id: 'cp_' + Date.now(), title: s.title, coords: [isNaN(lng) ? 35.2 : lng, isNaN(lat) ? 31.9 : lat], arabic: s.arabic || '', district: s.district || '', type: s.cpType === 'entry' ? 'Entry / Exit to Israel' : s.cpType === 'last' ? 'Last checkpoint before Israel' : 'Internal checkpoint', filterType: s.cpType || 'internal', staffing: '', filterStaff: 'permanent', detail: s.detail || '', analysis: '', films: [], seed: false });
+    rebuildMarkers(); buildList();
+  } else if (s.type === 'film') {
+    films.push({ id: 'film_' + Date.now(), title: s.title, director: s.director || '', year: parseInt(s.year) || null, country: s.country || '', genre: '', notes: s.notes || '', checkpointIds: [] });
+    buildFilmList();
+  }
+  await saveData();
+  submissions = submissions.filter(x => x.id !== id);
+  await saveSubmissions();
+  renderSubmissions();
+  showToast('Submission approved and added.');
+};
+
+window.rejectSubmission = async function(id) {
+  submissions = submissions.filter(x => x.id !== id);
+  await saveSubmissions();
+  renderSubmissions();
+};
+
 // Create / Update Checkpoint
+const CP_TYPE_LABELS = { internal: 'Internal checkpoint', entry: 'Entry / Exit to Israel', last: 'Last checkpoint before Israel' };
+const CP_STAFF_LABELS = { permanent: 'Permanently staffed', intermittent: 'Intermittently staffed', seasonal: 'Seasonally staffed' };
 document.getElementById('saveCheckpointBtn').addEventListener('click', async () => {
   const id = document.getElementById('cpEditId').value;
   const name = document.getElementById('cpName').value, lat = parseFloat(document.getElementById('cpLat').value), lng = parseFloat(document.getElementById('cpLng').value);
   if(!name || isNaN(lat) || isNaN(lng)) return showToast("Required data missing", "error");
+  const cpType = document.getElementById('cpType').value, cpStaffing = document.getElementById('cpStaffing').value;
+  const filmTitles = Array.from(document.querySelectorAll('#cpFilmList .form-film-row input')).map(i => i.value.trim()).filter(Boolean);
 
-  const cpObj = { id: id || 'cp_' + Date.now(), title: name, coords: [lng, lat], arabic: document.getElementById('cpArabic').value, district: document.getElementById('cpDistrict').value, analysis: document.getElementById('cpAnalysis').value, type: "Internal checkpoint", seed: false };
+  const cpObj = { id: id || 'cp_' + Date.now(), title: name, coords: [lng, lat], arabic: document.getElementById('cpArabic').value, district: document.getElementById('cpDistrict').value, detail: document.getElementById('cpDetail').value, analysis: document.getElementById('cpAnalysis').value, type: CP_TYPE_LABELS[cpType] || cpType, filterType: cpType, staffing: CP_STAFF_LABELS[cpStaffing] || cpStaffing, filterStaff: cpStaffing, films: filmTitles, images: [], seed: false };
   if (id) { checkpoints = checkpoints.map(c => c.id === id ? cpObj : c); } else { checkpoints.push(cpObj); }
   await saveData(); rebuildMarkers(); buildList(); closeModal('addCheckpointModal');
 });
@@ -1236,8 +1480,9 @@ document.getElementById('saveFilmBtn').addEventListener('click', async () => {
   const id = document.getElementById('filmEditId').value;
   const title = document.getElementById('filmTitle').value, year = parseInt(document.getElementById('filmYear').value);
   if(!title || isNaN(year)) return showToast("Required variables missing", "error");
+  const checkpointIds = Array.from(document.querySelectorAll('#filmCpCheckboxes input:checked')).map(c => c.value);
 
-  const fObj = { id: id || 'film_' + Date.now(), title, year, director: document.getElementById('filmDirector').value, notes: document.getElementById('filmNotes').value, checkpointIds: [] };
+  const fObj = { id: id || 'film_' + Date.now(), title, year, director: document.getElementById('filmDirector').value, country: document.getElementById('filmCountry').value, genre: document.getElementById('filmGenre').value, notes: document.getElementById('filmNotes').value, checkpointIds };
   if(id) { films = films.map(f => f.id === id ? fObj : f); } else { films.push(fObj); }
   await saveData(); buildFilmList(); closeModal('addFilmModal');
 });
@@ -1245,8 +1490,14 @@ document.getElementById('saveFilmBtn').addEventListener('click', async () => {
 window.editCheckpoint = function(id) {
   const cp = checkpoints.find(c => c.id === id); if(!cp) return;
   document.getElementById('cpEditId').value = cp.id; document.getElementById('cpName').value = cp.title;
+  document.getElementById('cpArabic').value = cp.arabic || ''; document.getElementById('cpDistrict').value = cp.district || '';
+  document.getElementById('cpType').value = cp.filterType || 'internal'; document.getElementById('cpStaffing').value = cp.filterStaff || 'permanent';
+  document.getElementById('cpDetail').value = cp.detail || '';
   document.getElementById('cpLat').value = cp.coords[1]; document.getElementById('cpLng').value = cp.coords[0];
-  document.getElementById('cpAnalysis').value = cp.analysis || ''; openModal('addCheckpointModal');
+  document.getElementById('cpAnalysis').value = cp.analysis || '';
+  const filmList = document.getElementById('cpFilmList');
+  filmList.innerHTML = (cp.films && cp.films.length ? cp.films : ['']).map(title => `<li class="form-film-row"><input class="form-input" placeholder="Film title \u2014 Director, Year" value="${title}"><button class="form-film-remove" onclick="removeFilmRow(this)">\u2715</button></li>`).join('');
+  openModal('addCheckpointModal');
 };
 
 window.deleteCheckpoint = async function(id) {
@@ -1257,7 +1508,10 @@ window.deleteCheckpoint = async function(id) {
 window.editFilm = function(id) {
   const f = films.find(film => film.id === id); if(!f) return;
   document.getElementById('filmEditId').value = f.id; document.getElementById('filmTitle').value = f.title;
-  document.getElementById('filmYear').value = f.year; document.getElementById('filmNotes').value = f.notes || '';
+  document.getElementById('filmDirector').value = f.director || ''; document.getElementById('filmYear').value = f.year;
+  document.getElementById('filmCountry').value = f.country || ''; document.getElementById('filmGenre').value = f.genre || '';
+  document.getElementById('filmNotes').value = f.notes || '';
+  populateFilmCpCheckboxes(f.checkpointIds || []);
   openModal('addFilmModal');
 };
 
@@ -1285,6 +1539,9 @@ function setAdminUI() {
   document.getElementById('addFilmBtn').style.display = displayStyle;
   document.getElementById('addCheckpointBtn').style.display = displayStyle;
   document.getElementById('adminLockBtn').textContent = isAdmin ? '🔓' : '🔒';
+  document.getElementById('tabSubmissions').style.display = isAdmin ? '' : 'none';
+  if (!isAdmin && activePanelTab === 'submissions') switchPanelTab('checkpoints');
+  renderSubmissions();
 }
 
 /* ══ SEARCH & TEXT AUTOCOMPLETE ══ */
@@ -1316,6 +1573,14 @@ function setupLanguageToggle() {
 document.addEventListener('click', (e) => {
   const drop = document.querySelector('.nav-dropdown');
   if(drop) drop.classList.toggle('open', e.target.closest('.nav-dropdown-trigger'));
+});
+
+/* ══ INFO MODULE ("?" BUTTON) ══ */
+document.getElementById('showInfoBtn').addEventListener('click', () => {
+  document.getElementById('infoModule').classList.remove('hidden');
+});
+document.getElementById('infoModuleClose').addEventListener('click', () => {
+  document.getElementById('infoModule').classList.add('hidden');
 });
 </script>
 </body>

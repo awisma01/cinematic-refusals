@@ -1,105 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" id="htmlRoot">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mobile Navigation — Cinematic Counter-Cartographies</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/mobile.css">
-</head>
-<body>
-  <!-- mobile nav overlay (paste this into pages or include server-side) -->
-  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
-    <div class="mobile-nav-header">
-      <a href="index.html" class="mobile-nav-brand">Cinematic Counter‑Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
-    </div>
-    <nav class="mobile-nav-links" aria-label="Mobile navigation">
-      <a href="index.html" data-t="nav-home">Home</a>
-      <a href="map.html" data-t="nav-map">Map</a>
-      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
-      <a href="analysis.html" class="archive-item" data-t="nav-analysis">Visual Analysis</a>
-      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
-      <a href="not-mapped.html" class="archive-item" data-t="nav-notmapped">What's Not Mapped</a>
-      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
-      <a href="about.html" data-t="nav-about">About</a>
-    </nav>
-  </div>
-
-  <script src="js/shared.js"></script>
-  <script>
-    // runtime helper: inject a unified topnav markup and wire dropdown + mobile overlay
-    (function unifyTopNav() {
-      function navTemplate() {
-        return `
-          <a href="index.html" class="brand" data-t="brand">Cinematic Counter‑Cartographies</a>
-          <div class="menu" role="navigation">
-            <a href="index.html" data-t="nav-home">Home</a>
-            <a href="map.html" data-t="nav-map">Map</a>
-            <div class="nav-dropdown" role="none">
-              <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" data-t="nav-archive">Archive <span class="nav-dropdown-arrow">▾</span></button>
-              <div class="nav-dropdown-menu" role="menu" aria-label="Archive menu">
-                <a href="analysis.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-analysis">Visual Analysis</span><span class="nav-dropdown-item-desc" data-t="nav-analysis-desc">Film-by-film formal and spatial readings</span></a>
-                <a href="surveillance-space.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-surveillance">Surveillance Space</span><span class="nav-dropdown-item-desc" data-t="nav-surveillance-desc">Five typologies of occupation beyond the checkpoint</span></a>
-                <a href="not-mapped.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-notmapped">What's Not Mapped</span><span class="nav-dropdown-item-desc" data-t="nav-notmapped-desc">Omission, gaps, and the politics of refusal</span></a>
-                <a href="glossary.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-glossary">Glossary</span><span class="nav-dropdown-item-desc" data-t="nav-glossary-desc">Key terms and theoretical concepts</span></a>
-              </div>
-            </div>
-            <a href="about.html" data-t="nav-about">About</a>
-          </div>
-          <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-        `;
-      }
-
-      document.addEventListener('DOMContentLoaded', function () {
-        const nav = document.querySelector('.topnav');
-        if (!nav) return;
-        nav.innerHTML = navTemplate();
-
-        // mark active link based on filename
-        const path = (window.location.pathname.split('/').pop() || 'index.html');
-        nav.querySelectorAll('.menu a').forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === path);
-        });
-
-        // dropdown behaviour
-        const trigger = nav.querySelector('.nav-dropdown-trigger');
-        const dropdown = nav.querySelector('.nav-dropdown');
-        if (trigger && dropdown) {
-          trigger.addEventListener('click', e => {
-            e.stopPropagation();
-            const isOpen = dropdown.classList.toggle('open');
-            trigger.setAttribute('aria-expanded', String(isOpen));
-          });
-          document.addEventListener('click', () => { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); });
-          document.addEventListener('keydown', e => { if (e.key === 'Escape') { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); } });
-        }
-
-        // mobile overlay — uses existing #mobileNav and #mobileNavClose if present
-        const mobileBtn = nav.querySelector('#navHamburger');
-        const mobileOverlay = document.getElementById('mobileNav');
-        const mobileClose = document.getElementById('mobileNavClose');
-        if (mobileBtn && mobileOverlay) {
-          function openNav()  { mobileOverlay.classList.add('open'); mobileBtn.classList.add('open'); mobileBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-          function closeNav() { mobileOverlay.classList.remove('open'); mobileBtn.classList.remove('open'); mobileBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-          mobileBtn.addEventListener('click', () => mobileOverlay.classList.contains('open') ? closeNav() : openNav());
-          if (mobileClose) mobileClose.addEventListener('click', closeNav);
-          mobileOverlay.addEventListener('click', e => { if (e.target === mobileOverlay) closeNav(); });
-          document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
-          mobileOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
-        }
-
-        // re-run translations if applyLang exists
-        if (typeof applyLang === 'function') {
-          const lang = localStorage.getItem('ccc-lang') || 'en';
-          applyLang(lang);
-        }
-      });
-    })();
-  </script>
-</body>
-</html>
-
 /* Cleaned stylesheet — remove any HTML/JS from this file.
    Drop back your original extra rules below as needed. */
 
@@ -144,6 +42,20 @@ body{
 }
 .topnav .brand{ font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;color:var(--gold);text-decoration:none; }
 .topnav .menu{ display:flex; gap:0.5rem; align-items:center; }
+.topnav .menu a{ color:var(--link-color); font-size:0.9rem; font-weight:500; padding:0.55rem 1rem; border-radius:6px; transition:all 0.3s; font-family:'Oswald',sans-serif; letter-spacing:0.3px; text-decoration:none; }
+.topnav .menu a:hover, .topnav .menu a.active{ background:rgba(230,169,58,0.2); color:var(--gold); }
+
+/* Hamburger (mobile nav trigger) — shared across all pages so it renders consistently */
+.nav-hamburger{ display:none; background:none; border:none; padding:0.4rem; flex-direction:column; justify-content:center; gap:5px; cursor:pointer; }
+.nav-hamburger span{ display:block; width:22px; height:2px; background:var(--link-color); border-radius:2px; transition:transform .18s,opacity .18s; }
+.nav-hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2){ opacity:0; }
+.nav-hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+@media (max-width:860px){
+  .topnav .menu{ display:none; }
+  .nav-hamburger{ display:flex; }
+}
+
 
 /* Dropdown */
 .nav-dropdown{ position:relative; display:inline-block; }
@@ -152,7 +64,10 @@ body{
   background:none;border:0;color:var(--link-color);
   padding:.55rem 1rem;border-radius:6px;cursor:pointer;
   display:flex;align-items:center;gap:.35rem;text-transform:none;
+  font-size:0.9rem;font-weight:500;letter-spacing:0.3px;text-decoration:none;
+  transition:all 0.3s;
 }
+.nav-dropdown-trigger:hover, .nav-dropdown-trigger.active{ background:rgba(230,169,58,0.2); color:var(--gold); }
 .nav-dropdown-arrow{ font-size:.65rem; opacity:.75; transition:transform .25s; display:inline-block; }
 .nav-dropdown.open .nav-dropdown-arrow, .nav-dropdown:hover .nav-dropdown-arrow{ transform:rotate(180deg); }
 
