@@ -1,4 +1,4 @@
-/* Cleaned stylesheet — remove any HTML/JS from this file.
+/* Cleaned stylesheet - remove any HTML/JS from this file.
    Drop back your original extra rules below as needed. */
 
 :root{
@@ -19,12 +19,60 @@
 html{scroll-behavior:smooth}
 body,html{min-height:100vh;margin:0;padding:0;overflow-x:hidden}
 body{
-  background:linear-gradient(160deg,#183f36 0%,#285944 35%,#3a7a62 65%,#2b6a56 100%);
-  color:var(--text);
+  background:linear-gradient(160deg,#102a24 0%,#143a2f 35%,#1b4938 65%,#102c25 100%);
+  color:#f2f6f4;
   font-family:'Cormorant Garamond',Georgia,serif;
-  line-height:1.6;
+  line-height:1.75;
   -webkit-font-smoothing:antialiased;
 }
+
+html body{background:linear-gradient(160deg,#102a24 0%,#143a2f 35%,#1b4938 65%,#102c25 100%);background-attachment:fixed;color:#f2f6f4;}
+html body main p,html body main li{color:#f2f6f4;font-size:1.08rem;line-height:1.8;}
+html body .page-lead{color:#f2f6f4;font-size:1.25rem;line-height:1.7;}
+html body .intro-card p,html body .hook-text,html body .about-card p,html body .prose-card > p,html body .closing-card p,html body .ss-intro-card p,html body .prose-block p{color:#f2f6f4;font-size:1.2rem;line-height:1.85;}
+html body .spotlight-body,html body .nav-card p,html body .entry-card p,html body .film-ref-note,html body .matrix-table td,html body .omission-desc{color:#edf4f0;font-size:1.08rem;line-height:1.8;}
+html body .section-lead{color:#edf4f0;font-size:1.28rem;line-height:1.8;}
+html body .gloss-search{font-size:1rem;color:#f2f6f4;}
+html body .gloss-search::placeholder,html body .gloss-search-icon,html body .gloss-count{color:#c7d9d1;font-size:0.88rem;}
+html body .gloss-pill{font-size:0.86rem;color:#dce8e3;}
+html body .alpha-jump a,html body .gloss-sidebar a{font-size:0.82rem;color:#c9dad3;}
+html body .alpha-jump a.has-terms,html body .gloss-sidebar a.has-terms{color:#e0ebe6;}
+html body .term-category{font-size:0.72rem;}
+html body .term-source{font-size:0.82rem;color:#cfddd7;}
+html body .term-def{font-size:1.17rem;line-height:1.85;color:#f2f6f4;}
+html body .term-usage{font-size:1.08rem;line-height:1.8;color:#e0ebe6;}
+html body .term-usage strong{font-size:0.78rem;color:#a9f0d9;}
+html body .prose-eyebrow{font-size:0.8rem;opacity:1;}
+html body .omission-director{font-size:0.82rem;color:#d3e0da;}
+html body .omission-strategy{font-size:0.82rem;opacity:1;}
+html body .detail-label,html body .card-eyebrow{font-size:0.8rem;opacity:1;}
+html body .detail-value{font-size:1.12rem;color:#f0f5f2;}
+html body .rq-list li{font-size:1.16rem;color:#a9f0d9;}
+html body .film-card-meta{font-size:0.9rem;color:#e1ebe6;}
+html body .film-card-coverage{font-size:1rem;color:#f0f5f2;}
+html body .film-card-badge{font-size:0.8rem;}
+html body .filter-pill{font-size:0.86rem;color:#e0ebe6;}
+html body .mobile-nav-section-label{font-size:0.78rem;color:#c5d7cf;letter-spacing:0.2em;}
+html body .nav-card-num{font-size:0.82rem;color:#c9dad3;}
+html body .spotlight-quote{font-size:1.12rem;color:#e6efea;}
+html body .spotlight-year{font-size:0.86rem;color:#f0f5f2;}
+html body .intro-eyebrow,html body .spotlight-eyebrow,html body .entry-eyebrow,html body .hook-eyebrow{font-size:0.82rem;opacity:1;}
+html body .project-community-module .community-body{color:#f0f5f2;}
+html body .project-community-module .community-body p,html body .project-community-module .community-ar{font-size:1.1rem;}
+html body .ss-eyebrow{font-size:0.82rem;opacity:1;}
+html body .section-number{font-size:0.84rem;color:#cbdcd5;}
+html body .section-type-tag{font-size:0.82rem;}
+html body .category-tag{font-size:0.9rem;color:#e1ebe6;}
+html body .vocab-card h4{font-size:0.82rem;color:#d9e5df;}
+html body .vocab-def{font-size:0.9rem;line-height:1.7;color:#e0ebe6;}
+html body .film-ref-dir{font-size:0.84rem;color:#dce8e3;}
+html body .matrix-lead{font-size:1.15rem;color:#edf4f0;}
+html body .matrix-table th{font-size:0.82rem;color:#e0ebe6;}
+html body .opening-quote blockquote{color:#f2f6f4;}
+html body .gap-list li{font-size:1.16rem;color:#f2f6f4;line-height:1.8;}
+html body .page-eyebrow{font-size:0.82rem;opacity:1;}
+html body .nav-dropdown-item-desc{font-size:0.78rem;color:#d3e0da;}
+html body .no-results{font-size:1rem;color:#e1ebe6;}
 
 /* NAV */
 .topnav{
@@ -45,7 +93,7 @@ body{
 .topnav .menu a{ color:var(--link-color); font-size:0.9rem; font-weight:500; padding:0.55rem 1rem; border-radius:6px; transition:all 0.3s; font-family:'Oswald',sans-serif; letter-spacing:0.3px; text-decoration:none; }
 .topnav .menu a:hover, .topnav .menu a.active{ background:rgba(230,169,58,0.2); color:var(--gold); }
 
-/* Hamburger (mobile nav trigger) — shared across all pages so it renders consistently */
+/* Hamburger (mobile nav trigger) - shared across all pages so it renders consistently */
 .nav-hamburger{ display:none; background:none; border:none; padding:0.4rem; flex-direction:column; justify-content:center; gap:5px; cursor:pointer; }
 .nav-hamburger span{ display:block; width:22px; height:2px; background:var(--link-color); border-radius:2px; transition:transform .18s,opacity .18s; }
 .nav-hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }

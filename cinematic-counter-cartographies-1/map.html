@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Map — Cinematic Counter-Cartographies</title>
+  <title>Map - Cinematic Counter-Cartographies</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
@@ -357,16 +357,48 @@
     @media(max-width:480px){
       .topnav .brand{font-size:1rem;}
       .search-panel{width:calc(100vw - 80px);}
-      .search-inner input{font-size:0.75rem;}
-      .search-inner button{padding:0.38rem 0.65rem;font-size:0.65rem;}
+      .search-inner input{font-size:0.9rem;}
+      .search-inner button{padding:0.38rem 0.65rem;font-size:0.75rem;}
     }
+    .map-popup-meta{font-size:0.78rem;color:#dce8e3;}
+    .map-popup-arabic{font-size:0.95rem;opacity:1;}
+    .search-inner input{font-size:1rem;}
+    .search-inner input::placeholder{color:#b7cbc2;}
+    .search-inner button,.map-style-btn{font-size:0.78rem;}
+    .map-style-btn{color:#dce8e3;}
+    .map-legend .legend-title{font-size:0.82rem;letter-spacing:0.18em;color:#cbdcd5;}
+    .map-legend .legend-row{font-size:0.9rem;color:#f0f5f2;}
+    .cp-panel-heading{font-size:0.78rem;color:#dce8e3;}
+    .cp-panel-tab{font-size:0.76rem;color:#dce8e3;}
+    .cp-filter-tab{font-size:0.78rem;color:#dce8e3;}
+    .cp-chip{font-size:0.75rem;color:#e0ebe6;}
+    .filter-clear-btn{font-size:0.75rem;color:#f0aaa0;}
+    .timeline-label{font-size:0.78rem;color:#d5e2dc;}
+    .timeline-active-label{font-size:0.78rem;}
+    .timeline-mark{font-size:0.72rem;color:#bfd2c9;}
+    .cp-list-arabic{font-size:0.92rem;opacity:0.95;}
+    .cp-list-tag{font-size:0.75rem;color:#d7e5df;}
+    .cp-list-tag.type-entry{color:#f3c76c;}
+    .cp-list-tag.staff-permanent{color:#e6a39a;}
+    .cp-empty-state{font-size:0.9rem;color:#e2ece7;}
+    .film-list-year{font-size:0.78rem;opacity:1;}
+    .film-list-director{font-size:1rem;color:#e3ece8;}
+    .film-list-cp-count{font-size:0.65rem;color:#bce0d3;}
+    .cp-back-btn{font-size:0.78rem;color:#dce8e3;}
+    .cp-detail-row{font-size:1.05rem;color:#f1f6f3;}
+    .cp-detail-row-label{font-size:0.78rem;}
+    .cp-film-tag{font-size:0.72rem;color:#f2c867;}
+    .cp-add-btn{font-size:0.75rem;}
+    .form-hint{font-size:0.8rem;color:rgba(232,245,240,0.76);}
+    .form-input::placeholder,.form-textarea::placeholder{color:rgba(232,245,240,0.52);}
+    #timelineResetBtn{font-size:0.75rem!important;color:rgba(232,245,240,0.78)!important;}
   </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav class="topnav" aria-label="Main navigation">
-  <a href="index.html" class="brand" data-en="Cinematic Counter&#8209;Cartographies" data-ar="الخرائط اللي بتعاكس — سينمائياً">Cinematic Counter‑Cartographies</a>
+  <a href="index.html" class="brand" data-en="Cinematic Counter&#8209;Cartographies" data-ar="الخرائط اللي بتعاكس - سينمائياً">Cinematic Counter‑Cartographies</a>
   <div class="menu">
     <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
     <a href="map.html" class="active" data-en="Map" data-ar="الخريطة">Map</a>
@@ -410,7 +442,7 @@
     <h2 style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:0.04em;color:var(--teal);margin:0 0 0.7rem 0;flex:1;" data-en="About the Map" data-ar="شو هاي الخريطة">About the Map</h2>
     <button id="infoModuleClose" aria-label="Close" style="background:rgba(255,255,255,0.07);border:1px solid rgba(111,231,193,0.22);color:rgba(232,245,240,0.55);cursor:pointer;font-size:0.85rem;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.18s;padding:0;">✕</button>
   </div>
-  <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.72;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);" data-en="This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films." data-ar="هاي الخريطة التفاعلية بتوريك شبكة الحواجز الإسرائيلية وكيف اتمثّلت بالسينما الفلسطينية. كل علامة على الخريطة بترمز لحاجز حقيقي — مع تفاصيل عن موقعه وحالته وكيف طلع بالأفلام.">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.72;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);" data-en="This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films." data-ar="هاي الخريطة التفاعلية بتوريك شبكة الحواجز الإسرائيلية وكيف اتمثّلت بالسينما الفلسطينية. كل علامة على الخريطة بترمز لحاجز حقيقي - مع تفاصيل عن موقعه وحالته وكيف طلع بالأفلام.">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
   <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0 0 0.55rem;color:rgba(232,245,240,0.7);" data-en="Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the search bar above the map." data-ar="اضغط على أي علامة عشان تشوف التفاصيل والتحليل. استخدم لوحة الأرشيف لتتصفح وتفلتر كل الحواجز والأفلام. يمكنك أيضاً البحث بالاسم أو الموقع باستخدام شريط البحث فوق الخريطة.">Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the search bar above the map.</p>
   <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0;color:rgba(232,245,240,0.7);" data-en="Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation." data-ar="المكان مش محايد. بربط الجغرافيا بالسينما، هاد المشروع يبيّن كيف الفلسطينيين بيوثّقوا ويقاوموا ويعيدوا تخيّل واقعهم تحت الاحتلال.">Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation.</p>
 </div>
@@ -629,7 +661,7 @@
         <label class="form-label">Films Featured In</label>
         <ul class="form-film-list" id="cpFilmList">
           <li class="form-film-row">
-            <input class="form-input" placeholder="Film title — Director, Year">
+            <input class="form-input" placeholder="Film title - Director, Year">
             <button class="form-film-remove" onclick="removeFilmRow(this)">✕</button>
           </li>
         </ul>
@@ -694,7 +726,7 @@
         <div class="form-group">
           <label class="form-label">Genre</label>
           <select class="form-select" id="filmGenre">
-            <option value="">— Select —</option>
+            <option value="">- Select -</option>
             <option value="Narrative feature">Narrative feature</option>
             <option value="Documentary">Documentary</option>
             <option value="Short film">Short film</option>
@@ -840,7 +872,7 @@
       <div class="form-divider"></div>
       <div class="form-group">
         <label class="form-label">Contact (optional)</label>
-        <input class="form-input" id="sugContact" placeholder="Email or name — for follow-up only">
+        <input class="form-input" id="sugContact" placeholder="Email or name - for follow-up only">
         <span class="form-hint">Your contact info will only be seen by the project team.</span>
       </div>
       <div class="form-actions">
@@ -1072,7 +1104,13 @@ function buildFilmFilterChips() {
 
 function makeChip(label, value, onClick, isActive, parent) {
   const btn = document.createElement('button'); btn.className = 'cp-chip' + (isActive ? ' active' : '');
-  btn.textContent = label; btn.addEventListener('click', onClick); parent.appendChild(btn);
+  btn.setAttribute('data-filter-film', value);
+  btn.textContent = label;
+  btn.addEventListener('click', () => {
+    parent.querySelectorAll('.cp-chip').forEach(chip => chip.classList.toggle('active', chip === btn));
+    onClick();
+  });
+  parent.appendChild(btn);
 }
 
 function showToast(msg, type='info') { alert(msg); }
@@ -1124,6 +1162,7 @@ function applyFilters() {
   let filmCpIds = null;
   if (activeFilters.film !== 'all') { const f = films.find(x => x.id === activeFilters.film); filmCpIds = f ? (f.checkpointIds || []) : []; }
   const yMin = activeFilters.yearMin ?? timelineMin, yMax = activeFilters.yearMax ?? timelineMax;
+  const yearFilterActive = yMin > timelineMin || yMax < timelineMax;
   let yearCpIds = new Set();
   films.filter(f => f.year >= yMin && f.year <= yMax).forEach(f => (f.checkpointIds || []).forEach(id => yearCpIds.add(id)));
 
@@ -1134,7 +1173,7 @@ function applyFilters() {
     if (activeFilters.type !== 'all' && ft !== activeFilters.type) show = false;
     if (activeFilters.staff !== 'all' && fs !== activeFilters.staff) show = false;
     if (filmCpIds !== null && !filmCpIds.includes(id)) show = false;
-    if (yearCpIds.size && !yearCpIds.has(id)) show = false;
+    if (yearFilterActive && !yearCpIds.has(id)) show = false;
     item.classList.toggle('hidden', !show); if (show) anyVisible = true;
   });
   emptyState.style.display = anyVisible ? 'none' : 'block';
@@ -1143,7 +1182,8 @@ function applyFilters() {
 
 function updateCpFilterUI() {
   const hasType = activeFilters.type !== 'all', hasStaff = activeFilters.staff !== 'all', hasFilm = activeFilters.film !== 'all';
-  const anyActive = hasType || hasStaff || hasFilm;
+  const hasYear = timelineValMin > timelineMin || timelineValMax < timelineMax;
+  const anyActive = hasType || hasStaff || hasFilm || hasYear;
   document.getElementById('cpClearFiltersBtn')?.classList.toggle('hidden', !anyActive);
 }
 
@@ -1151,6 +1191,7 @@ window.clearCheckpointFilters = function () {
   activeFilters.type = 'all'; activeFilters.staff = 'all'; activeFilters.film = 'all';
   timelineValMin = timelineMin; timelineValMax = timelineMax; activeFilters.yearMin = timelineValMin; activeFilters.yearMax = timelineValMax;
   document.querySelectorAll('#filter-type .cp-chip, #filter-staffing .cp-chip').forEach(x => x.classList.toggle('active', x.getAttribute('data-filter-type') === 'all' || x.getAttribute('data-filter-staff') === 'all'));
+  document.querySelectorAll('#filter-film .cp-chip').forEach(chip => chip.classList.toggle('active', chip.getAttribute('data-filter-film') === 'all'));
   updateTimelineUI(); applyFilters();
 };
 
@@ -1311,20 +1352,31 @@ function openCheckpoint(id) {
 function openFilmDetail(id) {
   const f = films.find(film => film.id === id); if(!f) return;
   if (activePopup) { activePopup.remove(); activePopup = null; }
+  highlightFilmOnMap(f.checkpointIds || []);
   activeFilmId = id; openPanel(); switchPanelTab('films'); showFilmDetailView();
   const linkedCps = checkpoints.filter(c => (f.checkpointIds || []).includes(c.id));
   document.getElementById('filmDetailScroll').innerHTML = `
     <div class="film-detail-header"><span class="film-detail-eyebrow">${f.year}</span><h2 class="film-detail-title">${f.title}</h2>${f.director ? `<p class="film-detail-director">${f.director}</p>` : ''}</div>
-    <div class="cp-detail-row"><span class="cp-detail-row-label">Genre</span>${f.genre || '—'}</div>
-    <div class="cp-detail-row"><span class="cp-detail-row-label">Country</span>${f.country || '—'}</div>
+    <div class="cp-detail-row"><span class="cp-detail-row-label">Genre</span>${f.genre || '-'}</div>
+    <div class="cp-detail-row"><span class="cp-detail-row-label">Country</span>${f.country || '-'}</div>
     <div class="cp-detail-row"><span class="cp-detail-row-label">Synopsis</span>${f.notes}</div>
     ${linkedCps.length ? `<div class="cp-detail-films"><span class="cp-detail-row-label">Checkpoints</span>${linkedCps.map(c => `<span class="cp-film-tag" style="cursor:pointer" onclick="openCheckpoint('${c.id}')">${c.title}</span>`).join('')}</div>` : ''}
     ${isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editFilm('${f.id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteFilm('${f.id}')">Delete</button></div>` : ''}
   `;
 }
 
-function highlightFilmOnMap(ids) {}
-function resetMarkerHighlight() { document.querySelectorAll('.film-list-item, .cp-list-item').forEach(li => li.classList.remove('active')); }
+function highlightFilmOnMap(ids) {
+  const linkedIds = new Set(ids || []);
+  markerObjs.forEach(({ id, el }) => {
+    const linked = linkedIds.has(id);
+    el.style.opacity = linkedIds.size && !linked ? '0.28' : '1';
+    el.style.transform = linkedIds.size && linked ? 'scale(1.2)' : linkedIds.size ? 'scale(0.82)' : '';
+  });
+}
+function resetMarkerHighlight() {
+  document.querySelectorAll('.film-list-item, .cp-list-item').forEach(li => li.classList.remove('active'));
+  markerObjs.forEach(({ el }) => { el.style.opacity = ''; el.style.transform = ''; });
+}
 
 /* ══ MODAL FORM CONTROLS & UTILITIES ══ */
 function openModal(id) { document.getElementById(id).classList.add('open'); }
@@ -1417,28 +1469,37 @@ document.getElementById('saveSuggestionBtn').addEventListener('click', async () 
 function renderSubmissions() {
   const list = document.getElementById('submissionsList'), empty = document.getElementById('submissionsEmpty'); if (!list) return;
   const badge = document.getElementById('submissionBadge');
-  if (badge) { badge.textContent = submissions.length; badge.style.display = submissions.length ? 'inline-block' : 'none'; }
+  const pendingCount = submissions.filter(s => s.status !== 'approved').length;
+  if (badge) { badge.textContent = pendingCount; badge.style.display = pendingCount ? 'inline-block' : 'none'; }
   list.innerHTML = '';
   if (!submissions.length) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
   submissions.forEach(s => {
     const detail = s.type === 'checkpoint' ? s.detail : s.type === 'film' ? s.notes : s.story;
+    const approved = s.status === 'approved';
     const li = document.createElement('li'); li.className = 'sub-item';
     li.innerHTML = `
-      <div class="sub-item-type">${s.type}</div>
+      <div class="sub-item-type">${s.type}${approved ? ' - Approved' : ''}</div>
       <div class="sub-item-title">${s.title}</div>
       <div class="sub-item-meta">${new Date(s.createdAt).toLocaleDateString()}${s.contact ? ' · ' + s.contact : ''}</div>
       ${detail ? `<div class="sub-item-detail">${detail}</div>` : ''}
-      <div class="sub-item-actions">
+      ${approved ? '' : `<div class="sub-item-actions">
         <button class="sub-approve" onclick="approveSubmission('${s.id}')">Approve</button>
         <button class="sub-reject" onclick="rejectSubmission('${s.id}')">Reject</button>
-      </div>`;
+      </div>`}`;
     list.appendChild(li);
   });
 }
 
 window.approveSubmission = async function(id) {
   const s = submissions.find(x => x.id === id); if (!s) return;
+  if (s.type === 'experience') {
+    s.status = 'approved';
+    await saveSubmissions();
+    renderSubmissions();
+    showToast('Experience approved and retained in the private submissions archive.');
+    return;
+  }
   if (s.type === 'checkpoint') {
     const lat = parseFloat(s.lat), lng = parseFloat(s.lng);
     checkpoints.push({ id: 'cp_' + Date.now(), title: s.title, coords: [isNaN(lng) ? 35.2 : lng, isNaN(lat) ? 31.9 : lat], arabic: s.arabic || '', district: s.district || '', type: s.cpType === 'entry' ? 'Entry / Exit to Israel' : s.cpType === 'last' ? 'Last checkpoint before Israel' : 'Internal checkpoint', filterType: s.cpType || 'internal', staffing: '', filterStaff: 'permanent', detail: s.detail || '', analysis: '', films: [], seed: false });

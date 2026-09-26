@@ -25,4 +25,16 @@ document.addEventListener('DOMContentLoaded', function() {
             closeMobileNav();
         }
     });
+
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    if (scrollTopBtn) {
+        function updateScrollTopVisibility() {
+            scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+        }
+        window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
+        updateScrollTopVisibility();
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 });

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Visual Analysis — Cinematic Counter-Cartographies</title>
+  <title>Visual Analysis - Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mobile.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -43,18 +43,19 @@
     html[lang="ar"] .page-title { font-family:'Amiri',serif; }
     .page-title em { color:var(--gold);font-style:italic; }
     .gold-rule { width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.5rem auto; }
-    .page-lead { font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:rgba(232,245,240,0.70);max-width:600px;margin:0 auto; }
+    .page-lead { font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:rgba(232,245,240,0.70);max-width:760px;margin:0 auto; }
     html[lang="ar"] .page-lead { font-family:'Amiri',serif;font-size:1.25rem; }
     /* FILTER BAR */
-    .filter-bar { display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;max-width:900px;margin:0 auto 3rem;padding:0 2rem;position:relative;z-index:1; }
+    .filter-bar { display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;max-width:1060px;margin:0 auto 3rem;padding:0 2rem;position:relative;z-index:1; }
     .filter-pill { font-family:'Oswald',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:0.5rem 1.2rem;border-radius:30px;border:1px solid rgba(111,231,193,0.25);color:rgba(232,245,240,0.55);background:transparent;cursor:pointer;transition:all 0.25s; }
     html[lang="ar"] .filter-pill { font-family:'Amiri',serif;letter-spacing:0;text-transform:none;font-size:1rem; }
     .filter-pill:hover,.filter-pill.active { border-color:var(--gold);color:var(--gold);background:rgba(230,169,58,0.08); }
     /* FILM GRID */
-    .film-grid-outer { max-width:1200px;margin:0 auto 5rem;padding:0 2rem;position:relative;z-index:auto; }
+    .film-grid-outer { max-width:1360px;margin:0 auto 5rem;padding:0 2rem;position:relative;z-index:auto; }
     .film-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem; }
     @media(max-width:1000px) { .film-grid{grid-template-columns:repeat(2,1fr);} }
     .film-card { background:rgba(255,255,255,0.03);border:1px solid rgba(111,231,193,0.1);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:all 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .film-card.hidden { display:none; }
     .film-card:hover { transform:translateY(-6px);border-color:rgba(230,169,58,0.35);box-shadow:0 12px 40px rgba(0,0,0,0.35);background:rgba(255,255,255,0.05); }
     .film-card-img { width:100%;height:200px;object-fit:contain;object-position:center;background:rgba(0,0,0,0.3);display:block; }
     .film-card-body { padding:1.5rem;display:flex;flex-direction:column;flex:1; }
@@ -68,7 +69,7 @@
     html[lang="ar"] .film-card-btn { font-family:'Amiri',serif;letter-spacing:0;text-transform:none;font-size:1rem; }
     .film-card-btn:hover { background:rgba(230,169,58,0.12);border-color:var(--gold);color:var(--gold); }
     /* CAROUSEL */
-    .carousel-responsive { max-width:700px;margin:0 auto 1.2rem; }
+    .carousel-responsive { max-width:800px;margin:0 auto 1.2rem; }
     .carousel-responsive .carousel-item { width:100%;max-height:400px;min-height:220px;object-fit:contain;background:#000;display:none;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,0.25); }
     .carousel-responsive .carousel-item.active { display:block; }
     .carousel-responsive .carousel-controls { text-align:center;margin-top:0.5rem; }
@@ -158,20 +159,20 @@
       <div class="gold-rule"></div>
       <p class="page-lead" data-t="page-lead">Visual and spatial readings of key films, mapped through checkpoints and other sites of cinematic refusal.</p>
 
-      <p class="clip-note" data-t="clip-note" style="font-family:'IBM Plex Mono',monospace;font-size:0.86rem;color:rgba(232,245,240,0.62);max-width:760px;margin:1rem auto 0;">
+      <p class="clip-note" data-t="clip-note" style="font-family:'IBM Plex Mono',monospace;font-size:1rem;color:#e5efea;max-width:760px;margin:1rem auto 0;line-height:1.7;">
         Note: Clips embedded in each film card are short excerpts included for visual analysis and illustration. These are provided for educational/research purposes only and not as full‑length films. Use the player controls to pause, seek, or stop playback.
       </p>
     </section>
 
-    <nav aria-label="Breadcrumb" style="max-width:960px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;">
-      <ol style="list-style:none;display:flex;gap:0.5em;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:rgba(232,245,240,0.4);padding:0;margin:0;align-items:center;">
+    <nav aria-label="Breadcrumb" style="max-width:1120px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;">
+      <ol style="list-style:none;display:flex;gap:0.5em;font-family:'IBM Plex Mono',monospace;font-size:0.9rem;color:#dce8e3;padding:0;margin:0;align-items:center;">
         <li><a href="index.html" style="color:var(--teal);text-decoration:none;" data-t="nav-home">Home</a></li>
         <li style="margin:0 0.3em;opacity:0.4;">/</li>
         <li aria-current="page" style="color:rgba(232,245,240,0.75);" data-t="nav-analysis">Visual Analysis</li>
       </ol>
     </nav>
 
-    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,245,240,0.25);margin:0 0 0.5rem;position:relative;z-index:1;" data-t="filter-hint">Single click to filter · Double click any pill to reset</p>
+    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.84rem;letter-spacing:0.12em;text-transform:uppercase;color:#c9dad3;margin:0 0 0.5rem;position:relative;z-index:1;" data-t="filter-hint">Single click to filter · Double click any pill to reset</p>
     <nav class="filter-bar" aria-label="Filter films">
       <button class="filter-pill active" data-director="all" data-t="filter-all">All Films</button>
       <button class="filter-pill" data-director="Annemarie Jacir">Annemarie Jacir</button>
@@ -208,7 +209,7 @@
             <h3 class="film-card-title" data-t="film1-title">Salt of This Sea</h3>
             <p class="film-card-meta">2008</p>
             <p class="film-card-coverage" data-t="film1-cov">Coverage: 2 of 4 checkpoints</p>
-            <button class="film-card-btn" data-popup-title-en="Salt of This Sea — Analysis" data-popup-title-ar="ملح هذا البحر — تحليل" data-popup-en="<p><strong>Salt of This Sea / Annemarie Jacir / 2008</strong></p><p><em>Checkpoint Coverage: 2 of 4</em></p><p>Annemarie Jacir's <em>Salt of This Sea</em> broadens the checkpoint film frame by extending into the entire West Bank landscape. The film revolves around Soraya, a Palestinian-American, and Emad, whose movement is restricted by his West Bank ID — making the mobility hierarchy immediately visible.</p><p>Jacir films the West Bank as both beautiful and militarized without resolving that tension. The camera moves across hills, olive groves, and settlement roads in a way that refuses the military map's flattening of Palestinian geography. The mobility asymmetry between Soraya's American passport and Emad's West Bank ID becomes the film's central spatial argument.</p><p><em>Checkpoints: Qalandiya, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>ملح هذا البحر / أنيماري جاسر / ٢٠٠٨</strong></p><p><em>تغطية الحواجز: ٢ من ٤</em></p><p>فيلم جاسر يوسّع إطار أفلام الحواجز إلى المشهد الكامل للضفة الغربية. يدور حول سوريا، فلسطينية أمريكية، وعماد الذي تقيّده بطاقته الهوية من الحركة — ما يُظهِر التسلسل الهرمي للتنقل بشكل مباشر.</p><p>تصوّر جاسر الضفة الغربية جميلةً ومُعسكَرةً في آنٍ واحد دون حل هذا التوتر. التناقض في حرية التنقل بين جواز سفر سوريا الأمريكي وهوية عماد يصبح الحجة المكانية المحورية للفيلم.</p>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="Salt of This Sea - Analysis" data-popup-title-ar="ملح هذا البحر - تحليل" data-popup-en="<p><strong>Salt of This Sea / Annemarie Jacir / 2008</strong></p><p><em>Checkpoint Coverage: 2 of 4</em></p><p>Annemarie Jacir's <em>Salt of This Sea</em> broadens the checkpoint film frame by extending into the entire West Bank landscape. The film revolves around Soraya, a Palestinian-American, and Emad, whose movement is restricted by his West Bank ID - making the mobility hierarchy immediately visible.</p><p>Jacir films the West Bank as both beautiful and militarized without resolving that tension. The camera moves across hills, olive groves, and settlement roads in a way that refuses the military map's flattening of Palestinian geography. The mobility asymmetry between Soraya's American passport and Emad's West Bank ID becomes the film's central spatial argument.</p><p><em>Checkpoints: Qalandiya, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>ملح هذا البحر / أنيماري جاسر / ٢٠٠٨</strong></p><p><em>تغطية الحواجز: ٢ من ٤</em></p><p>فيلم جاسر يوسّع إطار أفلام الحواجز إلى المشهد الكامل للضفة الغربية. يدور حول سوريا، فلسطينية أمريكية، وعماد الذي تقيّده بطاقته الهوية من الحركة - ما يُظهِر التسلسل الهرمي للتنقل بشكل مباشر.</p><p>تصوّر جاسر الضفة الغربية جميلةً ومُعسكَرةً في آنٍ واحد دون حل هذا التوتر. التناقض في حرية التنقل بين جواز سفر سوريا الأمريكي وهوية عماد يصبح الحجة المكانية المحورية للفيلم.</p>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -229,7 +230,7 @@
             <h3 class="film-card-title" data-t="film2-title">The Present</h3>
             <p class="film-card-meta">2020</p>
             <p class="film-card-coverage" data-t="film2-cov">Coverage: 3 of 4 checkpoints</p>
-            <button class="film-card-btn" data-popup-title-en="The Present — Analysis" data-popup-title-ar="الهدية — تحليل" data-popup-en="<p><strong>The Present / Farah Nabulsi / 2020</strong></p><p><em>Checkpoint Coverage: 3 of 4</em></p><p>Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day: a father and daughter attempting to cross Checkpoint 300 to buy an anniversary gift. The film opens with Yusef sleeping on cardboard to secure his place in line — an image that captures carceral time before a word of dialogue has been spoken.</p><p>Nabulsi's visual composition draws on the politics of verticality. Overhead shots render the crowd of waiting men as a managed mass. Low-angle shots follow boys scaling the bars to cut the line — small acts of spatial refusal the camera treats with quiet attention.</p><p><em>Checkpoints: Qalandiya, Huwwara, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>الهدية / فرح نابلسي / ٢٠٢٠</strong></p><p><em>تغطية الحواجز: ٣ من ٤</em></p><p>يضغط فيلم نابلسي المنطق المكاني للاحتلال في يوم واحد: أب وابنته يحاولان عبور حاجز ٣٠٠ لشراء هدية ذكرى زواج. يفتح الفيلم على يوسف نائماً على كرتون ليحجز مكانه في الطابور — صورة تلتقط الزمن السجني قبل أي حوار.</p><p>تقطات من الأعلى تصوّر حشد الرجال المنتظرين كحشد مُدار. زوايا منخفضة ترصد صبيةً يتسلقون الأسوار لتخطي الطابور — أفعال مقاومة مكانية صغيرة ترصدها الكاميرا باهتمام صامت.</p>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="The Present - Analysis" data-popup-title-ar="الهدية - تحليل" data-popup-en="<p><strong>The Present / Farah Nabulsi / 2020</strong></p><p><em>Checkpoint Coverage: 3 of 4</em></p><p>Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day: a father and daughter attempting to cross Checkpoint 300 to buy an anniversary gift. The film opens with Yusef sleeping on cardboard to secure his place in line - an image that captures carceral time before a word of dialogue has been spoken.</p><p>Nabulsi's visual composition draws on the politics of verticality. Overhead shots render the crowd of waiting men as a managed mass. Low-angle shots follow boys scaling the bars to cut the line - small acts of spatial refusal the camera treats with quiet attention.</p><p><em>Checkpoints: Qalandiya, Huwwara, Rachel/Bethlehem</em></p>" data-popup-ar="<p><strong>الهدية / فرح نابلسي / ٢٠٢٠</strong></p><p><em>تغطية الحواجز: ٣ من ٤</em></p><p>يضغط فيلم نابلسي المنطق المكاني للاحتلال في يوم واحد: أب وابنته يحاولان عبور حاجز ٣٠٠ لشراء هدية ذكرى زواج. يفتح الفيلم على يوسف نائماً على كرتون ليحجز مكانه في الطابور - صورة تلتقط الزمن السجني قبل أي حوار.</p><p>تقطات من الأعلى تصوّر حشد الرجال المنتظرين كحشد مُدار. زوايا منخفضة ترصد صبيةً يتسلقون الأسوار لتخطي الطابور - أفعال مقاومة مكانية صغيرة ترصدها الكاميرا باهتمام صامت.</p>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -250,7 +251,7 @@
             <h3 class="film-card-title" data-t="film3-title">When I Saw You</h3>
             <p class="film-card-meta">2012</p>
             <p class="film-card-coverage" data-t="film3-cov">Coverage: 1 of 4 checkpoints</p>
-            <button class="film-card-btn" data-popup-title-en="When I Saw You — Analysis" data-popup-title-ar="لما شفتك — تحليل" data-popup-en="<p><strong>When I Saw You / Annemarie Jacir / 2012</strong></p><p><em>Checkpoint Coverage: 1 of 4</em></p><p><em>When I Saw You</em> is set in a Jordanian refugee camp in 1967 and treats Palestine as something across a border — imagined, longed for. Jacir refuses to frame the camp as temporary. It is a lived world with its own social fabric and forms of knowledge.</p><p>Jacir ends without resolution. We do not see whether Tarek crosses. The camera stays with uncertainty. That unresolved ending enacts the film's argument about sumud: endurance is not the same as arrival.</p>" data-popup-ar="<p><strong>لما شفتك / أنيماري جاسر / ٢٠١٢</strong></p><p><em>تغطية الحواجز: ١ من ٤</em></p><p>الفيلم مُضمَّن في مخيم لاجئين أردني عام ١٩٦٧، ويعامل فلسطين كشيء عبر الحدود — مُتخيَّل ومشتاق إليه. جاسر ترفض تصوير المخيم كمؤقت. إنه عالم مُعاش بنسيجه الاجتماعي الخاص.</p><p>تنتهي جاسر دون حل. لا نرى هل عبر طارق أم لا. الكاميرا تبقى مع الغموض — النهاية المعلّقة تُجسّد حجة الفيلم حول الصمود: التحمّل ليس الوصول.</p>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="When I Saw You - Analysis" data-popup-title-ar="لما شفتك - تحليل" data-popup-en="<p><strong>When I Saw You / Annemarie Jacir / 2012</strong></p><p><em>Checkpoint Coverage: 1 of 4</em></p><p><em>When I Saw You</em> is set in a Jordanian refugee camp in 1967 and treats Palestine as something across a border - imagined, longed for. Jacir refuses to frame the camp as temporary. It is a lived world with its own social fabric and forms of knowledge.</p><p>Jacir ends without resolution. We do not see whether Tarek crosses. The camera stays with uncertainty. That unresolved ending enacts the film's argument about sumud: endurance is not the same as arrival.</p>" data-popup-ar="<p><strong>لما شفتك / أنيماري جاسر / ٢٠١٢</strong></p><p><em>تغطية الحواجز: ١ من ٤</em></p><p>الفيلم مُضمَّن في مخيم لاجئين أردني عام ١٩٦٧، ويعامل فلسطين كشيء عبر الحدود - مُتخيَّل ومشتاق إليه. جاسر ترفض تصوير المخيم كمؤقت. إنه عالم مُعاش بنسيجه الاجتماعي الخاص.</p><p>تنتهي جاسر دون حل. لا نرى هل عبر طارق أم لا. الكاميرا تبقى مع الغموض - النهاية المعلّقة تُجسّد حجة الفيلم حول الصمود: التحمّل ليس الوصول.</p>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -273,7 +274,7 @@
             <h3 class="film-card-title" data-t="film4-title">3000 Nights</h3>
             <p class="film-card-meta">2015</p>
             <p class="film-card-coverage" data-t="film4-cov">Coverage: Prison, checkpoints</p>
-            <button class="film-card-btn" data-popup-title-en="3000 Nights — Analysis" data-popup-title-ar="٣٠٠٠ ليلة — تحليل" data-popup-en="<p><strong>3000 Nights / Mai Masri / 2015</strong></p><p>Set entirely within an Israeli prison, the film shows how imprisonment lands differently on Palestinian women. Her confinement targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p><p>Masri refuses wide shots in the birth scene, locking the camera inside Layla's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands. The absence of music is a deliberate formal refusal to aestheticize the moment.</p><p>Layla's refusal to stop asking to hold her baby is the film's clearest image of sumud: persistent and embodied, refusing the state's full claim on her body.</p>" data-popup-ar="<p><strong>٣٠٠٠ ليلة / مي مصري / ٢٠١٥</strong></p><p>مُضمَّن كاملاً داخل سجن إسرائيلي، يُظهِر الفيلم كيف يقع السجن بشكل مختلف على المرأة الفلسطينية. حبسها يستهدف حملها وجسدها ورغباتها الأمومية كأدوات ضغط نفسي.</p><p>ترفض مصري اللقطات الواسعة في مشهد الولادة، تحبس الكاميرا داخل تجربة ليلى الجسدية: تنفسها، أصوات الأغلال، لقطات مقربة ليدين مكبّلتين. غياب الموسيقى رفض شكلي متعمّد لتجميل اللحظة.</p>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="3000 Nights - Analysis" data-popup-title-ar="٣٠٠٠ ليلة - تحليل" data-popup-en="<p><strong>3000 Nights / Mai Masri / 2015</strong></p><p>Set entirely within an Israeli prison, the film shows how imprisonment lands differently on Palestinian women. Her confinement targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p><p>Masri refuses wide shots in the birth scene, locking the camera inside Layla's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands. The absence of music is a deliberate formal refusal to aestheticize the moment.</p><p>Layla's refusal to stop asking to hold her baby is the film's clearest image of sumud: persistent and embodied, refusing the state's full claim on her body.</p>" data-popup-ar="<p><strong>٣٠٠٠ ليلة / مي مصري / ٢٠١٥</strong></p><p>مُضمَّن كاملاً داخل سجن إسرائيلي، يُظهِر الفيلم كيف يقع السجن بشكل مختلف على المرأة الفلسطينية. حبسها يستهدف حملها وجسدها ورغباتها الأمومية كأدوات ضغط نفسي.</p><p>ترفض مصري اللقطات الواسعة في مشهد الولادة، تحبس الكاميرا داخل تجربة ليلى الجسدية: تنفسها، أصوات الأغلال، لقطات مقربة ليدين مكبّلتين. غياب الموسيقى رفض شكلي متعمّد لتجميل اللحظة.</p>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -288,7 +289,7 @@
             <h3 class="film-card-title" data-t="film5-title">The Teacher</h3>
             <p class="film-card-meta">2023</p>
             <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="The Teacher — Analysis" data-popup-title-ar="المعلم — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="The Teacher - Analysis" data-popup-title-ar="المعلم - تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -303,7 +304,7 @@
             <h3 class="film-card-title" data-t="film6-title">Wajib</h3>
             <p class="film-card-meta">2017</p>
             <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="Wajib — Analysis" data-popup-title-ar="واجب — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="Wajib - Analysis" data-popup-title-ar="واجب - تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -318,7 +319,7 @@
             <h3 class="film-card-title" data-t="film7-title">May in the Summer</h3>
             <p class="film-card-meta">2013</p>
             <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="May in the Summer — Analysis" data-popup-title-ar="مي في الصيف — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="May in the Summer - Analysis" data-popup-title-ar="مي في الصيف - تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -333,7 +334,7 @@
             <h3 class="film-card-title" data-t="film8-title">All That's Left of You</h3>
             <p class="film-card-meta">2025</p>
             <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="All That's Left of You — Analysis" data-popup-title-ar="كل ما تبقى منك — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="All That's Left of You - Analysis" data-popup-title-ar="كل ما تبقى منك - تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -348,7 +349,7 @@
             <h3 class="film-card-title" data-t="film9-title">Pomegranates and Myrrh</h3>
             <p class="film-card-meta">2008</p>
             <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
-            <button class="film-card-btn" data-popup-title-en="Pomegranates and Myrrh — Analysis" data-popup-title-ar="الرمان والمر — تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="Pomegranates and Myrrh - Analysis" data-popup-title-ar="الرمان والمر - تحليل" data-popup-en="<div class='coming-soon'>&#10087; &nbsp; Analysis coming soon</div>" data-popup-ar="<div class='coming-soon'>&#10087; &nbsp; التحليل قادم قريباً</div>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -416,6 +417,46 @@
       carousel.querySelector('.carousel-next')?.addEventListener('click', () => show(index + 1));
       dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
     });
+
+    const filmCards = Array.from(document.querySelectorAll('.film-card'));
+    const filterPills = Array.from(document.querySelectorAll('.filter-pill'));
+    const primaryDirectors = ['annemarie jacir', 'mai masri', 'farah nablusi'];
+    function applyDirectorFilter(value) {
+      filterPills.forEach(pill => {
+        const active = pill.getAttribute('data-director') === value;
+        pill.classList.toggle('active', active);
+        pill.setAttribute('aria-pressed', String(active));
+      });
+      filmCards.forEach(card => {
+        const director = card.querySelector('.film-card-badge')?.textContent.trim().toLowerCase() || '';
+        const visible = value === 'all' || (value === 'other' ? !primaryDirectors.includes(director) : director === value.toLowerCase());
+        card.classList.toggle('hidden', !visible);
+      });
+    }
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => applyDirectorFilter(pill.getAttribute('data-director') || 'all'));
+      pill.addEventListener('dblclick', () => applyDirectorFilter('all'));
+    });
+
+    const modal = document.getElementById('filmModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    function closeFilmModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.film-card-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const lang = document.documentElement.lang === 'ar' ? 'ar' : 'en';
+        modalTitle.textContent = button.getAttribute(`data-popup-title-${lang}`) || button.getAttribute('data-popup-title-en') || button.textContent.trim();
+        modalBody.innerHTML = button.getAttribute(`data-popup-${lang}`) || button.getAttribute('data-popup-en') || '';
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    modal.querySelector('.close').addEventListener('click', closeFilmModal);
+    modal.addEventListener('click', event => { if (event.target === modal) closeFilmModal(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeFilmModal(); });
   </script>
 </body>
 </html>

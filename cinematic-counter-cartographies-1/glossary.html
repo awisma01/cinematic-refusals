@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Glossary — Cinematic Counter-Cartographies</title>
+  <title>Glossary - Cinematic Counter-Cartographies</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mobile.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -115,7 +115,7 @@
       padding: 1rem 2rem;
     }
     .gloss-controls-inner {
-      max-width: 960px; margin: 0 auto;
+      max-width: 1120px; margin: 0 auto;
       display: flex; flex-direction: column; gap: 0.8rem;
     }
     .gloss-search-row { display: flex; align-items: center; gap: 0.75rem; }
@@ -159,7 +159,7 @@
 
     /* ── ALPHABET JUMP ── */
     .alpha-jump {
-      max-width: 960px; margin: 1.5rem auto 0;
+      max-width: 1120px; margin: 1.5rem auto 0;
       padding: 0 2rem;
       display: flex; flex-wrap: wrap; gap: 0.25rem;
       position: relative; z-index: 1;
@@ -175,13 +175,13 @@
 
     /* ── GLOSSARY LAYOUT ── */
     .glossary-outer {
-      max-width: 960px; margin: 0 auto 6rem;
+      max-width: 1120px; margin: 0 auto 6rem;
       padding: 2rem 2rem 0;
       position: relative; z-index: 1;
       display: flex; gap: 2.5rem; align-items: flex-start;
     }
 
-    /* ── SIDE COLUMN — letter nav ── */
+    /* ── SIDE COLUMN - letter nav ── */
     .gloss-sidebar {
       width: 36px; flex-shrink: 0;
       position: sticky; top: 160px;
@@ -632,7 +632,7 @@
               <span class="term-category political">Political</span>
               <span class="term-source">Archival ethics</span>
             </div>
-            <p class="term-def">Practices of caring for, preserving, and protecting audiovisual material—decisions about distribution, storage, and access made by those who hold the footage.</p>
+            <p class="term-def">Practices of caring for, preserving, and protecting audiovisual material-decisions about distribution, storage, and access made by those who hold the footage.</p>
             <p class="term-usage"><strong>In the archive</strong> Journalists' choices to withhold or stagger uploads are acts of media custody aimed at protecting people and evidence.</p>
           </div>
 
@@ -785,7 +785,7 @@
       <a href="index.html">Home</a>
       <a href="map.html">Map</a>
       <span class="mobile-nav-section-label">Archive</span>
-      <a href="checkpoints.html" class="archive-item">Checkpoints</a>
+      <a href="map.html" class="archive-item">Checkpoints</a>
       <a href="analysis.html" class="archive-item">Visual Analysis</a>
       <a href="surveillance-space.html" class="archive-item">Surveillance Space</a>
       <a href="not-mapped.html" class="archive-item">What's Not Mapped</a>
@@ -794,6 +794,7 @@
     </nav>
   </div>
 
-  <!-- Only keep glossary-specific JS here, then: -->
-  <script>
-    window.PAGE_T = window._T;
+  <script src="js/glossary.js"></script>
+  <script src="js/shared.js"></script>
+</body>
+</html>
