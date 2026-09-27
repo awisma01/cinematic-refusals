@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   CINEMATIC COUNTER-CARTOGRAPHIES — SHARED JS  v2
+   CINEMATIC COUNTER-CARTOGRAPHIES - SHARED JS  v2
    Include as the LAST <script src> at end of <body>.
    applyLang() is global so onclick= attrs work immediately.
    Language toggle is injected into the nav automatically.
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
       'border-radius:7px','overflow:hidden',
       'flex-shrink:0','margin-left:0.4rem'
     ].join(';');
-    /* Buttons — onclick calls the global applyLang */
+    /* Buttons - onclick calls the global applyLang */
     wrap.innerHTML =
       '<button id="btnEN" onclick="applyLang(\'en\')" ' +
         'style="font-family:Oswald,sans-serif;font-size:0.72rem;letter-spacing:0.08em;' +

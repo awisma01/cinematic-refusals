@@ -78,7 +78,7 @@ missing.forEach(item => {
       <span class="term-category uncategorized">Uncategorized</span>
       <span class="term-source">Auto-detected</span>
     </div>
-    <p class="term-def">(definition needed — auto‑added from site occurrences)</p>
+    <p class="term-def">(definition needed - auto‑added from site occurrences)</p>
     <p class="term-usage"><strong>Found on</strong> ${item.pages.map(p=>`<a href="${p}">${p}</a>`).join(', ')}</p>
   </div>\n`;
 });

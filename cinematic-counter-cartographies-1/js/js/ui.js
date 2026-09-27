@@ -236,7 +236,7 @@ a.nav-link[href="not-mapped.html"] {
   margin-top: auto !important;
 }
 <button class="btn secondary mt-auto"
-        data-popup-title="Salt of This Sea — Analysis"
+        data-popup-title="Salt of This Sea - Analysis"
         data-popup="<img src='assets/images/salt.jpg' style='width:100%;border-radius:8px;margin-bottom:.5rem'><p><strong>Checkpoints covered:</strong> Qalandiya, Bethlehem.<br><strong>Analysis:</strong> The film documents the experience of crossing these checkpoints, highlighting their impact on daily life and movement.</p>">
   View Analysis
 </button>

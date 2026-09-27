@@ -1,106 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" id="htmlRoot">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mobile Navigation — Cinematic Counter-Cartographies</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/mobile.css">
-</head>
-<body>
-  <!-- mobile nav overlay (paste this into pages or include server-side) -->
-  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
-    <div class="mobile-nav-header">
-      <a href="index.html" class="mobile-nav-brand">Cinematic Counter‑Cartographies</a>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
-    </div>
-    <nav class="mobile-nav-links" aria-label="Mobile navigation">
-      <a href="index.html" data-t="nav-home">Home</a>
-      <a href="map.html" data-t="nav-map">Map</a>
-      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
-      <a href="analysis.html" class="archive-item" data-t="nav-analysis">Visual Analysis</a>
-      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
-      <a href="not-mapped.html" class="archive-item" data-t="nav-notmapped">What's Not Mapped</a>
-      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
-      <a href="about.html" data-t="nav-about">About</a>
-    </nav>
-  </div>
-
-  <script src="js/shared.js"></script>
-  <script>
-    // runtime helper: inject a unified topnav markup and wire dropdown + mobile overlay
-    (function unifyTopNav() {
-      function navTemplate() {
-        return `
-          <a href="index.html" class="brand" data-t="brand">Cinematic Counter‑Cartographies</a>
-          <div class="menu" role="navigation">
-            <a href="index.html" data-t="nav-home">Home</a>
-            <a href="map.html" data-t="nav-map">Map</a>
-            <div class="nav-dropdown" role="none">
-              <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" data-t="nav-archive">Archive <span class="nav-dropdown-arrow">▾</span></button>
-              <div class="nav-dropdown-menu" role="menu" aria-label="Archive menu">
-                <a href="analysis.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-analysis">Visual Analysis</span><span class="nav-dropdown-item-desc" data-t="nav-analysis-desc">Film-by-film formal and spatial readings</span></a>
-                <a href="surveillance-space.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-surveillance">Surveillance Space</span><span class="nav-dropdown-item-desc" data-t="nav-surveillance-desc">Five typologies of occupation beyond the checkpoint</span></a>
-                <a href="not-mapped.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-notmapped">What's Not Mapped</span><span class="nav-dropdown-item-desc" data-t="nav-notmapped-desc">Omission, gaps, and the politics of refusal</span></a>
-                <a href="glossary.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-item-title" data-t="nav-glossary">Glossary</span><span class="nav-dropdown-item-desc" data-t="nav-glossary-desc">Key terms and theoretical concepts</span></a>
-              </div>
-            </div>
-            <a href="about.html" data-t="nav-about">About</a>
-          </div>
-          <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-        `;
-      }
-
-      document.addEventListener('DOMContentLoaded', function () {
-        const nav = document.querySelector('.topnav');
-        if (!nav) return;
-        nav.innerHTML = navTemplate();
-
-        // mark active link based on filename
-        const path = (window.location.pathname.split('/').pop() || 'index.html');
-        nav.querySelectorAll('.menu a').forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === path);
-        });
-
-        // dropdown behaviour
-        const trigger = nav.querySelector('.nav-dropdown-trigger');
-        const dropdown = nav.querySelector('.nav-dropdown');
-        if (trigger && dropdown) {
-          trigger.addEventListener('click', e => {
-            e.stopPropagation();
-            const isOpen = dropdown.classList.toggle('open');
-            trigger.setAttribute('aria-expanded', String(isOpen));
-          });
-          document.addEventListener('click', () => { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); });
-          document.addEventListener('keydown', e => { if (e.key === 'Escape') { dropdown.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); } });
-        }
-
-        // mobile overlay — uses existing #mobileNav and #mobileNavClose if present
-        const mobileBtn = nav.querySelector('#navHamburger');
-        const mobileOverlay = document.getElementById('mobileNav');
-        const mobileClose = document.getElementById('mobileNavClose');
-        if (mobileBtn && mobileOverlay) {
-          function openNav()  { mobileOverlay.classList.add('open'); mobileBtn.classList.add('open'); mobileBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-          function closeNav() { mobileOverlay.classList.remove('open'); mobileBtn.classList.remove('open'); mobileBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-          mobileBtn.addEventListener('click', () => mobileOverlay.classList.contains('open') ? closeNav() : openNav());
-          if (mobileClose) mobileClose.addEventListener('click', closeNav);
-          mobileOverlay.addEventListener('click', e => { if (e.target === mobileOverlay) closeNav(); });
-          document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
-          mobileOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
-        }
-
-        // re-run translations if applyLang exists
-        if (typeof applyLang === 'function') {
-          const lang = localStorage.getItem('ccc-lang') || 'en';
-          applyLang(lang);
-        }
-      });
-    })();
-  </script>
-</body>
-</html>
-
-/* Cleaned stylesheet — remove any HTML/JS from this file.
+/* Cleaned stylesheet - remove any HTML/JS from this file.
    Drop back your original extra rules below as needed. */
 
 :root{
@@ -114,6 +12,16 @@
   --text:#d3e8df;
   --link-color:#dff7ee;
   --filter-bg:rgba(40,131,102,0.06);
+  --black:#000000;
+  --red:#ce1126;
+  --green:#007a3d;
+  --white:#ffffff;
+}
+
+/* ── KEFFIYEH STRIPE ── */
+.keffiyeh-stripe{
+  height:8px;
+  background:repeating-linear-gradient(90deg,var(--black) 0,var(--black) 20px,var(--red) 20px,var(--red) 40px,var(--green) 40px,var(--green) 60px,var(--white) 60px,var(--white) 80px);
 }
 
 /* Reset / base */
@@ -121,12 +29,61 @@
 html{scroll-behavior:smooth}
 body,html{min-height:100vh;margin:0;padding:0;overflow-x:hidden}
 body{
-  background:linear-gradient(160deg,#183f36 0%,#285944 35%,#3a7a62 65%,#2b6a56 100%);
-  color:var(--text);
+  background:linear-gradient(160deg,#102a24 0%,#143a2f 35%,#1b4938 65%,#102c25 100%);
+  color:#f2f6f4;
   font-family:'Cormorant Garamond',Georgia,serif;
-  line-height:1.6;
+  line-height:1.75;
   -webkit-font-smoothing:antialiased;
 }
+
+html body{background:linear-gradient(160deg,#102a24 0%,#143a2f 35%,#1b4938 65%,#102c25 100%);background-attachment:fixed;color:#f2f6f4;}
+html body main p,html body main li{color:#f2f6f4;font-size:1.08rem;line-height:1.8;}
+html body .page-lead{color:#f2f6f4;font-size:1.25rem;line-height:1.7;}
+html body .intro-card p,html body .hook-text,html body .about-card p,html body .prose-card > p,html body .closing-card p,html body .ss-intro-card p,html body .prose-block p{color:#f2f6f4;font-size:1.2rem;line-height:1.85;}
+html body .spotlight-body,html body .nav-card p,html body .entry-card p,html body .film-ref-note,html body .matrix-table td,html body .omission-desc{color:#edf4f0;font-size:1.08rem;line-height:1.8;}
+html body .section-lead{color:#edf4f0;font-size:1.28rem;line-height:1.8;}
+html body .gloss-search{font-size:1rem;color:#f2f6f4;}
+html body .gloss-search::placeholder,html body .gloss-search-icon,html body .gloss-count{color:#c7d9d1;font-size:0.88rem;}
+html body .gloss-pill{font-size:0.86rem;color:#dce8e3;}
+html body .alpha-jump a,html body .gloss-sidebar a{font-size:0.82rem;color:#c9dad3;}
+html body .alpha-jump a.has-terms,html body .gloss-sidebar a.has-terms{color:#e0ebe6;}
+html body .term-category{font-size:0.72rem;}
+html body .term-source{font-size:0.82rem;color:#cfddd7;}
+html body .term-def{font-size:1.17rem;line-height:1.85;color:#f2f6f4;}
+html body .term-usage{font-size:1.08rem;line-height:1.8;color:#e0ebe6;}
+html body .term-usage strong{font-size:0.78rem;color:#a9f0d9;}
+html body .prose-eyebrow{font-size:0.8rem;opacity:1;}
+html body .omission-director{font-size:0.82rem;color:#d3e0da;}
+html body .omission-strategy{font-size:0.82rem;opacity:1;}
+html body .detail-label,html body .card-eyebrow{font-size:0.8rem;opacity:1;}
+html body .detail-value{font-size:1.12rem;color:#f0f5f2;}
+html body .rq-list li{font-size:1.16rem;color:#a9f0d9;}
+html body .film-card-meta{font-size:0.9rem;color:#e1ebe6;}
+html body .film-card-coverage{font-size:1rem;color:#f0f5f2;}
+html body .film-card-badge{font-size:0.8rem;}
+html body .filter-pill{font-size:0.86rem;color:#e0ebe6;}
+html body .mobile-nav-section-label{font-size:0.78rem;color:#c5d7cf;letter-spacing:0.2em;}
+html body .nav-card-num{font-size:0.82rem;color:#c9dad3;}
+html body .spotlight-quote{font-size:1.12rem;color:#e6efea;}
+html body .spotlight-year{font-size:0.86rem;color:#f0f5f2;}
+html body .intro-eyebrow,html body .spotlight-eyebrow,html body .entry-eyebrow,html body .hook-eyebrow{font-size:0.82rem;opacity:1;}
+html body .project-community-module .community-body{color:#f0f5f2;}
+html body .project-community-module .community-body p,html body .project-community-module .community-ar{font-size:1.1rem;}
+html body .ss-eyebrow{font-size:0.82rem;opacity:1;}
+html body .section-number{font-size:0.84rem;color:#cbdcd5;}
+html body .section-type-tag{font-size:0.82rem;}
+html body .category-tag{font-size:0.9rem;color:#e1ebe6;}
+html body .vocab-card h4{font-size:0.82rem;color:#d9e5df;}
+html body .vocab-def{font-size:0.9rem;line-height:1.7;color:#e0ebe6;}
+html body .film-ref-dir{font-size:0.84rem;color:#dce8e3;}
+html body .matrix-lead{font-size:1.15rem;color:#edf4f0;}
+html body .matrix-table th{font-size:0.82rem;color:#e0ebe6;}
+html body .opening-quote blockquote{color:#f2f6f4;}
+html body .gap-list li{font-size:1.16rem;color:#f2f6f4;line-height:1.8;}
+html body .page-eyebrow{font-size:0.82rem;opacity:1;}
+html body .nav-dropdown-item-desc{font-size:0.78rem;color:#d3e0da;}
+html body .no-results{font-size:1rem;color:#e1ebe6;}
+html body .topnav .menu a,html body .topnav .nav-dropdown-trigger{font-size:1rem!important;padding:0.65rem 1rem!important;}
 
 /* NAV */
 .topnav{
@@ -144,6 +101,20 @@ body{
 }
 .topnav .brand{ font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;color:var(--gold);text-decoration:none; }
 .topnav .menu{ display:flex; gap:0.5rem; align-items:center; }
+.topnav .menu a{ color:var(--link-color); font-size:0.9rem; font-weight:500; padding:0.55rem 1rem; border-radius:6px; transition:all 0.3s; font-family:'Oswald',sans-serif; letter-spacing:0.3px; text-decoration:none; }
+.topnav .menu a:hover, .topnav .menu a.active{ background:rgba(230,169,58,0.2); color:var(--gold); }
+
+/* Hamburger (mobile nav trigger) - shared across all pages so it renders consistently */
+.nav-hamburger{ display:none; background:none; border:none; padding:0.4rem; flex-direction:column; justify-content:center; gap:5px; cursor:pointer; }
+.nav-hamburger span{ display:block; width:22px; height:2px; background:var(--link-color); border-radius:2px; transition:transform .18s,opacity .18s; }
+.nav-hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2){ opacity:0; }
+.nav-hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+@media (max-width:960px){
+  .topnav .menu{ display:none; }
+  .nav-hamburger{ display:flex; }
+}
+
 
 /* Dropdown */
 .nav-dropdown{ position:relative; display:inline-block; }
@@ -152,7 +123,10 @@ body{
   background:none;border:0;color:var(--link-color);
   padding:.55rem 1rem;border-radius:6px;cursor:pointer;
   display:flex;align-items:center;gap:.35rem;text-transform:none;
+  font-size:0.9rem;font-weight:500;letter-spacing:0.3px;text-decoration:none;
+  transition:all 0.3s;
 }
+.nav-dropdown-trigger:hover, .nav-dropdown-trigger.active{ background:rgba(230,169,58,0.2); color:var(--gold); }
 .nav-dropdown-arrow{ font-size:.65rem; opacity:.75; transition:transform .25s; display:inline-block; }
 .nav-dropdown.open .nav-dropdown-arrow, .nav-dropdown:hover .nav-dropdown-arrow{ transform:rotate(180deg); }
 
