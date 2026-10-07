@@ -108,6 +108,18 @@ document.addEventListener('DOMContentLoaded', function() {
     else           navEl.appendChild(wrap);
   }
 
+  /* Single translate button shown on mobile (see mobile.css) */
+  if (!document.getElementById('translateBtn')) {
+    var tb = document.createElement('button');
+    tb.id = 'translateBtn';
+    tb.className = 'translate-btn';
+    tb.textContent = '\u0639\u0631\u0628\u064a / EN';
+    tb.addEventListener('click', function() {
+      applyLang(document.documentElement.lang === 'ar' ? 'en' : 'ar');
+    });
+    document.body.appendChild(tb);
+  }
+
   /* Remove any old standalone #langToggle divs left over from old pages */
   var old = document.getElementById('langToggle');
   if (old) old.remove();
@@ -164,6 +176,9 @@ document.addEventListener('DOMContentLoaded', function() {
     mobileNav.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeMobileNav); });
   }
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMobileNav(); });
+  document.addEventListener('click', function(e) {
+    if (mobileNav && mobileNav.classList.contains('open') && !mobileNav.contains(e.target) && !(hamburger && hamburger.contains(e.target))) closeMobileNav();
+  });
 
   /* ── SCROLL TOP ───────────────────────────────────────────── */
   var scrollBtn = document.getElementById('scrollTopBtn');
