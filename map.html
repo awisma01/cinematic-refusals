@@ -98,7 +98,7 @@
     .legend-row:last-child{margin-bottom:0;}
     .legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
     .legend-dot.curated{background:#4ec87a;border:2px solid #267a48;}
-    .legend-dot.placeholder{background:#f0d020;border:2px solid #a09010;}
+    .legend-dot.placeholder{background:#9b59d6;border:2px solid #fff;}
     .legend-dot.community{background:#f07830;border:2px solid #a04818;}
     .legend-dot.film{background:#6fe7c1;border:2px solid #fff;box-shadow:0 0 0 2px rgba(111,231,193,0.35);}
     .legend-dot.pending{background:rgba(240,120,48,0.5);border:2px solid rgba(240,208,32,0.7);outline:2px dashed rgba(240,208,32,0.4);outline-offset:1px;}
@@ -480,9 +480,9 @@
 
 <!-- MAP STYLE TOGGLE -->
 <div class="map-style-toggle">
-  <button class="map-style-btn active" data-style="dark">Dark</button>
+  <button class="map-style-btn active" data-style="streets">Streets</button>
   <button class="map-style-btn" data-style="satellite">Satellite</button>
-  <button class="map-style-btn" data-style="streets">Streets</button>
+  <button class="map-style-btn" data-style="dark">Dark</button>
 </div>
 
 <!-- LEGEND -->
@@ -936,7 +936,7 @@ let activeFilmFilters = { genre: 'all', checkpoint: 'all', year: 'all' };
 
 // Baseline seed data arrays
 let checkpoints = [
-  { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Divine Intervention", "200 Meters", "Salt of This Sea", "The Present"], images: ["assets/images/Qalandiya1.jpg", "assets/images/Qalandiya2.jpg", "assets/images/Qalandiya3.jpg", "assets/images/Qalandiya4.jpg"], seed: true },
+  { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Salt of This Sea", "The Present"], images: ["assets/images/Qalandiya1.jpg", "assets/images/Qalandiya2.jpg", "assets/images/Qalandiya3.jpg", "assets/images/Qalandiya4.jpg"], seed: true },
   { id: 'cp_2', coords: [35.2345, 32.1234], title: "Huwwara Checkpoint", arabic: "حاجز حوارة", district: "Nablus", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Southern entry to Nablus", analysis: "Represented as a bottleneck space impeding educational mobility.", films: ["Salt of this Sea", "The Present"], images: ["assets/images/hucheck.jpg"], seed: true },
   { id: 'cp_3', coords: [35.2033, 31.7046], title: "Rachel Crossing (Checkpoint 300)", arabic: "معبر راحيل (حاجز ٣٠٠)", district: "Bethlehem", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing between Bethlehem and Jerusalem", analysis: "Central site in The Present and Salt of This Sea; associated with anticipatory punishment and carceral time.", films: ["Salt of This Sea", "The Present"], images: ["assets/images/Bethlehem1.jpeg", "assets/images/Bethlehem2.jpeg", "assets/images/Bethlehem3.jpg", "assets/images/Bethlehem4.jpeg", "assets/images/Bethlehem5.jpeg", "assets/images/Bethlehem6.jpeg", "assets/images/Bethlehem7.jpg"], seed: true },
   { id: 'cp_4', coords: [35.1975, 31.6768], title: "Container Checkpoint", arabic: "حاجز الكونتينر", district: "Bethlehem–Hebron road (Wadi Nar)", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Junction checkpoint linking Bethlehem and Hebron districts", analysis: "Present in the geographic archive without direct film cross-references; marks a gap between mapped space and cinematic representation.", films: [], images: [], seed: true },
@@ -960,8 +960,6 @@ let checkpoints = [
 ];
 
 let films = [
-  { id: 'film_1', title: "Divine Intervention", director: "Elia Suleiman", year: 2002, country: "Palestine", genre: "Narrative feature", notes: "A satirical look at life under occupation.", checkpointIds: ["cp_1"], seed: true },
-  { id: 'film_2', title: "200 Meters", director: "Ameen Nayfeh", year: 2020, country: "Palestine", genre: "Narrative feature", notes: "A father struggles to cross a checkpoint located meters away.", checkpointIds: ["cp_1"], seed: true },
   { id: 'film_3', title: "Salt of This Sea", director: "Annemarie Jacir", year: 2008, country: "Palestine", genre: "Narrative feature", notes: "Explores structural and spatial return barriers across Qalandiya and Rachel/Bethlehem.", checkpointIds: ["cp_1", "cp_3"], seed: true },
   { id: 'film_4', title: "The Present", director: "Farah Nabulsi", year: 2020, country: "Palestine", genre: "Narrative feature", notes: "A father and daughter attempt to cross Checkpoint 300 to buy an anniversary gift.", checkpointIds: ["cp_1", "cp_2", "cp_3"], seed: true },
   { id: 'film_5', title: "When I Saw You", director: "Annemarie Jacir", year: 2012, country: "Palestine", genre: "Narrative feature", notes: "Set in a Jordanian refugee camp in 1967; treats Palestine as something across a border.", checkpointIds: [], seed: true },
@@ -971,8 +969,6 @@ let films = [
   { id: 'film_9', title: "May in the Summer", director: "Cherien Dabis", year: 2013, country: "Palestine / Jordan", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
   { id: 'film_10', title: "All That's Left of You", director: "Cherien Dabis", year: 2025, country: "Palestine", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
   { id: 'film_11', title: "Pomegranates and Myrrh", director: "Najwa Najjar", year: 2008, country: "Palestine", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
-  { id: 'film_12', title: "Checkpoint", director: "Yoav Shamir", year: 2003, country: "Israel", genre: "Documentary", notes: "Occupies the surveillance position, illuminating how the camera itself can reproduce architectural power.", checkpointIds: [], seed: true },
-  { id: 'film_13', title: "The Wanted 18", director: "Amer Shomali & Paul Cowan", year: 2014, country: "Palestine / Canada", genre: "Documentary", notes: "Referenced in the archive's digital surveillance typology.", checkpointIds: [], seed: true },
   { id: 'film_14', title: "Farha", director: "Darin J. Sallam", year: 2021, country: "Jordan / Palestine", genre: "Narrative feature", notes: "Referenced in the archive's intimate surveillance typology.", checkpointIds: [], seed: true },
   { id: 'film_15', title: "Children of Shatila", director: "Mai Masri", year: 1998, country: "Lebanon / Palestine", genre: "Documentary", notes: "Referenced in the archive's intimate surveillance typology.", checkpointIds: [], seed: true }
 ];
@@ -1006,7 +1002,7 @@ mapboxgl.accessToken = PROVIDED_MAPBOX_TOKEN;
 // Initialize layout positioning container metrics
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/dark-v11',
+  style: 'mapbox://styles/mapbox/streets-v12',
   center: [35.2, 31.9],
   zoom: 9,
   trackResize: true
@@ -1330,7 +1326,7 @@ document.querySelectorAll('.map-style-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.map-style-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
     const st = btn.getAttribute('data-style');
-    map.setStyle(st === 'satellite' ? 'mapbox://styles/mapbox/satellite-v9' : st === 'streets' ? 'mapbox://styles/mapbox/streets-v12' : 'mapbox://styles/mapbox/dark-v11');
+    map.setStyle(st === 'satellite' ? 'mapbox://styles/mapbox/satellite-streets-v12' : st === 'streets' ? 'mapbox://styles/mapbox/streets-v12' : 'mapbox://styles/mapbox/dark-v11');
   });
 });
 
@@ -1343,15 +1339,24 @@ function resetMapView() {
 
 let activePopup = null;
 function addMarker(cp) {
-  const el = document.createElement('div');
   const inFilm = films.some(f => (f.checkpointIds || []).includes(cp.id));
-  el.style.cssText = inFilm
-    ? 'width:28px;height:28px;background:#6fe7c1;border:3px solid #fff;border-radius:50%;cursor:pointer;box-shadow:0 0 0 3px rgba(111,231,193,0.35);'
-    : 'width:24px;height:24px;background:#f0d020;border:2px solid #a09010;border-radius:50%;cursor:pointer;';
+  const size = inFilm ? 28 : 24;
+  const el = document.createElement('div');
+  el.style.cssText = `width:${size}px;height:${size}px;cursor:pointer;`;
+  const inner = document.createElement('div');
+  inner.style.cssText = 'position:absolute;inset:0;';
+  const dot = document.createElement('div');
+  dot.style.cssText = inFilm
+    ? 'width:100%;height:100%;background:#6fe7c1;border:3px solid #fff;border-radius:50%;box-shadow:0 0 0 3px rgba(111,231,193,0.35);'
+    : 'width:100%;height:100%;background:#9b59d6;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 2px rgba(155,89,214,0.35);';
+  const label = document.createElement('span');
+  label.textContent = cp.title;
+  label.style.cssText = 'display:none;position:absolute;left:calc(100% + 6px);top:50%;transform:translateY(-50%);white-space:nowrap;background:rgba(10,35,33,0.92);color:#eaf7f2;border:1px solid rgba(111,231,193,0.25);border-radius:6px;padding:0.15rem 0.5rem;font-family:Oswald,sans-serif;font-size:0.72rem;letter-spacing:0.06em;box-shadow:0 2px 8px rgba(0,0,0,0.35);';
+  inner.appendChild(dot); inner.appendChild(label); el.appendChild(inner);
   el.addEventListener('click', (e) => { e.stopPropagation(); openCheckpoint(cp.id); });
   el.addEventListener('dblclick', (e) => { e.stopPropagation(); e.preventDefault(); resetMapView(); });
   const m = new mapboxgl.Marker({ element: el }).setLngLat(cp.coords).addTo(map);
-  markerObjs.push({ id: cp.id, marker: m, el: el });
+  markerObjs.push({ id: cp.id, marker: m, el: inner, label });
 }
 function rebuildMarkers() { markerObjs.forEach(m => m.marker.remove()); markerObjs = []; checkpoints.forEach(addMarker); }
 
@@ -1360,6 +1365,7 @@ function openCheckpoint(id) {
   const cp = checkpoints.find(c => c.id === id); if(!cp) return;
   if (activePopup) { activePopup.remove(); activePopup = null; }
   activeCpId = id; openPanel(); switchPanelTab('checkpoints'); showDetailView();
+  markerObjs.forEach(({ id: mid, label }) => { if (label) label.style.display = mid === id ? 'block' : 'none'; });
   const lat = cp.coords[1].toFixed(4), lng = cp.coords[0].toFixed(4);
   const linkedFilms = films.filter(f => (f.checkpointIds || []).includes(cp.id));
   const imgs = cp.images || [];
@@ -1376,7 +1382,7 @@ function openCheckpoint(id) {
     ${linkedFilms.length ? `<div class="cp-detail-films"><span class="cp-detail-row-label">Films</span>${linkedFilms.map(f => `<span class="cp-film-tag" style="cursor:pointer" onclick="openFilmDetail('${f.id}')">${f.title}</span>`).join('')}</div>` : ''}
     ${isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editCheckpoint('${cp.id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteCheckpoint('${cp.id}')">Delete</button></div>` : ''}
   `;
-  map.flyTo({ center: cp.coords, zoom: 14, essential: true });
+  map.flyTo({ center: cp.coords, zoom: 17, essential: true });
 }
 
 window.stepCpPhoto = function(delta) {
@@ -1414,7 +1420,7 @@ function highlightFilmOnMap(ids) {
 }
 function resetMarkerHighlight() {
   document.querySelectorAll('.film-list-item, .cp-list-item').forEach(li => li.classList.remove('active'));
-  markerObjs.forEach(({ el }) => { el.style.opacity = ''; el.style.transform = ''; });
+  markerObjs.forEach(({ el, label }) => { el.style.opacity = ''; el.style.transform = ''; if (label) label.style.display = 'none'; });
 }
 
 /* ══ MODAL FORM CONTROLS & UTILITIES ══ */
