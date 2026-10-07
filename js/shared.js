@@ -76,6 +76,25 @@ window.applyLang = function(lang) {
 /* ── DOM READY ─────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function() {
 
+  /* Build the map-style drawer + backdrop from the page's existing #mobileNav links */
+  var srcLinks = document.querySelector('#mobileNav .mobile-nav-links');
+  if (srcLinks && !document.getElementById('mobileNavDrawer')) {
+    var backdrop = document.createElement('div');
+    backdrop.id = 'mobileNavBackdrop';
+    backdrop.className = 'mobile-nav-backdrop';
+    var drawer = document.createElement('nav');
+    drawer.id = 'mobileNavDrawer';
+    drawer.className = 'mobile-nav-drawer';
+    drawer.setAttribute('aria-label', 'Mobile navigation');
+    drawer.innerHTML = srcLinks.innerHTML;
+    drawer.querySelectorAll('.archive-item').forEach(function(a) {
+      a.classList.remove('archive-item');
+      a.classList.add('mobile-nav-sub');
+    });
+    document.body.appendChild(backdrop);
+    document.body.appendChild(drawer);
+  }
+
   /* ----------------------------------------------------------
      Inject the EN/ع toggle INTO the nav bar, right before the
      hamburger button. Works on every page automatically.
@@ -153,23 +172,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* ── MOBILE NAV ───────────────────────────────────────────── */
   var hamburger  = document.getElementById('navHamburger');
-  var mobileNav  = document.getElementById('mobileNav');
+  var mobileNav  = document.getElementById('mobileNavDrawer') || document.getElementById('mobileNav');
+  var navBackdrop = document.getElementById('mobileNavBackdrop');
   var mobileClose= document.getElementById('mobileNavClose');
 
   function openMobileNav() {
     if (!mobileNav) return;
     mobileNav.classList.add('open');
+    if (navBackdrop) navBackdrop.classList.add('open');
     if (hamburger) { hamburger.classList.add('open'); hamburger.setAttribute('aria-expanded','true'); }
     document.body.style.overflow = 'hidden';
   }
   function closeMobileNav() {
     if (!mobileNav) return;
     mobileNav.classList.remove('open');
+    if (navBackdrop) navBackdrop.classList.remove('open');
     if (hamburger) { hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded','false'); }
     document.body.style.overflow = '';
   }
 
-  if (hamburger)   hamburger.addEventListener('click', openMobileNav);
+  if (hamburger)   hamburger.addEventListener('click', function() { if (mobileNav && mobileNav.classList.contains('open')) closeMobileNav(); else openMobileNav(); });
   if (mobileClose) mobileClose.addEventListener('click', closeMobileNav);
   if (mobileNav) {
     mobileNav.addEventListener('click', function(e) { if (e.target === mobileNav) closeMobileNav(); });
