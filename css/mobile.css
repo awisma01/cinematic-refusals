@@ -79,3 +79,14 @@
   padding: 1rem 1.5rem 0.4rem;
   display: block;
 }
+.mobile-nav-links a { text-decoration: none; display: block; }
+.mobile-nav-links a.archive-item { padding-left: 2.4rem; font-size: 0.95rem; color: rgba(232, 245, 240, 0.65); }
+.mobile-nav-links a.archive-item.active { color: var(--gold); }
+.mobile-nav-close { flex-shrink: 0; padding: 0; line-height: 1; }
+
+@media (max-width: 960px) {
+  .topnav { padding: 0.8rem 1rem !important; gap: 0.5rem; }
+  .topnav .brand { font-size: 1rem; min-width: 0; flex: 1; }
+  .topnav .brand a { display: block; }
+  .nav-hamburger { flex-shrink: 0; margin-left: 0.4rem; }
+}
