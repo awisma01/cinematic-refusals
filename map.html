@@ -448,9 +448,18 @@
     <h2 style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:0.04em;color:var(--teal);margin:0 0 0.7rem 0;flex:1;" data-en="About the Map" data-ar="شو هاي الخريطة">About the Map</h2>
     <button id="infoModuleClose" aria-label="Close" style="background:rgba(255,255,255,0.07);border:1px solid rgba(111,231,193,0.22);color:rgba(232,245,240,0.55);cursor:pointer;font-size:0.85rem;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.18s;padding:0;">✕</button>
   </div>
-  <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.72;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);" data-en="This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films." data-ar="هاي الخريطة التفاعلية بتوريك شبكة الحواجز الإسرائيلية وكيف اتمثّلت بالسينما الفلسطينية. كل علامة على الخريطة بترمز لحاجز حقيقي - مع تفاصيل عن موقعه وحالته وكيف طلع بالأفلام.">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
-  <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0 0 0.55rem;color:rgba(232,245,240,0.7);" data-en="Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the search bar above the map." data-ar="اضغط على أي علامة عشان تشوف التفاصيل والتحليل. استخدم لوحة الأرشيف لتتصفح وتفلتر كل الحواجز والأفلام. يمكنك أيضاً البحث بالاسم أو الموقع باستخدام شريط البحث فوق الخريطة.">Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the search bar above the map.</p>
-  <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0;color:rgba(232,245,240,0.7);" data-en="Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation." data-ar="المكان مش محايد. بربط الجغرافيا بالسينما، هاد المشروع يبيّن كيف الفلسطينيين بيوثّقوا ويقاوموا ويعيدوا تخيّل واقعهم تحت الاحتلال.">Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation.</p>
+  <div class="info-scroll" style="max-height:min(60vh,520px);overflow-y:auto;padding-right:0.3rem;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);"><strong style="color:var(--teal);font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:0.04em;">Explore.</strong> Click any marker to view details and analysis. Use the Archive panel to browse and filter checkpoints and films, or search by name or location using the search bar above the map.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);"><strong style="color:var(--teal);font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:0.04em;">Why it matters.</strong> Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);"><strong style="color:var(--teal);font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:0.04em;">Contribute to the Archive.</strong> This archive is incomplete by design, and it grows through community knowledge. If you know of a checkpoint, a film, or a scene that belongs here, select <strong>+ Suggest</strong> on the map to share it. You can submit:</p>
+    <ul style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);padding-left:1.2rem;margin:0 0 0.65rem;">
+      <li><strong>A checkpoint:</strong> its name (in English and Arabic, if you can), location, type, and staffing or status as you know it.</li>
+      <li><strong>A film or scene:</strong> the title, filmmaker, year, and the checkpoint it depicts or evokes, with a brief note on how the space appears on screen.</li>
+      <li><strong>A correction:</strong> an inaccurate detail, a missing place name, or a better spelling.</li>
+    </ul>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);margin:0;">Every submission is reviewed before it appears on the map. Please include sources or lived context where possible, and avoid sharing personal information or details that could put anyone at risk. Original Palestinian place names are especially welcome.</p>
+  </div>
 </div>
 
 <!-- INFO MODULE RE-OPEN BUTTON -->
@@ -488,7 +497,6 @@
 <!-- LEGEND -->
 <div class="map-legend">
   <p class="legend-title">Marker Key</p>
-  <div class="legend-row"><span class="legend-dot curated"></span>Curated</div>
   <div class="legend-row"><span class="legend-dot placeholder"></span>Real checkpoint</div>
   <div class="legend-row"><span class="legend-dot film"></span>Featured in a film</div>
   <div class="legend-row"><span class="legend-dot community"></span>Community</div>
@@ -1659,8 +1667,10 @@ function setAdminUI() {
 
 /* ══ SEARCH & TEXT AUTOCOMPLETE ══ */
 const searchInput = document.getElementById('searchInput'), resultsList = document.getElementById('searchResults');
+let searchSeq = 0, placesTimer = null;
 function runSearch() {
-  const q = searchInput.value.toLowerCase().trim(); resultsList.innerHTML = '';
+  const raw = searchInput.value.trim(), q = raw.toLowerCase(); resultsList.innerHTML = '';
+  const seq = ++searchSeq; clearTimeout(placesTimer);
   if(!q) { resultsList.style.display = 'none'; return; }
   const cpMatches = checkpoints.filter(c => c.title.toLowerCase().includes(q));
   const filmMatches = films.filter(f => f.title.toLowerCase().includes(q));
@@ -1677,6 +1687,32 @@ function runSearch() {
     resultsList.appendChild(li);
   });
   resultsList.style.display = (cpMatches.length + filmMatches.length) ? 'block' : 'none';
+  if (q.length >= 2) placesTimer = setTimeout(() => loadPlaces(raw, seq), 250);
+}
+
+async function loadPlaces(query, seq) {
+  try {
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}&limit=5&language=en&bbox=34.0,29.3,36.0,33.6&proximity=35.2,31.9`;
+    const res = await fetch(url); if (!res.ok) return;
+    const data = await res.json();
+    if (seq !== searchSeq || !data.features || !data.features.length) return;
+    const head = document.createElement('li'); head.className = 'divider'; head.textContent = 'Places';
+    resultsList.appendChild(head);
+    data.features.forEach(ft => {
+      const li = document.createElement('li'); li.className = 'place-result';
+      const dot = document.createElement('span'); dot.className = 'result-dot';
+      const name = document.createElement('span'); name.textContent = ft.place_name;
+      li.appendChild(dot); li.appendChild(name);
+      li.addEventListener('click', () => {
+        resultsList.style.display = 'none'; searchInput.value = ft.text || ft.place_name;
+        if (activePopup) { activePopup.remove(); activePopup = null; }
+        if (ft.bbox) map.fitBounds([[ft.bbox[0], ft.bbox[1]], [ft.bbox[2], ft.bbox[3]]], { padding: 60, maxZoom: 15, essential: true });
+        else map.flyTo({ center: ft.center, zoom: 14, essential: true });
+      });
+      resultsList.appendChild(li);
+    });
+    resultsList.style.display = 'block';
+  } catch (e) { /* network or quota errors just skip place results */ }
 }
 searchInput.addEventListener('input', runSearch);
 document.getElementById('searchBtn').addEventListener('click', runSearch);
