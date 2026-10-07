@@ -100,6 +100,7 @@
     .legend-dot.curated{background:#4ec87a;border:2px solid #267a48;}
     .legend-dot.placeholder{background:#f0d020;border:2px solid #a09010;}
     .legend-dot.community{background:#f07830;border:2px solid #a04818;}
+    .legend-dot.film{background:#6fe7c1;border:2px solid #fff;box-shadow:0 0 0 2px rgba(111,231,193,0.35);}
     .legend-dot.pending{background:rgba(240,120,48,0.5);border:2px solid rgba(240,208,32,0.7);outline:2px dashed rgba(240,208,32,0.4);outline-offset:1px;}
     .legend-dot.search-result{background:rgba(111,231,193,0.4);border:2px solid rgba(255,255,255,0.25);}
 
@@ -488,7 +489,8 @@
 <div class="map-legend">
   <p class="legend-title">Marker Key</p>
   <div class="legend-row"><span class="legend-dot curated"></span>Curated</div>
-  <div class="legend-row"><span class="legend-dot placeholder"></span>Placeholder</div>
+  <div class="legend-row"><span class="legend-dot placeholder"></span>Real checkpoint</div>
+  <div class="legend-row"><span class="legend-dot film"></span>Featured in a film</div>
   <div class="legend-row"><span class="legend-dot community"></span>Community</div>
   <div class="legend-row"><span class="legend-dot pending"></span>Pending</div>
 </div>
@@ -934,10 +936,27 @@ let activeFilmFilters = { genre: 'all', checkpoint: 'all', year: 'all' };
 
 // Baseline seed data arrays
 let checkpoints = [
-  { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Divine Intervention", "200 Meters", "Salt of This Sea", "The Present"], images: [], seed: true },
-  { id: 'cp_2', coords: [35.2345, 32.1234], title: "Huwwara Checkpoint", arabic: "حاجز حوارة", district: "Nablus", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Southern entry to Nablus", analysis: "Represented as a bottleneck space impeding educational mobility.", films: ["Salt of this Sea", "The Present"], images: [], seed: true },
-  { id: 'cp_3', coords: [35.2033, 31.7046], title: "Rachel Crossing (Checkpoint 300)", arabic: "معبر راحيل (حاجز ٣٠٠)", district: "Bethlehem", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing between Bethlehem and Jerusalem", analysis: "Central site in The Present and Salt of This Sea; associated with anticipatory punishment and carceral time.", films: ["Salt of This Sea", "The Present"], images: [], seed: true },
-  { id: 'cp_4', coords: [35.1975, 31.6768], title: "Container Checkpoint", arabic: "حاجز الكونتينر", district: "Bethlehem–Hebron road (Wadi Nar)", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Junction checkpoint linking Bethlehem and Hebron districts", analysis: "Present in the geographic archive without direct film cross-references; marks a gap between mapped space and cinematic representation.", films: [], images: [], seed: true }
+  { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Divine Intervention", "200 Meters", "Salt of This Sea", "The Present"], images: ["assets/images/Qalandiya1.jpg", "assets/images/Qalandiya2.jpg", "assets/images/Qalandiya3.jpg", "assets/images/Qalandiya4.jpg"], seed: true },
+  { id: 'cp_2', coords: [35.2345, 32.1234], title: "Huwwara Checkpoint", arabic: "حاجز حوارة", district: "Nablus", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Southern entry to Nablus", analysis: "Represented as a bottleneck space impeding educational mobility.", films: ["Salt of this Sea", "The Present"], images: ["assets/images/hucheck.jpg"], seed: true },
+  { id: 'cp_3', coords: [35.2033, 31.7046], title: "Rachel Crossing (Checkpoint 300)", arabic: "معبر راحيل (حاجز ٣٠٠)", district: "Bethlehem", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing between Bethlehem and Jerusalem", analysis: "Central site in The Present and Salt of This Sea; associated with anticipatory punishment and carceral time.", films: ["Salt of This Sea", "The Present"], images: ["assets/images/Bethlehem1.jpeg", "assets/images/Bethlehem2.jpeg", "assets/images/Bethlehem3.jpg", "assets/images/Bethlehem4.jpeg", "assets/images/Bethlehem5.jpeg", "assets/images/Bethlehem6.jpeg", "assets/images/Bethlehem7.jpg"], seed: true },
+  { id: 'cp_4', coords: [35.1975, 31.6768], title: "Container Checkpoint", arabic: "حاجز الكونتينر", district: "Bethlehem–Hebron road (Wadi Nar)", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Junction checkpoint linking Bethlehem and Hebron districts", analysis: "Present in the geographic archive without direct film cross-references; marks a gap between mapped space and cinematic representation.", films: [], images: [], seed: true },
+  { id: 'cp_5', coords: [35.5428, 31.8784], title: "Allenby Bridge", arabic: "جسر اللنبي", district: "Jericho", type: "Border Crossing", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Border crossing between the West Bank and Jordan.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_6', coords: [34.2820, 31.2290], title: "Kerem Shalom", arabic: "معبر كرم أبو سالم", district: "Rafah", type: "Border Crossing", filterType: "entry", staffing: "Permanently staffed / goods", filterStaff: "permanent", detail: "The main goods crossing between Israel and the Gaza Strip. Israel currently operates two additional crossings: Zikim Crossing in the north and Kisufim Crossing in the center of the Strip. Israel does not operate these two crossings simultaneously but on an alternating basis, meaning that at any given moment, no more than two goods crossings are open. (Source: Gisha).", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_7', coords: [34.2455, 31.2394], title: "Rafah", arabic: "معبر رفح", district: "Rafah", type: "Border Crossing", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "A border crossing between the Gaza Strip and Egypt in the city of Rafah. On May 7, 2024, the Israeli military seized the Gaza side of the crossing, destroyed a large part of it, and put it out of commission. During the ceasefire in early 2025, the crossing was reopened in an extremely limited capacity for travel by wounded Palestinians. On March 18, Israel shut it down once again. On February 2, 2026, the crossing was reopened once more on a very limited scale as part of a \u201cceasefire agreement\u201d, and it currently allows very restricted movement of patients and their escorts (up to 150 a day) to Egypt, as well as the return of Gaza residents who left the Strip during the war (up to 50 a day). (Source: Gisha).", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_8', coords: [35.2203, 31.9606], title: "Ein Siniya", arabic: "عين سينيا", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_9', coords: [34.9739, 31.4142], title: "a-Dhahiriyah (Main Entrance)", arabic: "الظاهرية (المدخل الرئيسي)", district: "Hebron", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "The military closes the gate from 5:00 P.M. to 5:00 A.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_10', coords: [35.2897, 31.9531], title: "a-Taybah", arabic: "الطيبة", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_11', coords: [35.3167, 32.2889], title: "al-Badhan", arabic: "بدان", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Northeast of Nablus. Soldiers randomly frisk pedestrians and search vehicles.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_12', coords: [35.196, 32.215], title: "al-Muraba’ah", arabic: "المربعة", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Located at the al-Muraba’ah Junction southwest of Nablus, on the road leading from the villages of Tell and ‘Iraq Burin to Route 60, is manned 24/7 the clock and open to crossing some of the time, subject to inspections of pedestrians and vehicles.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_13', coords: [35.276, 32.149], title: "Beita", arabic: "بيتا", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Open road gate (Since 7 Oct. 2023)", filterStaff: "intermittent", detail: "In early October 2025, the military installed a gate that is open most of the time at the western entrance, which leads to Road 60.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_14', coords: [35.255, 32.238], title: "Checkpoint 17", arabic: "حاجز 17", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Located on Route 5715 leading from ‘Asirah a-Shamaliyah, Zawata and other villages to Nablus, soldiers randomly frisk pedestrians and search vehicles.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_15', coords: [35.183, 32.235], title: "Deir Sharaf (Western entrance)", arabic: "دير شرف (المدخل الغربي)", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Permanently staffed", filterStaff: "permanent", detail: "After 7 Oct. 2023: The military put up a manned checkpoint at the western entrance to the village, which leads to Route 60.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_16', coords: [35.0381, 32.4547], title: "Hermesh checkpoint", arabic: "حاجز حرميش", district: "Jenin", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Located on Route 585 at the entrance to the settlement of Hermesh. As of 29 May 2024: The checkpoint has a lookout tower that was previously unstaffed. Closed to Palestinians on October 7 and reopened in March 2024, subject to inspection.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_17', coords: [35.069, 31.936], title: "Kafr Ni'ma", arabic: "كفر نعمة", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_18', coords: [35.29, 32.18], title: "Kh. Sarra", arabic: "خربة سارة", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Permanently staffed", filterStaff: "permanent", detail: "After 7 Oct. 2023: The military blocked the only entrance to the village with dirt mounds, and since then all 35 residents have been able to move around on foot only. In early October 2025, the military replaced the dirt mounds it had placed at the eastern entrance to the village, which leads to Road 60, with a gate that is open most of the time and installed a staffed checkpoint there, where cars are inspected.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_19', coords: [35.195, 32.022], title: "Rawabi", arabic: "روابي", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_20', coords: [35.2594, 32.0372], title: "Sinjil", arabic: "سنجل", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_21', coords: [35.279, 31.976], title: "Yabrud - Silwad", arabic: "يبرود - سلواد", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true }
 ];
 
 let films = [
@@ -1209,7 +1228,9 @@ function buildList() {
     const li = document.createElement('li'); li.className = 'cp-list-item'; li.setAttribute('data-id', cp.id);
     li.setAttribute('data-filter-type', cp.filterType || 'internal'); li.setAttribute('data-filter-staff', cp.filterStaff || 'permanent');
     li.innerHTML = `<div class="cp-list-name">${cp.title}</div><div class="cp-list-arabic">${cp.arabic || ''}</div><div class="cp-list-meta"><span class="cp-list-tag">${cp.type}</span></div>`;
-    li.addEventListener('click', () => openCheckpoint(cp.id)); cpListEl.appendChild(li);
+    li.addEventListener('click', () => openCheckpoint(cp.id));
+    li.addEventListener('dblclick', resetMapView);
+    cpListEl.appendChild(li);
   });
 }
 
@@ -1313,24 +1334,22 @@ document.querySelectorAll('.map-style-btn').forEach(btn => {
   });
 });
 
+const DEFAULT_VIEW = { center: [35.2, 31.9], zoom: 9 };
+function resetMapView() {
+  if (activePopup) { activePopup.remove(); activePopup = null; }
+  showListView();
+  map.flyTo({ ...DEFAULT_VIEW, essential: true });
+}
+
 let activePopup = null;
 function addMarker(cp) {
-  const el = document.createElement('div'); el.style.cssText = 'width:24px;height:24px;background:var(--gold);border:2px solid #fff;border-radius:50%;cursor:pointer;';
-  el.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (activePopup) activePopup.remove();
-    activePopup = new mapboxgl.Popup({ offset: 16, closeButton: false, closeOnClick: true, maxWidth: '280px' })
-      .setLngLat(cp.coords)
-      .setHTML(`
-        <div class="map-popup-card">
-          <div class="map-popup-title">${cp.title}</div>
-          ${cp.arabic ? `<div class="map-popup-arabic">${cp.arabic}</div>` : ''}
-          <div class="map-popup-meta">${cp.district || ''}${cp.district && cp.type ? ' \u00b7 ' : ''}${cp.type || ''}</div>
-          <button class="map-popup-btn" onclick="openCheckpoint('${cp.id}')">View Details</button>
-        </div>
-      `)
-      .addTo(map);
-  });
+  const el = document.createElement('div');
+  const inFilm = films.some(f => (f.checkpointIds || []).includes(cp.id));
+  el.style.cssText = inFilm
+    ? 'width:28px;height:28px;background:#6fe7c1;border:3px solid #fff;border-radius:50%;cursor:pointer;box-shadow:0 0 0 3px rgba(111,231,193,0.35);'
+    : 'width:24px;height:24px;background:#f0d020;border:2px solid #a09010;border-radius:50%;cursor:pointer;';
+  el.addEventListener('click', (e) => { e.stopPropagation(); openCheckpoint(cp.id); });
+  el.addEventListener('dblclick', (e) => { e.stopPropagation(); e.preventDefault(); resetMapView(); });
   const m = new mapboxgl.Marker({ element: el }).setLngLat(cp.coords).addTo(map);
   markerObjs.push({ id: cp.id, marker: m, el: el });
 }
@@ -1343,16 +1362,31 @@ function openCheckpoint(id) {
   activeCpId = id; openPanel(); switchPanelTab('checkpoints'); showDetailView();
   const lat = cp.coords[1].toFixed(4), lng = cp.coords[0].toFixed(4);
   const linkedFilms = films.filter(f => (f.checkpointIds || []).includes(cp.id));
-  detailScroll.innerHTML = `
+  const imgs = cp.images || [];
+  const photo = imgs.length
+    ? `<div class="cp-panel-carousel" data-idx="0">${imgs.map((src, i) => `<img src="${src}" alt="${cp.title}" class="${i === 0 ? 'active' : ''}">`).join('')}${imgs.length > 1 ? `<button class="carousel-btn prev" onclick="stepCpPhoto(-1)" aria-label="Previous photo">&#8249;</button><button class="carousel-btn next" onclick="stepCpPhoto(1)" aria-label="Next photo">&#8250;</button><div class="carousel-dots">${imgs.map((_, i) => `<span class="carousel-dot ${i === 0 ? 'active' : ''}"></span>`).join('')}</div>` : ''}</div>`
+    : `<div class="cp-panel-carousel" style="display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:rgba(232,245,240,0.35);letter-spacing:0.08em;">No photo yet</div>`;
+  detailScroll.innerHTML = photo + `
     <div class="cp-detail-header"><span class="cp-detail-eyebrow">Checkpoint</span><h2 class="cp-detail-title">${cp.title}</h2>${cp.arabic ? `<p class="cp-detail-arabic">${cp.arabic}</p>` : ''}</div>
     <div class="cp-detail-row"><span class="cp-detail-row-label">Coordinates</span>${lat}, ${lng}</div>
     <div class="cp-detail-row"><span class="cp-detail-row-label">District</span>${cp.district}</div>
-    <div class="cp-detail-row"><span class="cp-detail-row-label">Analysis</span>${cp.analysis}</div>
+    ${cp.staffing ? `<div class="cp-detail-row"><span class="cp-detail-row-label">Staffing</span>${cp.staffing}</div>` : ''}
+    ${cp.detail ? `<div class="cp-detail-row"><span class="cp-detail-row-label">Details</span>${cp.detail}</div>` : ''}
+    ${cp.analysis ? `<div class="cp-detail-row"><span class="cp-detail-row-label">Analysis</span>${cp.analysis}</div>` : ''}
     ${linkedFilms.length ? `<div class="cp-detail-films"><span class="cp-detail-row-label">Films</span>${linkedFilms.map(f => `<span class="cp-film-tag" style="cursor:pointer" onclick="openFilmDetail('${f.id}')">${f.title}</span>`).join('')}</div>` : ''}
     ${isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editCheckpoint('${cp.id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteCheckpoint('${cp.id}')">Delete</button></div>` : ''}
   `;
-  map.flyTo({ center: cp.coords, zoom: 12, essential: true });
+  map.flyTo({ center: cp.coords, zoom: 14, essential: true });
 }
+
+window.stepCpPhoto = function(delta) {
+  const c = document.querySelector('#cpDetailScroll .cp-panel-carousel'); if (!c) return;
+  const imgs = c.querySelectorAll('img'), dots = c.querySelectorAll('.carousel-dot');
+  const next = (parseInt(c.dataset.idx || '0') + delta + imgs.length) % imgs.length;
+  imgs.forEach((im, i) => im.classList.toggle('active', i === next));
+  dots.forEach((d, i) => d.classList.toggle('active', i === next));
+  c.dataset.idx = next;
+};
 
 function openFilmDetail(id) {
   const f = films.find(film => film.id === id); if(!f) return;
