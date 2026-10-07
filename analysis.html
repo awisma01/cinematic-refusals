@@ -178,7 +178,7 @@
       <button class="filter-pill active" data-director="all" data-t="filter-all">All Films</button>
       <button class="filter-pill" data-director="Annemarie Jacir">Annemarie Jacir</button>
       <button class="filter-pill" data-director="Mai Masri">Mai Masri</button>
-      <button class="filter-pill" data-director="Farah Nablusi">Farah Nablusi</button>
+      <button class="filter-pill" data-director="Farah Nabulsi">Farah Nabulsi</button>
       <button class="filter-pill" data-director="other" data-t="filter-other">Other Directors</button>
     </nav>
 
@@ -227,7 +227,7 @@
             </div>
           </div>
           <div class="film-card-body">
-            <p class="film-card-badge">Farah Nablusi</p>
+            <p class="film-card-badge">Farah Nabulsi</p>
             <h3 class="film-card-title" data-t="film2-title">The Present</h3>
             <p class="film-card-meta">2020</p>
             <p class="film-card-coverage" data-t="film2-cov">Coverage: 3 of 4 checkpoints</p>
@@ -275,7 +275,7 @@
             <h3 class="film-card-title" data-t="film4-title">3000 Nights</h3>
             <p class="film-card-meta">2015</p>
             <p class="film-card-coverage" data-t="film4-cov">Coverage: Prison, checkpoints</p>
-            <button class="film-card-btn" data-popup-title-en="3000 Nights - Analysis" data-popup-title-ar="٣٠٠٠ ليلة - تحليل" data-popup-en="<p><strong>3000 Nights / Mai Masri / 2015</strong></p><p>Set entirely within an Israeli prison, the film shows how imprisonment lands differently on Palestinian women. Her confinement targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p><p>Masri refuses wide shots in the birth scene, locking the camera inside Layla's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands. The absence of music is a deliberate formal refusal to aestheticize the moment.</p><p>Layla's refusal to stop asking to hold her baby is the film's clearest image of sumud: persistent and embodied, refusing the state's full claim on her body.</p>" data-popup-ar="<p><strong>٣٠٠٠ ليلة / مي مصري / ٢٠١٥</strong></p><p>مُضمَّن كاملاً داخل سجن إسرائيلي، يُظهِر الفيلم كيف يقع السجن بشكل مختلف على المرأة الفلسطينية. حبسها يستهدف حملها وجسدها ورغباتها الأمومية كأدوات ضغط نفسي.</p><p>ترفض مصري اللقطات الواسعة في مشهد الولادة، تحبس الكاميرا داخل تجربة ليلى الجسدية: تنفسها، أصوات الأغلال، لقطات مقربة ليدين مكبّلتين. غياب الموسيقى رفض شكلي متعمّد لتجميل اللحظة.</p>" data-t="details-btn">Details</button>
+            <button class="film-card-btn" data-popup-title-en="3000 Nights - Analysis" data-popup-title-ar="٣٠٠٠ ليلة - تحليل" data-popup-en="<p><strong>3000 Nights / Mai Masri / 2015</strong></p><p>Set entirely within an Israeli prison, the film shows how imprisonment lands differently on Palestinian women. Her confinement targets her pregnancy, her body, and her maternal desires as instruments of psychological pressure.</p><p>Masri refuses wide shots in the birth scene, locking the camera inside Layal's bodily experience: her breathing, the sounds of chains, close-ups of restrained hands. The absence of music is a deliberate formal refusal to aestheticize the moment.</p><p>Layal's refusal to stop asking to hold her baby is the film's clearest image of sumud: persistent and embodied, refusing the state's full claim on her body.</p>" data-popup-ar="<p><strong>٣٠٠٠ ليلة / مي مصري / ٢٠١٥</strong></p><p>مُضمَّن كاملاً داخل سجن إسرائيلي، يُظهِر الفيلم كيف يقع السجن بشكل مختلف على المرأة الفلسطينية. حبسها يستهدف حملها وجسدها ورغباتها الأمومية كأدوات ضغط نفسي.</p><p>ترفض مصري اللقطات الواسعة في مشهد الولادة، تحبس الكاميرا داخل تجربة ليلى الجسدية: تنفسها، أصوات الأغلال، لقطات مقربة ليدين مكبّلتين. غياب الموسيقى رفض شكلي متعمّد لتجميل اللحظة.</p>" data-t="details-btn">Details</button>
           </div>
         </div>
 
@@ -286,7 +286,7 @@
             <div class="carousel-controls"><button type="button" class="carousel-prev" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-right:1.2rem;" aria-label="Previous">&#8592;</button><span class="carousel-indicators"><span class="carousel-dot" style="color:#e6a93a;">&#9679;</span></span><button type="button" class="carousel-next" style="background:none;border:none;color:#e6a93a;font-size:1.7rem;cursor:pointer;margin-left:1.2rem;" aria-label="Next">&#8594;</button></div>
           </div>
           <div class="film-card-body">
-            <p class="film-card-badge">Farah Nablusi</p>
+            <p class="film-card-badge">Farah Nabulsi</p>
             <h3 class="film-card-title" data-t="film5-title">The Teacher</h3>
             <p class="film-card-meta">2023</p>
             <p class="film-card-coverage" data-t="coming-soon-cov">Coverage: Coming soon</p>
@@ -421,7 +421,7 @@
 
     const filmCards = Array.from(document.querySelectorAll('.film-card'));
     const filterPills = Array.from(document.querySelectorAll('.filter-pill'));
-    const primaryDirectors = ['annemarie jacir', 'mai masri', 'farah nablusi'];
+    const primaryDirectors = ['annemarie jacir', 'mai masri', 'farah nabulsi'];
     function applyDirectorFilter(value) {
       filterPills.forEach(pill => {
         const active = pill.getAttribute('data-director') === value;
