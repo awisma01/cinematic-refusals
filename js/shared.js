@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function openMobileNav() {
     if (!mobileNav) return;
     mobileNav.classList.add('open');
+    document.body.classList.add('mobile-nav-open');
     if (navBackdrop) navBackdrop.classList.add('open');
     if (hamburger) { hamburger.classList.add('open'); hamburger.setAttribute('aria-expanded','true'); }
     document.body.style.overflow = 'hidden';
@@ -186,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function closeMobileNav() {
     if (!mobileNav) return;
     mobileNav.classList.remove('open');
+    document.body.classList.remove('mobile-nav-open');
     if (navBackdrop) navBackdrop.classList.remove('open');
     if (hamburger) { hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded','false'); }
     document.body.style.overflow = '';
