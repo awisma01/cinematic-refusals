@@ -92,6 +92,14 @@ html body .topnav {
 }
 html body .topnav .brand, html body .topnav .brand a { font-size: 1.2rem; color: #e6a93a; letter-spacing: 0.5px; flex-shrink: 0; }
 html body .topnav .menu { gap: 0.4rem; }
+
+/* Stripe is drawn on the nav itself so it always travels with it; the old element only reserves the 8px */
+html body .topnav { position: sticky; }
+html body .topnav::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 8px; pointer-events: none;
+  background: repeating-linear-gradient(90deg, #000 0, #000 20px, #ce1126 20px, #ce1126 40px, #007a3d 40px, #007a3d 60px, #fff 60px, #fff 80px);
+}
+html body .keffiyeh-stripe { background: none; height: 8px; }
 .mobile-nav-drawer, .mobile-nav-backdrop { display: none; }
 .lang-toggle, #langToggle { display: none !important; }
 
@@ -115,7 +123,6 @@ html body .topnav .menu { gap: 0.4rem; }
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
   }
   html body .topnav .brand, html body .topnav .brand a { font-size: 1.2rem; color: #e6a93a; letter-spacing: 0.5px; flex-shrink: 0; }
-  html body .keffiyeh-stripe { position: sticky; top: var(--nav-h); z-index: 1001; }
   html body .nav-hamburger {
     display: flex; width: 38px; height: 38px; padding: 0; align-items: center; justify-content: center; gap: 5px;
     flex-shrink: 0; margin: 0;
