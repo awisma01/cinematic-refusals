@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (navEl && !document.getElementById('btnEN')) {
     var wrap = document.createElement('div');
     wrap.setAttribute('dir', 'ltr');
+    wrap.className = 'lang-toggle';
     wrap.style.cssText = [
       'display:flex','align-items:center',
       'background:rgba(255,255,255,0.07)',

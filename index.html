@@ -542,7 +542,7 @@
     }
   };
 
-  // applyLang provided by shared.js
+  window.PAGE_T = T;
   // Store original English quote text
   document.querySelectorAll('.quote-slide').forEach(slide => {
     const qEl = slide.querySelector('.quote-text');
@@ -606,5 +606,6 @@
     nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
   })();
   </script>
+  <script src="js/shared.js"></script>
 </body>
 </html>

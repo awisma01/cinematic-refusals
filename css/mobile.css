@@ -83,9 +83,9 @@
 /* Drawer style matching map.html */
 .mobile-nav-overlay {
   inset: auto 0 auto 0 !important;
-  top: calc(var(--nav-h, 62px) + 8px) !important;
+  top: 70px !important;
   bottom: auto;
-  max-height: calc(100vh - var(--nav-h, 62px) - 8px);
+  max-height: calc(100vh - 70px);
   background: rgba(8, 24, 22, 0.99);
   border-bottom: 1px solid rgba(111, 231, 193, 0.12);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
@@ -115,14 +115,23 @@
 @media (max-width: 960px) {
   .topnav {
     position: sticky; top: 0;
-    height: var(--nav-h, 62px); box-sizing: border-box;
+    height: 62px !important; box-sizing: border-box;
     padding: 0 1rem !important;
+    z-index: 1000 !important;
   }
-  .topnav .brand { font-size: 1.1rem; flex-shrink: 0; }
+  .keffiyeh-stripe { position: sticky; top: 62px; z-index: 1001; }
+  .topnav .brand { font-size: 1.2rem; flex-shrink: 0; }
   .nav-hamburger {
     width: 38px; height: 38px; padding: 0; align-items: center; flex-shrink: 0; margin-left: 0.4rem;
     background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(111, 231, 193, 0.2); border-radius: 8px;
   }
   .nav-hamburger span { width: 18px; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .lang-toggle, #langToggle {
+    position: fixed !important; top: 78px !important; left: 12px !important; right: auto !important; z-index: 1200; margin: 0 !important;
+    background: rgba(10, 35, 33, 0.92) !important; border-color: rgba(111, 231, 193, 0.3) !important;
+    border-radius: 8px !important; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
 }
 @media (max-width: 480px) { .topnav .brand { font-size: 1rem; } }

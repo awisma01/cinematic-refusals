@@ -693,34 +693,8 @@
     }
   };
 
-  function applyLang(lang) {
-    const root = document.getElementById('htmlRoot');
-    if (!root) return;
-    root.lang = lang;
-    root.dir  = lang === 'ar' ? 'rtl' : 'ltr';
-
-    // Apply translations
-    document.querySelectorAll('[data-t]').forEach(el => {
-      const key = el.getAttribute('data-t');
-      const val = T_ABOUT[lang] && T_ABOUT[lang][key];
-      if (val !== undefined) el.innerHTML = val;
-    });
-
-    // Update nav button active state using CSS classes
-    const btnEN = document.getElementById('btnEN');
-    const btnAR = document.getElementById('btnAR');
-    if (btnEN && btnAR) {
-      btnEN.classList.toggle('active-lang',   lang === 'en');
-      btnEN.classList.toggle('inactive-lang', lang !== 'en');
-      btnAR.classList.toggle('active-lang',   lang === 'ar');
-      btnAR.classList.toggle('inactive-lang', lang !== 'ar');
-    }
-
-    localStorage.setItem('ccc-lang', lang);
-  }
-
-  // Restore saved language
-  applyLang(localStorage.getItem('ccc-lang') || 'en');
+  window.PAGE_T = T_ABOUT;
   </script>
+  <script src="js/shared.js"></script>
 </body>
 </html>
