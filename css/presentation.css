@@ -1,0 +1,36 @@
+#controls {
+  opacity: 0.92 !important;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: calc(100vw - 32px);
+}
+
+#controls button#presBtn {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+}
+
+#controls button#presBtn:hover {
+  background: var(--green-dk);
+  border-color: var(--green-dk);
+}
+
+#controls button:focus-visible {
+  outline: 3px solid #E8C547;
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  #controls {
+    right: 8px;
+    bottom: 8px;
+    gap: 4px;
+    max-width: calc(100vw - 16px);
+  }
+
+  #controls button {
+    padding: 7px 9px;
+    font-size: 12px;
+  }
+}

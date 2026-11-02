@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Present - Cinematic Counter-Cartographies</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#c08e49;--teal:#6fe7c1;--nav-h:70px; }
+    html { scroll-behavior:smooth; }
+    body { margin:0;background:linear-gradient(160deg,#1b3c34 0%,#2a5c4c 30%,#357a5a 60%,#23634c 100%);background-attachment:fixed;color:#e8f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden; }
+    html[lang="ar"] body { font-family:'Amiri','Cormorant Garamond',Georgia,serif; }
+    body::before { content:"";position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,180,0.012) 3px,rgba(0,255,180,0.012) 4px);pointer-events:none;z-index:0; }
+    .topnav { position:sticky;top:0;z-index:1300;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:linear-gradient(180deg,rgba(10,35,33,.98),rgba(10,35,33,.95));box-shadow:0 2px 20px rgba(0,0,0,.3);direction:ltr!important; }
+    .topnav .brand { color:var(--gold);font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.5px;text-decoration:none; }
+    .topnav .menu { display:flex;gap:.5rem;align-items:center; }
+    .topnav .menu a,.nav-dropdown-trigger { color:#eaf7f2;font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:500;letter-spacing:.3px;text-decoration:none; }
+    .topnav .menu>a { padding:.55rem 1rem;border-radius:6px; }
+    .topnav .menu a:hover,.topnav .menu a.active,.nav-dropdown-trigger:hover { color:var(--gold);background:rgba(230,169,58,.2); }
+    .nav-dropdown { position:relative; }
+    .nav-dropdown-trigger { display:flex;align-items:center;gap:.35rem;padding:.55rem 1rem;border:0;border-radius:6px;background:none;cursor:pointer; }
+    .nav-dropdown-menu { position:absolute;top:calc(100% + 8px);right:0;z-index:1400;min-width:260px;padding:.5rem;border:1px solid rgba(230,169,58,.25);border-radius:12px;background:rgba(8,28,26,.98);opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .22s,transform .22s; }
+    .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown.open .nav-dropdown-menu { opacity:1;pointer-events:auto;transform:translateY(0); }
+    .nav-dropdown-item { display:flex;flex-direction:column;gap:.2rem;padding:.8rem 1rem;border-radius:8px;color:inherit;text-decoration:none; }
+    .nav-dropdown-item:hover { background:rgba(230,169,58,.1); }
+    .nav-dropdown-item-title { color:#e8f5f0;font-family:'Oswald',sans-serif; }
+    .nav-dropdown-item-desc { color:rgba(232,245,240,.65);font-family:'IBM Plex Mono',monospace;font-size:.67rem; }
+    .keffiyeh-stripe { height:8px;background:repeating-linear-gradient(90deg,#000 0,#000 20px,#ce1126 20px,#ce1126 40px,#007a3d 40px,#007a3d 60px,#fff 60px,#fff 80px); }
+    .page-hero { position:relative;z-index:1;padding:5.5rem 2rem 3rem;text-align:center; }
+    .page-eyebrow { margin:0 0 1rem;color:var(--teal);font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase; }
+    .page-title { margin:0;color:#e8f5f0;font-size:clamp(3rem,8vw,6rem);font-weight:700;line-height:1.05; }
+    .page-title em { color:var(--gold); }
+    .page-subtitle { max-width:760px;margin:1.25rem auto 0;color:rgba(232,245,240,.78);font-size:clamp(1.15rem,2.4vw,1.5rem);font-style:italic; }
+    .gold-rule { width:70px;height:2px;margin:1.6rem auto;background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+    main { position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 1.5rem 5rem; }
+    .film-layout { display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:1.5rem;align-items:start; }
+    .film-video,.film-details,.analysis-card { border:1px solid rgba(111,231,193,.16);border-radius:14px;background:rgba(8,28,26,.62);box-shadow:0 12px 40px rgba(0,0,0,.2); }
+    .film-video { overflow:hidden; }
+    .film-video img { display:block;width:100%;aspect-ratio:16/9;background:#07110f;object-fit:contain; }
+    .film-caption { margin:0;padding:.8rem 1rem;color:rgba(232,245,240,.7);font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em; }
+    .film-details { padding:1.6rem; }
+    .film-details h2,.analysis-card h2 { margin:0 0 1rem;color:#e8f5f0;font-size:1.65rem; }
+    .metadata { margin:0; }
+    .metadata div { padding:.8rem 0;border-top:1px solid rgba(255,255,255,.09); }
+    .metadata dt { color:var(--teal);font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase; }
+    .metadata dd { margin:.25rem 0 0;color:#e8f5f0;font-size:1.15rem; }
+    .analysis-card { margin-top:1.5rem;padding:clamp(1.4rem,4vw,2.5rem); }
+    .analysis-card h2 { margin-top:1.8rem; }
+    .analysis-card h2:first-child { margin-top:0; }
+    .analysis-card p { margin:.8rem 0;color:#e8f5f0;font-size:1.16rem;line-height:1.8; }
+    .checkpoint-list { margin:.75rem 0 0;padding-left:1.25rem;color:#e8f5f0;font-size:1.1rem;line-height:1.8; }
+    .page-links { display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.7rem; }
+    .page-link { display:inline-block;padding:.65rem 1rem;border:1px solid rgba(111,231,193,.35);border-radius:6px;color:var(--teal);font-family:'Oswald',sans-serif;letter-spacing:.06em;text-decoration:none;transition:all .2s; }
+    .page-link:hover { border-color:var(--gold);color:var(--gold);background:rgba(230,169,58,.08); }
+    .footer { position:relative;z-index:1;padding:1.8rem 1rem;text-align:center;color:rgba(232,245,240,.65);font-family:'IBM Plex Mono',monospace;font-size:.72rem;line-height:2; }
+    @media(max-width:760px) {
+      .topnav { padding:1rem 1.2rem; }
+      .topnav .brand { font-size:1.05rem; }
+      .film-layout { grid-template-columns:1fr; }
+      .page-hero { padding:4rem 1.25rem 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="index.html" class="brand" data-t="brand">Cinematic Counter‑Cartographies</a>
+    <div class="menu">
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
+      <div class="nav-dropdown">
+        <a class="nav-dropdown-trigger" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" data-t="nav-archive">Archive <span class="nav-dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="analysis.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-analysis">Visual Analysis</span><span class="nav-dropdown-item-desc" data-t="nav-analysis-desc">Film-by-film formal and spatial readings</span></a>
+          <a href="surveillance-space.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-surveillance">Surveillance Space</span><span class="nav-dropdown-item-desc" data-t="nav-surveillance-desc">Five typologies of occupation beyond the checkpoint</span></a>
+          <a href="not-mapped.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-notmapped">What's Not Mapped</span><span class="nav-dropdown-item-desc" data-t="nav-notmapped-desc">Omission, gaps, and the politics of refusal</span></a>
+          <a href="glossary.html" class="nav-dropdown-item"><span class="nav-dropdown-item-title" data-t="nav-glossary">Glossary</span><span class="nav-dropdown-item-desc" data-t="nav-glossary-desc">Key terms and theoretical concepts</span></a>
+        </div>
+      </div>
+      <a href="about.html" data-t="nav-about">About</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="keffiyeh-stripe" aria-hidden="true"></div>
+  <header class="page-hero">
+    <p class="page-eyebrow" data-t="page-eyebrow">Film study · 2020</p>
+    <h1 class="page-title" data-t="film-title">The <em>Present</em></h1>
+    <div class="gold-rule"></div>
+    <p class="page-subtitle" data-t="page-subtitle">A father and daughter make an ordinary journey through a landscape structured by waiting, checkpoints, and unequal mobility.</p>
+  </header>
+  <main>
+    <section class="film-layout" aria-label="Film and details">
+      <figure class="film-video">
+        <img src="assets/images/present.jpg" alt="Poster for The Present">
+        <figcaption class="film-caption" data-t="image-caption">Poster image · The Present (2020)</figcaption>
+      </figure>
+      <aside class="film-details">
+        <h2 data-t="details-heading">Film details</h2>
+        <dl class="metadata">
+          <div><dt data-t="director-label">Director</dt><dd>Farah Nabulsi</dd></div>
+          <div><dt data-t="year-label">Year</dt><dd>2020</dd></div>
+          <div><dt data-t="coverage-label">Checkpoint coverage</dt><dd data-t="coverage-value">3 of 4 mapped checkpoints</dd></div>
+        </dl>
+      </aside>
+    </section>
+    <article class="analysis-card">
+      <h2 data-t="reading-heading">A day shaped by waiting</h2>
+      <p data-t="reading-one">Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day: a father and daughter attempt to cross Checkpoint 300 to buy an anniversary gift. The film opens with Yusef sleeping on cardboard to secure his place in line, an image that captures carceral time before a word of dialogue has been spoken.</p>
+      <h2 data-t="spatial-heading">Framing and spatial refusal</h2>
+      <p data-t="reading-two">Nabulsi's visual composition draws on the politics of verticality. Overhead shots render the crowd of waiting men as a managed mass. Low-angle shots follow boys scaling the bars to cut the line, small acts of spatial refusal that the camera treats with quiet attention.</p>
+      <h2 data-t="checkpoints-heading">Checkpoints in the archive</h2>
+      <p data-t="checkpoints-intro">The project associates the film with these mapped sites:</p>
+      <ul class="checkpoint-list">
+        <li>Qalandiya</li>
+        <li>Huwwara</li>
+        <li>Rachel Crossing / Bethlehem</li>
+      </ul>
+      <nav class="page-links" aria-label="Related project pages">
+        <a class="page-link" href="analysis.html" data-t="analysis-link">Back to Visual Analysis</a>
+        <a class="page-link" href="map.html" data-t="map-link">Explore the Map</a>
+      </nav>
+    </article>
+  </main>
+  <footer class="footer">
+    © 2025-2026 Cinematic Counter-Cartographies | CHI Fellowship Project | Michigan State University<br>
+    <a href="privacy.html" data-t="footer-privacy">Privacy Policy</a>
+    <a href="terms.html" data-t="footer-terms">Terms of Use</a>
+  </footer>
+  <div class="mobile-nav-overlay" id="mobileNav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="mobile-nav-brand" data-t="brand">Cinematic Counter‑Cartographies</a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" data-t="nav-home">Home</a>
+      <a href="map.html" data-t="nav-map">Map</a>
+      <span class="mobile-nav-section-label" data-t="nav-archive">Archive</span>
+      <a href="analysis.html" class="archive-item" data-t="nav-analysis">Visual Analysis</a>
+      <a href="surveillance-space.html" class="archive-item" data-t="nav-surveillance">Surveillance Space</a>
+      <a href="not-mapped.html" class="archive-item" data-t="nav-notmapped">What's Not Mapped</a>
+      <a href="glossary.html" class="archive-item" data-t="nav-glossary">Glossary</a>
+      <a href="about.html" data-t="nav-about">About</a>
+    </nav>
+  </div>
+  <script>
+    window.PAGE_T = {
+      en: {
+        'page-eyebrow':'Film study · 2020',
+        'film-title':'The <em>Present</em>',
+        'page-subtitle':'A father and daughter make an ordinary journey through a landscape structured by waiting, checkpoints, and unequal mobility.',
+        'image-caption':'Poster image · The Present (2020)',
+        'details-heading':'Film details',
+        'director-label':'Director',
+        'year-label':'Year',
+        'coverage-label':'Checkpoint coverage',
+        'coverage-value':'3 of 4 mapped checkpoints',
+        'reading-heading':'A day shaped by waiting',
+        'reading-one':"Farah Nabulsi's <em>The Present</em> compresses the spatial logic of occupation into a single day: a father and daughter attempt to cross Checkpoint 300 to buy an anniversary gift. The film opens with Yusef sleeping on cardboard to secure his place in line, an image that captures carceral time before a word of dialogue has been spoken.",
+        'spatial-heading':'Framing and spatial refusal',
+        'reading-two':"Nabulsi's visual composition draws on the politics of verticality. Overhead shots render the crowd of waiting men as a managed mass. Low-angle shots follow boys scaling the bars to cut the line, small acts of spatial refusal that the camera treats with quiet attention.",
+        'checkpoints-heading':'Checkpoints in the archive',
+        'checkpoints-intro':'The project associates the film with these mapped sites:',
+        'analysis-link':'Back to Visual Analysis',
+        'map-link':'Explore the Map'
+      },
+      ar: {
+        'page-eyebrow':'دراسة فيلم · ٢٠٢٠',
+        'film-title':'<em>الهدية</em>',
+        'page-subtitle':'رحلة يومية لأب وابنته عبر مشهد تصوغه طوابير الانتظار والحواجز والتفاوت في حرية التنقل.',
+        'image-caption':'ملصق الفيلم · الهدية (٢٠٢٠)',
+        'details-heading':'تفاصيل الفيلم',
+        'director-label':'المخرجة',
+        'year-label':'السنة',
+        'coverage-label':'تغطية الحواجز',
+        'coverage-value':'٣ من أصل ٤ حواجز مرسومة',
+        'reading-heading':'يوم تصوغه ساعات الانتظار',
+        'reading-one':'يضغط فيلم فرح نابلسي «الهدية» المنطق المكاني للاحتلال في يوم واحد: أب وابنته يحاولان عبور حاجز ٣٠٠ لشراء هدية ذكرى زواج. يفتتح الفيلم بمشهد يوسف نائماً على الكرتون ليحجز مكانه في الطابور، صورة تلتقط الزمن السجني قبل أن يُنطق بكلمة حوار.',
+        'spatial-heading':'التأطير والرفض المكاني',
+        'reading-two':'يستند التكوين البصري لنابلسي إلى سياسة الرؤية العمودية. تصوّر اللقطات من الأعلى حشد الرجال المنتظرين ككتلة تُدار، فيما تتبع اللقطات من الزوايا المنخفضة صبية يتسلقون القضبان لتجاوز الطابور، أفعال رفض مكاني صغيرة ترصدها الكاميرا باهتمام صامت.',
+        'checkpoints-heading':'الحواجز في الأرشيف',
+        'checkpoints-intro':'يربط المشروع الفيلم بهذه المواقع المرسومة على الخريطة:',
+        'analysis-link':'العودة إلى التحليل البصري',
+        'map-link':'استكشف الخريطة'
+      }
+    };
+  </script>
+  <script src="js/shared.js"></script>
+</body>
+</html>

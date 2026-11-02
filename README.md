@@ -32,6 +32,8 @@ cinematic-counter-cartographies-1/
 ├── index.html               Homepage - hero, quote carousel, community callout
 ├── map.html                 Interactive Mapbox archive of checkpoints & films (see below)
 ├── analysis.html            Film-by-film visual analysis with video carousels
+├── present.html             Dedicated film page and spatial reading for The Present (2020)
+├── presentation.html        Ten-slide project presentation with speaker notes and live demos
 ├── surveillance-space.html  Five typologies of surveillance space (architectural, digital,
 │                             temporal, intimate, cinematic)
 ├── not-mapped.html           Reflection on omissions, gaps, and the politics of refusal
@@ -78,6 +80,12 @@ The most interactive part of the site - a Mapbox GL map of Israeli checkpoints c
 
 ### Visual Analysis (`analysis.html`)
 Film-by-film formal and spatial readings, each with an image/video carousel and a "Details" modal-style writeup of how the film treats checkpoint space.
+
+### The Present (`present.html`)
+A dedicated film page for Farah Nabulsi's 2020 film, with its poster, metadata, formal analysis, and mapped checkpoint references.
+
+### Project Presentation (`presentation.html`)
+A ten-slide presentation with speaker notes, fullscreen controls, keyboard navigation, and live embeds of the map and archive pages. Select **Presenter view (P)** to open synchronized speaker notes, slide navigation, and a presentation timer in a separate window; allow pop-ups for the site if prompted.
 
 ### Surveillance Space (`surveillance-space.html`)
 Five typologies of occupation beyond the checkpoint - architectural, digital, temporal, intimate, and cinematic - each paired with film references and glossary-linked terminology.

@@ -98,8 +98,9 @@
     .legend-row:last-child{margin-bottom:0;}
     .legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
     .legend-dot.curated{background:#4ec87a;border:2px solid #267a48;}
-    .legend-dot.placeholder{background:#f0d020;border:2px solid #a09010;}
+    .legend-dot.placeholder{background:#9b59d6;border:2px solid #fff;}
     .legend-dot.community{background:#f07830;border:2px solid #a04818;}
+    .legend-dot.film{background:#6fe7c1;border:2px solid #fff;box-shadow:0 0 0 2px rgba(111,231,193,0.35);}
     .legend-dot.pending{background:rgba(240,120,48,0.5);border:2px solid rgba(240,208,32,0.7);outline:2px dashed rgba(240,208,32,0.4);outline-offset:1px;}
     .legend-dot.search-result{background:rgba(111,231,193,0.4);border:2px solid rgba(255,255,255,0.25);}
 
@@ -447,9 +448,18 @@
     <h2 style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:0.04em;color:var(--teal);margin:0 0 0.7rem 0;flex:1;" data-en="About the Map" data-ar="شو هاي الخريطة">About the Map</h2>
     <button id="infoModuleClose" aria-label="Close" style="background:rgba(255,255,255,0.07);border:1px solid rgba(111,231,193,0.22);color:rgba(232,245,240,0.55);cursor:pointer;font-size:0.85rem;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.18s;padding:0;">✕</button>
   </div>
-  <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.72;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);" data-en="This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films." data-ar="هاي الخريطة التفاعلية بتوريك شبكة الحواجز الإسرائيلية وكيف اتمثّلت بالسينما الفلسطينية. كل علامة على الخريطة بترمز لحاجز حقيقي - مع تفاصيل عن موقعه وحالته وكيف طلع بالأفلام.">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
-  <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0 0 0.55rem;color:rgba(232,245,240,0.7);" data-en="Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the search bar above the map." data-ar="اضغط على أي علامة عشان تشوف التفاصيل والتحليل. استخدم لوحة الأرشيف لتتصفح وتفلتر كل الحواجز والأفلام. يمكنك أيضاً البحث بالاسم أو الموقع باستخدام شريط البحث فوق الخريطة.">Click any marker to view details and analysis. Use the Archive panel to browse and filter all checkpoints and films. You can also search by name or location using the search bar above the map.</p>
-  <p style="font-family:'Cormorant Garamond',serif;font-size:0.96rem;line-height:1.65;margin:0;color:rgba(232,245,240,0.7);" data-en="Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation." data-ar="المكان مش محايد. بربط الجغرافيا بالسينما، هاد المشروع يبيّن كيف الفلسطينيين بيوثّقوا ويقاوموا ويعيدوا تخيّل واقعهم تحت الاحتلال.">Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation.</p>
+  <div class="info-scroll" style="max-height:min(60vh,520px);overflow-y:auto;padding-right:0.3rem;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);">This interactive map visualizes the network of Israeli checkpoints and their representation in Palestinian cinema. Each marker corresponds to a real checkpoint, with details about its location, status, and how it appears in films.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);"><strong style="color:var(--teal);font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:0.04em;">Explore.</strong> Click any marker to view details and analysis. Use the Archive panel to browse and filter checkpoints and films, or search by name or location using the search bar above the map.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);"><strong style="color:var(--teal);font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:0.04em;">Why it matters.</strong> Space is not neutral. By linking geography with film, this project shows how Palestinian filmmakers document, resist, and reimagine the spatial realities of occupation.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);"><strong style="color:var(--teal);font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:0.04em;">Contribute to the Archive.</strong> This archive is incomplete by design, and it grows through community knowledge. If you know of a checkpoint, a film, or a scene that belongs here, select <strong>+ Suggest</strong> on the map to share it. You can submit:</p>
+    <ul style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);padding-left:1.2rem;margin:0 0 0.65rem;">
+      <li><strong>A checkpoint:</strong> its name (in English and Arabic, if you can), location, type, and staffing or status as you know it.</li>
+      <li><strong>A film or scene:</strong> the title, filmmaker, year, and the checkpoint it depicts or evokes, with a brief note on how the space appears on screen.</li>
+      <li><strong>A correction:</strong> an inaccurate detail, a missing place name, or a better spelling.</li>
+    </ul>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:0.98rem;line-height:1.65;margin:0 0 0.65rem;color:rgba(232,245,240,0.82);margin:0;">Every submission is reviewed before it appears on the map. Please include sources or lived context where possible, and avoid sharing personal information or details that could put anyone at risk. Original Palestinian place names are especially welcome.</p>
+  </div>
 </div>
 
 <!-- INFO MODULE RE-OPEN BUTTON -->
@@ -479,16 +489,16 @@
 
 <!-- MAP STYLE TOGGLE -->
 <div class="map-style-toggle">
-  <button class="map-style-btn active" data-style="dark">Dark</button>
+  <button class="map-style-btn active" data-style="streets">Streets</button>
   <button class="map-style-btn" data-style="satellite">Satellite</button>
-  <button class="map-style-btn" data-style="streets">Streets</button>
+  <button class="map-style-btn" data-style="dark">Dark</button>
 </div>
 
 <!-- LEGEND -->
 <div class="map-legend">
   <p class="legend-title">Marker Key</p>
-  <div class="legend-row"><span class="legend-dot curated"></span>Curated</div>
-  <div class="legend-row"><span class="legend-dot placeholder"></span>Placeholder</div>
+  <div class="legend-row"><span class="legend-dot placeholder"></span>Real checkpoint</div>
+  <div class="legend-row"><span class="legend-dot film"></span>Featured in a film</div>
   <div class="legend-row"><span class="legend-dot community"></span>Community</div>
   <div class="legend-row"><span class="legend-dot pending"></span>Pending</div>
 </div>
@@ -934,15 +944,30 @@ let activeFilmFilters = { genre: 'all', checkpoint: 'all', year: 'all' };
 
 // Baseline seed data arrays
 let checkpoints = [
-  { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Divine Intervention", "200 Meters", "Salt of This Sea", "The Present"], images: [], seed: true },
-  { id: 'cp_2', coords: [35.2345, 32.1234], title: "Huwwara Checkpoint", arabic: "حاجز حوارة", district: "Nablus", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Southern entry to Nablus", analysis: "Represented as a bottleneck space impeding educational mobility.", films: ["Salt of this Sea", "The Present"], images: [], seed: true },
-  { id: 'cp_3', coords: [35.2033, 31.7046], title: "Rachel Crossing (Checkpoint 300)", arabic: "معبر راحيل (حاجز ٣٠٠)", district: "Bethlehem", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing between Bethlehem and Jerusalem", analysis: "Central site in The Present and Salt of This Sea; associated with anticipatory punishment and carceral time.", films: ["Salt of This Sea", "The Present"], images: [], seed: true },
-  { id: 'cp_4', coords: [35.1975, 31.6768], title: "Container Checkpoint", arabic: "حاجز الكونتينر", district: "Bethlehem–Hebron road (Wadi Nar)", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Junction checkpoint linking Bethlehem and Hebron districts", analysis: "Present in the geographic archive without direct film cross-references; marks a gap between mapped space and cinematic representation.", films: [], images: [], seed: true }
+  { id: 'cp_1', coords: [35.2219, 31.8654], title: "Qalandia Checkpoint", arabic: "حاجز قلنديا", district: "Ramallah", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing terminal", analysis: "Appears frequently as an industrial landscape of sorting and control.", films: ["Salt of This Sea", "The Present"], images: ["assets/images/Qalandiya1.jpg", "assets/images/Qalandiya2.jpg", "assets/images/Qalandiya3.jpg", "assets/images/Qalandiya4.jpg"], seed: true },
+  { id: 'cp_2', coords: [35.2345, 32.1234], title: "Huwwara Checkpoint", arabic: "حاجز حوارة", district: "Nablus", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Southern entry to Nablus", analysis: "Represented as a bottleneck space impeding educational mobility.", films: ["Salt of this Sea", "The Present"], images: ["assets/images/hucheck.jpg"], seed: true },
+  { id: 'cp_3', coords: [35.2033, 31.7046], title: "Rachel Crossing (Checkpoint 300)", arabic: "معبر راحيل (حاجز ٣٠٠)", district: "Bethlehem", type: "Entry / Exit to Israel", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Main crossing between Bethlehem and Jerusalem", analysis: "Central site in The Present and Salt of This Sea; associated with anticipatory punishment and carceral time.", films: ["Salt of This Sea", "The Present"], images: ["assets/images/Bethlehem1.jpeg", "assets/images/Bethlehem2.jpeg", "assets/images/Bethlehem3.jpg", "assets/images/Bethlehem4.jpeg", "assets/images/Bethlehem5.jpeg", "assets/images/Bethlehem6.jpeg", "assets/images/Bethlehem7.jpg"], seed: true },
+  { id: 'cp_4', coords: [35.1975, 31.6768], title: "Container Checkpoint", arabic: "حاجز الكونتينر", district: "Bethlehem–Hebron road (Wadi Nar)", type: "Internal checkpoint", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Junction checkpoint linking Bethlehem and Hebron districts", analysis: "Present in the geographic archive without direct film cross-references; marks a gap between mapped space and cinematic representation.", films: [], images: [], seed: true },
+  { id: 'cp_5', coords: [35.5428, 31.8784], title: "Allenby Bridge", arabic: "جسر اللنبي", district: "Jericho", type: "Border Crossing", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Border crossing between the West Bank and Jordan.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_6', coords: [34.2820, 31.2290], title: "Kerem Shalom", arabic: "معبر كرم أبو سالم", district: "Rafah", type: "Border Crossing", filterType: "entry", staffing: "Permanently staffed / goods", filterStaff: "permanent", detail: "The main goods crossing between Israel and the Gaza Strip. Israel currently operates two additional crossings: Zikim Crossing in the north and Kisufim Crossing in the center of the Strip. Israel does not operate these two crossings simultaneously but on an alternating basis, meaning that at any given moment, no more than two goods crossings are open. (Source: Gisha).", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_7', coords: [34.2455, 31.2394], title: "Rafah", arabic: "معبر رفح", district: "Rafah", type: "Border Crossing", filterType: "entry", staffing: "Permanently staffed", filterStaff: "permanent", detail: "A border crossing between the Gaza Strip and Egypt in the city of Rafah. On May 7, 2024, the Israeli military seized the Gaza side of the crossing, destroyed a large part of it, and put it out of commission. During the ceasefire in early 2025, the crossing was reopened in an extremely limited capacity for travel by wounded Palestinians. On March 18, Israel shut it down once again. On February 2, 2026, the crossing was reopened once more on a very limited scale as part of a \u201cceasefire agreement\u201d, and it currently allows very restricted movement of patients and their escorts (up to 150 a day) to Egypt, as well as the return of Gaza residents who left the Strip during the war (up to 50 a day). (Source: Gisha).", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_8', coords: [35.2203, 31.9606], title: "Ein Siniya", arabic: "عين سينيا", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_9', coords: [34.9739, 31.4142], title: "a-Dhahiriyah (Main Entrance)", arabic: "الظاهرية (المدخل الرئيسي)", district: "Hebron", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "The military closes the gate from 5:00 P.M. to 5:00 A.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_10', coords: [35.2897, 31.9531], title: "a-Taybah", arabic: "الطيبة", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_11', coords: [35.3167, 32.2889], title: "al-Badhan", arabic: "بدان", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Northeast of Nablus. Soldiers randomly frisk pedestrians and search vehicles.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_12', coords: [35.196, 32.215], title: "al-Muraba’ah", arabic: "المربعة", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Located at the al-Muraba’ah Junction southwest of Nablus, on the road leading from the villages of Tell and ‘Iraq Burin to Route 60, is manned 24/7 the clock and open to crossing some of the time, subject to inspections of pedestrians and vehicles.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_13', coords: [35.276, 32.149], title: "Beita", arabic: "بيتا", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Open road gate (Since 7 Oct. 2023)", filterStaff: "intermittent", detail: "In early October 2025, the military installed a gate that is open most of the time at the western entrance, which leads to Road 60.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_14', coords: [35.255, 32.238], title: "Checkpoint 17", arabic: "حاجز 17", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "Located on Route 5715 leading from ‘Asirah a-Shamaliyah, Zawata and other villages to Nablus, soldiers randomly frisk pedestrians and search vehicles.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_15', coords: [35.183, 32.235], title: "Deir Sharaf (Western entrance)", arabic: "دير شرف (المدخل الغربي)", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Permanently staffed", filterStaff: "permanent", detail: "After 7 Oct. 2023: The military put up a manned checkpoint at the western entrance to the village, which leads to Route 60.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_16', coords: [35.0381, 32.4547], title: "Hermesh checkpoint", arabic: "حاجز حرميش", district: "Jenin", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Permanently staffed", filterStaff: "permanent", detail: "Located on Route 585 at the entrance to the settlement of Hermesh. As of 29 May 2024: The checkpoint has a lookout tower that was previously unstaffed. Closed to Palestinians on October 7 and reopened in March 2024, subject to inspection.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_17', coords: [35.069, 31.936], title: "Kafr Ni'ma", arabic: "كفر نعمة", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_18', coords: [35.29, 32.18], title: "Kh. Sarra", arabic: "خربة سارة", district: "Nablus", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Permanently staffed", filterStaff: "permanent", detail: "After 7 Oct. 2023: The military blocked the only entrance to the village with dirt mounds, and since then all 35 residents have been able to move around on foot only. In early October 2025, the military replaced the dirt mounds it had placed at the eastern entrance to the village, which leads to Road 60, with a gate that is open most of the time and installed a staffed checkpoint there, where cars are inspected.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_19', coords: [35.195, 32.022], title: "Rawabi", arabic: "روابي", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_20', coords: [35.2594, 32.0372], title: "Sinjil", arabic: "سنجل", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true },
+  { id: 'cp_21', coords: [35.279, 31.976], title: "Yabrud - Silwad", arabic: "يبرود - سلواد", district: "Ramallah and al-Bira", type: "Internal Checkpoint (Since 7 Oct. 2023)", filterType: "internal", staffing: "Intermittently staffed", filterStaff: "intermittent", detail: "After 7 October 2023: The military installed a checkpoint on the way to the village, where random checks are carried out – mostly from 7:00 A.M. to 9:00 A.M., and again in the afternoon from 2:30 P.M. to 4:30 P.M.", analysis: "", films: [], images: [], seed: true }
 ];
 
 let films = [
-  { id: 'film_1', title: "Divine Intervention", director: "Elia Suleiman", year: 2002, country: "Palestine", genre: "Narrative feature", notes: "A satirical look at life under occupation.", checkpointIds: ["cp_1"], seed: true },
-  { id: 'film_2', title: "200 Meters", director: "Ameen Nayfeh", year: 2020, country: "Palestine", genre: "Narrative feature", notes: "A father struggles to cross a checkpoint located meters away.", checkpointIds: ["cp_1"], seed: true },
   { id: 'film_3', title: "Salt of This Sea", director: "Annemarie Jacir", year: 2008, country: "Palestine", genre: "Narrative feature", notes: "Explores structural and spatial return barriers across Qalandiya and Rachel/Bethlehem.", checkpointIds: ["cp_1", "cp_3"], seed: true },
   { id: 'film_4', title: "The Present", director: "Farah Nabulsi", year: 2020, country: "Palestine", genre: "Narrative feature", notes: "A father and daughter attempt to cross Checkpoint 300 to buy an anniversary gift.", checkpointIds: ["cp_1", "cp_2", "cp_3"], seed: true },
   { id: 'film_5', title: "When I Saw You", director: "Annemarie Jacir", year: 2012, country: "Palestine", genre: "Narrative feature", notes: "Set in a Jordanian refugee camp in 1967; treats Palestine as something across a border.", checkpointIds: [], seed: true },
@@ -952,8 +977,6 @@ let films = [
   { id: 'film_9', title: "May in the Summer", director: "Cherien Dabis", year: 2013, country: "Palestine / Jordan", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
   { id: 'film_10', title: "All That's Left of You", director: "Cherien Dabis", year: 2025, country: "Palestine", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
   { id: 'film_11', title: "Pomegranates and Myrrh", director: "Najwa Najjar", year: 2008, country: "Palestine", genre: "Narrative feature", notes: "Analysis coming soon.", checkpointIds: [], seed: true },
-  { id: 'film_12', title: "Checkpoint", director: "Yoav Shamir", year: 2003, country: "Israel", genre: "Documentary", notes: "Occupies the surveillance position, illuminating how the camera itself can reproduce architectural power.", checkpointIds: [], seed: true },
-  { id: 'film_13', title: "The Wanted 18", director: "Amer Shomali & Paul Cowan", year: 2014, country: "Palestine / Canada", genre: "Documentary", notes: "Referenced in the archive's digital surveillance typology.", checkpointIds: [], seed: true },
   { id: 'film_14', title: "Farha", director: "Darin J. Sallam", year: 2021, country: "Jordan / Palestine", genre: "Narrative feature", notes: "Referenced in the archive's intimate surveillance typology.", checkpointIds: [], seed: true },
   { id: 'film_15', title: "Children of Shatila", director: "Mai Masri", year: 1998, country: "Lebanon / Palestine", genre: "Documentary", notes: "Referenced in the archive's intimate surveillance typology.", checkpointIds: [], seed: true }
 ];
@@ -987,7 +1010,7 @@ mapboxgl.accessToken = PROVIDED_MAPBOX_TOKEN;
 // Initialize layout positioning container metrics
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/dark-v11',
+  style: 'mapbox://styles/mapbox/streets-v12',
   center: [35.2, 31.9],
   zoom: 9,
   trackResize: true
@@ -1209,7 +1232,9 @@ function buildList() {
     const li = document.createElement('li'); li.className = 'cp-list-item'; li.setAttribute('data-id', cp.id);
     li.setAttribute('data-filter-type', cp.filterType || 'internal'); li.setAttribute('data-filter-staff', cp.filterStaff || 'permanent');
     li.innerHTML = `<div class="cp-list-name">${cp.title}</div><div class="cp-list-arabic">${cp.arabic || ''}</div><div class="cp-list-meta"><span class="cp-list-tag">${cp.type}</span></div>`;
-    li.addEventListener('click', () => openCheckpoint(cp.id)); cpListEl.appendChild(li);
+    li.addEventListener('click', () => openCheckpoint(cp.id));
+    li.addEventListener('dblclick', resetMapView);
+    cpListEl.appendChild(li);
   });
 }
 
@@ -1309,30 +1334,37 @@ document.querySelectorAll('.map-style-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.map-style-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
     const st = btn.getAttribute('data-style');
-    map.setStyle(st === 'satellite' ? 'mapbox://styles/mapbox/satellite-v9' : st === 'streets' ? 'mapbox://styles/mapbox/streets-v12' : 'mapbox://styles/mapbox/dark-v11');
+    map.setStyle(st === 'satellite' ? 'mapbox://styles/mapbox/satellite-streets-v12' : st === 'streets' ? 'mapbox://styles/mapbox/streets-v12' : 'mapbox://styles/mapbox/dark-v11');
   });
 });
 
+const DEFAULT_VIEW = { center: [35.2, 31.9], zoom: 9 };
+function resetMapView() {
+  if (activePopup) { activePopup.remove(); activePopup = null; }
+  showListView();
+  map.flyTo({ ...DEFAULT_VIEW, essential: true });
+}
+
 let activePopup = null;
 function addMarker(cp) {
-  const el = document.createElement('div'); el.style.cssText = 'width:24px;height:24px;background:var(--gold);border:2px solid #fff;border-radius:50%;cursor:pointer;';
-  el.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (activePopup) activePopup.remove();
-    activePopup = new mapboxgl.Popup({ offset: 16, closeButton: false, closeOnClick: true, maxWidth: '280px' })
-      .setLngLat(cp.coords)
-      .setHTML(`
-        <div class="map-popup-card">
-          <div class="map-popup-title">${cp.title}</div>
-          ${cp.arabic ? `<div class="map-popup-arabic">${cp.arabic}</div>` : ''}
-          <div class="map-popup-meta">${cp.district || ''}${cp.district && cp.type ? ' \u00b7 ' : ''}${cp.type || ''}</div>
-          <button class="map-popup-btn" onclick="openCheckpoint('${cp.id}')">View Details</button>
-        </div>
-      `)
-      .addTo(map);
-  });
+  const inFilm = films.some(f => (f.checkpointIds || []).includes(cp.id));
+  const size = inFilm ? 28 : 24;
+  const el = document.createElement('div');
+  el.style.cssText = `width:${size}px;height:${size}px;cursor:pointer;`;
+  const inner = document.createElement('div');
+  inner.style.cssText = 'position:absolute;inset:0;';
+  const dot = document.createElement('div');
+  dot.style.cssText = inFilm
+    ? 'width:100%;height:100%;background:#6fe7c1;border:3px solid #fff;border-radius:50%;box-shadow:0 0 0 3px rgba(111,231,193,0.35);'
+    : 'width:100%;height:100%;background:#9b59d6;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 2px rgba(155,89,214,0.35);';
+  const label = document.createElement('span');
+  label.textContent = cp.title;
+  label.style.cssText = 'display:none;position:absolute;left:calc(100% + 6px);top:50%;transform:translateY(-50%);white-space:nowrap;background:rgba(10,35,33,0.92);color:#eaf7f2;border:1px solid rgba(111,231,193,0.25);border-radius:6px;padding:0.15rem 0.5rem;font-family:Oswald,sans-serif;font-size:0.72rem;letter-spacing:0.06em;box-shadow:0 2px 8px rgba(0,0,0,0.35);';
+  inner.appendChild(dot); inner.appendChild(label); el.appendChild(inner);
+  el.addEventListener('click', (e) => { e.stopPropagation(); openCheckpoint(cp.id); });
+  el.addEventListener('dblclick', (e) => { e.stopPropagation(); e.preventDefault(); resetMapView(); });
   const m = new mapboxgl.Marker({ element: el }).setLngLat(cp.coords).addTo(map);
-  markerObjs.push({ id: cp.id, marker: m, el: el });
+  markerObjs.push({ id: cp.id, marker: m, el: inner, label });
 }
 function rebuildMarkers() { markerObjs.forEach(m => m.marker.remove()); markerObjs = []; checkpoints.forEach(addMarker); }
 
@@ -1341,18 +1373,34 @@ function openCheckpoint(id) {
   const cp = checkpoints.find(c => c.id === id); if(!cp) return;
   if (activePopup) { activePopup.remove(); activePopup = null; }
   activeCpId = id; openPanel(); switchPanelTab('checkpoints'); showDetailView();
+  markerObjs.forEach(({ id: mid, label }) => { if (label) label.style.display = mid === id ? 'block' : 'none'; });
   const lat = cp.coords[1].toFixed(4), lng = cp.coords[0].toFixed(4);
   const linkedFilms = films.filter(f => (f.checkpointIds || []).includes(cp.id));
-  detailScroll.innerHTML = `
+  const imgs = cp.images || [];
+  const photo = imgs.length
+    ? `<div class="cp-panel-carousel" data-idx="0">${imgs.map((src, i) => `<img src="${src}" alt="${cp.title}" class="${i === 0 ? 'active' : ''}">`).join('')}${imgs.length > 1 ? `<button class="carousel-btn prev" onclick="stepCpPhoto(-1)" aria-label="Previous photo">&#8249;</button><button class="carousel-btn next" onclick="stepCpPhoto(1)" aria-label="Next photo">&#8250;</button><div class="carousel-dots">${imgs.map((_, i) => `<span class="carousel-dot ${i === 0 ? 'active' : ''}"></span>`).join('')}</div>` : ''}</div>`
+    : `<div class="cp-panel-carousel" style="display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:rgba(232,245,240,0.35);letter-spacing:0.08em;">No photo yet</div>`;
+  detailScroll.innerHTML = photo + `
     <div class="cp-detail-header"><span class="cp-detail-eyebrow">Checkpoint</span><h2 class="cp-detail-title">${cp.title}</h2>${cp.arabic ? `<p class="cp-detail-arabic">${cp.arabic}</p>` : ''}</div>
     <div class="cp-detail-row"><span class="cp-detail-row-label">Coordinates</span>${lat}, ${lng}</div>
     <div class="cp-detail-row"><span class="cp-detail-row-label">District</span>${cp.district}</div>
-    <div class="cp-detail-row"><span class="cp-detail-row-label">Analysis</span>${cp.analysis}</div>
+    ${cp.staffing ? `<div class="cp-detail-row"><span class="cp-detail-row-label">Staffing</span>${cp.staffing}</div>` : ''}
+    ${cp.detail ? `<div class="cp-detail-row"><span class="cp-detail-row-label">Details</span>${cp.detail}</div>` : ''}
+    ${cp.analysis ? `<div class="cp-detail-row"><span class="cp-detail-row-label">Analysis</span>${cp.analysis}</div>` : ''}
     ${linkedFilms.length ? `<div class="cp-detail-films"><span class="cp-detail-row-label">Films</span>${linkedFilms.map(f => `<span class="cp-film-tag" style="cursor:pointer" onclick="openFilmDetail('${f.id}')">${f.title}</span>`).join('')}</div>` : ''}
     ${isAdmin ? `<div class="cp-detail-admin-row"><button class="cp-detail-edit-btn" onclick="editCheckpoint('${cp.id}')">Edit</button><button class="cp-detail-delete-btn" onclick="deleteCheckpoint('${cp.id}')">Delete</button></div>` : ''}
   `;
-  map.flyTo({ center: cp.coords, zoom: 12, essential: true });
+  map.flyTo({ center: cp.coords, zoom: 17, essential: true });
 }
+
+window.stepCpPhoto = function(delta) {
+  const c = document.querySelector('#cpDetailScroll .cp-panel-carousel'); if (!c) return;
+  const imgs = c.querySelectorAll('img'), dots = c.querySelectorAll('.carousel-dot');
+  const next = (parseInt(c.dataset.idx || '0') + delta + imgs.length) % imgs.length;
+  imgs.forEach((im, i) => im.classList.toggle('active', i === next));
+  dots.forEach((d, i) => d.classList.toggle('active', i === next));
+  c.dataset.idx = next;
+};
 
 function openFilmDetail(id) {
   const f = films.find(film => film.id === id); if(!f) return;
@@ -1380,7 +1428,7 @@ function highlightFilmOnMap(ids) {
 }
 function resetMarkerHighlight() {
   document.querySelectorAll('.film-list-item, .cp-list-item').forEach(li => li.classList.remove('active'));
-  markerObjs.forEach(({ el }) => { el.style.opacity = ''; el.style.transform = ''; });
+  markerObjs.forEach(({ el, label }) => { el.style.opacity = ''; el.style.transform = ''; if (label) label.style.display = 'none'; });
 }
 
 /* ══ MODAL FORM CONTROLS & UTILITIES ══ */
@@ -1619,8 +1667,10 @@ function setAdminUI() {
 
 /* ══ SEARCH & TEXT AUTOCOMPLETE ══ */
 const searchInput = document.getElementById('searchInput'), resultsList = document.getElementById('searchResults');
+let searchSeq = 0, placesTimer = null;
 function runSearch() {
-  const q = searchInput.value.toLowerCase().trim(); resultsList.innerHTML = '';
+  const raw = searchInput.value.trim(), q = raw.toLowerCase(); resultsList.innerHTML = '';
+  const seq = ++searchSeq; clearTimeout(placesTimer);
   if(!q) { resultsList.style.display = 'none'; return; }
   const cpMatches = checkpoints.filter(c => c.title.toLowerCase().includes(q));
   const filmMatches = films.filter(f => f.title.toLowerCase().includes(q));
@@ -1637,6 +1687,32 @@ function runSearch() {
     resultsList.appendChild(li);
   });
   resultsList.style.display = (cpMatches.length + filmMatches.length) ? 'block' : 'none';
+  if (q.length >= 2) placesTimer = setTimeout(() => loadPlaces(raw, seq), 250);
+}
+
+async function loadPlaces(query, seq) {
+  try {
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}&limit=5&language=en&bbox=34.0,29.3,36.0,33.6&proximity=35.2,31.9`;
+    const res = await fetch(url); if (!res.ok) return;
+    const data = await res.json();
+    if (seq !== searchSeq || !data.features || !data.features.length) return;
+    const head = document.createElement('li'); head.className = 'divider'; head.textContent = 'Places';
+    resultsList.appendChild(head);
+    data.features.forEach(ft => {
+      const li = document.createElement('li'); li.className = 'place-result';
+      const dot = document.createElement('span'); dot.className = 'result-dot';
+      const name = document.createElement('span'); name.textContent = ft.place_name;
+      li.appendChild(dot); li.appendChild(name);
+      li.addEventListener('click', () => {
+        resultsList.style.display = 'none'; searchInput.value = ft.text || ft.place_name;
+        if (activePopup) { activePopup.remove(); activePopup = null; }
+        if (ft.bbox) map.fitBounds([[ft.bbox[0], ft.bbox[1]], [ft.bbox[2], ft.bbox[3]]], { padding: 60, maxZoom: 15, essential: true });
+        else map.flyTo({ center: ft.center, zoom: 14, essential: true });
+      });
+      resultsList.appendChild(li);
+    });
+    resultsList.style.display = 'block';
+  } catch (e) { /* network or quota errors just skip place results */ }
 }
 searchInput.addEventListener('input', runSearch);
 document.getElementById('searchBtn').addEventListener('click', runSearch);
