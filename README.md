@@ -85,7 +85,7 @@ Film-by-film formal and spatial readings, each with an image/video carousel and 
 A dedicated film page for Farah Nabulsi's 2020 film, with its poster, metadata, formal analysis, and mapped checkpoint references.
 
 ### Project Presentation (`presentation.html`)
-A ten-slide presentation with speaker notes, fullscreen controls, keyboard navigation, and live embeds of the map and archive pages.
+A ten-slide presentation with speaker notes, fullscreen controls, keyboard navigation, and live embeds of the map and archive pages. Select **Presenter view (P)** to open synchronized speaker notes, slide navigation, and a presentation timer in a separate window; allow pop-ups for the site if prompted.
 
 ### Surveillance Space (`surveillance-space.html`)
 Five typologies of occupation beyond the checkpoint - architectural, digital, temporal, intimate, and cinematic - each paired with film references and glossary-linked terminology.
